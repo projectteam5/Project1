@@ -2,11 +2,18 @@ import java.util.Date;
 import java.util.ArrayList;
 
 public class Order {
-	private static ArrayList<Order> orders;
+	//don't mind this, here just to test
+	//private static ArrayList<Order> orders;
 	
 	private String orderID;
 	private Date orderDate;
 	private Product product;
+	
+	//mistake in the Class definition by myself the other day...
+	//as said in Assumptions.docx, we have a 'contract' with a supplier to supply a certain product
+	//that dosen't mean we can't get many of that certain product from them...
+	//so, a product is always associated to a supplier, don't need to pass a Supplier, 
+	//	they are inferred by the Product class itself
 	//private Supplier supplier; //reasoning given in assumptions
 	private int quantity;
 	private Date expectedDeliveryDate;
@@ -14,6 +21,8 @@ public class Order {
 	private boolean received;
 
 	public Order() {
+		//
+		//handy to have an empty object of Order...
 		this.orderID = null;
 		this.orderDate = null;
 		this.product = null;
@@ -24,7 +33,9 @@ public class Order {
 	}
 	
 	public Order(String orderID, Date orderDate, 
-			Product product, int quantity, Date expectedDeliveryDate, Date dateReceived, boolean received) {
+			Product product, int quantity, 
+			Date expectedDeliveryDate, Date dateReceived, boolean received) {
+		//full-fat constructor
 		this.orderID = orderID;
 		this.orderDate = orderDate;
 		this.product = product;
@@ -35,7 +46,44 @@ public class Order {
 	}
 	
 	public void addOrderToList(Order order) {
-		orders.add(order);
+		//add to RetailSystem ArrayList<Order> orders
+		//try-catch block statement needed to cover for exception...
+		
+		//get the list of Order in RetailSystem and assign that variable
+		ArrayList<Order> rsOrderList = RetailSystem.getInstance().getOrders();
+		//iterate through an Order array of rsOrderList
+		for(Order o : rsOrderList) {
+			//if what's in the list already does not match this, condition is TRUE
+			if(!o.getOrderID().equals(order.getOrderID())) {
+				rsOrderList.add(order);
+			} else {
+				//just to test
+				System.out.println("orderList contains order already");
+			}
+		}
+	}
+	
+	//same as above ^ but opposite
+	//was thinking maybe just passing the orderID to this method?..instead of the object itself
+	//if we are really ambitious we could offer the choice of search to a user...
+	//i.e. by ID, by name, by date...
+	public void removeOrderFromList(Order order) {
+		//remove from RetailSystem ArrayList<Order> orders
+		ArrayList<Order> rsOrderList = RetailSystem.getInstance().getOrders();
+		for(Order o : rsOrderList) {
+			if(o.getOrderID().equals(order.getOrderID())) {
+				rsOrderList.remove(order);
+			} else {
+				System.out.println("orderList does not contain order");
+			}
+		}
+	}
+	
+	public void  viewAllOrderFromList() {
+		ArrayList<Order> rsOrderList = RetailSystem.getInstance().getOrders();
+		for(Order o : rsOrderList) {
+			o.displayOrder();
+		}
 	}
 	
 	public boolean receivedOrder() {
@@ -48,7 +96,7 @@ public class Order {
 	public Date checkOverdue() {
 		return expectedDeliveryDate;
 	}
-
+	/*
 	public static ArrayList<Order> getOrders() {
 		return orders;
 	}
@@ -56,7 +104,7 @@ public class Order {
 	public static void setOrders(ArrayList<Order> orders) {
 		Order.orders = orders;
 	}
-
+	*/
 	public String getOrderID() {
 		return orderID;
 	}

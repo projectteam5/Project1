@@ -64,13 +64,11 @@ public class Product {
 				System.out.println("Product is already in product list");
 				duplicate = true;
 				break;
-			}else{
-				if(!duplicate){
-					RetailSystem.getInstance().getProducts().add(product);
-					break;
-				}
+			}	
+			
+			}if(!duplicate){
+				RetailSystem.getInstance().getProducts().add(product);
 			}
-		}
 	}
 	
 	public void removeProductFromList(Product product){
