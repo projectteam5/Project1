@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 
 import view.LoginGUI;
+import view.MenuGUI;
 import data.DataBase;
 
 public class RetailSystem {
@@ -16,7 +17,7 @@ public class RetailSystem {
 	//private ArrayList<Product> products;//array list of products
 	//private ArrayList<Order> orders;//array list of orders
 	
-	private String currentUserType;//it store which type of user logged on
+	private String currentUserType = "";//it store which type of user logged on
 	
 	public RetailSystem() {	}
 	
@@ -45,6 +46,13 @@ public class RetailSystem {
 		
 		//login gui for authentication
 		LoginGUI login = new LoginGUI();
+		//i need to wait that login is finished... how?!
+		/*if(!retailSystem.getCurrentUserType().isEmpty()){
+			
+		
+		}*/
+		
+		
 
 	}
 

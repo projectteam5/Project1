@@ -37,8 +37,7 @@ public class LoginGUI extends JFrame {
 		label_1.setBounds(84, 73, 226, 14);
 		panel.add(label_1);
 
-		JLabel label_2 = new JLabel(
-				"Please insert your identification number");
+		JLabel label_2 = new JLabel("Please insert your identification number");
 		label_2.setBounds(84, 17, 226, 14);
 		panel.add(label_2);
 
@@ -62,10 +61,16 @@ public class LoginGUI extends JFrame {
 							JOptionPane.WARNING_MESSAGE);
 				} else {
 					loginValidation(id, password);
+					if(!RetailSystem.getInstance().getCurrentUserType().isEmpty()){
+						MenuGUI menu = new MenuGUI();
+					}
 				}
 
 			}
 		});
+
+		
+		
 		this.setVisible(true);
 
 	}
