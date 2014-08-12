@@ -9,15 +9,15 @@ public class RetailSystem {
 	private static RetailSystem instance; //we want only one instance of this class
 	private ArrayList<User> users;//array list of users that can access the system
 	//private ArrayList<Customer> customers;//array list of customers
-<<<<<<< HEAD
+//<<<<<<< HEAD
 	//private ArrayList<Supplier> suppliers;//array list of suppliers
 	//private ArrayList<Product> products;//array list of products
 	private ArrayList<Order> orders;//array list of orders
-=======
+//=======
 	private ArrayList<Supplier> suppliers;//array list of suppliers
 	private ArrayList<Product> products;//array list of products
 	//private ArrayList<Order> orders;//array list of orders
->>>>>>> origin/master
+//>>>>>>> origin/master
 	//private ArrayList<Stock> stocks;//array list of stock
 	private String currentUserType = "";//it store which type of user logged on
 	
