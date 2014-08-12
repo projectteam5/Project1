@@ -2,7 +2,6 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-//commrntgfhfchfghgfhfghgfhfgh
 public class Stock {
 	private int units;
 	private Product product;
@@ -11,26 +10,29 @@ public class Stock {
 		this.units = units;
 		this.product = product;
 	}
-	public void viewStockList(ArrayList<Stock>stocks){
-		for(Stock s: stocks){
+	public void viewStockList(){
+		for(Stock s: RetailSystem.getStocks()){
 		System.out.println("Product: "+s.getProduct().getName()+"\n Units: "+s.getUnits());
 		}
 	}
-	public void addStockToList(ArrayList<Stock> stocks,Product product, int units){
-		for(Stock s : stocks){
-			if(s.getProduct()==this.product){
+	public void addStockToList(Product product, int units){
+		for(Stock s :RetailSystem.getStocks()){
+			if(s.getProduct().getProductID()==product.getProductID()){
 				s.setUnits(s.getUnits()+units);
+				JOptionPane.showMessageDialog(null, units+" units of "+product.getName()+" added to stock");
 			}else{
 				stocks.add(new Stock(units,product));
+				JOptionPane.showMessageDialog(null,"New product added to stock\nName: "+product.getName()+"\nUnits: "+units);
 			}
 		}
 	}
-	public void removeStockFromList(ArrayList<Stock> stocks, Product product, int units){
+	public void removeStockFromList(Product product, int units){
 		boolean found = false;
 		
-		for(Stock s: stocks){
-			if(s.getProduct()==product){
+		for(Stock s:RetailSystem.getStocks()){
+			if(s.getProduct().getProductID()==product.getProductID()){
 				s.setUnits(s.getUnits()-units);
+				JOptionPane.showMessageDialog(null, units+" units of "+product.getName()+" removed from stock");
 				found = true;
 				
 			}

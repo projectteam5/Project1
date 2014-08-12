@@ -1,0 +1,3 @@
+product1;ProductPC1;1000;200;supplier1
+product2;ProductPC2;2000;400;supplier1
+product3;ProductPC3;1500;300;supplier2

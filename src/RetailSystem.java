@@ -12,7 +12,7 @@ public class RetailSystem {
 	private ArrayList<Supplier> suppliers;//array list of suppliers
 	private ArrayList<Product> products;//array list of products
 	//private ArrayList<Order> orders;//array list of orders
-	
+	//private ArrayList<Stock> stocks;//array list of stock
 	private String currentUserType = "";//it store which type of user logged on
 	
 	public RetailSystem() {	}

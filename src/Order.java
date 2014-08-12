@@ -119,6 +119,7 @@ public class Order {
 				+ " | " + product 
 				+ " | " + quantity 
 				+ " | " + expectedDeliveryDate 
-				+ " | " + dateReceived + received);
+				+ " | " + dateReceived 
+				+ " | " + received);
 	}
 }
