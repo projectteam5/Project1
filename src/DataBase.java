@@ -11,7 +11,7 @@ import model.RetailSystem;
 import model.User;
 
 public class DataBase {
-	//comm
+	
 
 	// ---- METHODS FOR UPLOAD DATA AT THE BEGINNING OF THE SESSION
 	// method for loading users in the Array List
