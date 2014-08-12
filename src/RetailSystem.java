@@ -11,7 +11,7 @@ public class RetailSystem {
 	//private ArrayList<Customer> customers;//array list of customers
 	//private ArrayList<Supplier> suppliers;//array list of suppliers
 	//private ArrayList<Product> products;//array list of products
-	//private ArrayList<Order> orders;//array list of orders
+	private ArrayList<Order> orders;//array list of orders
 	//private ArrayList<Stock> stocks;//array list of stock
 	private String currentUserType = "";//it store which type of user logged on
 	
@@ -95,6 +95,14 @@ public class RetailSystem {
 
 	public static void setInstance(RetailSystem instance) {
 		RetailSystem.instance = instance;
+	}
+
+	public ArrayList<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(ArrayList<Order> orders) {
+		this.orders = orders;
 	}
 
 }
