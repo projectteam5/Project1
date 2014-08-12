@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-//commrnt
+//commrntgfhfchfghgfhfghgfhfgh
 public class Stock {
 	private int units;
 	private Product product;
