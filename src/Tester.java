@@ -6,7 +6,6 @@ public class Tester {
 	}
 
 	public static void main(String[] args) {
-		System.out.println("git you prick");
 		// TODO Auto-generated method stub
 
 	}
