@@ -2,29 +2,29 @@ package RetailSystem;
 
 public class Customer {
 
-	private String id;
+	private String customerId;
 	private String name;
 	private String address;
 	private String phoneNumber;
 	
-	public Customer(String id, String name, String address, String phoneNumber, boolean onList) {
-		this.id = id;
+	public Customer(String id, String name, String address, String phoneNumber) {
+		this.CustomerId = CustomerId;
 		this.name = name;
 		this.address = address;
 		this.phoneNumber = phoneNumber;
 	}
 	
 	public void display(){
-		System.out.println("Customer ID is "+ id +
+		System.out.println("Customer ID is "+ customerId +
 				", Name is "+name+", Address is "+address+", Phone Number is "+phoneNumber);
 	}
 
-	public String getId() {
-		return id;
+	public String getCustomerId() {
+		return customerId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setCustomerId(String CustomerId) {
+		this.customerId = customerId;
 	}
 
 	public String getName() {
