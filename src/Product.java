@@ -56,9 +56,9 @@ public class Product {
 		this.supplier = supplier;
 	}
 	
-	public void addProductToList(Product product, ArrayList<Product> products){
+	public void addProductToList(Product product){
 		//Will take in a product and add it to the products list in the driver class
-		for(Product p: products){
+		for(Product p: RetailSystem.getInstance().getProducts()){
 			if(p.getProductID() == product.getProductID()){
 				System.out.println("Product is already in product list");
 			}else{
@@ -67,9 +67,9 @@ public class Product {
 		}
 	}
 	
-	public void removeProductFromList(Product product, ArrayList<Product> products){
+	public void removeProductFromList(Product product){
 		//Will remove a product from the products list in the driver class
-		products.remove(product);
+		RetailSystem.getInstance().getProducts().remove(product);
 	}
 		
 	public void viewProduct(Product product){
@@ -77,7 +77,7 @@ public class Product {
 		System.out.println("ID: "+product.getProductID()+"\nName: "+product.getName()+"\nCost: "+product.getCost()+"\nMarkup: "+product.getMarkup()+"\nSupplier: "+product.getSupplier());
 	}
 
-	public void viewProductList(ArrayList<Product> products){
+	public void viewProductList(){
 		//Will list products from product list in driver class
 		for(Product product: RetailSystem.getInstance().getProducts()){
 			System.out.println("ID: "+product.getProductID()+"\nName: "+product.getName()+"\nCost: "+product.getCost()+"\nMarkup: "+product.getMarkup()+"\nSupplier: "+product.getSupplier());
