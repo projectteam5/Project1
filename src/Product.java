@@ -58,18 +58,18 @@ public class Product {
 	
 	public void addProductToList(Product product){
 		//Will take in a product and add it to the products list in the driver class
-		for(Product p: RetailSystem.getProducts()){
+		for(Product p: RetailSystem.getInstance().getProducts()){
 			if(p.getProductID() == product.getProductID()){
 				System.out.println("Product is already in product list");
 			}else{
-				products.add(product);
+				RetailSystem.getInstance().getProducts().add(product);
 			}
 		}
 	}
 	
 	public void removeProductFromList(Product product){
 		//Will remove a product from the products list in the driver class
-		RetailSystem.getProducts().remove(product);
+		RetailSystem.getInstance().getProducts().remove(product);
 	}
 		
 	public void viewProduct(Product product){
@@ -79,7 +79,7 @@ public class Product {
 
 	public void viewProductList(){
 		//Will list products from product list in driver class
-		for(Product product: RetailSystem.getProducts()){
+		for(Product product: RetailSystem.getInstance().getProducts()){
 			System.out.println("ID: "+product.getProductID()+"\nName: "+product.getName()+"\nCost: "+product.getCost()+"\nMarkup: "+product.getMarkup()+"\nSupplier: "+product.getSupplier());
 		}
 	}
