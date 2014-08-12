@@ -56,7 +56,7 @@ public class Product {
 		this.supplier = supplier;
 	}
 	
-	public void i(Product product){
+	public void addProductToList(Product product){
 		//Will take in a product and add it to the products list in the driver class
 		for(Product p: RetailSystem.getProducts()){
 			if(p.getProductID() == product.getProductID()){
