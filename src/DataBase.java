@@ -5,6 +5,10 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 //
 public class DataBase {
@@ -128,8 +132,8 @@ public class DataBase {
 		return products;
 	}
 
-/*	// method for loading orders in the Array List
-	public static ArrayList<Order> loadOrders(Reader reader) throws IOException {
+	// method for loading orders in the Array List
+	public static ArrayList<Order> loadOrders(Reader reader) throws IOException, ParseException {
 		ArrayList<Order> orders = new ArrayList<Order>();
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		BufferedReader bufReader = new BufferedReader(reader);
@@ -138,46 +142,34 @@ public class DataBase {
 		while ((line = bufReader.readLine()) != null) {
 			String[] parts = line.split(";");
 			count++;
-			if (parts.length == 8) {
+			if (parts.length == 7) {
 				String orderID = parts[0];
-				Date orderDateString = df.parse(parts[1]); // transform as date
+				Date orderDate = df.parse(parts[1]); // transform as date
 				String productID = parts[2];
-				String supplierID = parts[3];
-				int quantity = Integer.parseInteger(parts[4]);// transform as
-																// int
-				Date expectedDeliveryDate = df.parse(parts[5]);// transform as
-																// date
-				Date dateReceived = df.parse(parts[6]);// transform as date
-				boolean received = Boolean.parseBoolean(parts[7]);// transform
-																	// as
-																	// boolean
-				Supplier supplier = null;
+				//String supplierID = parts[3];
+				int quantity = Integer.parseInt(parts[3]);// transform as int																// int
+				Date expectedDeliveryDate = df.parse(parts[4]);// transform as date
+				Date dateReceived = null;
+				if (!parts[5].isEmpty()){
+					dateReceived = df.parse(parts[5]);// transform as date
+				}
+				boolean received = Boolean.parseBoolean(parts[6]);// transform as boolean
 				Product product = null;
 				// before to construct the object order it is necessary retrieve
-				// the
-				// objects supplier and product
-				for (Supplier supplier_1 : RetailSystem.getInstance()
-						.getSuppliers()) {
-					if (supplier_1.getSupplierID().equals(supplierID)) {
-						supplier = supplier_1;
-						break; // I need to exit the for
-					}
-				}
-				for (Product product_1 : RetailSystem.getInstance()
-						.getProducts()) {
-					if (product_1.getSupplierID().equals(productID)) {
+				// the object product
+				for (Product product_1 : RetailSystem.getInstance().getProducts()) {
+					if (product_1.getProductID().equals(productID)) {
 						product = product_1;
 						break; // I need to exit the for
 					}
 				}
-				if (!supplier.isEmpty() && !product.isEmpty()) {
-					Order order = new Order(orderID, orderDate, product,
-							supplier, quantity, expectedDeliveryDate,
+				if (product!= null) {
+					Order order = new Order(orderID, orderDate, product, quantity, expectedDeliveryDate,
 							dateReceived, received);
 					orders.add(order);
 				} else {
 					System.err
-							.println("Skipping order with not valid supplier or product at line "
+							.println("Skipping order with not valid  product at line "
 									+ count);
 				}
 
@@ -187,7 +179,7 @@ public class DataBase {
 
 		}
 		return orders;
-	}*/
+	}
 
 	// ---- METHODS FOR SAVE DATA AT THE END OF THE SESSION
 	// method for saving users at the end of the session
