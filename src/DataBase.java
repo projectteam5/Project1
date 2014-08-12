@@ -6,9 +6,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.ArrayList;
-
-import model.RetailSystem;
-import model.User;
 //
 public class DataBase {
 	//comment
@@ -37,7 +34,7 @@ public class DataBase {
 		}
 		return users;
 	}
-
+/*
 	// method for loading customers in the Array List
 	public static ArrayList<Customer> loadCustomers(Reader reader)
 			throws IOException {
@@ -205,6 +202,7 @@ public class DataBase {
 		}
 
 	}
+	/*
 
 	// method for saving customers at the end of the session
 	public static void writeCustomers(ArrayList<Customer> customer,
@@ -239,7 +237,7 @@ public class DataBase {
 					+ product.getSupplier().getSupplierID() + "\n");
 		}
 
-	}
+	}*/
 	
 /*	// method for saving orders at the end of the session
 	public static void writeOrders(ArrayList<Order> orders, Writer writer)

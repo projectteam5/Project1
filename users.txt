@@ -1,0 +1,2 @@
+1111;Scott Scott;passw1;Manager
+1112;Daniel Daniel;passw2;Attendant
