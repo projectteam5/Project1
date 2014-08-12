@@ -62,9 +62,9 @@ public class Product {
 			if(p.getProductID() == product.getProductID()){
 				System.out.println("Product is already in product list");
 			}else{
-				RetailSystem.getInstance().getProducts().add(product);
+				break;
 			}
-		}
+		}RetailSystem.getInstance().getProducts().add(product);
 	}
 	
 	public void removeProductFromList(Product product){
