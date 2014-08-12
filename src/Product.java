@@ -58,13 +58,19 @@ public class Product {
 	
 	public void addProductToList(Product product){
 		//Will take in a product and add it to the products list in the driver class
+		boolean duplicate = false;
 		for(Product p: RetailSystem.getInstance().getProducts()){
 			if(p.getProductID() == product.getProductID()){
 				System.out.println("Product is already in product list");
-			}else{
+				duplicate = true;
 				break;
+			}else{
+				if(!duplicate){
+					RetailSystem.getInstance().getProducts().add(product);
+					break;
+				}
 			}
-		}RetailSystem.getInstance().getProducts().add(product);
+		}
 	}
 	
 	public void removeProductFromList(Product product){
