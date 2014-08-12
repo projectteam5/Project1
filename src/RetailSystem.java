@@ -9,8 +9,8 @@ public class RetailSystem {
 	private static RetailSystem instance; //we want only one instance of this class
 	private ArrayList<User> users;//array list of users that can access the system
 	//private ArrayList<Customer> customers;//array list of customers
-	//private ArrayList<Supplier> suppliers;//array list of suppliers
-	//private ArrayList<Product> products;//array list of products
+	private ArrayList<Supplier> suppliers;//array list of suppliers
+	private ArrayList<Product> products;//array list of products
 	//private ArrayList<Order> orders;//array list of orders
 	
 	private String currentUserType = "";//it store which type of user logged on
@@ -33,12 +33,31 @@ public class RetailSystem {
 		//load of all the data 
 		FileReader userFile;
 		RetailSystem retailSystem = getInstance();
+		//load users
 		try {
 			userFile = new FileReader("users.txt");
 			retailSystem.setUsers(DataBase.loadUsers(userFile));
+			userFile.close();//close the user file
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		//load suppliers
+		try {
+			userFile = new FileReader("suppliers.txt");
+			retailSystem.setSuppliers(DataBase.loadSuppliers(userFile));
+			userFile.close();//close the user file
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		//load products
+		try {
+			userFile = new FileReader("products.txt");
+			retailSystem.setProducts(DataBase.loadProducts(userFile));
+			userFile.close();//close the user file
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		
 		//login gui for authentication
 		LoginGUI login = new LoginGUI();
@@ -59,7 +78,7 @@ public class RetailSystem {
 
 	public void setCustomers(ArrayList<Customer> customers) {
 		this.customers = customers;
-	}
+	}*/
 
 	public ArrayList<Supplier> getSuppliers() {
 		return suppliers;
@@ -75,7 +94,7 @@ public class RetailSystem {
 
 	public void setProducts(ArrayList<Product> products) {
 		this.products = products;
-	}*/
+	}
 
 	public String getCurrentUserType() {
 		return currentUserType;

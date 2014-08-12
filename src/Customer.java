@@ -1,8 +1,8 @@
-package RetailSystem;
+//package RetailSystem;
 
 public class Customer {
 
-	private String customerId;
+	private String customerId;//change as customerID and change below as well
 	private String name;
 	private String address;
 	private String phoneNumber;

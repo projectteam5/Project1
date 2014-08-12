@@ -8,7 +8,6 @@ import java.io.Writer;
 import java.util.ArrayList;
 //
 public class DataBase {
-	//comment
 
 	// ---- METHODS FOR UPLOAD DATA AT THE BEGINNING OF THE SESSION
 	// method for loading users in the Array List
@@ -60,7 +59,7 @@ public class DataBase {
 
 		}
 		return customers;
-	}
+	}*/
 
 	// method for loading suppliers in the Array List
 	public static ArrayList<Supplier> loadSuppliers(Reader reader)
@@ -104,14 +103,13 @@ public class DataBase {
 				double markup = Double.parseDouble(parts[3]); // double
 				String supplierID = parts[4]; // with the id i need to find the
 				Supplier supplier = null;
-				for (Supplier supplier_1 : RetailSystem.getInstance()
-						.getSuppliers()) {
+				for (Supplier supplier_1 : RetailSystem.getInstance().getSuppliers()) {
 					if (supplier_1.getSupplierID().equals(supplierID)) {
 						supplier = supplier_1;
 						break; // I need to exit the for
 					}
 				}
-				if (!supplier.isEmpty()) {
+				if (supplier != null) {
 					Product product = new Product(productID, name, cost,
 							markup, supplier);
 					products.add(product);
