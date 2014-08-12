@@ -13,6 +13,7 @@ import org.junit.Test;
 
 public class DataBaseTest {
 
+	//TEST FOR LOADING FILE
 	@Test
 	public void testLoadUsersOK2Users() throws IOException {
 		Reader reader = new StringReader("1111;Scott Scott;passw1;Manager\n"
@@ -29,7 +30,7 @@ public class DataBaseTest {
 	}
 	
 	@Test
-	public void testLoadUsersMalformed() throws IOException {
+	public void testLoadUsersCorrupted() throws IOException {
 		Reader reader = new StringReader("1111;Scott Scott;pa");
 		ArrayList<User> list = DataBase.loadUsers(reader);
 		assertEquals(0, list.size());
