@@ -10,24 +10,28 @@ public class Supplier {
 		this.phoneNumber=phoneNumber;
 	}
 	
-	public void addSupplierToList(RetailSystem rs,Supplier supplier){
-		rs.suppliers.add(supplier);
+	public void addSupplierToList(Supplier supplier){
+		// Takes a supplier and adds to supplier list in driver class
+		RetailSystem.getInstance().getSuppliers().add(supplier);
 	}
 	
-	public void removeSupplierFromList(RetailSystem rs,Supplier supplier){
-		rs.suppliers.remove(supplier);
+	public void removeSupplierFromList(Supplier supplier){
+		// Takes in a supplier and removes supplier from list in driver class
+		RetailSystem.getInstance().getSuppliers().remove(supplier);
 	}
 	
-	public void viewSupplier(RetailSystem rs,Product product){	
-		for(Product pro: rs.products){
+	public void viewSupplier(Product product){
+		// Takes a product and searches for the supplier name in the product list
+		for(Product pro: RetailSystem.getInstance().getProducts()){
 			if(pro.getProductID()==product.getProductID()){
 				System.out.println("Supplier of product: "+pro.getSupplier().getName());
 			}
 		}
 	}
 	
-	public void viewSupplierList(RetailSystem rs){		
-		for(Supplier sup:rs.suppliers){
+	public void viewSupplierList(){	
+		// Loops through the supplier list printing name of each supplier
+		for(Supplier sup:RetailSystem.getInstance().getSuppliers()){
 			System.out.println("Supplier name: "+sup.getName());
 		}
 	}
@@ -54,8 +58,5 @@ public class Supplier {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
-	}
-
-	
-		
+	}	
 }
