@@ -44,6 +44,7 @@ public class EditUserGUI extends JFrame {
 		JLabel label2 = new JLabel("Password");
 		JLabel label3 = new JLabel("Type");
 		typeDropDown = new JComboBox(RetailSystem.getInstance().getUserTypeList());
+		typeDropDown.setSelectedItem(user.getType());
 		JButton doneButton = new JButton("Commit");
 
 		panel.add(label1);
