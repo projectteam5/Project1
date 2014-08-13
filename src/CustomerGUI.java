@@ -69,9 +69,9 @@ public class CustomerGUI extends JFrame {
 
 	}
 
-	public static void main(String[] args) {
-		CustomerGUI gui = new CustomerGUI();
+	//public static void main(String[] args) {
+		//CustomerGUI gui = new CustomerGUI();
 
-	}
+	//}
 
 }
