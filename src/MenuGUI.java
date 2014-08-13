@@ -50,17 +50,24 @@ public class MenuGUI extends JFrame {
 			panel.add(buttonViewOrder);
 		}
 		
-		//Define the panel for the Customer managment
-		
+				
 		buttonCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				CustomerGUI customerGui = new CustomerGUI();
 			}
 		});
 		
+
 		buttonUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				UserGUI userGui = new UserGUI();
+			}
+		});
+
+		buttonAvailability.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				AvailableStockLevelsGUI availableStock = new AvailableStockLevelsGUI(); 
+
 			}
 		});
 				
