@@ -50,7 +50,12 @@ public class MenuGUI extends JFrame {
 			panel.add(buttonViewOrder);
 		}
 		
-				
+		buttonSupplier.addActionListener(new ActionListener() {		
+			public void actionPerformed(ActionEvent arg0) {
+				SupplierGUI supplierGUI = new SupplierGUI();			
+			}
+		});
+		
 		buttonCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				CustomerGUI customerGui = new CustomerGUI();
