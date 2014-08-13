@@ -2,29 +2,29 @@
 
 public class Customer {
 
-	private String customerId;//change as customerID and change below as well
+	private String customerID;//change as customerID and change below as well
 	private String name;
 	private String address;
 	private String phoneNumber;
 	//comment
-	public Customer(String id, String name, String address, String phoneNumber) {
-		this.CustomerId = CustomerId;
+	public Customer(String customerID, String name, String address, String phoneNumber) {
+		this.customerID = customerID;
 		this.name = name;
 		this.address = address;
 		this.phoneNumber = phoneNumber;
 	}
 	
 	public void display(){
-		System.out.println("Customer ID is "+ customerId +
+		System.out.println("Customer ID is "+ customerID +
 				", Name is "+name+", Address is "+address+", Phone Number is "+phoneNumber);
 	}
 
-	public String getCustomerId() {
-		return customerId;
+	public String getCustomerID() {
+		return customerID;
 	}
 
-	public void setCustomerId(String CustomerId) {
-		this.customerId = customerId;
+	public void setCustomerID(String customerID) {
+		this.customerID = customerID;
 	}
 
 	public String getName() {
