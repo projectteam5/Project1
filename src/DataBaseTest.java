@@ -111,6 +111,16 @@ public class DataBaseTest {
 		ArrayList<Order> list = DataBase.loadOrders(reader);
 		assertEquals(2, list.size());
 	}
+	
+	// Test for Stocks
+	@Test
+	public void testLoadStocksOK2Stocks() throws IOException, ParseException {
+		Reader reader = new StringReader(
+				"product1;20\n"
+				+ "product2;15\n");
+		ArrayList<Stock> list = DataBase.loadStocks(reader);
+		assertEquals(2, list.size());
+	}
 
 	@Test
 	public void tearDown() {

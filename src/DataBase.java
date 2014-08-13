@@ -180,6 +180,44 @@ public class DataBase {
 		}
 		return orders;
 	}
+	
+	// method for loading stocks in the Array List
+		public static ArrayList<Stock> loadStocks(Reader reader) throws IOException, ParseException {
+			ArrayList<Stock> stocks = new ArrayList<Stock>();
+			BufferedReader bufReader = new BufferedReader(reader);
+			String line = null;
+			int count = 0;
+			while ((line = bufReader.readLine()) != null) {
+				String[] parts = line.split(";");
+				count++;
+				if (parts.length == 2) {
+					String productID = parts[0];
+					int quantity = Integer.parseInt(parts[1]);// transform as int																// int
+					Product product = null;
+					// before to construct the object order it is necessary retrieve
+					// the object product
+					for (Product product_1 : RetailSystem.getInstance().getProducts()) {
+						if (product_1.getProductID().equals(productID)) {
+							product = product_1;
+							break; // I need to exit the for
+						}
+					}
+					if (product!= null) {
+						Stock stock = new Stock(quantity, product);
+						stocks.add(stock);
+					} else {
+						System.err
+								.println("Skipping order with not valid  product at line "
+										+ count);
+					}
+
+				} else {
+					System.err.println("Skipping corrupted stock at line " + count);
+				}
+
+			}
+			return stocks;
+		}
 
 	// ---- METHODS FOR SAVE DATA AT THE END OF THE SESSION
 	// method for saving users at the end of the session

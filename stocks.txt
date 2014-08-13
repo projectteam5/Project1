@@ -1,0 +1,3 @@
+product1;20
+product2;15
+product3;7

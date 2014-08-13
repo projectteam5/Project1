@@ -12,7 +12,9 @@ public class RetailSystem {
 	private ArrayList<Order> orders;//array list of orders
 	private ArrayList<Supplier> suppliers;//array list of suppliers
 	private ArrayList<Product> products;//array list of products
-	//private ArrayList<Stock> stocks;//array list of stock
+	private ArrayList<Stock> stocks;//array list of stock
+
+
 	private String currentUserType = "";//it store which type of user logged on
 	
 	public RetailSystem() {	}
@@ -57,8 +59,25 @@ public class RetailSystem {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		//load orders
+		try {
+			userFile = new FileReader("orders.txt");
+			retailSystem.setOrders(DataBase.loadOrders(userFile));
+			userFile.close();//close the user file
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
+		//load stocks
+		try {
+			userFile = new FileReader("stocks.txt");
+			retailSystem.setStocks(DataBase.loadStocks(userFile));
+			userFile.close();//close the user file
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
+	
 		//login gui for authentication
 		LoginGUI login = new LoginGUI();
 
@@ -95,6 +114,22 @@ public class RetailSystem {
 	public void setProducts(ArrayList<Product> products) {
 		this.products = products;
 	}
+	
+	public ArrayList<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(ArrayList<Order> orders) {
+		this.orders = orders;
+	}
+	
+	public ArrayList<Stock> getStocks() {
+		return stocks;
+	}
+
+	public void setStocks(ArrayList<Stock> stocks) {
+		this.stocks = stocks;
+	}
 
 	public String getCurrentUserType() {
 		return currentUserType;
@@ -108,12 +143,6 @@ public class RetailSystem {
 		RetailSystem.instance = instance;
 	}
 
-	public ArrayList<Order> getOrders() {
-		return orders;
-	}
 
-	public void setOrders(ArrayList<Order> orders) {
-		this.orders = orders;
-	}
 
 }
