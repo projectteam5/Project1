@@ -75,6 +75,16 @@ public class MenuGUI extends JFrame {
 
 			}
 		});
+		
+		//For Laura, just uncomment for test your ProductMenuGUI
+		/*
+		buttonProduct.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				ProductMenuGUI productMenuGUI = new ProductMenuGUI(); 
+
+			}
+		});
+		*/
 				
 		this.setVisible(true);
 		
