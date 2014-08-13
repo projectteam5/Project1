@@ -11,17 +11,17 @@ public class Stock {
 		this.product = product;
 	}
 	public void viewStockList(){
-		for(Stock s: RetailSystem.getStocks()){
+		for(Stock s: RetailSystem.getInstance().getStocks()){
 		System.out.println("Product: "+s.getProduct().getName()+"\n Units: "+s.getUnits());
 		}
 	}
 	public void addStockToList(Product product, int units){
-		for(Stock s :RetailSystem.getStocks()){
+		for(Stock s :RetailSystem.getInstance().getStocks()){
 			if(s.getProduct().getProductID()==product.getProductID()){
 				s.setUnits(s.getUnits()+units);
 				JOptionPane.showMessageDialog(null, units+" units of "+product.getName()+" added to stock");
 			}else{
-				stocks.add(new Stock(units,product));
+				RetailSystem.getInstance().getStocks().add(new Stock(units,product));
 				JOptionPane.showMessageDialog(null,"New product added to stock\nName: "+product.getName()+"\nUnits: "+units);
 			}
 		}
@@ -29,7 +29,7 @@ public class Stock {
 	public void removeStockFromList(Product product, int units){
 		boolean found = false;
 		
-		for(Stock s:RetailSystem.getStocks()){
+		for(Stock s:RetailSystem.getInstance().getStocks()){
 			if(s.getProduct().getProductID()==product.getProductID()){
 				s.setUnits(s.getUnits()-units);
 				JOptionPane.showMessageDialog(null, units+" units of "+product.getName()+" removed from stock");
