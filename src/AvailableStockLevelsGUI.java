@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -33,7 +34,7 @@ public class AvailableStockLevelsGUI extends JFrame {
 		
 		panel.add(title,BorderLayout.NORTH);
 		
-		JPanel centralPanel = new JPanel(new GridLayout(4,1));
+		JPanel centralPanel = new JPanel(new GridLayout(RetailSystem.getInstance().getStocks().size(),0));
 		centralPanel.setSize(50,50);
 		for(Stock s:RetailSystem.getInstance().getStocks()){// grabs all available stock from stocks arraylist
 			JLabel lbl = new JLabel(s.getProduct().getName()+" : "+s.getUnits()+" units available\n");
