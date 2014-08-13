@@ -78,6 +78,12 @@ public class MenuGUI extends JFrame {
 				CustomerGUI customerGui = new CustomerGUI();
 			}
 		});
+		
+		buttonAvailability.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				AvailableStockLevelsGUI availableStock = new AvailableStockLevelsGUI(); 
+			}
+		});
 				
 		this.setVisible(true);
 		
