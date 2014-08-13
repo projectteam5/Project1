@@ -36,13 +36,13 @@ public class Order {
 			Product product, int quantity, 
 			Date expectedDeliveryDate, Date dateReceived, boolean received) {
 		//full-fat constructor
-		this.orderID = orderID;
-		this.orderDate = orderDate;
-		this.product = product;
-		this.quantity = quantity;
-		this.expectedDeliveryDate = expectedDeliveryDate;
-		this.dateReceived = dateReceived;
-		this.received = received;
+		this.orderID = orderID;	//JTextBox
+		this.orderDate = orderDate;	//hidden JTextBox
+		this.product = product;	//Array[] products JComboBox
+		this.quantity = quantity;	//JTextBox
+		this.expectedDeliveryDate = expectedDeliveryDate;	//JComboBox
+		this.dateReceived = dateReceived;	//JComboBox
+		this.received = received;	//JTextBox -hidden
 	}
 	
 	public void addOrderToList(Order order) {
