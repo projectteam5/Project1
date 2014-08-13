@@ -53,6 +53,29 @@ public class DataBaseTest {
 		ArrayList<User> list = DataBase.loadUsers(reader);
 		assertEquals(0, list.size());
 	}
+	
+	// Test for Customer
+	@Test
+	public void testLoadCustomersOK2Customers() throws IOException {
+		Reader reader = new StringReader("customer1;Scott Scott;address 1 Dublin;089665544\n"
+				+ "customer2;Henry Bo;address 2 Cork;089334455\n");
+		ArrayList<Customer> list = DataBase.loadCustomers(reader);
+		assertEquals(2, list.size());
+	}
+
+	@Test
+	public void testLoadCustomersEmpty() throws IOException {
+		Reader reader = new StringReader("");
+		ArrayList<Customer> list = DataBase.loadCustomers(reader);
+		assertEquals(0, list.size());
+	}
+
+	@Test
+	public void testLoadCustomersCorrupted() throws IOException {
+		Reader reader = new StringReader("customer1;Scott Scott;address");
+		ArrayList<Customer> list = DataBase.loadCustomers(reader);
+		assertEquals(0, list.size());
+	}
 
 	// Test for Suppliers
 	@Test

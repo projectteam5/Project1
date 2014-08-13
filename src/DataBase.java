@@ -37,7 +37,7 @@ public class DataBase {
 		}
 		return users;
 	}
-/*
+
 	// method for loading customers in the Array List
 	public static ArrayList<Customer> loadCustomers(Reader reader)
 			throws IOException {
@@ -63,7 +63,7 @@ public class DataBase {
 
 		}
 		return customers;
-	}*/
+	}
 
 	// method for loading suppliers in the Array List
 	public static ArrayList<Supplier> loadSuppliers(Reader reader)
