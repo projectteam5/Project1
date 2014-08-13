@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -13,11 +14,12 @@ import javax.swing.border.EmptyBorder;
 
 public class EditUserGUI extends JFrame {
 
-	private JTextField textField1;
-	private JTextField textField2;
-	private JTextField textField3;
+	private JTextField NameField;
+	private JTextField PasswordField;
+	private JComboBox typeDropDown;
 	private String userID;
 	private User user;
+	
 	
 	public EditUserGUI(String userInput) {
 
@@ -36,20 +38,20 @@ public class EditUserGUI extends JFrame {
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panel.setLayout(new GridLayout(0, 1));
 
-		textField1 = new JTextField(user.getName());
+		NameField = new JTextField(user.getName());
 		JLabel label1 = new JLabel("Name");
-		textField2 = new JTextField(user.getPassword());
+		PasswordField = new JTextField(user.getPassword());
 		JLabel label2 = new JLabel("Password");
-		textField3 = new JTextField(user.getType());
 		JLabel label3 = new JLabel("Type");
+		typeDropDown = new JComboBox(RetailSystem.getInstance().getUserTypeList());
 		JButton doneButton = new JButton("Commit");
 
 		panel.add(label1);
-		panel.add(textField1);
+		panel.add(NameField);
 		panel.add(label2);
-		panel.add(textField2);
+		panel.add(PasswordField);
 		panel.add(label3);
-		panel.add(textField3);
+		panel.add(typeDropDown);
 		panel.add(doneButton);
 		Container container = getContentPane();
 		container.add(panel);
@@ -58,9 +60,9 @@ public class EditUserGUI extends JFrame {
 
 		doneButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String name = textField1.getText();
-				String password = textField2.getText();
-				String type = textField3.getText();
+				String name = NameField.getText();
+				String password = PasswordField.getText();
+				String type = typeDropDown.getSelectedItem().toString();
 				if (!name.isEmpty() && !password.isEmpty() && !type.isEmpty()) {
 					for (User userRS : RetailSystem.getInstance().getUsers()) {
 						if (userRS.getUserID().equals(userID)) {

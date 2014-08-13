@@ -16,6 +16,7 @@ public class RetailSystem {
 	private ArrayList<Stock> stocks;// array list of stock
 
 	private String currentUserType = "";// it store which type of user logged on
+	private String[] userTypeList = {"Manager", "Attendant"};//Array with the possible users types
 
 	public RetailSystem() {
 	}
@@ -151,8 +152,13 @@ public class RetailSystem {
 		this.currentUserType = currentUserType;
 	}
 
-	public static void setInstance(RetailSystem instance) {
-		RetailSystem.instance = instance;
+	public String[] getUserTypeList() {
+		return userTypeList;
 	}
+
+	public void setUserTypeList(String[] userTypeList) {
+		this.userTypeList = userTypeList;
+	}
+	
 
 }

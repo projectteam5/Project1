@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -17,7 +18,7 @@ public class AddUserGUI extends JFrame {
 	private JTextField textField1;
 	private JTextField textField2;
 	private JTextField textField3;
-	private JTextField textField4;
+	private JComboBox typeDropDown;
 
 	public AddUserGUI() {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -34,7 +35,7 @@ public class AddUserGUI extends JFrame {
 		JLabel label2 = new JLabel("Name");
 		textField3 = new JTextField();
 		JLabel label3 = new JLabel("Password");
-		textField4 = new JTextField();
+		typeDropDown = new JComboBox(RetailSystem.getInstance().getUserTypeList());
 		JLabel label4 = new JLabel("Type");
 		JButton doneButton = new JButton("Add");
 		
@@ -45,7 +46,7 @@ public class AddUserGUI extends JFrame {
 		panel.add(label3);
 		panel.add(textField3);
 		panel.add(label4);
-		panel.add(textField4);
+		panel.add(typeDropDown);
 		panel.add(doneButton);
 
 		// Define the panel for the Customer managment
@@ -55,7 +56,7 @@ public class AddUserGUI extends JFrame {
 				String userID = textField1.getText();
 				String name = textField2.getText();
 				String password = textField3.getText();
-				String type = textField4.getText();
+				String type = typeDropDown.getSelectedItem().toString();
 				if(validateUser(userID, name, password, type)){
 					User user = new User(userID, name, password, type);
 					RetailSystem.getInstance().getUsers().add(user);
@@ -76,10 +77,6 @@ public class AddUserGUI extends JFrame {
 				userOk = false;
 				JOptionPane.showMessageDialog(null, "ID already exists", "Error", JOptionPane.ERROR_MESSAGE);
 			}
-		}
-		if(!type.equalsIgnoreCase("Manager") && !type.equalsIgnoreCase("Attendant")){
-			userOk = false;
-			JOptionPane.showMessageDialog(null, "Type doesn't exist! You can enter only Manager or Attendant.", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		return userOk;
 		
