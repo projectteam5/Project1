@@ -15,22 +15,22 @@ import javax.swing.border.EmptyBorder;
 
 public class MenuGUI extends JFrame {
 
-	JPanel jpanel;
-	Container container;
+	
 	
 	public MenuGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1000, 800);
 		JPanel panel = new JPanel();
-		container = getContentPane();
+		Container container = getContentPane();
 		container.add(panel);
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setLayout(new GridLayout(3,2));
-		JButton buttonCustomer = new JButton("Manage Customer");
-		JButton buttonProduct = new JButton("Manage Product");
-		JButton buttonSupplier = new JButton("Manage Supplier");
-		JButton buttonOrder = new JButton("Manage Order");
-		JButton buttonAvailability = new JButton("View the availability");
+		panel.setLayout(new GridLayout(4,2));
+		JButton buttonUser = new JButton("Manage Users");
+		JButton buttonCustomer = new JButton("Manage Customers");
+		JButton buttonProduct = new JButton("Manage Products");
+		JButton buttonSupplier = new JButton("Manage Suppliers");
+		JButton buttonOrder = new JButton("Manage Orders");
+		JButton buttonAvailability = new JButton("View Stock");
 		JButton buttonViewOrder = new JButton("View Order");
 		//if it is a manager i can see Manage Customer, Manage Product
 		//Manage Supplier, Manage Order
@@ -41,6 +41,7 @@ public class MenuGUI extends JFrame {
 			panel.add(buttonOrder);
 			panel.add(buttonAvailability);
 			panel.add(buttonViewOrder);
+			panel.add(buttonUser);
 			
 		}
 		else{
@@ -51,31 +52,15 @@ public class MenuGUI extends JFrame {
 		
 		//Define the panel for the Customer managment
 		
-		JTextField textField1 = new JTextField();
-		JLabel label1 = new JLabel("Name");
-		JTextField textField2 = new JTextField();
-		JLabel label2 = new JLabel("Customer ID");
-		JTextField textField3 = new JTextField();
-		JLabel label3 = new JLabel("Phone Number");
-		JButton but1 = new JButton("Add Customer");
-		JButton but2 = new JButton("Edit");
-		JButton but3 = new JButton("Delete");
-
-		jpanel = new JPanel();
-		jpanel.setLayout(new GridLayout(0,1));
-		jpanel.add(label1);
-		jpanel.add(textField1);
-		jpanel.add(label2);
-		jpanel.add(textField2);
-		jpanel.add(label3);
-		jpanel.add(textField3);
-		jpanel.add(but1);
-		jpanel.add(but2);
-		jpanel.add(but3);
-		
 		buttonCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				CustomerGUI customerGui = new CustomerGUI();
+			}
+		});
+		
+		buttonUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				UserGUI userGui = new UserGUI();
 			}
 		});
 				
