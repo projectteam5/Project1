@@ -14,8 +14,8 @@ public class RetailSystem {
 	private ArrayList<Stock> stocks;// array list of stock
 
 	private String currentUserType = "";// it store which type of user logged on
+	private String currentUserID = "";// it store which type of user logged on
 	private String[] userTypeList = {"Manager", "Attendant"};//Array with the possible users types
-	private static LoginGUI login;
 
 	public RetailSystem() {
 	}
@@ -88,9 +88,17 @@ public class RetailSystem {
 		}
 
 		// login gui for authentication
-		login = new LoginGUI();
+		LoginGUI login = new LoginGUI();
 		//Please note that the Order GUI has to be inserted in the menu GUI
 
+	}
+
+	public String getCurrentUserID() {
+		return currentUserID;
+	}
+
+	public void setCurrentUserID(String currentUserID) {
+		this.currentUserID = currentUserID;
 	}
 
 	public ArrayList<User> getUsers() {
@@ -157,10 +165,6 @@ public class RetailSystem {
 
 	public void setUserTypeList(String[] userTypeList) {
 		this.userTypeList = userTypeList;
-	}
-
-	public LoginGUI getLogin() {
-		return login;
 	}
 
 	
