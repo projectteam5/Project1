@@ -1,3 +1,4 @@
+//Working
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.GridLayout;
@@ -45,10 +46,6 @@ public class ViewProductGUI extends JFrame{
 						found = true;
 						label.setText(product.getProductID()+" | "+product.getName()+" | "+product.getCost()+" | "+product.getMarkup()+" | "+product.getSupplier().getName());
 						break;
-					}else{
-						
-						//Message is showing even if product is in system
-						//JOptionPane.showMessageDialog(null, "No Product With This ID in System!");
 					}
 				}
 				if(!found){
