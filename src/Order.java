@@ -1,7 +1,15 @@
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.Locale;
+
+import javax.swing.text.DateFormatter;
 
 public class Order {
+	private Locale localDate;
+	private SimpleDateFormat df;
 	
 	private String orderID;
 	private Date orderDate;
@@ -12,7 +20,7 @@ public class Order {
 	private boolean received;
 	
 	public Order() {
-		
+
 		this.orderID = null;
 		this.orderDate = null;
 		this.product = null;
@@ -24,9 +32,18 @@ public class Order {
 	
 	public Order(String orderID, Date orderDate, 
 			Product product, int quantity, 
-			Date expectedDeliveryDate, Date dateReceived, boolean received) {
+			Date expectedDeliveryDate, Date dateReceived, boolean received) throws ParseException  {
+		localDate = new Locale("en", "GB");
+		df = new SimpleDateFormat("dd/MM/yyyy", localDate);
+		
 		this.orderID = orderID;
-		this.orderDate = orderDate;
+		String od = df.format(orderDate = new Date());
+		try {
+			this.orderDate = df.parse(od);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.product = product;
 		this.quantity = quantity;
 		this.expectedDeliveryDate = expectedDeliveryDate;
