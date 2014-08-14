@@ -178,6 +178,255 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 		setVisible(true);
 	}
 	
+	public JPanel getPanel() {
+		return panel;
+	}
+
+	public void setPanel(JPanel panel) {
+		this.panel = panel;
+	}
+
+	public Container getContainer() {
+		return container;
+	}
+
+	public void setContainer(Container container) {
+		this.container = container;
+	}
+
+	public ArrayList<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(ArrayList<Product> products) {
+		this.products = products;
+	}
+
+	public ArrayList<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(ArrayList<Order> orders) {
+		this.orders = orders;
+	}
+
+	public Order getNewOrder() {
+		return newOrder;
+	}
+
+	public void setNewOrder(Order newOrder) {
+		this.newOrder = newOrder;
+	}
+
+	public JLabel getLabel1() {
+		return label1;
+	}
+
+	public void setLabel1(JLabel label1) {
+		this.label1 = label1;
+	}
+
+	public JLabel getLabel2() {
+		return label2;
+	}
+
+	public void setLabel2(JLabel label2) {
+		this.label2 = label2;
+	}
+
+	public JLabel getLabel3() {
+		return label3;
+	}
+
+	public void setLabel3(JLabel label3) {
+		this.label3 = label3;
+	}
+
+	public JLabel getLabel4() {
+		return label4;
+	}
+
+	public void setLabel4(JLabel label4) {
+		this.label4 = label4;
+	}
+
+	public JLabel getLabel5() {
+		return label5;
+	}
+
+	public void setLabel5(JLabel label5) {
+		this.label5 = label5;
+	}
+
+	public JLabel getLabel6() {
+		return label6;
+	}
+
+	public void setLabel6(JLabel label6) {
+		this.label6 = label6;
+	}
+
+	public JLabel getLabel7() {
+		return label7;
+	}
+
+	public void setLabel7(JLabel label7) {
+		this.label7 = label7;
+	}
+
+	public JTextField getIdTextField() {
+		return idTextField;
+	}
+
+	public void setIdTextField(JTextField idTextField) {
+		this.idTextField = idTextField;
+	}
+
+	public JTextField getOrderDateTextField() {
+		return orderDateTextField;
+	}
+
+	public void setOrderDateTextField(JTextField orderDateTextField) {
+		this.orderDateTextField = orderDateTextField;
+	}
+
+	public JComboBox<String> getComboBoxList() {
+		return comboBoxList;
+	}
+
+	public void setComboBoxList(JComboBox<String> comboBoxList) {
+		this.comboBoxList = comboBoxList;
+	}
+
+	public JTextField getQuantityTextField() {
+		return quantityTextField;
+	}
+
+	public void setQuantityTextField(JTextField quantityTextField) {
+		this.quantityTextField = quantityTextField;
+	}
+
+	public JTextField getExpectedDeliveryDateTextField() {
+		return expectedDeliveryDateTextField;
+	}
+
+	public void setExpectedDeliveryDateTextField(
+			JTextField expectedDeliveryDateTextField) {
+		this.expectedDeliveryDateTextField = expectedDeliveryDateTextField;
+	}
+
+	public JTextField getDateReceivedTextField() {
+		return dateReceivedTextField;
+	}
+
+	public void setDateReceivedTextField(JTextField dateReceivedTextField) {
+		this.dateReceivedTextField = dateReceivedTextField;
+	}
+
+	public JCheckBox getReceivedTextField() {
+		return receivedTextField;
+	}
+
+	public void setReceivedTextField(JCheckBox receivedTextField) {
+		this.receivedTextField = receivedTextField;
+	}
+
+	public JButton getSave() {
+		return save;
+	}
+
+	public void setSave(JButton save) {
+		this.save = save;
+	}
+
+	public JButton getClear() {
+		return clear;
+	}
+
+	public void setClear(JButton clear) {
+		this.clear = clear;
+	}
+
+	public JButton getMenu() {
+		return menu;
+	}
+
+	public void setMenu(JButton menu) {
+		this.menu = menu;
+	}
+
+	public JButton getExit() {
+		return exit;
+	}
+
+	public void setExit(JButton exit) {
+		this.exit = exit;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public String getNewOrderId() {
+		return newOrderId;
+	}
+
+	public void setNewOrderId(String newOrderId) {
+		this.newOrderId = newOrderId;
+	}
+
+	public Date getNewOrderDate() {
+		return newOrderDate;
+	}
+
+	public void setNewOrderDate(Date newOrderDate) {
+		this.newOrderDate = newOrderDate;
+	}
+
+	public Product getNewProduct() {
+		return newProduct;
+	}
+
+	public void setNewProduct(Product newProduct) {
+		this.newProduct = newProduct;
+	}
+
+	public int getNewQuantity() {
+		return newQuantity;
+	}
+
+	public void setNewQuantity(int newQuantity) {
+		this.newQuantity = newQuantity;
+	}
+
+	public Date getNewExpectedDeliveryDate() {
+		return newExpectedDeliveryDate;
+	}
+
+	public void setNewExpectedDeliveryDate(Date newExpectedDeliveryDate) {
+		this.newExpectedDeliveryDate = newExpectedDeliveryDate;
+	}
+
+	public Date getNewReceivedDate() {
+		return newReceivedDate;
+	}
+
+	public void setNewReceivedDate(Date newReceivedDate) {
+		this.newReceivedDate = newReceivedDate;
+	}
+
+	public boolean isNewReceived() {
+		return newReceived;
+	}
+
+	public void setNewReceived(boolean newReceived) {
+		this.newReceived = newReceived;
+	}
+
 	//terminates the running JVM
 	//i.e. stops everything
 	void shutdownGUI() {

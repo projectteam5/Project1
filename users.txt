@@ -1,5 +1,6 @@
-1111;Scott Scott;passw1;Manager
+1111;Scott Pott;passw1;Manager
 1112;Daniel Daniel;passw2;Attendant
 1113;cris;passw3;Manager
 1114;Erich King;passw4;Manager
 1115;Laura Phelan;passw5;Manager
+2222;test;2222;Manager
