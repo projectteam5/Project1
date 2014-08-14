@@ -1,4 +1,4 @@
-//GUI done 
+//GUI done. Method working
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -22,6 +22,8 @@ public class AddProductGUI extends JFrame{
 	private JTextField textFieldMarkup;
 	private ArrayList<String> names = new ArrayList<String>();
 	private JComboBox<String> supplierDropDown = new JComboBox<String>();
+	private double cost;
+	private double markup;
 	
 
 	public AddProductGUI() {
@@ -35,14 +37,15 @@ public class AddProductGUI extends JFrame{
 		panel.setLayout(new GridLayout(0,1));	
 		
 		//Add input text fields to add user to the system
-		textFieldProductID = new JTextField();
 		JLabel label1 = new JLabel("Product ID");
-		textFieldName = new JTextField();
+		textFieldProductID = new JTextField();
 		JLabel label2 = new JLabel("Product Name");
-		textFieldCost = new JTextField();
+		textFieldName = new JTextField();
 		JLabel label3 = new JLabel("Product Cost");
-		textFieldMarkup = new JTextField();
+		textFieldCost = new JTextField();
 		JLabel label4 = new JLabel("Product Markup");
+		textFieldMarkup = new JTextField();
+		
 
 		compileSupplierNames();
 		JLabel label5 = new JLabel("Product Supplier ID");
@@ -69,10 +72,16 @@ public class AddProductGUI extends JFrame{
 			public void actionPerformed(ActionEvent argo0){
 				
 			boolean newProduct = true;
+			boolean correctInfo = true;
 			String productID = textFieldProductID.getText();
 			String name = textFieldName.getText();
-			double cost = Double.parseDouble(textFieldCost.getText());
-			double markup = Double.parseDouble(textFieldMarkup.getText());
+			try{
+			cost = Double.parseDouble(textFieldCost.getText());
+			markup = Double.parseDouble(textFieldMarkup.getText());
+			}catch(NumberFormatException e){
+				JOptionPane.showMessageDialog(null, "Please enter in correct format");
+				correctInfo = false;
+			}
 			Supplier supplierPicked;
 			
 			//Changes supplier choice to supplier object
@@ -90,12 +99,12 @@ public class AddProductGUI extends JFrame{
 			}
 			
 			//If product is not already in system, add to system
-			if (newProduct){
+			if ((newProduct) && (correctInfo==true)){
 				try{
 					JOptionPane.showMessageDialog(null, "Adding product");
 					Product product = new Product(productID, name, cost, markup, supplier);
 					RetailSystem.getInstance().getProducts().add(product);
-				}catch(Exception e){
+				}catch(NumberFormatException e){
 					JOptionPane.showMessageDialog(null, "Error processing request");
 				}
 			}

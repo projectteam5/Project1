@@ -1,4 +1,4 @@
-//GUI "done" but looks a bit crappy
+//GUI done. Method working
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Font;
