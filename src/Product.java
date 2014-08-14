@@ -15,6 +15,10 @@ public class Product {
 		this.supplier = supplier;
 		
 	}
+	
+	public Product() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public String getProductID() {
 		return productID;
