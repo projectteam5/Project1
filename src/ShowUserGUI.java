@@ -77,6 +77,12 @@ public class ShowUserGUI extends JFrame {
 	
 	public int showUserButton(){
 		//retrieve the user object in the user ArrayList
+		if(returnValue != 2){
+			panel.remove(labelName);
+			panel.remove(labelID);
+			panel.remove(labelPassword);
+			panel.remove(labelType);
+		}
 		User selectedUser = null;
 		for(User user : RetailSystem.getInstance().getUsers()){
 			if(user.getUserID().equals(selectedUserID)){

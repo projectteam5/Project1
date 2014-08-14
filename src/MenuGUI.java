@@ -1,4 +1,3 @@
-
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -79,14 +78,12 @@ public class MenuGUI extends JFrame {
 			}
 		});
 
-		// For Laura, just uncomment for test your ProductMenuGUI
-		/*
-		 * buttonProduct.addActionListener(new ActionListener(){ public void
-		 * actionPerformed(ActionEvent e){ ProductMenuGUI productMenuGUI = new
-		 * ProductMenuGUI();
-		 * 
-		 * } });
-		 */
+		buttonProduct.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ProductMenuGUI productMenuGUI = new ProductMenuGUI();
+
+			}
+		});
 
 		buttonOrder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
