@@ -135,7 +135,7 @@ public class DataBase {
 	// method for loading orders in the Array List
 	public static ArrayList<Order> loadOrders(Reader reader) throws IOException, ParseException {
 		ArrayList<Order> orders = new ArrayList<Order>();
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		//DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		BufferedReader bufReader = new BufferedReader(reader);
 		String line = null;
 		int count = 0;
@@ -144,14 +144,14 @@ public class DataBase {
 			count++;
 			if (parts.length == 7) {
 				String orderID = parts[0];
-				Date orderDate = df.parse(parts[1]); // transform as date
+				Date orderDate = DateFormat.getDateInstance().parse(parts[1]); // transform as date
 				String productID = parts[2];
 				//String supplierID = parts[3];
 				int quantity = Integer.parseInt(parts[3]);// transform as int																// int
-				Date expectedDeliveryDate = df.parse(parts[4]);// transform as date
+				Date expectedDeliveryDate = DateFormat.getDateInstance().parse(parts[4]);// transform as date
 				Date dateReceived = null;
 				if (!parts[5].isEmpty()){
-					dateReceived = df.parse(parts[5]);// transform as date
+					dateReceived = DateFormat.getDateInstance().parse(parts[5]);// transform as date
 				}
 				boolean received = Boolean.parseBoolean(parts[6]);// transform as boolean
 				Product product = null;
@@ -275,13 +275,14 @@ public class DataBase {
 	// method for saving orders at the end of the session
 	public static void writeOrders(ArrayList<Order> orders, Writer writer)
 			throws IOException {
+		//DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		BufferedWriter out = new BufferedWriter(writer);
 		for (Order order : orders) {
-			out.write(order.getOrderID() + ";" + order.getOrderDate() + ";"
+			out.write(order.getOrderID() + ";" + DateFormat.getDateInstance().format(order.getOrderDate()) + ";"
 					+ order.getProduct().getProductID() + ";" 
 					+ order.getQuantity() + ";" 
-					+ order.getExpectedDeliveryDate() + ";"
-					+ order.getDateReceived()  + ";" 
+					+ DateFormat.getDateInstance().format(order.getExpectedDeliveryDate()) + ";"
+					+ DateFormat.getDateInstance().format(order.getDateReceived())  + ";" 
 					+ order.isReceived());
 			out.newLine();
 		}

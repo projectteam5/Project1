@@ -3,8 +3,12 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.junit.After;
 import org.junit.BeforeClass;
@@ -18,6 +22,8 @@ public class DataBaseTest {
 			.getSuppliers();
 	private ArrayList<Product> productStatus = RetailSystem.getInstance()
 			.getProducts();
+	private static ArrayList<Order> ordersTest;
+	private static Date date = new Date();
 
 	/*
 	 * it is necessary to initialize a supplier arrayList for the product
@@ -36,6 +42,9 @@ public class DataBaseTest {
 						+ "product3;ProductPC3;1500;300;supplier2\n");
 		ArrayList<Product> products = DataBase.loadProducts(reader1);
 		RetailSystem.getInstance().setProducts(products);
+		Order order1 = new Order("order10", date, RetailSystem.getInstance().getProducts().get(0),10,date,date,false );
+		ordersTest = new ArrayList<Order>();
+		ordersTest.add(order1);
 	}
 
 	/*
@@ -160,8 +169,8 @@ public class DataBaseTest {
 	@Test
 	public void testLoadOrderOK2Orders() throws IOException, ParseException {
 		Reader reader = new StringReader(
-				"order1;10/08/2014;product1;10;20/08/2014;;false\n"
-						+ "order1;01/08/2014;product2;9;08/08/2014;08/08/2014;false\n");
+				"order1;14-Aug-2014;product1;10;14-Aug-2014;;false\n"
+						+ "order1;14-Aug-2014;product2;9;14-Aug-2014;14-Aug-2014;false\n");
 		ArrayList<Order> list = DataBase.loadOrders(reader);
 		assertEquals(2, list.size());
 	}
@@ -178,8 +187,8 @@ public class DataBaseTest {
 	@Test
 	public void testLoadOrderCorrupted() throws IOException, ParseException {
 		Reader reader = new StringReader(
-				"order1;10/08/2014;product1;10;20/08/2014;;false\n"
-						+ "order1;01/08/2014;product2\n");
+				"order1;14-Aug-2014;product1;10;14-Aug-2014;;false\n"
+						+ "order1;14-Aug-2014");
 		ArrayList<Order> list = DataBase.loadOrders(reader);
 		assertEquals(1, list.size());
 	}
@@ -208,6 +217,15 @@ public class DataBaseTest {
 				+ "product3;9\n");
 		ArrayList<Stock> list = DataBase.loadStocks(reader);
 		assertEquals(2, list.size());
+	}
+	
+	// Skips lines with corrupted data
+	@Test
+	public void testwriteOrders() throws IOException, ParseException {
+		String datestring =DateFormat.getDateInstance().format(date);
+		Writer userFile = new StringWriter();
+		DataBase.writeOrders(ordersTest,userFile);
+		assertEquals("order10;"+datestring+";product1;10;"+datestring+";"+datestring+";false",userFile.toString().trim());
 	}
 
 }
