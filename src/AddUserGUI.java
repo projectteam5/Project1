@@ -15,12 +15,13 @@ import javax.swing.border.EmptyBorder;
 
 public class AddUserGUI extends JFrame {
 	
-	private JTextField textField1;
-	private JTextField textField2;
-	private JTextField textField3;
+	private JTextField textUserID;
+	private JTextField textUserName;
+	private JTextField textUserPass;
 	private JComboBox typeDropDown;
 
 	public AddUserGUI() {
+		// declaration and initialization of panel, container and layout setting
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setSize(1000, 800);
 		JPanel panel = new JPanel();
@@ -29,22 +30,24 @@ public class AddUserGUI extends JFrame {
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panel.setLayout(new GridLayout(0, 1));
 
-		textField1 = new JTextField();
-		JLabel label1 = new JLabel("User ID");
-		textField2 = new JTextField();
-		JLabel label2 = new JLabel("Name");
-		textField3 = new JTextField();
-		JLabel label3 = new JLabel("Password");
+		// declaration of the labels and initialization of labels and text field
+		textUserID = new JTextField();
+		textUserName = new JTextField();
+		textUserPass = new JTextField();
 		typeDropDown = new JComboBox(RetailSystem.getInstance().getUserTypeList());
+		JLabel label1 = new JLabel("User ID");
+		JLabel label2 = new JLabel("Name");
+		JLabel label3 = new JLabel("Password");
 		JLabel label4 = new JLabel("Type");
 		JButton doneButton = new JButton("Add");
 		
+		// adding all the components
 		panel.add(label1);
-		panel.add(textField1);
+		panel.add(textUserID);
 		panel.add(label2);
-		panel.add(textField2);
+		panel.add(textUserName);
 		panel.add(label3);
-		panel.add(textField3);
+		panel.add(textUserPass);
 		panel.add(label4);
 		panel.add(typeDropDown);
 		panel.add(doneButton);
@@ -53,14 +56,12 @@ public class AddUserGUI extends JFrame {
 
 		doneButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String userID = textField1.getText();
-				String name = textField2.getText();
-				String password = textField3.getText();
-				String type = typeDropDown.getSelectedItem().toString();
-				if(validateUser(userID, name, password, type)){
-					User user = new User(userID, name, password, type);
-					RetailSystem.getInstance().getUsers().add(user);
+				int returnValue = addUser();
+				if(returnValue == 0){
 					JOptionPane.showMessageDialog(null, "User correctly inserted", "Inserted", JOptionPane.PLAIN_MESSAGE);
+				}
+				else{
+					JOptionPane.showMessageDialog(null, "Error during the process", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
@@ -68,6 +69,22 @@ public class AddUserGUI extends JFrame {
 
 		this.setVisible(true);
 
+	}
+	
+	public int addUser(){
+		String userID = textUserID.getText();
+		String name = textUserName.getText();
+		String password = textUserPass.getText();
+		String type = typeDropDown.getSelectedItem().toString();
+		if(validateUser(userID, name, password, type)){
+			User user = new User(userID, name, password, type);
+			RetailSystem.getInstance().getUsers().add(user);
+			this.setVisible(false);
+			return 0;
+		}
+		else{
+			return 1;
+		}
 	}
 	
 	public boolean validateUser(String userID, String name, String password, String type){
@@ -79,7 +96,6 @@ public class AddUserGUI extends JFrame {
 			}
 		}
 		return userOk;
-		
 	}
 
 }
