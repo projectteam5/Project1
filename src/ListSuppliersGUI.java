@@ -11,6 +11,8 @@ public class ListSuppliersGUI extends JFrame{
 	private ArrayList<Supplier> suppliers = new ArrayList<Supplier>();
 	private JComboBox comboList;
 	private JLabel label;
+	// Empty constructor so as to access method to getSupplierlist in supplier class
+	private Supplier supplier = new Supplier("","","");
 	
 	public ListSuppliersGUI() {
 		
@@ -21,16 +23,19 @@ public class ListSuppliersGUI extends JFrame{
 		setSize(300,300);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
-		suppliers = RetailSystem.getInstance().getSuppliers();
+		// Accessing method in supplier class to return the list of suppliers 
+		// And placing them in the list for this GUI class for view
+		suppliers = supplier.getSupplierList(); 
 		comboList = new JComboBox<String>();
 		comboList.setEditable(false);
+		label = new JLabel("Showing list of suppliers");
 		
 		comboList.addItem("Select Supplier from drop down menu");
+		
 		for(Supplier s: suppliers){
 			comboList.addItem(s.getName()+"-"+s.getSupplierID()+"-"+s.getPhoneNumber());
 		}
-		
-		label = new JLabel("Showing list of suppliers");
+			
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(0,1));
 		panel.add(label);
