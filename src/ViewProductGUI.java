@@ -38,15 +38,21 @@ public class ViewProductGUI extends JFrame{
 		buttonViewProduct.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent argo0){
 				String name = productDropDown.getSelectedItem().toString();
+				boolean found = false;
 				for(Product product: RetailSystem.getInstance().getProducts()){
 					if(name.equalsIgnoreCase(product.getName())){
 						//Display the information for that product
+						found = true;
 						label.setText(product.getProductID()+" | "+product.getName()+" | "+product.getCost()+" | "+product.getMarkup()+" | "+product.getSupplier().getName());
 						break;
 					}else{
+						
 						//Message is showing even if product is in system
-						JOptionPane.showMessageDialog(null, "No Product With This ID in System!");
+						//JOptionPane.showMessageDialog(null, "No Product With This ID in System!");
 					}
+				}
+				if(!found){
+					JOptionPane.showMessageDialog(null, "No Product With This ID in System!");
 				}
 			}
 		});
