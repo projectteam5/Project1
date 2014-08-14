@@ -1,4 +1,5 @@
-//GUI done, needs methods to actually add product/check if product already exists in the system
+//GUI done 
+//Think methods are working properly
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -9,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -66,26 +68,42 @@ public class AddProductGUI extends JFrame{
 		
 		submitButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent argo0){
-				//when the user presses the button. checks:
-				//supplierDropDown.getSelectedObjects();
-				/*String productID = textFieldProductID.getText();
-				String name = textFieldName.getText();
-				//Supplier supplier = textFieldSupplier.getText();
-				boolean fail = false;
-				try{
-					double cost = Double.parseDouble(textFieldCost.getText());
-					double markup = Double.parseDouble(textFieldMarkup.getText());
-					
-				}catch(NumberFormatException formatError){
-					JOptionPane.showMessageDialog(null, "Invalid Entry", "Error", JOptionPane.WARNING_MESSAGE);		
-					fail = true;
-				}
 				
-				if(fail!=true){
-					Product product = new Product(productID, name, cost, markup, supplier);
-				}*/
+			boolean newProduct = false;
+			String productID = textFieldProductID.getText();
+			String name = textFieldName.getText();
+			double cost = Double.parseDouble(textFieldCost.getText());
+			double markup = Double.parseDouble(textFieldMarkup.getText());
+			Supplier supplierPicked;
+			
+			//Changes supplier choice to supplier object
+			String supplierChoice = supplierDropDown.getSelectedItem().toString();
+			for(Supplier supplier: RetailSystem.getInstance().getSuppliers()){
+				if(supplierChoice.contains(supplier.getName())){
+					supplierPicked = supplier;
+				}
+			
+			//check to see if product ID is already in system
+			for(Product product: RetailSystem.getInstance().getProducts()){
+				if(product.getProductID()!=productID){
+					newProduct = true;
+				}
 			}
-		});
+			
+			//If product is not already in system, add to system
+			if (newProduct){
+				try{
+					JOptionPane.showMessageDialog(null, "Adding product");
+					Product product = new Product(productID, name, cost, markup, supplier);
+					RetailSystem.getInstance().getProducts().add(product);
+				}catch(Exception e){
+					JOptionPane.showMessageDialog(null, "Error processing request");
+				}
+			}
+		}
+			
+		}
+	});
 		
 		
 	}
