@@ -231,10 +231,10 @@ public class DataBase {
 		}
 		out.close();
 	}
-	/*
+	
 
 	// method for saving customers at the end of the session
-	public static void writeCustomers(ArrayList<Customer> customer,
+	public static void writeCustomers(ArrayList<Customer> customers,
 			Writer writer) throws IOException {
 		BufferedWriter out = new BufferedWriter(writer);
 		for (Customer customer : customers) {
@@ -270,23 +270,36 @@ public class DataBase {
 		}
 		out.close();
 
-	}*/
+	}
 	
-/*	// method for saving orders at the end of the session
+	// method for saving orders at the end of the session
 	public static void writeOrders(ArrayList<Order> orders, Writer writer)
 			throws IOException {
 		BufferedWriter out = new BufferedWriter(writer);
 		for (Order order : orders) {
 			out.write(order.getOrderID() + ";" + order.getOrderDate() + ";"
 					+ order.getProduct().getProductID() + ";" 
-					+ order.getSupplier().getSupplierID() + ";"
-					+ order.getQuantity() + ";" + order.getExpectedDeliveryDate() + ";"
-					+ order.getDateReceived()  + ";" + order.getReceived());
+					+ order.getQuantity() + ";" 
+					+ order.getExpectedDeliveryDate() + ";"
+					+ order.getDateReceived()  + ";" 
+					+ order.isReceived());
 			out.newLine();
 		}
 		out.close();
 
-	}*/
+	}
+	
+	// method for saving stock at the end of the session
+	public static void writeStocks(ArrayList<Stock> stocks, Writer writer)
+			throws IOException {
+		BufferedWriter out = new BufferedWriter(writer);
+		for (Stock stock : stocks) {
+			out.write(stock.getProduct().getProductID() + ";" + stock.getUnits());
+			out.newLine();
+		}
+		out.close();
+
+	}
 	
 
 }
