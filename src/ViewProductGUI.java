@@ -39,7 +39,7 @@ public class ViewProductGUI extends JFrame{
 			public void actionPerformed(ActionEvent argo0){
 				String name = productDropDown.getSelectedItem().toString();
 				for(Product product: RetailSystem.getInstance().getProducts()){
-					if(name.contains(product.getName())){
+					if(name.equalsIgnoreCase(product.getName())){
 						//Display the information for that product
 						label.setText(product.getProductID()+" | "+product.getName()+" | "+product.getCost()+" | "+product.getMarkup()+" | "+product.getSupplier().getName());
 						break;
@@ -63,8 +63,7 @@ public class ViewProductGUI extends JFrame{
 	
 	public void compileProductNames(){
 		for(Product product: RetailSystem.getInstance().getProducts()){
-			productDropDown.addItem(product.getName()
-			+ " | " + product.getProductID());
+			productDropDown.addItem(product.getName());
 		}
 	}
 	
