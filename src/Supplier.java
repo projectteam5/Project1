@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 
 public class Supplier {
 	private String supplierID;
@@ -29,11 +31,12 @@ public class Supplier {
 		}
 	}
 	
-	public void viewSupplierList(){	
-		// Loops through the supplier list printing name of each supplier
+	public ArrayList<Supplier> getSupplierList(){
+		ArrayList<Supplier> suppliers = new ArrayList<Supplier>();
 		for(Supplier sup:RetailSystem.getInstance().getSuppliers()){
-			System.out.println("Supplier name: "+sup.getName());
+			suppliers.add(sup);
 		}
+		return suppliers;
 	}
 
 	public String getSupplierID() {
