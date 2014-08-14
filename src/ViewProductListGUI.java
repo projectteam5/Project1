@@ -1,4 +1,4 @@
-//GUI "done" but needs more work
+//GUI "done" but looks a bit crappy
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Font;
@@ -23,21 +23,22 @@ public class ViewProductListGUI extends JFrame{
 		panel.setLayout(new BorderLayout());
 		
 		JScrollPane scrollPaneProducts = new JScrollPane();
-		JLabel title = new JLabel("Product List");
+		//Title not showing
+		JLabel title = new JLabel("Product List. Amount of products: "+RetailSystem.getInstance().getProducts().size());
 		
-		JPanel centralPanel = new JPanel(new GridLayout(4,1));
+		JPanel centralPanel = new JPanel(new GridLayout(0,1));
 		centralPanel.setSize(100,100);
 		for(Product product: RetailSystem.getInstance().getProducts()){
 			JLabel label = new JLabel(product.getProductID()+" | "+product.getName()+" | "+product.getCost()+" | "+product.getMarkup()+" | "+product.getSupplier().getName());
-			//label.setFont(new Font("Times New Roman",20,20));
 			label.setSize(10,10);
 			centralPanel.add(label);
 		}
 			
 			
-		scrollPaneProducts.setViewportView(centralPanel);// puts the scroll pane on the central panel with the data
+		scrollPaneProducts.setViewportView(centralPanel);
 			
-		panel.add(scrollPaneProducts,BorderLayout.CENTER);// puts the scrollpane which now contains the central panel into the center
+		panel.add(scrollPaneProducts,BorderLayout.CENTER);
+		panel.add(title,BorderLayout.NORTH);
 		container.add(panel);
 		this.setVisible(true);
 			
