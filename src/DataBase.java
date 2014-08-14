@@ -226,9 +226,10 @@ public class DataBase {
 		BufferedWriter out = new BufferedWriter(writer);
 		for (User user : users) {
 			out.write(user.getUserID() + ";" + user.getName() + ";"
-					+ user.getPassword() + ";" + user.getType() + "\n");
+					+ user.getPassword() + ";" + user.getType());
+			out.newLine();
 		}
-
+		out.close();
 	}
 	/*
 
@@ -238,10 +239,10 @@ public class DataBase {
 		BufferedWriter out = new BufferedWriter(writer);
 		for (Customer customer : customers) {
 			out.write(customer.getCustomerID() + ";" + customer.getName() + ";"
-					+ customer.getAddress() + ";" + customer.getPhoneNumber()
-					+ "\n");
+					+ customer.getAddress() + ";" + customer.getPhoneNumber());
+			out.newLine();
 		}
-
+		out.close();
 	}
 
 	// method for saving suppliers at the end of the session
@@ -250,8 +251,10 @@ public class DataBase {
 		BufferedWriter out = new BufferedWriter(writer);
 		for (Supplier supplier : suppliers) {
 			out.write(supplier.getSupplierID() + ";" + supplier.getName() + ";"
-					+ supplier.getPhoneNumber() + "\n");
+					+ supplier.getPhoneNumber());
+			out.newLine();
 		}
+		out.close();
 
 	}
 
@@ -262,8 +265,10 @@ public class DataBase {
 		for (Product product : products) {
 			out.write(product.getProductID() + ";" + product.getName() + ";"
 					+ product.getCost() + ";" + product.getMarkup() + ";"
-					+ product.getSupplier().getSupplierID() + "\n");
+					+ product.getSupplier().getSupplierID());
+			out.newLine();
 		}
+		out.close();
 
 	}*/
 	
@@ -276,8 +281,10 @@ public class DataBase {
 					+ order.getProduct().getProductID() + ";" 
 					+ order.getSupplier().getSupplierID() + ";"
 					+ order.getQuantity() + ";" + order.getExpectedDeliveryDate() + ";"
-					+ order.getDateReceived()  + ";" + order.getReceived() + "\n");
+					+ order.getDateReceived()  + ";" + order.getReceived());
+			out.newLine();
 		}
+		out.close();
 
 	}*/
 	

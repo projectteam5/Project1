@@ -11,25 +11,22 @@ public class EditOrderGUI extends JFrame implements ActionListener {
 
 	public EditOrderGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(1000, 800);
+		setSize(800, 600);
 		setTitle(this.getClass().toString());
+		setLayout(new FlowLayout());
+		setLocationRelativeTo(null);	//null sets the frame to centre
 		
 		panel = new JPanel();
 		container = getContentPane();
 		container.add(panel);
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setLayout(new GridLayout(25,25));
-		
+		panel.setLayout(new GridLayout(10,25));
+
 		setVisible(true);
-	}
-	
-	public void actionEvent(ActionEvent event) {
-		Object target = new Object();
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void actionPerformed(ActionEvent event) {
+		Object target = event.getSource();
 	}
 }

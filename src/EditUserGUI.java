@@ -23,30 +23,28 @@ public class EditUserGUI extends JFrame {
 	
 	public EditUserGUI(String userInput) {
 
-		userID = userInput;
 		//initialize the user variable to display the current values of the user
-		for(User userRS : RetailSystem.getInstance().getUsers()){
-			if(userRS.getUserID().equals(userID)){
-				user = userRS;
-				break;
-			}
-		}
-		
+		userID = userInput;
+		user = retrieveUser(userID);
+
+		// declaration and initialization of panel, container and layout setting
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setSize(1000, 800);
 		JPanel panel = new JPanel();
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panel.setLayout(new GridLayout(0, 1));
 
+		// declaration of the labels and initialization of labels and text field
 		NameField = new JTextField(user.getName());
-		JLabel label1 = new JLabel("Name");
 		PasswordField = new JTextField(user.getPassword());
+		JLabel label1 = new JLabel("Name");
 		JLabel label2 = new JLabel("Password");
 		JLabel label3 = new JLabel("Type");
 		typeDropDown = new JComboBox(RetailSystem.getInstance().getUserTypeList());
 		typeDropDown.setSelectedItem(user.getType());
 		JButton doneButton = new JButton("Commit");
 
+		// adding all the components
 		panel.add(label1);
 		panel.add(NameField);
 		panel.add(label2);
@@ -57,30 +55,52 @@ public class EditUserGUI extends JFrame {
 		Container container = getContentPane();
 		container.add(panel);
 
-		// Define the panel for the Customer managment
-
 		doneButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String name = NameField.getText();
-				String password = PasswordField.getText();
-				String type = typeDropDown.getSelectedItem().toString();
-				if (!name.isEmpty() && !password.isEmpty() && !type.isEmpty()) {
-					for (User userRS : RetailSystem.getInstance().getUsers()) {
-						if (userRS.getUserID().equals(userID)) {
-							userRS.setName(name);
-							userRS.setPassword(password);
-							userRS.setType(type);
-							JOptionPane.showMessageDialog(null,
-									"User correctly updated", "Update",
-									JOptionPane.PLAIN_MESSAGE);
-						}
-					}
+				int returnValue = editUser();
+				if(returnValue == 0){
+					JOptionPane.showMessageDialog(null,
+							"User correctly updated", "Update",
+							JOptionPane.PLAIN_MESSAGE);
+				}
+				else{
+					JOptionPane.showMessageDialog(null,
+							"All fields must be filled!", "Warning",
+							JOptionPane.WARNING_MESSAGE);
 				}
 
 			}
 		});
 
 		this.setVisible(true);
-
+	}
+	
+	public User retrieveUser(String id){
+		User user = null;
+		for(User userRS : RetailSystem.getInstance().getUsers()){
+			if(userRS.getUserID().equals(userID)){
+				user = userRS;
+			}
+		}
+		return user;
+	}
+	
+	public int editUser(){
+		int returnValue = 1;
+		String name = NameField.getText();
+		String password = PasswordField.getText();
+		String type = typeDropDown.getSelectedItem().toString();
+		if (!name.isEmpty() && !password.isEmpty() && !type.isEmpty()) {
+			for (User userRS : RetailSystem.getInstance().getUsers()) {
+				if (userRS.getUserID().equals(userID)) {
+					userRS.setName(name);
+					userRS.setPassword(password);
+					userRS.setType(type);
+					returnValue = 0;
+					this.setVisible(false);
+				}
+			}
+		}
+		return returnValue;
 	}
 }

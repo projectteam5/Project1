@@ -64,6 +64,8 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800, 600);
 		setTitle(this.getClass().toString());
+		setLayout(new FlowLayout());
+		setLocationRelativeTo(null);	//null sets the frame to centre
 		
 		panel = new JPanel();
 		container = getContentPane();
@@ -93,7 +95,7 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 		panel.add(label7);
 		
 		//add the components to the panel, setting the id as hidden is an option going forward...
-		idTextField = new JTextField();
+		idTextField = new JTextField(5);
 		panel.add(idTextField);
 		idTextField.setEditable(true);
 		idTextField.addActionListener(this);
@@ -125,7 +127,7 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 		}
 		comboBoxList.setToolTipText("choose product");
 		
-		quantityTextField = new JTextField();
+		quantityTextField = new JTextField(5);
 		panel.add(quantityTextField);
 		quantityTextField.setEditable(true);
 		quantityTextField.addActionListener(this);
@@ -172,9 +174,29 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 		newExpectedDeliveryDate = new Date();
 		newReceivedDate = new Date();
 		newReceived = false;
-		
-		//pack();
+
 		setVisible(true);
+	}
+	
+	//terminates the running JVM
+	//i.e. stops everything
+	void shutdownGUI() {
+		System.exit(0);
+	}
+	
+	//
+	void clearAll() {
+		if(!label1.getText().isEmpty() || !label2.getText().isEmpty() || !label3.getText().isEmpty() 
+				|| !label4.getText().isEmpty() || !label5.getText().isEmpty() 
+				|| !label6.getText().isEmpty() || !label7.getText().isEmpty() ) {
+			label1.setText("");
+			label2.setText("");
+			label3.setText("");
+			label4.setText("");
+			label5.setText("");
+			label6.setText("");
+			label7.setText("");
+		}
 	}
 	
 	public void actionPerformed(ActionEvent event) {
@@ -265,39 +287,60 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 		
 		if(target == save) {
 			try {
-				orders = new ArrayList<Order>();
+				//a bit verbose here...
+				if(label1.getText().isEmpty() || label2.getText().isEmpty() || label3.getText().isEmpty() 
+						|| label4.getText().isEmpty() || label5.getText().isEmpty() 
+						|| label6.getText().isEmpty() || label7.getText().isEmpty() ) {
+					JOptionPane.showMessageDialog(this, "fields may not be blank");
+					System.out.println("cannot write to database, "
+							+ " fields cannot be empty");
+				} else {
+					orders = new ArrayList<Order>();
 				newOrder = new Order(newOrderId, newOrderDate, newProduct, newQuantity, 
 						newExpectedDeliveryDate, newReceivedDate, newReceived);
 				orders.add(newOrder);
 				RetailSystem.getInstance().getOrders().add(newOrder);
+				JOptionPane.showMessageDialog(this, "order saved");
+				
+				//just to show what's happening...
 				System.out.println(RetailSystem.getInstance().getOrders().size());
 				System.out.println(RetailSystem.getInstance().getOrders());
+				}
 			} catch(Exception e) {
-				;
+				System.err.println(e);
+				System.err.println(e.getMessage());
 			}
 		}
 		
 		if(target == clear) {
 			try {
-				
+				clearAll();
 			} catch(Exception e) {
-				
+				System.err.println(e);
+				System.err.println(e.getMessage());
+				JOptionPane.showMessageDialog(null, "unable to clear label contents");
 			}
 		}
 		
 		if(target == menu) {
 			try {
-				
+				MenuGUI menu = new MenuGUI();
+				this.setVisible(false);
+				this.dispose();
 			} catch(Exception e) {
-				
+				System.err.println(e);
+				System.err.println(e.getMessage());
+				JOptionPane.showMessageDialog(null, "cannot reach MenuGUI");
 			}
 		}
 		
 		if(target == exit) {
 			try {
-				
+				shutdownGUI();
 			} catch(Exception e) {
-				
+				System.err.println(e);
+				System.err.println(e.getMessage());
+				JOptionPane.showMessageDialog(null, "unable to close the program");
 			}
 		}
 	}

@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
@@ -16,7 +17,7 @@ public class LoginGUI {
 	private JFrame frame;
 	private JPanel panel;
 	private JTextField textFieldUser;
-	private JTextField textFieldPassword;
+	private JPasswordField textFieldPassword;
 
 	public LoginGUI() {
 		// declaration and initialization of panel, container and layout setting
@@ -33,7 +34,7 @@ public class LoginGUI {
 		JLabel label_1 = new JLabel("Please insert your identification number");
 		textFieldUser = new JTextField();
 		JLabel label_2 = new JLabel("Please insert your password");
-		textFieldPassword = new JTextField();
+		textFieldPassword = new JPasswordField();
 
 		// declaration and initialization of button login
 		JButton login = new JButton("Login");
@@ -67,7 +68,7 @@ public class LoginGUI {
 	// acquisition of the data, validation and opening of the menu gui
 	public int readingDataAndValidation() {
 		String id = textFieldUser.getText();
-		String password = textFieldPassword.getText();
+		String password = new String(textFieldPassword.getPassword());
 		int returnValue = loginValidation(id, password);
 		if (!RetailSystem.getInstance().getCurrentUserType().isEmpty()
 				&& returnValue == 0) {
