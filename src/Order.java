@@ -5,11 +5,9 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import javax.swing.text.DateFormatter;
-
 public class Order {
 	private Locale localDate;
-	private SimpleDateFormat df;
+	private DateFormat df;
 	
 	private String orderID;
 	private Date orderDate;
@@ -18,7 +16,7 @@ public class Order {
 	private Date expectedDeliveryDate;
 	private Date dateReceived;
 	private boolean received;
-	
+	/*
 	public Order() {
 
 		this.orderID = null;
@@ -29,7 +27,7 @@ public class Order {
 		this.dateReceived = null;
 		this.received = false;
 	}
-	
+		*/
 	public Order(String orderID, Date orderDate, 
 			Product product, int quantity, 
 			Date expectedDeliveryDate, Date dateReceived, boolean received) throws ParseException  {
@@ -37,13 +35,7 @@ public class Order {
 		df = new SimpleDateFormat("dd/MM/yyyy", localDate);
 		
 		this.orderID = orderID;
-		String od = df.format(orderDate = new Date());
-		try {
-			this.orderDate = df.parse(od);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		this.orderDate = orderDate;
 		this.product = product;
 		this.quantity = quantity;
 		this.expectedDeliveryDate = expectedDeliveryDate;
