@@ -5,10 +5,8 @@ import java.util.ArrayList;
 public class RetailSystem {
 
 	// attribute for the RetailSystem class
-	private static RetailSystem instance; // we want only one instance of this
-											// class
-	private ArrayList<User> users;// array list of users that can access the
-									// system
+	private static RetailSystem instance; // we want only one instance of this class
+	private ArrayList<User> users;// array list of users that can access the system
 	private ArrayList<Customer> customers;// array list of customers
 	private ArrayList<Order> orders;// array list of orders
 	private ArrayList<Supplier> suppliers;// array list of suppliers
@@ -17,6 +15,7 @@ public class RetailSystem {
 
 	private String currentUserType = "";// it store which type of user logged on
 	private String[] userTypeList = {"Manager", "Attendant"};//Array with the possible users types
+	private static LoginGUI login;
 
 	public RetailSystem() {
 	}
@@ -89,9 +88,8 @@ public class RetailSystem {
 		}
 
 		// login gui for authentication
-		//LoginGUI login = new LoginGUI();
-		// MenuGUI menu = new MenuGUI();
-		new OrderGUI();
+		login = new LoginGUI();
+		//Please note that the Order GUI has to be inserted in the menu GUI
 
 	}
 
@@ -160,6 +158,11 @@ public class RetailSystem {
 	public void setUserTypeList(String[] userTypeList) {
 		this.userTypeList = userTypeList;
 	}
+
+	public LoginGUI getLogin() {
+		return login;
+	}
+
 	
 
 }

@@ -31,7 +31,8 @@ public class DataBaseTest {
 		RetailSystem.getInstance().setProducts(products);
 	}
 
-	// Test for Users
+	//TEST FOR USERS
+	//Loads user correctly
 	@Test
 	public void testLoadUsersOK2Users() throws IOException {
 		Reader reader = new StringReader("1111;Scott Scott;passw1;Manager\n"
@@ -40,6 +41,7 @@ public class DataBaseTest {
 		assertEquals(2, list.size());
 	}
 
+	//Loads file empty
 	@Test
 	public void testLoadUsersEmpty() throws IOException {
 		Reader reader = new StringReader("");
@@ -47,6 +49,7 @@ public class DataBaseTest {
 		assertEquals(0, list.size());
 	}
 
+	//Skips lines with corrupted data
 	@Test
 	public void testLoadUsersCorrupted() throws IOException {
 		Reader reader = new StringReader("1111;Scott Scott;pa");
@@ -54,7 +57,8 @@ public class DataBaseTest {
 		assertEquals(0, list.size());
 	}
 	
-	// Test for Customer
+	//TEST FOR CUSTOMERS
+	//Loads customer correctly
 	@Test
 	public void testLoadCustomersOK2Customers() throws IOException {
 		Reader reader = new StringReader("customer1;Scott Scott;address 1 Dublin;089665544\n"
@@ -63,6 +67,7 @@ public class DataBaseTest {
 		assertEquals(2, list.size());
 	}
 
+	//Loads file empty
 	@Test
 	public void testLoadCustomersEmpty() throws IOException {
 		Reader reader = new StringReader("");
@@ -70,6 +75,7 @@ public class DataBaseTest {
 		assertEquals(0, list.size());
 	}
 
+	//Skips lines with corrupted data
 	@Test
 	public void testLoadCustomersCorrupted() throws IOException {
 		Reader reader = new StringReader("customer1;Scott Scott;address");
@@ -77,7 +83,8 @@ public class DataBaseTest {
 		assertEquals(0, list.size());
 	}
 
-	// Test for Suppliers
+	//TEST FOR SUPPLIERS
+	//Loads suppliers correctly
 	@Test
 	public void testLoadSuppliersOK2Suppliers() throws IOException {
 		Reader reader = new StringReader("supplier1;Supplier1 Name;083776655\n"
@@ -86,6 +93,7 @@ public class DataBaseTest {
 		assertEquals(2, list.size());
 	}
 
+	//Loads file empty
 	@Test
 	public void testLoadSupplierEmpty() throws IOException {
 		Reader reader = new StringReader("");
@@ -93,6 +101,7 @@ public class DataBaseTest {
 		assertEquals(0, list.size());
 	}
 
+	//Skips lines with corrupted data
 	@Test
 	public void testLoadSupplierCorrupted() throws IOException {
 		Reader reader = new StringReader("supplier1;Supplier1 Nam");
@@ -100,7 +109,8 @@ public class DataBaseTest {
 		assertEquals(0, list.size());
 	}
 
-	// Test for Products
+	//TEST FOR PRODUCTS
+	//Loads products correctly
 	@Test
 	public void testLoadProductsOK3Products() throws IOException {
 		Reader reader = new StringReader(
@@ -111,6 +121,7 @@ public class DataBaseTest {
 		assertEquals(3, list.size());
 	}
 
+	//Loads file empty
 	@Test
 	public void testLoadProductEmpty() throws IOException {
 		Reader reader = new StringReader("");
@@ -118,6 +129,7 @@ public class DataBaseTest {
 		assertEquals(0, list.size());
 	}
 
+	//Skips lines with corrupted data
 	@Test
 	public void testLoadProductCorrupted() throws IOException {
 		Reader reader = new StringReader("product1;ProductPC1;1000;2");
@@ -125,7 +137,8 @@ public class DataBaseTest {
 		assertEquals(0, list.size());
 	}
 
-	// Test for Orders
+	//TEST FOR ORDERS
+	//Loads orders correctly
 	@Test
 	public void testLoadOrderOK2Orders() throws IOException, ParseException {
 		Reader reader = new StringReader(
@@ -135,12 +148,49 @@ public class DataBaseTest {
 		assertEquals(2, list.size());
 	}
 	
-	// Test for Stocks
+	//Loads file empty
+	@Test
+	public void testLoadOrderEmpty() throws IOException, ParseException {
+		Reader reader = new StringReader("");
+		ArrayList<Order> list = DataBase.loadOrders(reader);
+		assertEquals(0, list.size());
+	}
+	
+	//Skips lines with corrupted data
+	@Test
+	public void testLoadOrderCorrupted() throws IOException, ParseException {
+		Reader reader = new StringReader(
+				"order1;10/08/2014;product1;10;20/08/2014;;false\n"
+				+ "order1;01/08/2014;product2\n");
+		ArrayList<Order> list = DataBase.loadOrders(reader);
+		assertEquals(1, list.size());
+	}
+	
+	//TEST FOR STOCKS
+	//Loads stocks correctly 
 	@Test
 	public void testLoadStocksOK2Stocks() throws IOException, ParseException {
 		Reader reader = new StringReader(
 				"product1;20\n"
 				+ "product2;15\n");
+		ArrayList<Stock> list = DataBase.loadStocks(reader);
+		assertEquals(2, list.size());
+	}
+	//Loads file empty
+	@Test
+	public void testLoadStocksEmpty() throws IOException, ParseException {
+		Reader reader = new StringReader("");
+		ArrayList<Stock> list = DataBase.loadStocks(reader);
+		assertEquals(0, list.size());
+	}
+	
+	//Skips lines with corrupted data
+	@Test
+	public void testLoadStocksCorrupteds() throws IOException, ParseException {
+		Reader reader = new StringReader(
+				"product1;20\n"
+				+ "product2\n"
+				+ "product3;9\n");
 		ArrayList<Stock> list = DataBase.loadStocks(reader);
 		assertEquals(2, list.size());
 	}
