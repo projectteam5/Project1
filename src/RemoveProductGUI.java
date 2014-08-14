@@ -44,8 +44,7 @@ public class RemoveProductGUI extends JFrame{
 	
 	public void compileProductNames(){
 		for(Product product: RetailSystem.getInstance().getProducts()){
-			productDropDown.addItem(product.getName()
-			+ " | " + product.getProductID());
+			productDropDown.addItem(product.getName());
 		}
 	}
 	
