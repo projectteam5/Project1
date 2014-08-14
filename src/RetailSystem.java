@@ -89,8 +89,9 @@ public class RetailSystem {
 		}
 
 		// login gui for authentication
-		LoginGUI login = new LoginGUI();
+		//LoginGUI login = new LoginGUI();
 		// MenuGUI menu = new MenuGUI();
+		new OrderGUI();
 
 	}
 
