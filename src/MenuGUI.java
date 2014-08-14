@@ -2,13 +2,12 @@ import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 public class MenuGUI extends JFrame {
@@ -19,6 +18,7 @@ public class MenuGUI extends JFrame {
 	private JButton buttonOrder;
 	private JButton buttonAvailability;
 	private JButton buttonViewOrder;
+	private JButton buttonSave;
 
 	public MenuGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -35,6 +35,7 @@ public class MenuGUI extends JFrame {
 		buttonOrder = new JButton("Manage Orders");
 		buttonAvailability = new JButton("View Stock");
 		buttonViewOrder = new JButton("View Order");
+		buttonSave = new JButton("Save");
 		// if it is a manager i can see Manage Customer, Manage Product
 		// Manage Supplier, Manage Order
 		if (RetailSystem.getInstance().getCurrentUserType()
@@ -46,6 +47,7 @@ public class MenuGUI extends JFrame {
 			panel.add(buttonAvailability);
 			panel.add(buttonViewOrder);
 			panel.add(buttonUser);
+			panel.add(buttonSave);
 
 		} else {
 			panel.add(buttonCustomer);
@@ -88,6 +90,22 @@ public class MenuGUI extends JFrame {
 		buttonOrder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				OrderGUI orderGUI = new OrderGUI();
+
+			}
+		});
+		
+		buttonSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					FileWriter userFile;
+					userFile = new FileWriter("users.txt");
+					DataBase.writeUsers(RetailSystem.getInstance().getUsers(),userFile);
+					userFile.close();// close the user file
+					JOptionPane.showMessageDialog(null, "Data have been saved!", "Notification", JOptionPane.INFORMATION_MESSAGE );
+					
+				} catch (Exception exception) {
+					exception.printStackTrace();
+				}
 
 			}
 		});
