@@ -69,7 +69,7 @@ public class AddProductGUI extends JFrame{
 		submitButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent argo0){
 				
-			boolean newProduct = false;
+			boolean newProduct = true;
 			String productID = textFieldProductID.getText();
 			String name = textFieldName.getText();
 			double cost = Double.parseDouble(textFieldCost.getText());
@@ -85,8 +85,8 @@ public class AddProductGUI extends JFrame{
 			
 			//check to see if product ID is already in system
 			for(Product product: RetailSystem.getInstance().getProducts()){
-				if(product.getProductID()!=productID){
-					newProduct = true;
+				if(product.getProductID().equalsIgnoreCase(productID)){
+					newProduct = false;
 				}
 			}
 			
@@ -111,8 +111,7 @@ public class AddProductGUI extends JFrame{
 	
 	public void compileSupplierNames(){
 		for(Supplier supplier: RetailSystem.getInstance().getSuppliers()){
-			supplierDropDown.addItem(supplier.getName()
-			+ " | " + supplier.getSupplierID());
+			supplierDropDown.addItem(supplier.getName());
 		}
 	}
 	
