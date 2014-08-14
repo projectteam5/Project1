@@ -1,5 +1,5 @@
 //GUI done 
-//Think methods are working properly
+//Add product is adding two of every product
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
