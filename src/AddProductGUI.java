@@ -24,6 +24,7 @@ public class AddProductGUI extends JFrame{
 	private JComboBox<String> supplierDropDown = new JComboBox<String>();
 	private double cost;
 	private double markup;
+	private Supplier supplierPicked;
 	
 
 	public AddProductGUI() {
@@ -71,7 +72,7 @@ public class AddProductGUI extends JFrame{
 		submitButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent argo0){
 				
-			boolean newProduct = true;
+			boolean duplicateProductID = false;
 			boolean correctInfo = true;
 			String productID = textFieldProductID.getText();
 			String name = textFieldName.getText();
@@ -82,7 +83,7 @@ public class AddProductGUI extends JFrame{
 				JOptionPane.showMessageDialog(null, "Please enter in correct format");
 				correctInfo = false;
 			}
-			Supplier supplierPicked;
+			
 			
 			//Changes supplier choice to supplier object
 			String supplierChoice = supplierDropDown.getSelectedItem().toString();
@@ -90,34 +91,38 @@ public class AddProductGUI extends JFrame{
 				if(supplierChoice.contains(supplier.getName())){
 					supplierPicked = supplier;
 				}
+			}
 			
 			//check to see if product ID is already in system
 			for(Product product: RetailSystem.getInstance().getProducts()){
 				if(product.getProductID().equalsIgnoreCase(productID)){
-					newProduct = false;
-					JOptionPane.showMessageDialog(null, "Product in system with same ID");
-
-					
+					duplicateProductID = true;
+				
 				}
 			}
+			if(duplicateProductID == true){
+				JOptionPane.showMessageDialog(null, "Product in system with same ID");
+
+			}
+			
 			
 			//If product is not already in system, add to system
-			if ((newProduct) && (correctInfo==true)){
+			if ((!duplicateProductID) && (correctInfo==true)){
 				try{
 					JOptionPane.showMessageDialog(null, "Adding product");
-					Product product = new Product(productID, name, cost, markup, supplier);
+					Product product = new Product(productID, name, cost, markup, supplierPicked);
 					RetailSystem.getInstance().getProducts().add(product);
 				}catch(NumberFormatException e){
 					JOptionPane.showMessageDialog(null, "Error processing request");
 				}
-			}
+			
 		}
 			
 		}
 	});
-		
-		
 	}
+		
+	
 	
 	
 	public void compileSupplierNames(){
