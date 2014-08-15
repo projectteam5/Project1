@@ -21,23 +21,24 @@ public class UserGUI extends JFrame {
 		container.add(panel);
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panel.setLayout(new GridLayout(0, 1));
-		JButton AddUser = new JButton("Add User");
-		JButton EditUser = new JButton("Edit User");
-		JButton DeleteUser = new JButton("Delete User");
-		JButton ShowUser = new JButton("Show User");
+		JButton addUser = new JButton("Add User");
+		
+		JButton editUser = new JButton("Edit User");
+		JButton deleteUser = new JButton("Delete User");
+		JButton showUser = new JButton("Show User");
 
 		// adding all the components
-		panel.add(AddUser);
-		panel.add(EditUser);
-		panel.add(ShowUser);
-		panel.add(DeleteUser);
+		panel.add(addUser);
+		panel.add(editUser);
+		panel.add(showUser);
+		panel.add(deleteUser);
 
 		/*
 		 * Add button: it opens a new window where it's possible to insert user
 		 * data and if the validation is correct the new user is created and
 		 * inserted in the ArrayList
 		 */
-		AddUser.addActionListener(new ActionListener() {
+		addUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				addUserButton();
 			}
@@ -49,7 +50,7 @@ public class UserGUI extends JFrame {
 		 * displaying the existing data for that user. If the validation is not satisfied, 
 		 * an error message is shown
 		 */
-		EditUser.addActionListener(new ActionListener() {
+		editUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int returnValue = editUserButton();
 				if (returnValue == 1) {
@@ -65,7 +66,7 @@ public class UserGUI extends JFrame {
 		 * it is not possible to delete the current userID.
 		 * If the validation is not satisfied, an error message is shown
 		 */
-		ShowUser.addActionListener(new ActionListener() {
+		showUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				showUserButton();
 			}
@@ -77,7 +78,7 @@ public class UserGUI extends JFrame {
 		 * it is not possible to delete the current userID.
 		 * If the validation is not satisfied, an error message is shown
 		 */
-		DeleteUser.addActionListener(new ActionListener() {
+		deleteUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int returnValue = deleteUserButton();
 				if (returnValue == 1) {
