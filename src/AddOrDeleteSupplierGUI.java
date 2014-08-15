@@ -19,6 +19,7 @@ public class AddOrDeleteSupplierGUI extends JFrame{
 	// And variable used to hold position in list of requested removal
 	private Supplier removeSupplier = new Supplier("","","");
 	private int k;
+	private int l;
 
 	public AddOrDeleteSupplierGUI() {
 		setTitle("MODIFY SUPPLIER LIST GUI");
