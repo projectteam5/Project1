@@ -15,6 +15,8 @@ public class AddOrDeleteSupplierGUI extends JFrame{
 	private JTextField textField1;
 	private JTextField textField2;
 	private JTextField textField3;
+	// Instance of supplier in aid of accessing removal method
+	private Supplier removeSupplier = new Supplier("","","");
 
 	public AddOrDeleteSupplierGUI() {
 		setTitle("MODIFY SUPPLIER LIST GUI");
@@ -38,13 +40,11 @@ public class AddOrDeleteSupplierGUI extends JFrame{
 				String name = textField2.getText() ;
 				String phoneNumber = textField3.getText();
 				if(deleteSupplierValidation(supplierID,name,phoneNumber)){
-					Supplier supplier = new Supplier(supplierID,name,phoneNumber);
-					supplier.removeSupplierFromList(supplier);
-					JOptionPane.showMessageDialog(null, "Supplier deleted and removed from the list", "Success", JOptionPane.PLAIN_MESSAGE);
+					// Left empty, work is done in the method, 
 				}
-				// Message to inform user that the supplierID does not exist hence cannot remove
 				else{
-					JOptionPane.showMessageDialog(null, "Please make sure Supplier ID already exists on list and all fields are filled!", "Warning", JOptionPane.INFORMATION_MESSAGE);	
+					// Only one possibility is left
+					JOptionPane.showMessageDialog(null, "Please make sure Supplier ID is correct", "Warning", JOptionPane.INFORMATION_MESSAGE);	
 				}
 			}
 		});
@@ -99,17 +99,24 @@ public class AddOrDeleteSupplierGUI extends JFrame{
 	// Method used to test that entry is valid and the supplier DOES exist
 	public boolean deleteSupplierValidation(String supplierID, String name, String phoneNumber){
 		boolean correct = false;
+		// Used only for an arbitrary condition for else if
+		int i=0; 
+		
 		if (supplierID.isEmpty() || name.isEmpty() ||  phoneNumber.isEmpty()){
-			correct=false;
+			correct=true;
+			i=1;
 			JOptionPane.showMessageDialog(null, "All fields must be filled out!", "Warning", JOptionPane.WARNING_MESSAGE);
 		}
-		else {
+		else if(i==0){
 			for(Supplier supplier :RetailSystem.getInstance().getSuppliers()){
 				if (supplier.getSupplierID().equals(supplierID)){
-					correct = true;
+					removeSupplier.removeSupplierFromList(supplier);
 					JOptionPane.showMessageDialog(null, "Supplier ID exists, processing removal!", "Warning", JOptionPane.INFORMATION_MESSAGE);	
+					correct = true;
 				}
 			}
+		}else{
+			correct = false;
 		}
 		return correct;
 	}
