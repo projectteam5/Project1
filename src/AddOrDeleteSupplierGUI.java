@@ -16,7 +16,9 @@ public class AddOrDeleteSupplierGUI extends JFrame{
 	private JTextField textField2;
 	private JTextField textField3;
 	// Instance of supplier in aid of accessing removal method
+	// And variable used to hold position in list of requested removal
 	private Supplier removeSupplier = new Supplier("","","");
+	private int k;
 
 	public AddOrDeleteSupplierGUI() {
 		setTitle("MODIFY SUPPLIER LIST GUI");
@@ -40,11 +42,10 @@ public class AddOrDeleteSupplierGUI extends JFrame{
 				String name = textField2.getText() ;
 				String phoneNumber = textField3.getText();
 				if(deleteSupplierValidation(supplierID,name,phoneNumber)){
-					// Left empty, work is done in the method, 
+					removeSupplier.removeSupplierFromList(RetailSystem.getInstance().getSuppliers().get(k));
 				}
 				else{
-					// Only one possibility is left
-					JOptionPane.showMessageDialog(null, "Please make sure Supplier ID is correct", "Warning", JOptionPane.INFORMATION_MESSAGE);	
+					JOptionPane.showMessageDialog(null, "Please make sure Supplier ID is correct and all fields are filled in", "Warning", JOptionPane.INFORMATION_MESSAGE);	
 				}
 			}
 		});
@@ -103,20 +104,19 @@ public class AddOrDeleteSupplierGUI extends JFrame{
 		int i=0; 
 		
 		if (supplierID.isEmpty() || name.isEmpty() ||  phoneNumber.isEmpty()){
-			correct=true;
 			i=1;
 			JOptionPane.showMessageDialog(null, "All fields must be filled out!", "Warning", JOptionPane.WARNING_MESSAGE);
 		}
 		else if(i==0){
 			for(Supplier supplier :RetailSystem.getInstance().getSuppliers()){
-				if (supplier.getSupplierID().equals(supplierID)){
-					removeSupplier.removeSupplierFromList(supplier);
+				if (supplier.getSupplierID().equals(supplierID)){			
 					JOptionPane.showMessageDialog(null, "Supplier ID exists, processing removal!", "Warning", JOptionPane.INFORMATION_MESSAGE);	
 					correct = true;
+					k=RetailSystem.getInstance().getSuppliers().indexOf(supplier);
 				}
 			}
 		}else{
-			correct = false;
+			JOptionPane.showMessageDialog(null, "Supplier ID is not valid!", "Warning", JOptionPane.WARNING_MESSAGE);
 		}
 		return correct;
 	}
