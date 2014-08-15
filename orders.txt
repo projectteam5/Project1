@@ -1,2 +1,1 @@
 order10;14-Aug-2014;product1;10;14-Aug-2014;14-Aug-2014;false
-;14-Aug-2014;null;0;14-Aug-2014;14-Aug-2014;false
