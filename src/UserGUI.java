@@ -44,70 +44,65 @@ public class UserGUI extends JFrame {
 		 */
 		addUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				addUserButton();
+				AddUserGUI addUserGui = new AddUserGUI();
 			}
 		});
 
 		/*
-		 * Edit button: it asks to insert the userID of the user that has to be
-		 * modified and if the validation of the userID is correct, another
-		 * window is opened displaying the existing data for that user. If the
-		 * validation is not satisfied, an error message is shown
+		 * Edit button: it opens a new window where it's possible to select the user
+		 * from a dropdown list. After a user is selected it is possible to push
+		 * the button "Edit User" and automatically will be displayed fields with the user
+		 * data in it. It is possible to modify the data and save it with the 
+		 * "Commit" button.
 		 */
 		editUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				editUserButton();
+				EditUserGUI gui = new EditUserGUI();
 			}
 		});
 
 		/*
-		 * Delete button: it asks to insert the userID of the user that has to
-		 * be deleted. A validation on the existence of the inserted userID is
-		 * performed. In addition it is not possible to delete the current
-		 * userID. If the validation is not satisfied, an error message is shown
+		 * Show button: it opens a new window where it's possible to select the user
+		 * from a dropdown list. Pressing the "Show User" button the data related to that
+		 * user will be displayed in a read-only way
 		 */
 		showUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				showUserButton();
+				ShowUserGUI showUserGui = new ShowUserGUI();
 			}
 		});
 
 		/*
-		 * Delete button: it asks to insert the userID of the user that has to
-		 * be deleted. A validation on the existence of the inserted userID is
-		 * performed. In addition it is not possible to delete the current
-		 * userID. If the validation is not satisfied, an error message is shown
+		 * Delete button: it opens a new window where it's possible to select the user
+		 * from a dropdown list. After a user is selected it is possible to push
+		 * the button "Delete User" and automatically the user will be removed
 		 */
 		deleteUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int returnValue = deleteUserButton();
-				if (returnValue == 1) {
-					JOptionPane.showMessageDialog(null,
-							"You cannot delete this ID!", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				} else {
-					JOptionPane.showMessageDialog(null,
-							"User correctly removed", "Correctly Done",
-							JOptionPane.INFORMATION_MESSAGE);
-				}
+				DeleteUserGUI deleteUserGui = new DeleteUserGUI();
 			}
 		});
 		
+		/*
+		 * Save button: it saves all the changes regarding the users in a users.txt file
+		 */
 		saveUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				SaveUserButton();
 			}
 		});
 		
+		/*
+		 * Menu button: it closes the User menu and open a General Menu
+		 */
 		menuUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				SaveUserButton();
+				MenuGUI menuGui = new MenuGUI();
+				closeUserGUI();
 			}
 		});
-		
 
 		this.setVisible(true);
-
 	}
 
 	public static boolean existingID(String id) {
@@ -126,37 +121,6 @@ public class UserGUI extends JFrame {
 		return true;
 	}
 
-	public void addUserButton() {
-		AddUserGUI addUserGui = new AddUserGUI();
-	}
-
-	public void editUserButton() {
-			EditUserGUI gui = new EditUserGUI();
-			this.setVisible(false);
-	}
-
-	public void showUserButton() {
-		ShowUserGUI showUserGui = new ShowUserGUI();
-	}
-
-	public int deleteUserButton() {
-		String inputValue = JOptionPane
-				.showInputDialog("Please insert a UserID");
-		if (existingID(inputValue) && notLoginID(inputValue)) {
-			User userRemove = null;
-			for (User user : RetailSystem.getInstance().getUsers()) {
-				if (user.getUserID().equals(inputValue)) {
-					userRemove = user;
-				}
-			}
-			RetailSystem.getInstance().getUsers().remove(userRemove);
-			return 0;
-		} else {
-			return 1;
-		}
-
-	}
-
 	public void SaveUserButton() {
 		try {
 			FileWriter userFile;
@@ -169,9 +133,9 @@ public class UserGUI extends JFrame {
 		}
 
 	}
-	
-	public void MenuUserButton() {
-		MenuGUI menuGui = new MenuGUI();
+	public void closeUserGUI(){
 		this.setVisible(false);
 	}
+	
+
 }
