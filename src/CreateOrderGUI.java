@@ -1,7 +1,10 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -105,7 +108,8 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 		panel.add(orderDateTextField);
 		orderDateTextField.setEditable(true);
 		orderDateTextField.addActionListener(this);
-		orderDateTextField.setText(new Date().toGMTString());
+		//orderDateTextField.setText(new Date().toGMTString());
+		orderDateTextField.setText(DateFormat.getDateInstance().format(new Date()));
 		
 		/*
 		 * here is where i hope to fill up the comboBox list with product objects to choose from
@@ -121,9 +125,7 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 		comboBoxList.addItem("");	//the add here is just cosmetic...to hide the first list item at load
 		//"looping through an ArrayList called products which hold Product objects, using 'p' as the placeholder"
 		for(Product p : products) {
-			comboBoxList.addItem(p.getProductID() 
-					+ " | " + p.getName()
-					+ " | " + p.getCost());
+			comboBoxList.addItem(p.getProductID());
 		}
 		comboBoxList.setToolTipText("choose product");
 		
@@ -137,13 +139,15 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 		panel.add(expectedDeliveryDateTextField);
 		expectedDeliveryDateTextField.setEditable(true);
 		expectedDeliveryDateTextField.addActionListener(this);
-		expectedDeliveryDateTextField.setText(new Date().toGMTString());
+		//expectedDeliveryDateTextField.setText(new Date().toGMTString());
+		expectedDeliveryDateTextField.setText(DateFormat.getDateInstance().format(new Date()));
 		
 		dateReceivedTextField = new JTextField();
 		panel.add(dateReceivedTextField);
 		dateReceivedTextField.setEditable(true);
 		dateReceivedTextField.addActionListener(this);
-		dateReceivedTextField.setText(new Date().toGMTString());
+		//dateReceivedTextField.setText(new Date().toGMTString());
+		dateReceivedTextField.setText(DateFormat.getDateInstance().format(new Date()));
 		
 		receivedTextField = new JCheckBox();
 		panel.add(receivedTextField);
@@ -492,7 +496,7 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 			try {
 				text = quantityTextField.getText();
 				label4.setText(text);
-				quantity = Integer.parseInt(text);	//getting the String back as an Integer
+				//quantity = Integer.parseInt(text);	//getting the String back as an Integer
 			} catch(Exception e) {
 				JOptionPane.showMessageDialog(null, "Integer only");
 				quantityTextField.setText("");
@@ -544,10 +548,27 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 					System.out.println("cannot write to database, "
 							+ " fields cannot be empty");
 				} else {
+					newOrderId = label1.getText();
+					
+					//Locale localDate = new Locale("en", "GB");
+					//DateFormat df = new SimpleDateFormat("dd/MM/yyyy", localDate);					
+					DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+					
+					//newOrderDate = df.parse(label2.getText());
+					newOrderDate = DateFormat.getDateInstance().parse(label2.getText());
+					newProduct = retrieveProduct(label3.getText());
+					newQuantity = Integer.parseInt(label4.getText());
+					newExpectedDeliveryDate = DateFormat.getDateInstance().parse(label5.getText());
+					newReceivedDate = DateFormat.getDateInstance().parse(label6.getText());
+					
+					boolean boo = Boolean.parseBoolean(label7.getText());
+					newReceived = boo;
+					
 					orders = new ArrayList<Order>();
 				newOrder = new Order(newOrderId, newOrderDate, newProduct, newQuantity, 
 						newExpectedDeliveryDate, newReceivedDate, newReceived);
 				orders.add(newOrder);
+				
 				RetailSystem.getInstance().getOrders().add(newOrder);
 				JOptionPane.showMessageDialog(this, "order saved");
 				
@@ -558,6 +579,7 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 			} catch(Exception e) {
 				System.err.println(e);
 				System.err.println(e.getMessage());
+				System.out.println("error is here");
 			}
 		}
 		
@@ -592,5 +614,15 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(null, "unable to close the program");
 			}
 		}
+	}
+	
+	public Product retrieveProduct(String productID){
+		Product productReturned = null;
+		for(Product product : RetailSystem.getInstance().getProducts()){
+			if(product.getProductID().equals(productID)){
+				productReturned = product;
+			}
+		}
+		return productReturned;
 	}
 }

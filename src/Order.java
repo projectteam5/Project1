@@ -33,7 +33,7 @@ public class Order {
 			Date expectedDeliveryDate, Date dateReceived, boolean received) throws ParseException  {
 		localDate = new Locale("en", "GB");
 		df = new SimpleDateFormat("dd/MM/yyyy", localDate);
-		
+
 		this.orderID = orderID;
 		this.orderDate = orderDate;
 		this.product = product;
