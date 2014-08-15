@@ -87,7 +87,7 @@ public class AddUserGUI extends JFrame {
 		}
 	}
 	
-	public boolean validateUser(String userID, String name, String password, String type){
+	public static boolean validateUser(String userID, String name, String password, String type){
 		boolean userOk = true;
 		for(User user : RetailSystem.getInstance().getUsers()){
 			if(user.getUserID().equals(userID)){

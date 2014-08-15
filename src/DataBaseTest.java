@@ -22,7 +22,12 @@ public class DataBaseTest {
 			.getSuppliers();
 	private ArrayList<Product> productStatus = RetailSystem.getInstance()
 			.getProducts();
+	private static ArrayList<User> usersTest;
+	private static ArrayList<Customer> customersTest;
+	private static ArrayList<Supplier> suppliersTest;
+	private static ArrayList<Product> productsTest;
 	private static ArrayList<Order> ordersTest;
+	private static ArrayList<Stock> stocksTest;
 	private static Date date = new Date();
 
 	/*
@@ -42,9 +47,25 @@ public class DataBaseTest {
 						+ "product3;ProductPC3;1500;300;supplier2\n");
 		ArrayList<Product> products = DataBase.loadProducts(reader1);
 		RetailSystem.getInstance().setProducts(products);
+		User user1 = new User("1111","Cris","passw10","Attendant");
+		usersTest = new ArrayList<User>();
+		usersTest.add(user1);
+		Customer customer1 = new Customer("customer1","Scott Scott","address 1 Dublin","089665544");
+		customersTest = new ArrayList<Customer>();
+		customersTest.add(customer1); 
+		Supplier supplier1 = new Supplier("supplier1","Supplier1 Name","083776655");
+		suppliersTest = new ArrayList<Supplier>();
+		suppliersTest.add(supplier1);//product1;ProductPC1;1000;200;supplier1
+		Product product1 = new Product("product1","ProductPC1",1000, 200, supplier1);
+		productsTest = new ArrayList<Product>();
+		productsTest.add(product1);
 		Order order1 = new Order("order10", date, RetailSystem.getInstance().getProducts().get(0),10,date,date,false );
 		ordersTest = new ArrayList<Order>();
 		ordersTest.add(order1);
+		Stock stock1 = new Stock(10, product1);
+		stocksTest = new ArrayList<Stock>();
+		stocksTest.add(stock1);
+		
 	}
 
 	/*
@@ -219,13 +240,51 @@ public class DataBaseTest {
 		assertEquals(2, list.size());
 	}
 	
-	// Skips lines with corrupted data
+	//TEST FOR WRITING DATA METHODS
+	//Writes a user
+	@Test
+	public void testwriteUsers() throws IOException, ParseException {
+		Writer userFile = new StringWriter();
+		DataBase.writeUsers(usersTest,userFile);
+		assertEquals("1111;Cris;passw10;Attendant",userFile.toString().trim());
+	}
+	
+	//Writes a customer 
+	public void testwriteCustomers() throws IOException, ParseException {
+		Writer userFile = new StringWriter();
+		DataBase.writeCustomers(customersTest,userFile);
+		assertEquals("customer1;Scott Scott;address 1 Dublin;089665544",userFile.toString().trim());
+	}
+	
+	//Writes a supplier
+	public void testwriteSuppliers() throws IOException, ParseException {
+		Writer userFile = new StringWriter();
+		DataBase.writeSuppliers(suppliersTest,userFile);
+		assertEquals("supplier1;Supplier1 Name;083776655",userFile.toString().trim());
+	}
+	
+	//Writes a product
+	public void testwriteSProductss() throws IOException, ParseException {
+		Writer userFile = new StringWriter();
+		DataBase.writeProducts(productsTest,userFile);
+		assertEquals("product1;ProductPC1;1000;200;supplier1",userFile.toString().trim());
+	}
+	
+	//Writes a order
 	@Test
 	public void testwriteOrders() throws IOException, ParseException {
 		String datestring =DateFormat.getDateInstance().format(date);
 		Writer userFile = new StringWriter();
 		DataBase.writeOrders(ordersTest,userFile);
 		assertEquals("order10;"+datestring+";product1;10;"+datestring+";"+datestring+";false",userFile.toString().trim());
+	}
+	
+	//Writes a stock
+	@Test
+	public void testwriteStocks() throws IOException, ParseException {
+		Writer userFile = new StringWriter();
+		DataBase.writeStocks(stocksTest,userFile);
+		assertEquals("product1;10",userFile.toString().trim());
 	}
 
 }

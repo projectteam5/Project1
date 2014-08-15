@@ -135,7 +135,6 @@ public class DataBase {
 	// method for loading orders in the Array List
 	public static ArrayList<Order> loadOrders(Reader reader) throws IOException, ParseException {
 		ArrayList<Order> orders = new ArrayList<Order>();
-		//DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		BufferedReader bufReader = new BufferedReader(reader);
 		String line = null;
 		int count = 0;
