@@ -58,24 +58,28 @@ public class MenuGUI extends JFrame {
 		buttonSupplier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				SupplierGUI supplierGUI = new SupplierGUI();
+				closeMenu();
 			}
 		});
 
 		buttonCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				CustomerGUI customerGui = new CustomerGUI();
+				closeMenu();
 			}
 		});
 
 		buttonUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				UserGUI userGui = new UserGUI();
+				closeMenu();
 			}
 		});
 
 		buttonAvailability.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AvailableStockLevelsGUI availableStock = new AvailableStockLevelsGUI();
+				closeMenu();
 
 			}
 		});
@@ -83,6 +87,7 @@ public class MenuGUI extends JFrame {
 		buttonProduct.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ProductMenuGUI productMenuGUI = new ProductMenuGUI();
+				closeMenu();
 
 			}
 		});
@@ -90,6 +95,7 @@ public class MenuGUI extends JFrame {
 		buttonOrder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				OrderGUI orderGUI = new OrderGUI();
+				closeMenu();
 
 			}
 		});
@@ -129,6 +135,9 @@ public class MenuGUI extends JFrame {
 
 		this.setVisible(true);
 
+	}
+	public void closeMenu(){
+		this.setVisible(false);
 	}
 
 }

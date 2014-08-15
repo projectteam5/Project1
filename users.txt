@@ -4,3 +4,5 @@
 1114;Erich King;passw4;Manager
 1115;Laura Phelan;passw5;Manager
 2222;test;2222;Manager
+1116;Ian Thompson;passw6;Manager
+1117;Calvin McGowan;passw7;Manager

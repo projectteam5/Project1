@@ -2,6 +2,7 @@ import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,16 +23,19 @@ public class UserGUI extends JFrame {
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panel.setLayout(new GridLayout(0, 1));
 		JButton addUser = new JButton("Add User");
-		
 		JButton editUser = new JButton("Edit User");
 		JButton deleteUser = new JButton("Delete User");
 		JButton showUser = new JButton("Show User");
+		JButton saveUser = new JButton("Save");
+		JButton menuUser = new JButton("Menu");
 
 		// adding all the components
 		panel.add(addUser);
 		panel.add(editUser);
 		panel.add(showUser);
 		panel.add(deleteUser);
+		panel.add(saveUser);
+		panel.add(menuUser);
 
 		/*
 		 * Add button: it opens a new window where it's possible to insert user
@@ -45,26 +49,22 @@ public class UserGUI extends JFrame {
 		});
 
 		/*
-		 * Edit button: it asks to insert the userID of the user that has to be modified
-		 * and if the validation of the userID is correct, another window is opened
-		 * displaying the existing data for that user. If the validation is not satisfied, 
-		 * an error message is shown
+		 * Edit button: it asks to insert the userID of the user that has to be
+		 * modified and if the validation of the userID is correct, another
+		 * window is opened displaying the existing data for that user. If the
+		 * validation is not satisfied, an error message is shown
 		 */
 		editUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int returnValue = editUserButton();
-				if (returnValue == 1) {
-					JOptionPane.showMessageDialog(null, "ID not found!",
-							"Error", JOptionPane.ERROR_MESSAGE);
-				}
+				editUserButton();
 			}
 		});
-		
+
 		/*
-		 * Delete button: it asks to insert the userID of the user that has to be deleted.
-		 * A validation on the existence of the inserted userID is performed. In addition 
-		 * it is not possible to delete the current userID.
-		 * If the validation is not satisfied, an error message is shown
+		 * Delete button: it asks to insert the userID of the user that has to
+		 * be deleted. A validation on the existence of the inserted userID is
+		 * performed. In addition it is not possible to delete the current
+		 * userID. If the validation is not satisfied, an error message is shown
 		 */
 		showUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -73,17 +73,18 @@ public class UserGUI extends JFrame {
 		});
 
 		/*
-		 * Delete button: it asks to insert the userID of the user that has to be deleted.
-		 * A validation on the existence of the inserted userID is performed. In addition 
-		 * it is not possible to delete the current userID.
-		 * If the validation is not satisfied, an error message is shown
+		 * Delete button: it asks to insert the userID of the user that has to
+		 * be deleted. A validation on the existence of the inserted userID is
+		 * performed. In addition it is not possible to delete the current
+		 * userID. If the validation is not satisfied, an error message is shown
 		 */
 		deleteUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int returnValue = deleteUserButton();
 				if (returnValue == 1) {
-					JOptionPane.showMessageDialog(null, "ID not found!",
-							"Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null,
+							"You cannot delete this ID!", "Error",
+							JOptionPane.ERROR_MESSAGE);
 				} else {
 					JOptionPane.showMessageDialog(null,
 							"User correctly removed", "Correctly Done",
@@ -91,6 +92,19 @@ public class UserGUI extends JFrame {
 				}
 			}
 		});
+		
+		saveUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				SaveUserButton();
+			}
+		});
+		
+		menuUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				SaveUserButton();
+			}
+		});
+		
 
 		this.setVisible(true);
 
@@ -114,24 +128,15 @@ public class UserGUI extends JFrame {
 
 	public void addUserButton() {
 		AddUserGUI addUserGui = new AddUserGUI();
-		this.setVisible(false);
 	}
 
-	public int editUserButton() {
-		String inputValue = JOptionPane
-				.showInputDialog("Please insert a UserID");
-		if (existingID(inputValue)) {
-			EditUserGUI gui = new EditUserGUI(inputValue);
+	public void editUserButton() {
+			EditUserGUI gui = new EditUserGUI();
 			this.setVisible(false);
-			return 0;
-		} else {
-			return 1;
-		}
 	}
-	
+
 	public void showUserButton() {
 		ShowUserGUI showUserGui = new ShowUserGUI();
-		this.setVisible(false);
 	}
 
 	public int deleteUserButton() {
@@ -152,4 +157,21 @@ public class UserGUI extends JFrame {
 
 	}
 
+	public void SaveUserButton() {
+		try {
+			FileWriter userFile;
+			userFile = new FileWriter("users.txt");
+			DataBase.writeUsers(RetailSystem.getInstance().getUsers(), userFile);
+			userFile.close();// close the user file
+			JOptionPane.showMessageDialog(null, "Data have been saved!", "Notification", JOptionPane.INFORMATION_MESSAGE );
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+
+	}
+	
+	public void MenuUserButton() {
+		MenuGUI menuGui = new MenuGUI();
+		this.setVisible(false);
+	}
 }
