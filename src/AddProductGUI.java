@@ -95,6 +95,9 @@ public class AddProductGUI extends JFrame{
 			for(Product product: RetailSystem.getInstance().getProducts()){
 				if(product.getProductID().equalsIgnoreCase(productID)){
 					newProduct = false;
+					JOptionPane.showMessageDialog(null, "Product in system with same ID");
+
+					
 				}
 			}
 			
