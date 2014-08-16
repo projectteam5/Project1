@@ -20,6 +20,7 @@ public class AddOrDeleteSupplierGUI extends JFrame{
 	private Supplier removeSupplier = new Supplier("","","");
 	private int k;
 	
+	
 
 	public AddOrDeleteSupplierGUI() {
 		setTitle("MODIFY SUPPLIER LIST GUI");
