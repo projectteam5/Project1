@@ -94,22 +94,6 @@ public class UserGUI extends JFrame {
 		this.setVisible(true);
 	}
 
-	public static boolean existingID(String id) {
-		for (User user : RetailSystem.getInstance().getUsers()) {
-			if (user.getUserID().equals(id)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public static boolean notLoginID(String id) {
-		if (RetailSystem.getInstance().getCurrentUserID().equals(id)) {
-			return false;
-		}
-		return true;
-	}
-
 	public void closeUserGUI(){
 		this.setVisible(false);
 	}
