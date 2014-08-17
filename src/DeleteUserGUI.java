@@ -77,6 +77,7 @@ public class DeleteUserGUI extends JFrame {
 			JOptionPane.showMessageDialog(null,
 					"User correctly removed", "Correctly Done",
 					JOptionPane.INFORMATION_MESSAGE);
+			User.saveUser();
 			addAndRefresh();
 		}
 	

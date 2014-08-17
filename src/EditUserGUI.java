@@ -104,6 +104,7 @@ public class EditUserGUI extends JFrame {
 			user.setName(name);
 			user.setPassword(password);
 			user.setType(type);
+			User.saveUser();
 			returnValue = 0;
 			this.setVisible(false);
 		}

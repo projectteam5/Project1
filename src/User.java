@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+
 import javax.swing.JOptionPane;
 
 
@@ -76,6 +78,17 @@ public class User {
 			}
 		}
 		return userRet;
+	}
+	
+	public static void saveUser(){
+		try {
+			FileWriter userFile;
+			userFile = new FileWriter("users.txt");
+			DataBase.writeUsers(RetailSystem.getInstance().getUsers(), userFile);
+			userFile.close();// close the user file
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
 	}
 
 }

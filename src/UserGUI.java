@@ -26,7 +26,6 @@ public class UserGUI extends JFrame {
 		JButton editUser = new JButton("Edit User");
 		JButton deleteUser = new JButton("Delete User");
 		JButton showUser = new JButton("Show User");
-		JButton saveUser = new JButton("Save");
 		JButton menuUser = new JButton("Menu");
 
 		// adding all the components
@@ -34,7 +33,6 @@ public class UserGUI extends JFrame {
 		panel.add(editUser);
 		panel.add(showUser);
 		panel.add(deleteUser);
-		panel.add(saveUser);
 		panel.add(menuUser);
 
 		/*
@@ -84,15 +82,6 @@ public class UserGUI extends JFrame {
 		});
 		
 		/*
-		 * Save button: it saves all the changes regarding the users in a users.txt file
-		 */
-		saveUser.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				SaveUserButton();
-			}
-		});
-		
-		/*
 		 * Menu button: it closes the User menu and open a General Menu
 		 */
 		menuUser.addActionListener(new ActionListener() {
@@ -121,18 +110,6 @@ public class UserGUI extends JFrame {
 		return true;
 	}
 
-	public void SaveUserButton() {
-		try {
-			FileWriter userFile;
-			userFile = new FileWriter("users.txt");
-			DataBase.writeUsers(RetailSystem.getInstance().getUsers(), userFile);
-			userFile.close();// close the user file
-			JOptionPane.showMessageDialog(null, "Data have been saved!", "Notification", JOptionPane.INFORMATION_MESSAGE );
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		}
-
-	}
 	public void closeUserGUI(){
 		this.setVisible(false);
 	}

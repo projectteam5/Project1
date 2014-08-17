@@ -6,3 +6,4 @@
 1116;Ian Thompson;passw6;Manager
 1117;Calvin McGowan;passw7;Manager
 1118;Colm Dillon;passw8;Manager
+1121;Test;passw21;Attendant
