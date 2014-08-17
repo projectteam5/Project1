@@ -4,59 +4,110 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 
 public class EditSupplierGUI extends JFrame {
-	private JTextField textField1;
-	private JTextField textField2;
-	private JTextField textField3;
+	private JTextField supplierNameField;
+	private JTextField supplierNumberField;
+	
+	private static Supplier chosenEditSupplier;
+	private JComboBox<String> supplierDropDown = new JComboBox<String>();
+	private JButton buttonCommitEditProduct;
+	private JButton buttonMenu;
+	private JPanel panel;
+	private JLabel title = new JLabel("Please chose a supplier from the list below");
+	private JLabel supplierName = new JLabel("Name");
+	private JLabel supplierNumber = new JLabel("Number");
+	private JButton menuButton;
+	private boolean productChosen = false;
+	private Supplier supplierAccess = null;
 
 	public EditSupplierGUI() {
 		setTitle("EDIT SUPPLIER");
 		setSize(500,500);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		textField1= new JTextField();
-		textField2= new JTextField();
-		textField3= new JTextField();
-		JLabel label1 = new JLabel("Supplier ID");
-		JLabel label2 = new JLabel("Supplier name");
-		JLabel label3 = new JLabel("Supplier contact number");
+		supplierNameField= new JTextField();
+		supplierNumberField= new JTextField();
+		supplierName = new JLabel("Supplier Name");
+		supplierNumber = new JLabel("Supplier Number");
+		JButton buttonEditProduct = new JButton("Edit");
+		buttonMenu = new JButton("Supplier Menu");
+		buttonCommitEditProduct = new JButton("Save Changes");
+		compileSupplierIDs();
+		JPanel panel = new JPanel();
+		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panel.setLayout(new GridLayout(0,1));
+		panel.add(title);
+		panel.add(supplierDropDown);
+		panel.add(buttonEditProduct);
+		panel.add(supplierNameField);
+		panel.add(supplierName);
+		panel.add(supplierNumberField);
+		panel.add(supplierNumber);	
+		panel.add(buttonCommitEditProduct);
+		panel.add(buttonMenu);
+		Container cp = getContentPane();
+		cp.add(panel);
+		setVisible(true);	
 		
-		// Takes in the information and sends as arguments to a method which edits details
-		// if supplier exists and returns true to signal edit update.
-		// will return false if fields are blank and supplier does not exist
-		JButton updateButton = new JButton("Confirm Supplier Details");
-		updateButton.addActionListener(new ActionListener() {			
+		buttonEditProduct.addActionListener(new ActionListener() {		
 			public void actionPerformed(ActionEvent arg0) {
-				String supplierID = textField1.getText();
-				String name = textField2.getText() ;
-				String phoneNumber = textField3.getText();
-				if(validateSupplierUpdate(supplierID,name,phoneNumber)){
-					JOptionPane.showMessageDialog(null, "Supplier details have been updated", "Success", JOptionPane.PLAIN_MESSAGE);			
-				}
-				else{
-					JOptionPane.showMessageDialog(null, "Please make sure supplier exists and all fields are filled", "Success", JOptionPane.PLAIN_MESSAGE);			
-				}			
+				String ID = supplierDropDown.getSelectedItem().toString();
+				Supplier supplierToEdit=findSupplier(ID);
+				String name = supplierNameField.getText();
+				String number = supplierNumberField.getText();
+				validateAndUpdateSupplier(supplierToEdit,name,number);
+				
 			}
 		});
 		
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(0,1));
-		panel.add(textField1);
-		panel.add(label1);
-		panel.add(textField2);
-		panel.add(label2);
-		panel.add(textField3);
-		panel.add(label3);
-		panel.add(updateButton);
-		Container cp = getContentPane();
-		cp.add(panel);
-		setVisible(true);		
+		buttonCommitEditProduct.addActionListener(new ActionListener() {		
+			public void actionPerformed(ActionEvent arg0) {
+					supplierAccess.saveUser();
+					JOptionPane.showMessageDialog(null, "Changes saved!", "Success", JOptionPane.WARNING_MESSAGE);
+			}
+		});
+		
+		buttonMenu.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent ago0){
+				SupplierMenuGUI supplierMenuGUI = new SupplierMenuGUI();
+				closeEditSupplierGUI();	
+			}
+		});
+	
+	}
+	public void validateAndUpdateSupplier(Supplier supplierToEdit, String name,String number) {
+		if ( name.isEmpty() ||  number.isEmpty()){
+			JOptionPane.showMessageDialog(null, "All fields must be filled out!", "Warning", JOptionPane.WARNING_MESSAGE);
+		}
+		else{
+			supplierToEdit.setName(name);
+			supplierToEdit.setPhoneNumber(number);	
+			JOptionPane.showMessageDialog(null, "Supplier Updated!", "Success", JOptionPane.WARNING_MESSAGE);
+		}
+	}
+	
+	public Supplier findSupplier(String ID) {
+		Supplier supplierToEdit = null;
+		for(Supplier supplier: RetailSystem.getInstance().getSuppliers()){
+			if(ID.equalsIgnoreCase(supplier.getSupplierID())){
+				supplierToEdit = supplier;
+			}
+		}
+		return supplierToEdit;
+	}
+	
+	public void compileSupplierIDs(){
+		for(Supplier supplier: RetailSystem.getInstance().getSuppliers()){
+			supplierDropDown.addItem(supplier.getSupplierID());
+		}
 	}
 	// Method that updates user details
 	public boolean validateSupplierUpdate(String supplierID,String name,String phoneNumber){
@@ -75,5 +126,9 @@ public class EditSupplierGUI extends JFrame {
 			}
 		}
 		return correct;
+	}
+	
+	public void closeEditSupplierGUI(){
+		this.setVisible(false);
 	}
 }
