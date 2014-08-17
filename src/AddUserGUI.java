@@ -61,7 +61,7 @@ public class AddUserGUI extends JFrame {
 					JOptionPane.showMessageDialog(null, "User correctly inserted", "Inserted", JOptionPane.PLAIN_MESSAGE);
 				}
 				else{
-					JOptionPane.showMessageDialog(null, "Error during the process", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "ID already exists or missing fields", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
@@ -88,11 +88,10 @@ public class AddUserGUI extends JFrame {
 	}
 	
 	public static boolean validateUser(String userID, String name, String password, String type){
-		boolean userOk = true;
-		for(User user : RetailSystem.getInstance().getUsers()){
-			if(user.getUserID().equals(userID)){
-				userOk = false;
-				JOptionPane.showMessageDialog(null, "ID already exists", "Error", JOptionPane.ERROR_MESSAGE);
+		boolean userOk = false;
+		if(userID != null && name != null && password != null && type != null && !userID.isEmpty() && !name.isEmpty() && !password.isEmpty() && !type.isEmpty()){
+			if(!User.existingUser(userID)){
+				userOk = true;
 			}
 		}
 		return userOk;

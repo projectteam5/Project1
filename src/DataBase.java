@@ -10,7 +10,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-//
+
 public class DataBase {
 
 	// ---- METHODS FOR UPLOAD DATA AT THE BEGINNING OF THE SESSION

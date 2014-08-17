@@ -1,4 +1,4 @@
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.Reader;
 import java.io.StringReader;
@@ -28,11 +28,21 @@ public class AddUserGUITest {
 
 	@Test
 	public void testValidateUserNewUser() {
-		assertTrue(AddUserGUI.validateUser("1113", "name", "password", "Manager"));
+		assertTrue(AddUserGUI.validateUser("1120", "name", "password", "Manager"));
 	}
 	@Test
 	public void testValidateUserExistingUser() {
-		assertTrue(!AddUserGUI.validateUser("1111", "name", "password", "Manager"));
+		assertFalse(AddUserGUI.validateUser("1111", "name", "password", "Manager"));
+	}
+	
+	@Test
+	public void testValidateUserEmpty() {
+		assertFalse(AddUserGUI.validateUser("1111", "", "", "Manager"));
+	}
+	
+	@Test
+	public void testValidateUserNull() {
+		assertFalse(AddUserGUI.validateUser(null, "", "", "Manager"));
 	}
 
 }

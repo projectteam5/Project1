@@ -57,12 +57,13 @@ public class EditUserGUI extends JFrame {
 
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String selectedUserString = userDropDown.getSelectedItem().toString();
+				String selectedUserString = userDropDown.getSelectedItem()
+						.toString();
 				String[] selectedUserArray = selectedUserString.split(";");
 				String selectedUserIDString = selectedUserArray[0];
 				String[] selectedUserIDArray = selectedUserIDString.split(":");
 				userID = selectedUserIDArray[1].trim();
-				if (controlVariable == 0  || !userID.equals(selectedUserIDPrev)) {
+				if (controlVariable == 0 || !userID.equals(selectedUserIDPrev)) {
 					populateFields();
 					selectedUserIDPrev = userID;
 				}
@@ -88,31 +89,23 @@ public class EditUserGUI extends JFrame {
 		this.setVisible(true);
 	}
 
-	public User retrieveUser(String id) {
-		User user = null;
-		for (User userRS : RetailSystem.getInstance().getUsers()) {
-			if (userRS.getUserID().equals(userID)) {
-				user = userRS;
-			}
-		}
-		return user;
-	}
+	/*
+	 * public User retrieveUser(String id) { User user = null; for (User userRS
+	 * : RetailSystem.getInstance().getUsers()) { if
+	 * (userRS.getUserID().equals(userID)) { user = userRS; } } return user; }
+	 */
 
 	public int editUser() {
 		int returnValue = 1;
 		String name = NameField.getText();
 		String password = PasswordField.getText();
 		String type = typeDropDown.getSelectedItem().toString();
-		if (!name.isEmpty() && !password.isEmpty() && !type.isEmpty()) {
-			for (User userRS : RetailSystem.getInstance().getUsers()) {
-				if (userRS.getUserID().equals(userID)) {
-					userRS.setName(name);
-					userRS.setPassword(password);
-					userRS.setType(type);
-					returnValue = 0;
-					this.setVisible(false);
-				}
-			}
+		if ( name!=null && password!=null && type!=null && name!=null && !password.isEmpty() && !type.isEmpty()) {
+			user.setName(name);
+			user.setPassword(password);
+			user.setType(type);
+			returnValue = 0;
+			this.setVisible(false);
 		}
 		return returnValue;
 	}
@@ -130,7 +123,7 @@ public class EditUserGUI extends JFrame {
 	}
 
 	public void populateFields() {
-		if(controlVariable != 0){
+		if (controlVariable != 0) {
 			panel.remove(labelName);
 			panel.remove(NameField);
 			panel.remove(labelPassword);
@@ -140,24 +133,26 @@ public class EditUserGUI extends JFrame {
 			panel.remove(doneButton);
 		}
 		controlVariable = 1;
-		user = retrieveUser(userID);
-		NameField = new JTextField(user.getName());
-		PasswordField = new JTextField(user.getPassword());
-		labelName = new JLabel("Name");
-		labelPassword = new JLabel("Password");
-		labelType = new JLabel("Type");
-		typeDropDown = new JComboBox(RetailSystem.getInstance()
-				.getUserTypeList());
-		typeDropDown.setSelectedItem(user.getType());
-		panel.add(labelName);
-		panel.add(NameField);
-		panel.add(labelPassword);
-		panel.add(PasswordField);
-		panel.add(labelType);
-		panel.add(typeDropDown);
-		panel.add(doneButton);
-		revalidate();
-		repaint();
+		user = User.retrieveUser(userID);
+		if (user != null) {
+			NameField = new JTextField(user.getName());
+			PasswordField = new JTextField(user.getPassword());
+			labelName = new JLabel("Name");
+			labelPassword = new JLabel("Password");
+			labelType = new JLabel("Type");
+			typeDropDown = new JComboBox(RetailSystem.getInstance()
+					.getUserTypeList());
+			typeDropDown.setSelectedItem(user.getType());
+			panel.add(labelName);
+			panel.add(NameField);
+			panel.add(labelPassword);
+			panel.add(PasswordField);
+			panel.add(labelType);
+			panel.add(typeDropDown);
+			panel.add(doneButton);
+			revalidate();
+			repaint();
+		}
 
 	}
 }

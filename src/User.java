@@ -1,3 +1,5 @@
+import javax.swing.JOptionPane;
+
 
 
 public class User {
@@ -54,6 +56,26 @@ public class User {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+	
+	public static boolean existingUser(String id){
+		boolean userOk = false;
+		for(User user : RetailSystem.getInstance().getUsers()){
+			if(user.getUserID().equals(id)){
+				userOk = true;
+			}
+		}
+		return userOk;
+	}
+	
+	public static User retrieveUser(String id){
+		User userRet = null;
+		for(User user : RetailSystem.getInstance().getUsers()){
+			if(user.getUserID().equals(id)){
+				userRet = user;
+			}
+		}
+		return userRet;
 	}
 
 }

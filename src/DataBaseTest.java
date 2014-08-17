@@ -9,6 +9,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import org.junit.After;
 import org.junit.BeforeClass;
@@ -189,6 +190,7 @@ public class DataBaseTest {
 	// Loads orders correctly
 	@Test
 	public void testLoadOrderOK2Orders() throws IOException, ParseException {
+		//System.err.println(DateFormat.getDateInstance(DateFormat.DEFAULT).format(new Date()));
 		Reader reader = new StringReader(
 				"order1;14-Aug-2014;product1;10;14-Aug-2014;;false\n"
 						+ "order1;14-Aug-2014;product2;9;14-Aug-2014;14-Aug-2014;false\n");

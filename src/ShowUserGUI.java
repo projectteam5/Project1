@@ -83,12 +83,7 @@ public class ShowUserGUI extends JFrame {
 			panel.remove(labelPassword);
 			panel.remove(labelType);
 		}
-		User selectedUser = null;
-		for(User user : RetailSystem.getInstance().getUsers()){
-			if(user.getUserID().equals(selectedUserID)){
-				selectedUser = user;
-			}
-		}
+		User selectedUser = User.retrieveUser(selectedUserID);
 		if(selectedUser != null){
 			labelName = new JLabel("Name of the selected user: "+ selectedUser.getName());
 			labelID = new JLabel("ID of the selected user: "+ selectedUser.getUserID());
@@ -98,8 +93,8 @@ public class ShowUserGUI extends JFrame {
 			panel.add(labelID);
 			panel.add(labelPassword);
 			panel.add(labelType);
-			revalidate();
-			repaint();
+			panel.revalidate();
+			panel.repaint();
 			return 0;
 		}
 		else{

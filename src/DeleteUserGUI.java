@@ -71,16 +71,15 @@ public class DeleteUserGUI extends JFrame {
 		String selectedUserIDString = selectedUserArray[0];
 		String[] selectedUserIDArray = selectedUserIDString.split(":");
 		selectedUserID = selectedUserIDArray[1].trim();
-		for (User user : RetailSystem.getInstance().getUsers()) {
-			if (user.getUserID().equals(selectedUserID)) {
-				userRemove = user;
-			}
-	}
-		RetailSystem.getInstance().getUsers().remove(userRemove);
-		JOptionPane.showMessageDialog(null,
-				"User correctly removed", "Correctly Done",
-				JOptionPane.INFORMATION_MESSAGE);
-		addAndRefresh();
+		userRemove = User.retrieveUser(selectedUserID);
+		if(userRemove != null){
+			RetailSystem.getInstance().getUsers().remove(userRemove);
+			JOptionPane.showMessageDialog(null,
+					"User correctly removed", "Correctly Done",
+					JOptionPane.INFORMATION_MESSAGE);
+			addAndRefresh();
+		}
+	
 	
 		
 	}
