@@ -3,6 +3,7 @@ import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -42,10 +43,10 @@ public class RemoveProductGUI extends JFrame{
 				boolean found = false;
 				for(Product product: RetailSystem.getInstance().getProducts()){
 					if(name.equalsIgnoreCase(product.getName())){
-						//Display the information for that product
 						found = true;
 						RetailSystem.getInstance().getProducts().remove(product);
 						JOptionPane.showMessageDialog(null, "Product "+product.getName()+" has been removed from the system");
+						saveProduct();
 						break;
 					}
 				}
@@ -73,6 +74,16 @@ public class RemoveProductGUI extends JFrame{
 		this.setVisible(false);
 	}
 	
+	public static void saveProduct(){
+	       try {
+	           FileWriter productFile;
+	           productFile = new FileWriter("products.txt");
+	           DataBase.writeProducts(RetailSystem.getInstance().getProducts(), productFile);
+	           productFile.close();
+	       } catch (Exception exception) {
+	           exception.printStackTrace();
+	       }
+	   }
 
 
 }

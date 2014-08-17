@@ -3,6 +3,7 @@ import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -114,6 +115,7 @@ public class AddProductGUI extends JFrame{
 					JOptionPane.showMessageDialog(null, "Adding product");
 					Product product = new Product(productID, name, cost, markup, supplierPicked);
 					RetailSystem.getInstance().getProducts().add(product);
+					saveProduct();
 				}catch(NumberFormatException e){
 					JOptionPane.showMessageDialog(null, "Error processing request");
 				}
@@ -174,5 +176,16 @@ public class AddProductGUI extends JFrame{
 	public void closeAddProductGUI(){
 		this.setVisible(false);
 	}
+	
+	public static void saveProduct(){
+	       try {
+	           FileWriter productFile;
+	           productFile = new FileWriter("products.txt");
+	           DataBase.writeProducts(RetailSystem.getInstance().getProducts(), productFile);
+	           productFile.close();
+	       } catch (Exception exception) {
+	           exception.printStackTrace();
+	       }
+	   }
 
 }

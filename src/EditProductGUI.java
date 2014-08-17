@@ -3,6 +3,7 @@ import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -115,6 +116,8 @@ public class EditProductGUI extends JFrame{
 						chosenEditProduct.setMarkup(markup);
 						chosenEditProduct.setSupplier(supplierPicked);
 						JOptionPane.showMessageDialog(null, "Product has been edited");
+						saveProduct();
+						
 					}
 				}else{
 					JOptionPane.showMessageDialog(null, "You cannot edit without chosing a product");
@@ -189,5 +192,16 @@ public class EditProductGUI extends JFrame{
 	public void closeEditProductGUI(){
 		this.setVisible(false);
 	}
+	
+	public static void saveProduct(){
+	       try {
+	           FileWriter productFile;
+	           productFile = new FileWriter("products.txt");
+	           DataBase.writeProducts(RetailSystem.getInstance().getProducts(), productFile);
+	           productFile.close();
+	       } catch (Exception exception) {
+	           exception.printStackTrace();
+	       }
+	   }
 
 }
