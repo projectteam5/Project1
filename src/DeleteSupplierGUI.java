@@ -51,7 +51,7 @@ public class DeleteSupplierGUI extends JFrame{
 		
 		buttonMenu.addActionListener(new ActionListener() {		
 			public void actionPerformed(ActionEvent arg0) {
-				ProductMenuGUI supplierMenuGUI = new ProductMenuGUI();
+				SupplierMenuGUI supplierMenuGUI = new SupplierMenuGUI();
 				closeRemoveProductGUI();
 			}
 		});
