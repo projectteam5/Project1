@@ -1,3 +1,4 @@
+import java.io.FileWriter;
 import java.util.ArrayList;
 
 
@@ -61,5 +62,18 @@ public class Supplier {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
-	}	
+	}
+	
+	public static void saveUser(){
+	  	 try {
+	  		 FileWriter userFile;
+	  		 userFile = new FileWriter("suppliers.txt");
+	  		 DataBase.writeSuppliers(RetailSystem.getInstance().getSuppliers(),userFile);
+	  		 userFile.close();// close the user file
+	  	 } catch (Exception exception) {
+	  		 exception.printStackTrace();
+	  	 }
+	   }
+
+
 }
