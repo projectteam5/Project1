@@ -1,47 +1,63 @@
+import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 public class ListSuppliersGUI extends JFrame{
-	private ArrayList<Supplier> suppliers = new ArrayList<Supplier>();
-	private JComboBox comboList;
-	private JLabel label;
-	// Empty constructor so as to access method to getSupplierlist in supplier class
-	private Supplier supplier = new Supplier("","","");
+	
+	private JButton button;
 	
 	public ListSuppliersGUI() {
 		
-		// Suppliers in database are pulled into this array list and added to an un-editable combo box
-		// All supplier information is available for view in the drop down menu.
-		// One supplier is highlighted in main box and others can be selected from the drop down list
 		setTitle("LIST OF SUPPLIERS");
-		setSize(300,300);
+		setSize(400,400);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
-		// Accessing method in supplier class to return the list of suppliers 
-		// And placing them in the list for this GUI class for view
-		suppliers = supplier.getSupplierList(); 
-		comboList = new JComboBox<String>();
-		comboList.setEditable(false);
-		label = new JLabel("Showing list of suppliers");
-		
-		comboList.addItem("Select Supplier from drop down menu");
-		
-		for(Supplier s: suppliers){
-			comboList.addItem(s.getName()+"-"+s.getSupplierID()+"-"+s.getPhoneNumber());
-		}
-			
+		JLabel label = new JLabel("Showing list of suppliers");
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(0,1));
-		panel.add(label);
-		panel.add(comboList);
-		Container cp = getContentPane();
-		cp.add(panel);
+		button = new JButton("Supplier Menu");
+		Container container = getContentPane();
+		container.add(panel);
+		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panel.setLayout(new BorderLayout());
+		
+		JScrollPane scrollPaneSuppliers = new JScrollPane();
+		JLabel title = new JLabel("Supplier List. Total number of suppliers: "+RetailSystem.getInstance().getSuppliers().size());
+			
+		button.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent ago0){
+				SupplierMenuGUI supplierMenuGUI = new SupplierMenuGUI();
+				closeViewProductListGUI();	
+			}
+		});
+		
+		JPanel showSupplierPanel = new JPanel();
+		showSupplierPanel.setLayout(new GridLayout(0,1));	
+		for(Supplier supplier: RetailSystem.getInstance().getSuppliers()){
+			JLabel label1 = new JLabel(supplier.getSupplierID()+" | "+supplier.getName()+" | "+supplier.getPhoneNumber());
+			label.setSize(10,10);
+			showSupplierPanel.add(label1);
+		}
+		
+		scrollPaneSuppliers.setViewportView(showSupplierPanel);
+		panel.add(scrollPaneSuppliers,BorderLayout.CENTER);
+		panel.add(title,BorderLayout.NORTH);
+		panel.add(button,BorderLayout.SOUTH);
 		setVisible(true);
+	}
+	
+	public void closeViewProductListGUI(){
+		setVisible(false);
 	}
 }
