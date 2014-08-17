@@ -16,6 +16,7 @@ public class AddSupplierGUI extends JFrame{
 	private JTextField textField1;
 	private JTextField textField2;
 	private JTextField textField3;
+	private JButton button;
 	// Instance of supplier in aid of accessing removal method
 	// And variable used to hold position in list of requested removal
 
@@ -30,6 +31,7 @@ public class AddSupplierGUI extends JFrame{
 		JLabel label2 = new JLabel("Supplier name");
 		JLabel label3 = new JLabel("Supplier contact number");		
 		JButton addButton = new JButton("ADD");
+		JButton button = new JButton("Supplier Menu");
 			
 		// Button pressed, checks if entries are valid and does not already exist
 		// then creates supplier and adds to list
@@ -46,6 +48,13 @@ public class AddSupplierGUI extends JFrame{
 				}
 			}
 		});
+		button.addActionListener(new ActionListener() {		
+			public void actionPerformed(ActionEvent arg0) {
+				SupplierMenuGUI supplierMenuGUI = new SupplierMenuGUI();
+				closeAddSupplierGUI();		
+			}
+		});
+		
 		// Layout of panel
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(0,1));
@@ -56,6 +65,7 @@ public class AddSupplierGUI extends JFrame{
 		panel.add(textField3);
 		panel.add(label3);
 		panel.add(addButton);
+		panel.add(button);
 		Container cp = getContentPane();
 		cp.add(panel);
 		setVisible(true);
@@ -77,5 +87,9 @@ public class AddSupplierGUI extends JFrame{
 			}
 		}
 		return correct;
+	}
+	
+	public void closeAddSupplierGUI(){
+		this.setVisible(false);
 	}
 }

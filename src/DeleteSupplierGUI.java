@@ -4,89 +4,81 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 
 public class DeleteSupplierGUI extends JFrame{
-	private JTextField textField1;
-	private JTextField textField2;
-	private JTextField textField3;
+	private JComboBox<String> supplierDropDown = new JComboBox<String>();
+	private JButton buttonMenu;
+	private JButton deleteButton;
 	// Instance of supplier in aid of accessing removal method
-	// And variable used to hold position in list of requested removal
 	private Supplier removeSupplier = new Supplier("","","");
-	private int k;
-	private int l;
-
+	
 	public DeleteSupplierGUI() {
-		setTitle("MODIFY SUPPLIER LIST GUI");
-		setSize(500,500);
+		setTitle("DELETE SUPPLIER LIST GUI");
+		setSize(400,200);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		JPanel panel1 = new JPanel();
+		compileProductNames();
+		deleteButton = new JButton("Delete");
+		buttonMenu = new JButton("Supplier Menu");
+		panel1.add(supplierDropDown);
+		panel1.add(deleteButton);
+		panel1.add(buttonMenu);
+		Container container = getContentPane();
+		container.add(panel1);
+		panel1.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panel1.setLayout(new GridLayout(0,1));	
+		setVisible(true);
 		
-		textField1= new JTextField();
-		textField2= new JTextField();
-		textField3= new JTextField();
-		JLabel label1 = new JLabel("Supplier ID");
-		JLabel label2 = new JLabel("Supplier name");
-		JLabel label3 = new JLabel("Supplier contact number");		
-		JButton delButton = new JButton("DELETE");
-		
-		// Button pressed, checks if entries are valid and does already exist
-		// then deletes supplier and removes from list
-		delButton.addActionListener(new ActionListener() {		
-			public void actionPerformed(ActionEvent e) {
-				String supplierID = textField1.getText();
-				String name = textField2.getText() ;
-				String phoneNumber = textField3.getText();
-				if(deleteSupplierValidation(supplierID,name,phoneNumber)){
-					removeSupplier.removeSupplierFromList(RetailSystem.getInstance().getSuppliers().get(k));
-					removeSupplier.saveUser();
-				}
-				else{
-					JOptionPane.showMessageDialog(null, "Please make sure Supplier ID is correct and all fields are filled in", "Warning", JOptionPane.INFORMATION_MESSAGE);	
-				}
+		deleteButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent argo0){
+				String name = supplierDropDown.getSelectedItem().toString();
+				// Getting the supplier from the list and assigning to new object then
+				// Using another object to access supplier class method to delete from list
+				Supplier supplierToRemove = findAndReturnSupplierFromList(name);
+				removeSupplier.removeSupplierFromList(supplierToRemove);
+				JOptionPane.showMessageDialog(null, "Supplier deleted from the list", "Success", JOptionPane.PLAIN_MESSAGE);
+				removeSupplier.saveUser();
 			}
 		});
 		
-		// Layout of panel
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(0,1));
-		panel.add(textField1);
-		panel.add(label1);
-		panel.add(textField2);
-		panel.add(label2);
-		panel.add(textField3);
-		panel.add(label3);
-		panel.add(delButton);
-		Container cp = getContentPane();
-		cp.add(panel);
-		setVisible(true);
+		buttonMenu.addActionListener(new ActionListener() {		
+			public void actionPerformed(ActionEvent arg0) {
+				ProductMenuGUI supplierMenuGUI = new ProductMenuGUI();
+				closeRemoveProductGUI();
+			}
+		});
+		
 	}
 	
-	// Method used to test that entry is valid and the supplier DOES exist
-	public boolean deleteSupplierValidation(String supplierID, String name, String phoneNumber){
-		boolean correct = false;
-		// Used only for an arbitrary condition for else if
-		int i=0; 
-		
-		if (supplierID.isEmpty() || name.isEmpty() ||  phoneNumber.isEmpty()){
-			i=1;
-			JOptionPane.showMessageDialog(null, "All fields must be filled out!", "Warning", JOptionPane.WARNING_MESSAGE);
-		}
-		else if(i==0){
-			for(Supplier supplier :RetailSystem.getInstance().getSuppliers()){
-				if (supplier.getSupplierID().equals(supplierID)){			
-					JOptionPane.showMessageDialog(null, "Supplier ID exists, processing removal!", "Warning", JOptionPane.INFORMATION_MESSAGE);	
-					correct = true;
-					k=RetailSystem.getInstance().getSuppliers().indexOf(supplier);
-				}
+	// Takes the name selected from drop-down menu, finds it on the list
+	// And returns the supplier
+	private Supplier findAndReturnSupplierFromList(String name) {
+		Supplier supplierToDelete = null;
+		for(Supplier supplier: RetailSystem.getInstance().getSuppliers()){
+			if(name.equalsIgnoreCase(supplier.getName())){
+				supplierToDelete = supplier;						
+				break;
 			}
-		}else{
-			JOptionPane.showMessageDialog(null, "Supplier ID is not valid!", "Warning", JOptionPane.WARNING_MESSAGE);
+		}	
+		return supplierToDelete;
+	}
+	
+	// Used to fill up the combo box with suppliers from the list
+	public void compileProductNames(){
+		for(Supplier supplier: RetailSystem.getInstance().getSuppliers()){
+			supplierDropDown.addItem(supplier.getName());
 		}
-		return correct;
+	}
+	
+	public void closeRemoveProductGUI(){
+		this.setVisible(false);
 	}
 }
