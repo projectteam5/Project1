@@ -57,7 +57,7 @@ public class MenuGUI extends JFrame {
 
 		buttonSupplier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				SupplierGUI supplierGUI = new SupplierGUI();
+				SupplierMenuGUI supplierGUI = new SupplierMenuGUI();
 				closeMenu();
 			}
 		});
