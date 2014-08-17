@@ -3,7 +3,10 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -12,19 +15,21 @@ import javax.swing.border.EmptyBorder;
 
 
 public class ViewProductListGUI extends JFrame{
+	private JButton buttonMenu;
 
 	public ViewProductListGUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(400, 400);
+		this.setTitle("View All Products");
 		JPanel panel = new JPanel();
 		Container container = getContentPane();
 		container.add(panel);
-		//panel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panel.setLayout(new BorderLayout());
 		
 		JScrollPane scrollPaneProducts = new JScrollPane();
-		//Title not showing
 		JLabel title = new JLabel("Product List. Amount of products: "+RetailSystem.getInstance().getProducts().size());
+		buttonMenu = new JButton("Menu");
 		
 		JPanel centralPanel = new JPanel(new GridLayout(0,1));
 		centralPanel.setSize(100,100);
@@ -34,15 +39,26 @@ public class ViewProductListGUI extends JFrame{
 			centralPanel.add(label);
 		}
 			
+		buttonMenu.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent ago0){
+				ProductMenuGUI productMenuGUI = new ProductMenuGUI();
+				closeViewProductListGUI();	
+			}
+		});
 			
 		scrollPaneProducts.setViewportView(centralPanel);
 			
 		panel.add(scrollPaneProducts,BorderLayout.CENTER);
 		panel.add(title,BorderLayout.NORTH);
 		container.add(panel);
+		panel.add(buttonMenu,BorderLayout.SOUTH);
 		this.setVisible(true);
 			
 		}
+	
+	public void closeViewProductListGUI(){
+		this.setVisible(false);
+	}
 		
 }
 

@@ -25,19 +25,20 @@ public class AddProductGUI extends JFrame{
 	private double cost;
 	private double markup;
 	private Supplier supplierPicked;
+	private JButton buttonMenu;
 	
 
 	public AddProductGUI() {
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(400, 400);
+		this.setTitle("Add Product");
 		JPanel panel = new JPanel();
 		Container container = getContentPane();
 		container.add(panel);
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panel.setLayout(new GridLayout(0,1));	
 		
-		//Add input text fields to add user to the system
 		JLabel label1 = new JLabel("Product ID");
 		textFieldProductID = new JTextField();
 		JLabel label2 = new JLabel("Product Name");
@@ -50,8 +51,8 @@ public class AddProductGUI extends JFrame{
 
 		compileSupplierNames();
 		JLabel label5 = new JLabel("Product Supplier ID");
-		//Submit button
 		JButton submitButton = new JButton("Submit");
+		buttonMenu = new JButton("Menu");
 		
 		
 		panel.add(label1);
@@ -65,6 +66,7 @@ public class AddProductGUI extends JFrame{
 		panel.add(label5);
 		panel.add(supplierDropDown);	
 		panel.add(submitButton);
+		panel.add(buttonMenu);
 		this.setVisible(true);
 		
 		
@@ -120,6 +122,13 @@ public class AddProductGUI extends JFrame{
 			
 		}
 	});
+		
+		buttonMenu.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent ago0){
+				ProductMenuGUI productMenuGUI = new ProductMenuGUI();
+				closeAddProductGUI();	
+			}
+		});
 	}
 		
 	
@@ -160,6 +169,10 @@ public class AddProductGUI extends JFrame{
 	}
 	public void setNames(ArrayList<String> names) {
 		this.names = names;
+	}
+	
+	public void closeAddProductGUI(){
+		this.setVisible(false);
 	}
 
 }

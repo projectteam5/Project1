@@ -14,23 +14,25 @@ import javax.swing.border.EmptyBorder;
 
 public class RemoveProductGUI extends JFrame{
 	private JComboBox<String> productDropDown = new JComboBox<String>();
+	private JButton buttonMenu;
 
 	public RemoveProductGUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(400, 400);
+		setSize(400, 200);
+		this.setTitle("Remove Product");
 		JPanel panel = new JPanel();
 		Container container = getContentPane();
 		container.add(panel);
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panel.setLayout(new GridLayout(0,1));	
-		
-		//Call method to populate combobox
 		compileProductNames();
-		//Add delete button
+		
 		JButton buttonDeleteProduct = new JButton("Delete");
-		//Add to panel
+		buttonMenu = new JButton("Menu");
+		
 		panel.add(productDropDown);
 		panel.add(buttonDeleteProduct);
+		panel.add(buttonMenu);
 		this.setVisible(true);
 		
 		//When a user presses the delete button, the system will check which product they are trying to delete
@@ -52,12 +54,23 @@ public class RemoveProductGUI extends JFrame{
 				}
 			}
 		});
+		
+		buttonMenu.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent ago0){
+				ProductMenuGUI productMenuGUI = new ProductMenuGUI();
+				closeRemoveProductGUI();	
+			}
+		});
 	}
 	
 	public void compileProductNames(){
 		for(Product product: RetailSystem.getInstance().getProducts()){
 			productDropDown.addItem(product.getName());
 		}
+	}
+	
+	public void closeRemoveProductGUI(){
+		this.setVisible(false);
 	}
 	
 

@@ -16,19 +16,20 @@ import javax.swing.border.EmptyBorder;
 
 public class ViewProductGUI extends JFrame{
 	private JComboBox<String> productDropDown = new JComboBox<String>();
+	private JButton buttonMenu;
 
 	public ViewProductGUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(600, 200);
+		setSize(400, 300);
+		this.setTitle("View Product");
 		JPanel panel = new JPanel();
 		Container container = getContentPane();
 		panel.setLayout(new GridLayout(0,1));	
-		
-		//Call method to populate combobox
 		compileProductNames();
-		//Add button to view all product information
+		
 		JButton buttonViewProduct = new JButton("View Product Details");
-		JLabel title = new JLabel("Product Details");
+		//JLabel title = new JLabel("Product Details");
+		buttonMenu = new JButton("Menu");
 		final JLabel label = new JLabel();
 		final JLabel label1 = new JLabel();
 
@@ -42,7 +43,6 @@ public class ViewProductGUI extends JFrame{
 				boolean found = false;
 				for(Product product: RetailSystem.getInstance().getProducts()){
 					if(name.equalsIgnoreCase(product.getName())){
-						//Display the information for that product
 						found = true;
 						label.setText(product.getProductID()+" | "+product.getName()+" | "+product.getCost()+" | "+product.getMarkup()+" | "+product.getSupplier().getName());
 						break;
@@ -54,12 +54,20 @@ public class ViewProductGUI extends JFrame{
 			}
 		});
 		
-		panel.add(title,BorderLayout.NORTH);
+		buttonMenu.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent ago0){
+				ProductMenuGUI productMenuGUI = new ProductMenuGUI();
+				closeViewProductGUI();	
+			}
+		});
+		
+		//panel.add(title,BorderLayout.NORTH);
 		panel.add(productDropDown);
 		panel.add(buttonViewProduct);
 		panel.add(label);
 		panel.add(label1);
 		container.add(panel);
+		panel.add(buttonMenu);
 		this.setVisible(true);
 		
 	}
@@ -68,6 +76,10 @@ public class ViewProductGUI extends JFrame{
 		for(Product product: RetailSystem.getInstance().getProducts()){
 			productDropDown.addItem(product.getName());
 		}
+	}
+	
+	public void closeViewProductGUI(){
+		this.setVisible(false);
 	}
 	
 
