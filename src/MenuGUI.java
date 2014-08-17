@@ -78,7 +78,7 @@ public class MenuGUI extends JFrame {
 
 		buttonAvailability.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AvailableStockLevelsGUI availableStock = new AvailableStockLevelsGUI();
+				StockGUI availableStock = new StockGUI();
 				closeMenu();
 
 			}
