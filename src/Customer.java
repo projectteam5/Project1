@@ -8,12 +8,22 @@ public class Customer {
 	private String name;
 	private String address;
 	private String phoneNumber;
+	private boolean active;
 	//comment
 	public Customer(String customerID, String name, String address, String phoneNumber) {
 		this.customerID = customerID;
 		this.name = name;
 		this.address = address;
 		this.phoneNumber = phoneNumber;
+		this.active = true;
+	}
+	
+	public Customer(String customerID, String name, String address, String phoneNumber, boolean active2) {
+		this.customerID = customerID;
+		this.name = name;
+		this.address = address;
+		this.phoneNumber = phoneNumber;
+		this.active = active2;
 	}
 	
 	public void display(){
@@ -52,6 +62,17 @@ public class Customer {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
+	
+	public boolean isActive() {
+		return active;
+	}
+
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+	
+	
 
 
 	public static String[] customerListComplete() {
@@ -64,6 +85,27 @@ public class Customer {
 			i++;
 		}
 		return customerList;
+	}
+	
+	public static Customer retrieveCustomer(String id){
+		Customer customerRet = null;
+		for(Customer customer : RetailSystem.getInstance().getCustomers()){
+			if(customer.getCustomerID().equals(id)){
+				customerRet = customer;
+			}
+		}
+		return customerRet;
+	}
+	
+	public static void saveCustomer(){
+		try {
+			FileWriter customerFile;
+			customerFile = new FileWriter("customers.txt");
+			DataBase.writeCustomers(RetailSystem.getInstance().getCustomers(), customerFile);
+			customerFile.close();// close the user file
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
 	}
 	
 	
