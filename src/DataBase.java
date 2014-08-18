@@ -253,7 +253,7 @@ public class DataBase {
 		BufferedWriter out = new BufferedWriter(writer);
 		for (Supplier supplier : suppliers) {
 			out.write(supplier.getSupplierID() + ";" + supplier.getName() + ";"
-					+ supplier.getPhoneNumber());
+					+ supplier.getPhoneNumber()+";"+ supplier.isActive());
 			out.newLine();
 		}
 		out.close();
