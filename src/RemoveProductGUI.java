@@ -16,6 +16,8 @@ import javax.swing.border.EmptyBorder;
 public class RemoveProductGUI extends JFrame{
 	private JComboBox<String> productDropDown = new JComboBox<String>();
 	private JButton buttonMenu;
+	private JPanel panel;
+	private JButton buttonDeleteProduct; 
 
 	public RemoveProductGUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -28,7 +30,7 @@ public class RemoveProductGUI extends JFrame{
 		panel.setLayout(new GridLayout(0,1));	
 		compileProductNames();
 		
-		JButton buttonDeleteProduct = new JButton("Delete");
+		buttonDeleteProduct.setText("Delete");
 		buttonMenu = new JButton("Menu");
 		
 		panel.add(productDropDown);
@@ -47,7 +49,7 @@ public class RemoveProductGUI extends JFrame{
 						product.setActive(false);
 						JOptionPane.showMessageDialog(null, "Product "+product.getName()+" has been removed from the system");
 						saveProduct();
-						compileProductNames();
+						repopulateComboBox();
 						break;
 					}
 				}
@@ -72,6 +74,16 @@ public class RemoveProductGUI extends JFrame{
 
 			}
 		}
+	}
+	
+	public void repopulateComboBox(){
+		panel.remove(productDropDown);
+		panel.remove(buttonDeleteProduct);
+		panel.remove(buttonMenu);
+		compileProductNames();
+		panel.add(productDropDown);
+		panel.add(buttonDeleteProduct);
+		panel.add(buttonMenu);
 	}
 	
 	public void closeRemoveProductGUI(){
