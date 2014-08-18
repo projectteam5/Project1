@@ -17,7 +17,6 @@ import javax.swing.border.EmptyBorder;
 public class ListSuppliersGUI extends JFrame{
 	
 	private JButton button;
-	private int i;
 	
 	public ListSuppliersGUI() {
 		
