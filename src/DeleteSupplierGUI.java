@@ -64,6 +64,7 @@ public class DeleteSupplierGUI extends JFrame{
 	}
 	
 	public void refresh(){
+		int i;
 		panel1.remove(supplierDropDown);
 		panel1.remove(deleteButton);
 		panel1.remove(buttonMenu);
