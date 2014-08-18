@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 
 
 public class SupplierMenuGUI extends JFrame{
+	private int i;
 
 	public SupplierMenuGUI() {
 		setTitle("SUPPLIER GUI");

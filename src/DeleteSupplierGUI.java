@@ -20,6 +20,7 @@ public class DeleteSupplierGUI extends JFrame{
 	private JComboBox<String> supplierDropDownAfterDelete = new JComboBox<String>();
 	private JButton buttonMenu;
 	private JButton deleteButton;
+	private int i;
 	// Instance of supplier in aid of accessing removal method
 	private Supplier removeSupplier = new Supplier("","","");
 	JPanel panel1;
