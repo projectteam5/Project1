@@ -142,13 +142,18 @@ public class EditProductGUI extends JFrame{
 	
 	public void compileProductNames(){
 		for(Product product: RetailSystem.getInstance().getProducts()){
-			productDropDown.addItem(product.getName());
+			if(product.isActive()){
+				productDropDown.addItem(product.getName());
+
+			}
 		}
 	}
 	
 	public void compileSupplierNames(){
 		for(Supplier supplier: RetailSystem.getInstance().getSuppliers()){
-			supplierDropDown.addItem(supplier.getName());
+			if(supplier.isActive()){
+				supplierDropDown.addItem(supplier.getName());
+			}
 		}
 	}
 	

@@ -44,9 +44,10 @@ public class RemoveProductGUI extends JFrame{
 				for(Product product: RetailSystem.getInstance().getProducts()){
 					if(name.equalsIgnoreCase(product.getName())){
 						found = true;
-						RetailSystem.getInstance().getProducts().remove(product);
+						product.setActive(false);
 						JOptionPane.showMessageDialog(null, "Product "+product.getName()+" has been removed from the system");
 						saveProduct();
+						compileProductNames();
 						break;
 					}
 				}
@@ -66,7 +67,10 @@ public class RemoveProductGUI extends JFrame{
 	
 	public void compileProductNames(){
 		for(Product product: RetailSystem.getInstance().getProducts()){
-			productDropDown.addItem(product.getName());
+			if(product.isActive()){
+				productDropDown.addItem(product.getName());
+
+			}
 		}
 	}
 	

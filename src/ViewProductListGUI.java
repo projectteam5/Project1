@@ -34,9 +34,14 @@ public class ViewProductListGUI extends JFrame{
 		JPanel centralPanel = new JPanel(new GridLayout(0,1));
 		centralPanel.setSize(100,100);
 		for(Product product: RetailSystem.getInstance().getProducts()){
-			JLabel label = new JLabel(product.getProductID()+" | "+product.getName()+" | "+product.getCost()+" | "+product.getMarkup()+" | "+product.getSupplier().getName());
-			label.setSize(10,10);
-			centralPanel.add(label);
+			if(product.isActive()){
+				JLabel label = new JLabel("Product ID"+"|"+"Product Name"+"|"+"Product Cost"+"|"+"Product Markup"+"|"+"Supplier Name");
+				JLabel label1 = new JLabel(product.getProductID()+" | "+product.getName()+" | "+product.getCost()+" | "+product.getMarkup()+" | "+product.getSupplier().getName());
+				label.setSize(10,10);
+				centralPanel.add(label);
+				centralPanel.add(label1);
+			}
+
 		}
 			
 		buttonMenu.addActionListener(new ActionListener(){
