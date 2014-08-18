@@ -7,3 +7,4 @@
 1117;Calvin McGowan;passw7;Manager
 1118;Colm Dillon;passw8;Manager
 1121;Test;passw21;Attendant
+9999;test;passw99;Attendant

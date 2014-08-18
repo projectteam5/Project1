@@ -2,14 +2,17 @@ import java.io.FileWriter;
 
 import javax.swing.JOptionPane;
 
+
+
 public class User {
 
-	// User attributes
+	//User attributes
 	private String userID;
 	private String name;
 	private String password;
 	private String type;
-
+	
+		
 	public User(String userID, String name, String password, String type) {
 		this.userID = userID;
 		this.name = name;
@@ -17,59 +20,67 @@ public class User {
 		this.type = type;
 	}
 
+
 	public String getUserID() {
 		return userID;
 	}
+
 
 	public void setUserID(String userID) {
 		this.userID = userID;
 	}
 
+
 	public String getName() {
 		return name;
 	}
+
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
+
 	public String getPassword() {
 		return password;
 	}
+
 
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
+
 	public String getType() {
 		return type;
 	}
 
+
 	public void setType(String type) {
 		this.type = type;
 	}
-
-	public static boolean existingUser(String id) {
+	
+	public static boolean existingUser(String id){
 		boolean userOk = false;
-		for (User user : RetailSystem.getInstance().getUsers()) {
-			if (user.getUserID().equals(id)) {
+		for(User user : RetailSystem.getInstance().getUsers()){
+			if(user.getUserID().equals(id)){
 				userOk = true;
 			}
 		}
 		return userOk;
 	}
-
-	public static User retrieveUser(String id) {
+	
+	public static User retrieveUser(String id){
 		User userRet = null;
-		for (User user : RetailSystem.getInstance().getUsers()) {
-			if (user.getUserID().equals(id)) {
+		for(User user : RetailSystem.getInstance().getUsers()){
+			if(user.getUserID().equals(id)){
 				userRet = user;
 			}
 		}
 		return userRet;
 	}
-
-	public static void saveUser() {
+	
+	public static void saveUser(){
 		try {
 			FileWriter userFile;
 			userFile = new FileWriter("users.txt");
@@ -79,7 +90,7 @@ public class User {
 			exception.printStackTrace();
 		}
 	}
-
+	
 	public static String[] userListComplete() {
 		String[] userList = new String[RetailSystem.getInstance().getUsers()
 				.size()];
@@ -88,22 +99,6 @@ public class User {
 			userList[i] = "ID: " + user.getUserID() + " ; Name: "
 					+ user.getName();
 			i++;
-		}
-		return userList;
-	}
-
-	public static String[] userListExceptCurrent() {
-		String[] userList = new String[RetailSystem.getInstance().getUsers()
-				.size()];
-		int i = 0;
-		for (User user : RetailSystem.getInstance().getUsers()) {
-			if (!user.getUserID().equals(
-					RetailSystem.getInstance().getCurrentUserID())) {
-				userList[i] = "ID: " + user.getUserID() + " ; Name: "
-						+ user.getName();
-				i++;
-			}
-
 		}
 		return userList;
 	}

@@ -33,7 +33,8 @@ public class DeleteUserGUI extends JFrame {
 
 		labelTitle = new JLabel(
 				"Please pick the user you want to remove from the user list below");
-		usersDropDown = new JComboBox(User.userListExceptCurrent());
+		usersDropDown = new JComboBox();
+		buildUsersDropDown();
 		deleteButton = new JButton("Delete User");
 
 		panel.add(labelTitle);
@@ -73,13 +74,24 @@ public class DeleteUserGUI extends JFrame {
 		panel.remove(labelTitle);
 		panel.remove(usersDropDown);
 		panel.remove(deleteButton);
-		usersDropDown = new JComboBox(User.userListExceptCurrent());
 		panel.add(labelTitle);
+		usersDropDown = new JComboBox();
+		buildUsersDropDown();
 		panel.add(usersDropDown);
 		panel.add(deleteButton);
 		panel.revalidate();
 		revalidate();
 		repaint();
+	}
+	
+	public void buildUsersDropDown(){
+		for (User user : RetailSystem.getInstance().getUsers()){
+			if(!user.getUserID().equals(RetailSystem.getInstance().getCurrentUserID())){
+				String string = "ID: " + user.getUserID() + " ; Name: "
+						+ user.getName();
+				usersDropDown.addItem(string);
+			}
+		}
 	}
 
 }
