@@ -93,7 +93,6 @@ public class RetailSystem {
 
 		// login gui for authentication
 		LoginGUI login = new LoginGUI();
-		//Please note that the Order GUI has to be inserted in the menu GUI
 
 	}
 

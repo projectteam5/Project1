@@ -16,7 +16,7 @@ public class UserGUI extends JFrame {
 		// declaration and initialization of panel, container, layout setting
 		// and buttons
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(1000, 800);
+		setSize(400, 400);
 		JPanel panel = new JPanel();
 		Container container = getContentPane();
 		container.add(panel);
