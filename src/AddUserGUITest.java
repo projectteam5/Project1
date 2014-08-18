@@ -42,7 +42,7 @@ public class AddUserGUITest {
 	
 	@Test
 	public void testValidateUserNull() {
-		assertFalse(AddUserGUI.validateUser(null, "", "", "Manager"));
+		assertFalse(AddUserGUI.validateUser(null, null, "", "Manager"));
 	}
 
 }

@@ -1,5 +1,5 @@
-product1;ProductPC1;1000.0;200.0;supplier1
-product2;ProductPC2;2000.0;400.0;supplier1
+product1;ProductPC1;2000.0;200.0;supplier1
+product2;ProductPC2;2000.0;300.0;supplier1
 product3;ProductPC3;1500.0;300.0;supplier2
 product4;ProductPC4;2300.0;200.0;supplier1
 product5;ProductPC5;1000.0;400.0;supplier2
@@ -17,3 +17,4 @@ product16;ProductPC16;1200.0;330.0;supplier2
 product17;ProductPC17;1100.0;100.0;supplier2
 product18;ProductPC18;1000.0;170.0;supplier2
 product19;PCCris;1500.0;200.0;supplier1
+product90;pctest;5000.0;600.0;supplier1

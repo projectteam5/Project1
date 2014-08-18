@@ -20,9 +20,11 @@ public class EditUserGUI extends JFrame {
 	private JComboBox typeDropDown;
 	private JComboBox userDropDown;
 	private JButton doneButton;
+	private JButton editButton;
 	private JLabel labelName;
 	private JLabel labelPassword;
 	private JLabel labelType;
+	private JLabel labelTitle;
 	private String userID;
 	private String selectedUserIDPrev;
 	private User user;
@@ -41,10 +43,10 @@ public class EditUserGUI extends JFrame {
 		panel.setLayout(new GridLayout(0, 1));
 
 		// declaration of the labels and initialization of labels and text field
-		JLabel labelTitle = new JLabel(
+		labelTitle = new JLabel(
 				"Please pick the user you want to see from the user list below");
-		userDropDown = new JComboBox(userList());
-		JButton editButton = new JButton("Edit User");
+		userDropDown = new JComboBox(User.userListComplete());
+		editButton = new JButton("Edit User");
 		doneButton = new JButton("Commit");
 
 		// adding all the components
@@ -89,18 +91,13 @@ public class EditUserGUI extends JFrame {
 		this.setVisible(true);
 	}
 
-	/*
-	 * public User retrieveUser(String id) { User user = null; for (User userRS
-	 * : RetailSystem.getInstance().getUsers()) { if
-	 * (userRS.getUserID().equals(userID)) { user = userRS; } } return user; }
-	 */
-
 	public int editUser() {
 		int returnValue = 1;
 		String name = NameField.getText();
 		String password = PasswordField.getText();
 		String type = typeDropDown.getSelectedItem().toString();
-		if ( name!=null && password!=null && type!=null && name!=null && !password.isEmpty() && !type.isEmpty()) {
+		if (name != null && password != null && type != null && name != null
+				&& !password.isEmpty() && !type.isEmpty()) {
 			user.setName(name);
 			user.setPassword(password);
 			user.setType(type);
@@ -109,18 +106,6 @@ public class EditUserGUI extends JFrame {
 			this.setVisible(false);
 		}
 		return returnValue;
-	}
-
-	public static String[] userList() {
-		String[] userList = new String[RetailSystem.getInstance().getUsers()
-				.size()];
-		int i = 0;
-		for (User user : RetailSystem.getInstance().getUsers()) {
-			userList[i] = "ID: " + user.getUserID() + " ; Name: "
-					+ user.getName();
-			i++;
-		}
-		return userList;
 	}
 
 	public void populateFields() {

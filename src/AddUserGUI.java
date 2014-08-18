@@ -19,6 +19,11 @@ public class AddUserGUI extends JFrame {
 	private JTextField textUserName;
 	private JTextField textUserPass;
 	private JComboBox typeDropDown;
+	JLabel label1;
+	JLabel label2;
+	JLabel label3;
+	JLabel label4;
+	JButton doneButton;
 
 	public AddUserGUI() {
 		// declaration and initialization of panel, container and layout setting
@@ -35,11 +40,11 @@ public class AddUserGUI extends JFrame {
 		textUserName = new JTextField();
 		textUserPass = new JTextField();
 		typeDropDown = new JComboBox(RetailSystem.getInstance().getUserTypeList());
-		JLabel label1 = new JLabel("User ID");
-		JLabel label2 = new JLabel("Name");
-		JLabel label3 = new JLabel("Password");
-		JLabel label4 = new JLabel("Type");
-		JButton doneButton = new JButton("Add");
+		label1 = new JLabel("User ID");
+		label2 = new JLabel("Name");
+		label3 = new JLabel("Password");
+		label4 = new JLabel("Type");
+		doneButton = new JButton("Add");
 		
 		// adding all the components
 		panel.add(label1);

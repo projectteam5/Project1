@@ -27,7 +27,7 @@ public class MenuGUI extends JFrame {
 		Container container = getContentPane();
 		container.add(panel);
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setLayout(new GridLayout(4, 2));
+		panel.setLayout(new GridLayout(0, 2));
 		buttonUser = new JButton("Manage Users");
 		buttonCustomer = new JButton("Manage Customers");
 		buttonProduct = new JButton("Manage Products");
@@ -47,8 +47,6 @@ public class MenuGUI extends JFrame {
 			panel.add(buttonAvailability);
 			panel.add(buttonViewOrder);
 			panel.add(buttonUser);
-			panel.add(buttonSave);
-
 		} else {
 			panel.add(buttonCustomer);
 			panel.add(buttonAvailability);
@@ -83,7 +81,7 @@ public class MenuGUI extends JFrame {
 
 			}
 		});
-		
+
 		buttonViewOrder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ViewAllOrdersGUI allOrders = new ViewAllOrdersGUI();
@@ -107,44 +105,45 @@ public class MenuGUI extends JFrame {
 
 			}
 		});
-		
-		buttonSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					FileWriter userFile;
-					userFile = new FileWriter("users.txt");
-					DataBase.writeUsers(RetailSystem.getInstance().getUsers(),userFile);
-					userFile.close();// close the user file
-					userFile = new FileWriter("products.txt");
-					DataBase.writeProducts(RetailSystem.getInstance().getProducts(),userFile);
-					userFile.close();// close the user file	
-					userFile = new FileWriter("suppliers.txt");
-					DataBase.writeSuppliers(RetailSystem.getInstance().getSuppliers(),userFile);
-					userFile.close();// close the user file
-					userFile = new FileWriter("customers.txt");
-					DataBase.writeCustomers(RetailSystem.getInstance().getCustomers(),userFile);
-					userFile.close();// close the user file
-					userFile = new FileWriter("orders.txt");
-					DataBase.writeOrders(RetailSystem.getInstance().getOrders(),userFile);
-					userFile.close();// close the user file
-					userFile = new FileWriter("stocks.txt");
-					DataBase.writeStocks(RetailSystem.getInstance().getStocks(),userFile);
-					userFile.close();// close the user file
-					JOptionPane.showMessageDialog(null, "Data have been saved!", "Notification", JOptionPane.INFORMATION_MESSAGE );
-					
-				} catch (Exception exception) {
-					exception.printStackTrace();
-				}
 
-				
-
-			}
-		});
+		/*
+		 * buttonSave.addActionListener(new ActionListener() { public void
+		 * actionPerformed(ActionEvent e) { try { FileWriter userFile; userFile
+		 * = new FileWriter("users.txt");
+		 * DataBase.writeUsers(RetailSystem.getInstance().getUsers(),userFile);
+		 * userFile.close();// close the user file userFile = new
+		 * FileWriter("products.txt");
+		 * DataBase.writeProducts(RetailSystem.getInstance
+		 * ().getProducts(),userFile); userFile.close();// close the user file
+		 * userFile = new FileWriter("suppliers.txt");
+		 * DataBase.writeSuppliers(RetailSystem
+		 * .getInstance().getSuppliers(),userFile); userFile.close();// close
+		 * the user file userFile = new FileWriter("customers.txt");
+		 * DataBase.writeCustomers
+		 * (RetailSystem.getInstance().getCustomers(),userFile);
+		 * userFile.close();// close the user file userFile = new
+		 * FileWriter("orders.txt");
+		 * DataBase.writeOrders(RetailSystem.getInstance
+		 * ().getOrders(),userFile); userFile.close();// close the user file
+		 * userFile = new FileWriter("stocks.txt");
+		 * DataBase.writeStocks(RetailSystem
+		 * .getInstance().getStocks(),userFile); userFile.close();// close the
+		 * user file JOptionPane.showMessageDialog(null,
+		 * "Data have been saved!", "Notification",
+		 * JOptionPane.INFORMATION_MESSAGE );
+		 * 
+		 * } catch (Exception exception) { exception.printStackTrace(); }
+		 * 
+		 * 
+		 * 
+		 * } });
+		 */
 
 		this.setVisible(true);
 
 	}
-	public void closeMenu(){
+
+	public void closeMenu() {
 		this.setVisible(false);
 	}
 

@@ -47,11 +47,11 @@ public class UserGUI extends JFrame {
 		});
 
 		/*
-		 * Edit button: it opens a new window where it's possible to select the user
-		 * from a dropdown list. After a user is selected it is possible to push
-		 * the button "Edit User" and automatically will be displayed fields with the user
-		 * data in it. It is possible to modify the data and save it with the 
-		 * "Commit" button.
+		 * Edit button: it opens a new window where it's possible to select the
+		 * user from a dropdown list. After a user is selected it is possible to
+		 * push the button "Edit User" and automatically will be displayed
+		 * fields with the user data in it. It is possible to modify the data
+		 * and save it with the "Commit" button.
 		 */
 		editUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -60,9 +60,9 @@ public class UserGUI extends JFrame {
 		});
 
 		/*
-		 * Show button: it opens a new window where it's possible to select the user
-		 * from a dropdown list. Pressing the "Show User" button the data related to that
-		 * user will be displayed in a read-only way
+		 * Show button: it opens a new window where it's possible to select the
+		 * user from a dropdown list. Pressing the "Show User" button the data
+		 * related to that user will be displayed in a read-only way
 		 */
 		showUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -71,16 +71,17 @@ public class UserGUI extends JFrame {
 		});
 
 		/*
-		 * Delete button: it opens a new window where it's possible to select the user
-		 * from a dropdown list. After a user is selected it is possible to push
-		 * the button "Delete User" and automatically the user will be removed
+		 * Delete button: it opens a new window where it's possible to select
+		 * the user from a dropdown list. After a user is selected it is
+		 * possible to push the button "Delete User" and automatically the user
+		 * will be removed
 		 */
 		deleteUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				DeleteUserGUI deleteUserGui = new DeleteUserGUI();
 			}
 		});
-		
+
 		/*
 		 * Menu button: it closes the User menu and open a General Menu
 		 */
@@ -94,9 +95,8 @@ public class UserGUI extends JFrame {
 		this.setVisible(true);
 	}
 
-	public void closeUserGUI(){
+	public void closeUserGUI() {
 		this.setVisible(false);
 	}
-	
 
 }

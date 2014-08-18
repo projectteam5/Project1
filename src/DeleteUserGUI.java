@@ -33,38 +33,25 @@ public class DeleteUserGUI extends JFrame {
 
 		labelTitle = new JLabel(
 				"Please pick the user you want to remove from the user list below");
-		usersDropDown = new JComboBox(userList());
+		usersDropDown = new JComboBox(User.userListExceptCurrent());
 		deleteButton = new JButton("Delete User");
 
 		panel.add(labelTitle);
 		panel.add(usersDropDown);
 		panel.add(deleteButton);
-		
+
 		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				deleteUserButton();
 			}
-	
+
 		});
-		
+
 		setVisible(true);
 
 	}
-	
-	public static String[] userList(){
-		String[] userList = new String[ RetailSystem.getInstance().getUsers().size()];
-		int i = 0;
-		for (User user : RetailSystem.getInstance().getUsers()){
-			if(!user.getUserID().equals(RetailSystem.getInstance().getCurrentUserID())){
-				userList[i] = "ID: " + user.getUserID()+" ; Name: "+user.getName();
-				i++;
-			}
-			
-		}
-		return userList;
-	}
-	
-	public void deleteUserButton(){
+
+	public void deleteUserButton() {
 		userRemove = null;
 		String selectedUserString = usersDropDown.getSelectedItem().toString();
 		String[] selectedUserArray = selectedUserString.split(";");
@@ -72,24 +59,21 @@ public class DeleteUserGUI extends JFrame {
 		String[] selectedUserIDArray = selectedUserIDString.split(":");
 		selectedUserID = selectedUserIDArray[1].trim();
 		userRemove = User.retrieveUser(selectedUserID);
-		if(userRemove != null){
+		if (userRemove != null) {
 			RetailSystem.getInstance().getUsers().remove(userRemove);
-			JOptionPane.showMessageDialog(null,
-					"User correctly removed", "Correctly Done",
-					JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "User correctly removed",
+					"Correctly Done", JOptionPane.INFORMATION_MESSAGE);
 			User.saveUser();
 			addAndRefresh();
 		}
-	
-	
-		
+
 	}
-	
-	public void addAndRefresh(){
+
+	public void addAndRefresh() {
 		panel.remove(labelTitle);
 		panel.remove(usersDropDown);
 		panel.remove(deleteButton);
-		usersDropDown = new JComboBox(userList());
+		usersDropDown = new JComboBox(User.userListExceptCurrent());
 		panel.add(labelTitle);
 		panel.add(usersDropDown);
 		panel.add(deleteButton);
