@@ -5,10 +5,17 @@ import javax.swing.JOptionPane;
 public class Stock {
 	private int units;
 	private Product product;
+	private boolean active;
 	
 	public Stock(int units, Product product) {
 		this.units = units;
 		this.product = product;
+		this.active = true;
+	}
+	public Stock(int units, Product product,boolean active){
+		this.units=units;
+		this.product = product;
+		this.active = active;
 	}
 	public void viewStockList(){
 		for(Stock s: RetailSystem.getInstance().getStocks()){
@@ -56,6 +63,12 @@ public class Stock {
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+	public boolean isActive() {
+		return active;
+	}
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 }
