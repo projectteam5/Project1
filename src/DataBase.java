@@ -49,13 +49,14 @@ public class DataBase {
 		while ((line = bufReader.readLine()) != null) {
 			String[] parts = line.split(";");
 			count++;
-			if (parts.length == 4) {
+			if (parts.length == 5) {
 				String customerID = parts[0];
 				String name = parts[1];
 				String address = parts[2];
 				String phoneNumber = parts[3];
+				boolean active = Boolean.parseBoolean(parts[4]);
 				Customer customer = new Customer(customerID, name, address,
-						phoneNumber);
+						phoneNumber, active);
 				customers.add(customer);
 			} else {
 				System.err.println("Skipping corrupted customer at line "
@@ -81,7 +82,7 @@ public class DataBase {
 				String name = parts[1];
 				String phoneNumber = parts[2];
 				boolean active = Boolean.parseBoolean(parts[3]);
-				Supplier supplier = new Supplier(supplierID, name, phoneNumber);
+				Supplier supplier = new Supplier(supplierID, name, phoneNumber, active );
 				suppliers.add(supplier);
 			} else {
 				System.err.println("Skipping corrupted supplier at line "
@@ -118,7 +119,7 @@ public class DataBase {
 				}
 				if (supplier != null) {
 					Product product = new Product(productID, name, cost,
-							markup, supplier);
+							markup, supplier, active);
 					products.add(product);
 				} else {
 					System.err
@@ -144,11 +145,10 @@ public class DataBase {
 		while ((line = bufReader.readLine()) != null) {
 			String[] parts = line.split(";");
 			count++;
-			if (parts.length == 7) {
+			if (parts.length == 8) {
 				String orderID = parts[0];
 				Date orderDate = DateFormat.getDateInstance().parse(parts[1]); // transform as date
 				String productID = parts[2];
-				//String supplierID = parts[3];
 				int quantity = Integer.parseInt(parts[3]);// transform as int																// int
 				Date expectedDeliveryDate = DateFormat.getDateInstance().parse(parts[4]);// transform as date
 				Date dateReceived = null;
@@ -156,6 +156,7 @@ public class DataBase {
 					dateReceived = DateFormat.getDateInstance().parse(parts[5]);// transform as date
 				}
 				boolean received = Boolean.parseBoolean(parts[6]);// transform as boolean
+				boolean active = Boolean.parseBoolean(parts[7]);
 				Product product = null;
 				// before to construct the object order it is necessary retrieve
 				// the object product
@@ -167,7 +168,7 @@ public class DataBase {
 				}
 				if (product!= null) {
 					Order order = new Order(orderID, orderDate, product, quantity, expectedDeliveryDate,
-							dateReceived, received);
+							dateReceived, received, active);
 					orders.add(order);
 				} else {
 					System.err
@@ -192,9 +193,10 @@ public class DataBase {
 			while ((line = bufReader.readLine()) != null) {
 				String[] parts = line.split(";");
 				count++;
-				if (parts.length == 2) {
+				if (parts.length == 3) {
 					String productID = parts[0];
-					int quantity = Integer.parseInt(parts[1]);// transform as int																// int
+					int quantity = Integer.parseInt(parts[1]);// transform as int		
+					boolean active = Boolean.parseBoolean(parts[2]);
 					Product product = null;
 					// before to construct the object order it is necessary retrieve
 					// the object product
@@ -205,7 +207,7 @@ public class DataBase {
 						}
 					}
 					if (product!= null) {
-						Stock stock = new Stock(quantity, product);
+						Stock stock = new Stock(quantity, product, active);
 						stocks.add(stock);
 					} else {
 						System.err
@@ -241,7 +243,7 @@ public class DataBase {
 		BufferedWriter out = new BufferedWriter(writer);
 		for (Customer customer : customers) {
 			out.write(customer.getCustomerID() + ";" + customer.getName() + ";"
-					+ customer.getAddress() + ";" + customer.getPhoneNumber());
+					+ customer.getAddress() + ";" + customer.getPhoneNumber()+ ";" + customer.isActive());
 			out.newLine();
 		}
 		out.close();
@@ -284,7 +286,7 @@ public class DataBase {
 					+ order.getQuantity() + ";" 
 					+ DateFormat.getDateInstance().format(order.getExpectedDeliveryDate()) + ";"
 					+ DateFormat.getDateInstance().format(order.getDateReceived())  + ";" 
-					+ order.isReceived());
+					+ order.isReceived()+ ";" + order.isActive());
 			out.newLine();
 		}
 		out.close();
@@ -296,7 +298,7 @@ public class DataBase {
 			throws IOException {
 		BufferedWriter out = new BufferedWriter(writer);
 		for (Stock stock : stocks) {
-			out.write(stock.getProduct().getProductID() + ";" + stock.getUnits());
+			out.write(stock.getProduct().getProductID() + ";" + stock.getUnits()+ ";" + stock.isActive());
 			out.newLine();
 		}
 		out.close();

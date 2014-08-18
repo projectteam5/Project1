@@ -57,6 +57,8 @@ public class Order {
 		this.expectedDeliveryDate = expectedDeliveryDate;
 		this.dateReceived = dateReceived;
 		this.received = received;
+		//Cris :when u create a new order, the active value is true by default
+		this.active = true;
 	}
 	
 	public Order(String orderID, Date orderDate, 
@@ -172,6 +174,15 @@ public class Order {
 		this.received = received;
 	}
 	
+	//Cris --> added getter and setter for active	
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
 	public void displayOrder() {
 		System.out.println(orderID 
 				+ " | " + orderDate 

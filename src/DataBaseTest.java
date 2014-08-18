@@ -210,7 +210,7 @@ public class DataBaseTest {
 	@Test
 	public void testLoadOrderCorrupted() throws IOException, ParseException {
 		Reader reader = new StringReader(
-				"order1;14-Aug-2014;product1;10;14-Aug-2014;;false\n"
+				"order1;14-Aug-2014;product1;10;14-Aug-2014;;false;true\n"
 						+ "order1;14-Aug-2014");
 		ArrayList<Order> list = DataBase.loadOrders(reader);
 		assertEquals(1, list.size());
@@ -236,8 +236,8 @@ public class DataBaseTest {
 	// Skips lines with corrupted data
 	@Test
 	public void testLoadStocksCorrupteds() throws IOException, ParseException {
-		Reader reader = new StringReader("product1;20\n" + "product2\n"
-				+ "product3;9\n");
+		Reader reader = new StringReader("product1;20;true\n" + "product2\n"
+				+ "product3;9;true\n");
 		ArrayList<Stock> list = DataBase.loadStocks(reader);
 		assertEquals(2, list.size());
 	}
@@ -248,7 +248,7 @@ public class DataBaseTest {
 	public void testwriteUsers() throws IOException, ParseException {
 		Writer userFile = new StringWriter();
 		DataBase.writeUsers(usersTest,userFile);
-		assertEquals("1111;Cris;passw10;Attendant",userFile.toString().trim());
+		assertEquals("1111;Cris;passw10;Attendant;true",userFile.toString().trim());
 	}
 	
 	//Writes a customer 
@@ -262,14 +262,14 @@ public class DataBaseTest {
 	public void testwriteSuppliers() throws IOException, ParseException {
 		Writer userFile = new StringWriter();
 		DataBase.writeSuppliers(suppliersTest,userFile);
-		assertEquals("supplier1;Supplier1 Name;083776655",userFile.toString().trim());
+		assertEquals("supplier1;Supplier1 Name;083776655;true",userFile.toString().trim());
 	}
 	
 	//Writes a product
 	public void testwriteSProductss() throws IOException, ParseException {
 		Writer userFile = new StringWriter();
 		DataBase.writeProducts(productsTest,userFile);
-		assertEquals("product1;ProductPC1;1000;200;supplier1",userFile.toString().trim());
+		assertEquals("product1;ProductPC1;1000;200;supplier1;true",userFile.toString().trim());
 	}
 	
 	//Writes a order
@@ -278,7 +278,7 @@ public class DataBaseTest {
 		String datestring =DateFormat.getDateInstance().format(date);
 		Writer userFile = new StringWriter();
 		DataBase.writeOrders(ordersTest,userFile);
-		assertEquals("order10;"+datestring+";product1;10;"+datestring+";"+datestring+";false",userFile.toString().trim());
+		assertEquals("order10;"+datestring+";product1;10;"+datestring+";"+datestring+";false"+";true",userFile.toString().trim());
 	}
 	
 	//Writes a stock
@@ -286,7 +286,7 @@ public class DataBaseTest {
 	public void testwriteStocks() throws IOException, ParseException {
 		Writer userFile = new StringWriter();
 		DataBase.writeStocks(stocksTest,userFile);
-		assertEquals("product1;10",userFile.toString().trim());
+		assertEquals("product1;10;true",userFile.toString().trim());
 	}
 
 }
