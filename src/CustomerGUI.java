@@ -28,12 +28,14 @@ public class CustomerGUI extends JFrame {
 		JButton EditCustomer = new JButton("Edit Customer");
 		JButton DeleteCustomer = new JButton("Delete Customer");
 		JButton viewCustomer = new JButton("View Customer");
+		JButton mainMenu = new JButton("Main Menu");
 
 		// adding components
 		panel.add(AddCustomer);
 		panel.add(EditCustomer);
 		panel.add(DeleteCustomer);
 		panel.add(viewCustomer);
+		panel.add(mainMenu);
 		
 
 		//Adds customer in a new GUI
@@ -42,6 +44,8 @@ public class CustomerGUI extends JFrame {
 				addCustomerButton();
 			}
 		});
+		
+		
 
 		//Enter customer ID then edit if there is a corresponding Customer ID in the system
 		EditCustomer.addActionListener(new ActionListener() {
@@ -70,6 +74,8 @@ public class CustomerGUI extends JFrame {
 			}
 		});
 		
+		
+		
 		viewCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				CustomerViewGUI CustomerViewGui = new CustomerViewGUI();
@@ -77,7 +83,15 @@ public class CustomerGUI extends JFrame {
 		});
 
 		this.setVisible(true);
+		
+		mainMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MenuGUI menuGui = new MenuGUI();
+				closeCustomerGUI();
+			}
+		});
 
+		this.setVisible(true);
 	}
 
 	public static boolean existingID(String id) {
@@ -113,7 +127,6 @@ public class CustomerGUI extends JFrame {
 		}
 	}
 	
-	
 	public int deleteCustomerButton() {
 		String inputValue = JOptionPane
 				.showInputDialog("Please insert a Customer ID");
@@ -132,13 +145,6 @@ public class CustomerGUI extends JFrame {
 
 	}
 	
-
-	
-
-	
-
-	
-	
 	public static void saveCustomer() {
 		try {
 			FileWriter customerFile;
@@ -149,6 +155,12 @@ public class CustomerGUI extends JFrame {
 			exception.printStackTrace();
 		}
 	}
+	
+	public void closeCustomerGUI(){
+		this.setVisible(false);
+	}
+	
+	
 
 }
 
