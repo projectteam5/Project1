@@ -7,6 +7,7 @@ public class Supplier {
 	private String name;
 	private String phoneNumber;
 	private boolean active;
+	private int l;
 
 	public Supplier(String suppplierID,String name,String phoneNumber) {
 		this.supplierID=suppplierID;
