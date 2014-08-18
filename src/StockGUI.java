@@ -23,8 +23,6 @@ public class StockGUI extends JFrame {
 		Container contentPane = this.getContentPane();
 		
 		JPanel optionsPanel = new JPanel();
-		JPanel searchByProductPanel = new JPanel();
-		JPanel stockListPanel = new JPanel();
 		
 		
 		 JButton searchByProduct = new JButton("Search by Product");
@@ -39,8 +37,6 @@ public class StockGUI extends JFrame {
 		optionsPanel.add(menu);
 		
 		
-		//the search by product panel....
-		
 		searchByProduct.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				
@@ -49,20 +45,28 @@ public class StockGUI extends JFrame {
 			}
 		});
 		
-		//if(optionsPanel.isVisible()==false){
+		viewListOfStock.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				new AvailableStockLevelsGUI();
+				dispose();
+			}
+		});
+		
+		menu.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				new MenuGUI();
+				dispose();
+			}
+		});
+		
+		
 		contentPane.add(optionsPanel);
 		setVisible(true);
-		//}
+
 		
 	}
 	public static void main(String [] args){
 		new StockGUI();
-	}
-	public void searchByProductGUI(){
-		
-		
-		//end of search by product panel...
-		
 	}
 
 }

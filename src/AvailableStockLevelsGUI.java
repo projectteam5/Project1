@@ -59,6 +59,7 @@ public class AvailableStockLevelsGUI extends JFrame {
 		JButton ok = new JButton("Ok");
 		ok.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
+				new StockGUI();
 				dispose();// gets rid of just this GUI
 			}
 		});
