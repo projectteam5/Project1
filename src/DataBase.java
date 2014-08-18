@@ -267,7 +267,7 @@ public class DataBase {
 		for (Product product : products) {
 			out.write(product.getProductID() + ";" + product.getName() + ";"
 					+ product.getCost() + ";" + product.getMarkup() + ";"
-					+ product.getSupplier().getSupplierID()+ product.isActive());
+					+ product.getSupplier().getSupplierID()+ ";"+ product.isActive());
 			out.newLine();
 		}
 		out.close();
