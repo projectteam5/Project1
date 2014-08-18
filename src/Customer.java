@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+
 //package RetailSystem;
 
 public class Customer {
@@ -49,6 +51,19 @@ public class Customer {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+
+	public static String[] customerListComplete() {
+		String[] customerList = new String[RetailSystem.getInstance().getCustomers()
+				.size()];
+		int i = 0;
+		for (Customer customer : RetailSystem.getInstance().getCustomers()) {
+			customerList[i] = "ID: " + customer.getCustomerID() + " ; Name: "
+					+ customer.getName();
+			i++;
+		}
+		return customerList;
 	}
 	
 	

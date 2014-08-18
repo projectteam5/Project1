@@ -2,6 +2,7 @@ import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,6 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 public class CustomerGUI extends JFrame {
+	
+	private JButton viewCustomer;
 
 	public CustomerGUI() {
 		// declaration and initialization of panel, container, layout setting
@@ -24,11 +27,14 @@ public class CustomerGUI extends JFrame {
 		JButton AddCustomer = new JButton("Add Customer");
 		JButton EditCustomer = new JButton("Edit Customer");
 		JButton DeleteCustomer = new JButton("Delete Customer");
+		JButton viewCustomer = new JButton("View Customer");
 
 		// adding components
 		panel.add(AddCustomer);
 		panel.add(EditCustomer);
 		panel.add(DeleteCustomer);
+		panel.add(viewCustomer);
+		
 
 		//Adds customer in a new GUI
 		AddCustomer.addActionListener(new ActionListener() {
@@ -56,10 +62,17 @@ public class CustomerGUI extends JFrame {
 					JOptionPane.showMessageDialog(null, "ID not found!",
 							"Error", JOptionPane.ERROR_MESSAGE);
 				} else {
+					saveCustomer();
 					JOptionPane.showMessageDialog(null,
 							"Customer correctly removed", "Customer Deleted",
 							JOptionPane.INFORMATION_MESSAGE);
 				}
+			}
+		});
+		
+		viewCustomer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CustomerViewGUI CustomerViewGui = new CustomerViewGUI();
 			}
 		});
 
@@ -90,14 +103,12 @@ public class CustomerGUI extends JFrame {
 
 	public int editCustomerButton() {
 		String inputValue = JOptionPane
-				.showInputDialog("Please insert a UserID");
+				.showInputDialog("Please insert a Customer ID");
 		if (existingID(inputValue)) { 
-			System.out.println("Before open GUI");
 			CustomerEditGUI gui = new CustomerEditGUI(inputValue);
 			this.setVisible(false);
 			return 0;
 		} else {
-			System.out.println("After open GUI");
 			return 1;
 		}
 	}
@@ -105,8 +116,8 @@ public class CustomerGUI extends JFrame {
 	
 	public int deleteCustomerButton() {
 		String inputValue = JOptionPane
-				.showInputDialog("Please insert a CustomerID");
-		if (existingID(inputValue) && notLoginID(inputValue)) {
+				.showInputDialog("Please insert a Customer ID");
+		if (existingID(inputValue)) {
 			Customer customerRemove = null;
 			for (Customer customer : RetailSystem.getInstance().getCustomers()) {
 				if (customer.getCustomerID().equals(inputValue)) {
@@ -119,6 +130,24 @@ public class CustomerGUI extends JFrame {
 			return 1;
 		}
 
+	}
+	
+
+	
+
+	
+
+	
+	
+	public static void saveCustomer() {
+		try {
+			FileWriter customerFile;
+			customerFile = new FileWriter("customers.txt");
+			DataBase.writeCustomers(RetailSystem.getInstance().getCustomers(), customerFile);
+			customerFile.close();// close the customer file
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
 	}
 
 }

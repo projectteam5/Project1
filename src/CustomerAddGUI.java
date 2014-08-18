@@ -4,6 +4,7 @@ import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -54,6 +55,7 @@ public class CustomerAddGUI extends JFrame {
 				if(customerValidation(customerID, name, address, phoneNumber)){
 					Customer customer = new Customer(customerID, name, address, phoneNumber);
 					RetailSystem.getInstance().getCustomers().add(customer);
+					saveCustomer();
 					JOptionPane.showMessageDialog(null, "Customer Created and added to system", "Success", JOptionPane.PLAIN_MESSAGE);
 				}
 				
@@ -64,6 +66,17 @@ public class CustomerAddGUI extends JFrame {
 		Container cp = getContentPane();
 		cp.add(jpanel);
 		setVisible(true);
+	}
+	
+	public static void saveCustomer() {
+		try {
+			FileWriter customerFile;
+			customerFile = new FileWriter("customers.txt");
+			DataBase.writeCustomers(RetailSystem.getInstance().getCustomers(), customerFile);
+			customerFile.close();// close the customer file
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
 	}
 
 	
