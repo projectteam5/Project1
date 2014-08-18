@@ -87,7 +87,7 @@ public class LoginGUI {
 		} else {
 			for (User user : RetailSystem.getInstance().getUsers()) {
 				if (user.getUserID().equals(id)
-						&& user.getPassword().equals(password)) {
+						&& user.getPassword().equals(password) && user.isActive()) {
 					RetailSystem.getInstance().setCurrentUserType(
 							user.getType());
 					RetailSystem.getInstance().setCurrentUserID(user.getUserID());

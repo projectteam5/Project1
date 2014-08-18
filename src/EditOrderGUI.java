@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -12,6 +13,8 @@ public class EditOrderGUI extends JFrame implements ActionListener {
 	private JButton editOrderButton;
 	
 	private static Order orderToEdit;
+	
+	private JButton returnToMainMenu;
 
 	public EditOrderGUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -26,6 +29,8 @@ public class EditOrderGUI extends JFrame implements ActionListener {
 		orderList = new JComboBox<String>();
 		editOrderButton = new JButton("Edit Order");
 		
+		returnToMainMenu = new JButton("Main Menu");
+		
 		for(Order order: RetailSystem.getInstance().getOrders()){
 			orderList.addItem(order.getOrderID());
 		}
@@ -33,7 +38,11 @@ public class EditOrderGUI extends JFrame implements ActionListener {
 		panel.add(orderList);
 		panel.add(editOrderButton);
 		
+		panel.add(returnToMainMenu);
+		
 		editOrderButton.addActionListener(this);
+		
+		returnToMainMenu.addActionListener(this);
 
 		setVisible(true);
 	}
@@ -60,6 +69,19 @@ public class EditOrderGUI extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(this, "No Order With This ID in System!");
 			}
 		}
+		
+		if(target == returnToMainMenu) {
+			try {
+				OrderGUI returnToMainMenu = new OrderGUI();
+				this.setVisible(false);
+				this.dispose();
+			} catch(Exception e) {
+				System.err.println(e);
+				System.err.println(e.getMessage());
+				JOptionPane.showMessageDialog(this, "cannot reach OrderGUI");
+			}
+		}
+		
 	}
 
 	public static Order getOrderToEdit() {

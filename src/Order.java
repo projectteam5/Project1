@@ -16,6 +16,8 @@ public class Order {
 	private Date expectedDeliveryDate;
 	private Date dateReceived;
 	private boolean received;
+	
+	private boolean active;
 	/*
 	public Order() {
 
@@ -28,6 +30,20 @@ public class Order {
 		this.received = false;
 	}
 		*/
+	
+	public Order(String orderID, Date orderDate, 
+			Product product, int quantity, 
+			Date expectedDeliveryDate) throws ParseException  {
+		localDate = new Locale("en", "GB");
+		df = new SimpleDateFormat("dd/MM/yyyy", localDate);
+
+		this.orderID = orderID;
+		this.orderDate = orderDate;
+		this.product = product;
+		this.quantity = quantity;
+		this.expectedDeliveryDate = expectedDeliveryDate;
+	}
+	
 	public Order(String orderID, Date orderDate, 
 			Product product, int quantity, 
 			Date expectedDeliveryDate, Date dateReceived, boolean received) throws ParseException  {
@@ -41,6 +57,22 @@ public class Order {
 		this.expectedDeliveryDate = expectedDeliveryDate;
 		this.dateReceived = dateReceived;
 		this.received = received;
+	}
+	
+	public Order(String orderID, Date orderDate, 
+			Product product, int quantity, 
+			Date expectedDeliveryDate, Date dateReceived, boolean received, boolean active) throws ParseException  {
+		localDate = new Locale("en", "GB");
+		df = new SimpleDateFormat("dd/MM/yyyy", localDate);
+
+		this.orderID = orderID;
+		this.orderDate = orderDate;
+		this.product = product;
+		this.quantity = quantity;
+		this.expectedDeliveryDate = expectedDeliveryDate;
+		this.dateReceived = dateReceived;
+		this.received = received;
+		this.active = active;
 	}
 	
 	public void addOrderToList(Order order) {

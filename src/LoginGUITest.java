@@ -17,8 +17,8 @@ public class LoginGUITest {
 			
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		Reader reader = new StringReader("1111;Scott Scott;passw1;Manager\n"
-				+ "1112;Daniel Daniel;passw2;Attendant\n");
+		Reader reader = new StringReader("1111;Scott Scott;passw1;Manager;true\n"
+				+ "1112;Daniel Daniel;passw2;Attendant;true\n");
 		ArrayList<User> users = DataBase.loadUsers(reader);
 		RetailSystem.getInstance().setUsers(users);
 	}

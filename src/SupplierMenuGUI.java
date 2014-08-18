@@ -63,7 +63,7 @@ public class SupplierMenuGUI extends JFrame{
 		buttonMainMenu.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent argo0){
 				MenuGUI menuGUI = new MenuGUI();
-				closeProductMenuGUI();
+				closeSupplierMenuGUI();
 			}
 		});
 		
@@ -80,7 +80,7 @@ public class SupplierMenuGUI extends JFrame{
 		setVisible(true);
 	}
 	
-	public void closeProductMenuGUI(){
+	public void closeSupplierMenuGUI(){
 		this.setVisible(false);
 	}
 }

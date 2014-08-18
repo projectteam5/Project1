@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
+
 import javax.swing.*;
 
 public class ViewOrderGUI extends JFrame implements ActionListener {
@@ -11,6 +12,8 @@ public class ViewOrderGUI extends JFrame implements ActionListener {
 	private JLabel orderDetailsLabel ;
 	private JLabel printLabel;
 	private JComboBox<String> orderList;
+	
+	private JButton returnToMainMenu;
 
 	public ViewOrderGUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -25,6 +28,8 @@ public class ViewOrderGUI extends JFrame implements ActionListener {
 		viewOrderButton = new JButton("View Order Details");
 		orderDetailsLabel = new JLabel("Order Details");
 		printLabel = new JLabel();
+		
+		returnToMainMenu = new JButton("Main Menu");
 
 		panel.add(orderDetailsLabel,BorderLayout.NORTH);
 		panel.add(orderList);
@@ -32,7 +37,11 @@ public class ViewOrderGUI extends JFrame implements ActionListener {
 		panel.add(printLabel);
 		container.add(panel);
 		
+		panel.add(returnToMainMenu);
+		
 		viewOrderButton.addActionListener(this);
+		
+		returnToMainMenu.addActionListener(this);
 		
 		setVisible(true);
 		
@@ -66,9 +75,22 @@ public class ViewOrderGUI extends JFrame implements ActionListener {
 					break;
 				}
 			}
+			
 			if(!orderFound){
 				
 				JOptionPane.showMessageDialog(this, "No Order With This ID in System!");
+			}
+		}
+		
+		if(target == returnToMainMenu) {
+			try {
+				OrderGUI returnToMainMenu = new OrderGUI();
+				this.setVisible(false);
+				this.dispose();
+			} catch(Exception e) {
+				System.err.println(e);
+				System.err.println(e.getMessage());
+				JOptionPane.showMessageDialog(this, "cannot reach OrderGUI");
 			}
 		}
 	}

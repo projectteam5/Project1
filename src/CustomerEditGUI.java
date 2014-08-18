@@ -2,6 +2,7 @@ import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -57,6 +58,7 @@ public class CustomerEditGUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				int returnValue = editCustomer();
 				if (returnValue == 0) {
+					saveCustomer();
 					JOptionPane.showMessageDialog(null,
 							"Customer correctly updated", "Update",
 							JOptionPane.PLAIN_MESSAGE);
@@ -101,4 +103,15 @@ public class CustomerEditGUI extends JFrame {
 		}
 		return returnValue;
 	}
+	
+	public static void saveCustomer() {
+		try {
+			FileWriter customerFile;
+			customerFile = new FileWriter("customers.txt");
+			DataBase.writeCustomers(RetailSystem.getInstance().getCustomers(), customerFile);
+			customerFile.close();// close the customer file
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+	}	
 }

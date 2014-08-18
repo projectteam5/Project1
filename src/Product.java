@@ -6,19 +6,26 @@ public class Product {
 	private double cost;
 	private double markup;
 	private Supplier supplier;
+	private boolean active;
 
 	public Product(String productID, String name, double cost, double markup, Supplier supplier) {
 		this.productID = productID;
 		this.name = name;
 		this.cost = cost;
 		this.markup = markup;
-		this.supplier = supplier;
-		
+		this.supplier = supplier;	
+		this.active = true;
 	}
 	
-	public Product() {
-		// TODO Auto-generated constructor stub
+	public Product(String productID, String name, double cost, double markup, Supplier supplier, boolean active){
+		this.productID = productID;
+		this.name = name;
+		this.cost = cost;
+		this.markup = markup;
+		this.supplier = supplier;
+		this.active = active;
 	}
+	
 
 	public String getProductID() {
 		return productID;
@@ -91,4 +98,14 @@ public class Product {
 			System.out.println("ID: "+product.getProductID()+"\nName: "+product.getName()+"\nCost: "+product.getCost()+"\nMarkup: "+product.getMarkup()+"\nSupplier: "+product.getSupplier());
 		}
 	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+	
+	
 }

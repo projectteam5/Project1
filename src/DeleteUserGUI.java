@@ -17,6 +17,7 @@ public class DeleteUserGUI extends JFrame {
 	private JComboBox usersDropDown;
 	private JLabel labelTitle;
 	private JButton deleteButton;
+	private JButton userMenuButton;
 	private String selectedUserID;
 	private User userRemove;
 
@@ -33,18 +34,29 @@ public class DeleteUserGUI extends JFrame {
 
 		labelTitle = new JLabel(
 				"Please pick the user you want to remove from the user list below");
-		usersDropDown = new JComboBox(User.userListExceptCurrent());
+		usersDropDown = new JComboBox();
+		buildUsersDropDown();
 		deleteButton = new JButton("Delete User");
+		userMenuButton = new JButton("User Menu");
 
 		panel.add(labelTitle);
 		panel.add(usersDropDown);
 		panel.add(deleteButton);
+		panel.add(userMenuButton);
 
 		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				deleteUserButton();
 			}
 
+		});
+		
+		userMenuButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				UserGUI userGui = new UserGUI();
+				closeGUI();
+				
+			}
 		});
 
 		setVisible(true);
@@ -60,7 +72,7 @@ public class DeleteUserGUI extends JFrame {
 		selectedUserID = selectedUserIDArray[1].trim();
 		userRemove = User.retrieveUser(selectedUserID);
 		if (userRemove != null) {
-			RetailSystem.getInstance().getUsers().remove(userRemove);
+			userRemove.setActive(false);
 			JOptionPane.showMessageDialog(null, "User correctly removed",
 					"Correctly Done", JOptionPane.INFORMATION_MESSAGE);
 			User.saveUser();
@@ -73,13 +85,29 @@ public class DeleteUserGUI extends JFrame {
 		panel.remove(labelTitle);
 		panel.remove(usersDropDown);
 		panel.remove(deleteButton);
-		usersDropDown = new JComboBox(User.userListExceptCurrent());
+		panel.remove(userMenuButton);
 		panel.add(labelTitle);
+		usersDropDown = new JComboBox();
+		buildUsersDropDown();
 		panel.add(usersDropDown);
 		panel.add(deleteButton);
+		panel.add(userMenuButton);
 		panel.revalidate();
 		revalidate();
 		repaint();
+	}
+	
+	public void buildUsersDropDown(){
+		for (User user : RetailSystem.getInstance().getUsers()){
+			if(!user.getUserID().equals(RetailSystem.getInstance().getCurrentUserID()) && user.isActive()){
+				String string = "ID: " + user.getUserID() + " ; Name: "
+						+ user.getName();
+				usersDropDown.addItem(string);
+			}
+		}
+	}
+	public void closeGUI(){
+		this.setVisible(false);
 	}
 
 }
