@@ -37,7 +37,7 @@ public class EditSupplierGUI extends JFrame {
 		supplierNumberField= new JTextField();
 		supplierName = new JLabel("Supplier Name");
 		supplierNumber = new JLabel("Supplier Number");
-		JButton buttonEditProduct = new JButton("Edit");
+		JButton buttonEditProduct = new JButton("Confirm Update");
 		buttonMenu = new JButton("Supplier Menu");
 		buttonCommitEditProduct = new JButton("Save Changes");
 		compileSupplierIDs();
@@ -46,11 +46,11 @@ public class EditSupplierGUI extends JFrame {
 		panel.setLayout(new GridLayout(0,1));
 		panel.add(title);
 		panel.add(supplierDropDown);
-		panel.add(buttonEditProduct);
 		panel.add(supplierNameField);
 		panel.add(supplierName);
 		panel.add(supplierNumberField);
-		panel.add(supplierNumber);	
+		panel.add(supplierNumber);
+		panel.add(buttonEditProduct);
 		panel.add(buttonCommitEditProduct);
 		panel.add(buttonMenu);
 		Container cp = getContentPane();
