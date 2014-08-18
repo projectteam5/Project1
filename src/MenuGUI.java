@@ -105,40 +105,7 @@ public class MenuGUI extends JFrame {
 
 			}
 		});
-
-		/*
-		 * buttonSave.addActionListener(new ActionListener() { public void
-		 * actionPerformed(ActionEvent e) { try { FileWriter userFile; userFile
-		 * = new FileWriter("users.txt");
-		 * DataBase.writeUsers(RetailSystem.getInstance().getUsers(),userFile);
-		 * userFile.close();// close the user file userFile = new
-		 * FileWriter("products.txt");
-		 * DataBase.writeProducts(RetailSystem.getInstance
-		 * ().getProducts(),userFile); userFile.close();// close the user file
-		 * userFile = new FileWriter("suppliers.txt");
-		 * DataBase.writeSuppliers(RetailSystem
-		 * .getInstance().getSuppliers(),userFile); userFile.close();// close
-		 * the user file userFile = new FileWriter("customers.txt");
-		 * DataBase.writeCustomers
-		 * (RetailSystem.getInstance().getCustomers(),userFile);
-		 * userFile.close();// close the user file userFile = new
-		 * FileWriter("orders.txt");
-		 * DataBase.writeOrders(RetailSystem.getInstance
-		 * ().getOrders(),userFile); userFile.close();// close the user file
-		 * userFile = new FileWriter("stocks.txt");
-		 * DataBase.writeStocks(RetailSystem
-		 * .getInstance().getStocks(),userFile); userFile.close();// close the
-		 * user file JOptionPane.showMessageDialog(null,
-		 * "Data have been saved!", "Notification",
-		 * JOptionPane.INFORMATION_MESSAGE );
-		 * 
-		 * } catch (Exception exception) { exception.printStackTrace(); }
-		 * 
-		 * 
-		 * 
-		 * } });
-		 */
-
+		
 		this.setVisible(true);
 
 	}
