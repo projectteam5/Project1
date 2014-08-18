@@ -45,9 +45,11 @@ public class ListSuppliersGUI extends JFrame{
 		JPanel showSupplierPanel = new JPanel();
 		showSupplierPanel.setLayout(new GridLayout(0,1));	
 		for(Supplier supplier: RetailSystem.getInstance().getSuppliers()){
+			if(supplier.isActive()){
 			JLabel label1 = new JLabel(supplier.getSupplierID()+" | "+supplier.getName()+" | "+supplier.getPhoneNumber());
 			label.setSize(10,10);
 			showSupplierPanel.add(label1);
+			}
 		}
 		
 		scrollPaneSuppliers.setViewportView(showSupplierPanel);

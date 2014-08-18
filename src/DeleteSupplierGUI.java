@@ -46,9 +46,10 @@ public class DeleteSupplierGUI extends JFrame{
 				String name = supplierDropDown.getSelectedItem().toString();
 				// Getting the supplier from the list and assigning to new object then
 				// Using another object to access supplier class method to delete from list
-				Supplier supplierToRemove = findAndReturnSupplierFromList(name);
-				removeSupplier.removeSupplierFromList(supplierToRemove);
-				JOptionPane.showMessageDialog(null, "Supplier deleted from the list", "Success", JOptionPane.PLAIN_MESSAGE);
+				Supplier supplierToRemove = findAndReturnSupplierFromList(name);			
+				supplierToRemove.setActive(false);
+				//removeSupplier.removeSupplierFromList(supplierToRemove);
+				JOptionPane.showMessageDialog(null, "Supplier is not active anymore", "Success", JOptionPane.PLAIN_MESSAGE);
 				removeSupplier.saveUser();
 				compileSupplierNamesAfterDelete();
 				refresh();
@@ -80,9 +81,11 @@ public class DeleteSupplierGUI extends JFrame{
 	private Supplier findAndReturnSupplierFromList(String name) {
 		Supplier supplierToDelete = null;
 		for(Supplier supplier: RetailSystem.getInstance().getSuppliers()){
-			if(name.equalsIgnoreCase(supplier.getName())){
-				supplierToDelete = supplier;						
-				break;
+			if(supplier.isActive()){
+				if(name.equalsIgnoreCase(supplier.getName())){
+					supplierToDelete = supplier;						
+					break;
+				}
 			}
 		}	
 		return supplierToDelete;
@@ -91,13 +94,17 @@ public class DeleteSupplierGUI extends JFrame{
 	// Used to fill up the combo box with suppliers from the list
 	public void compileSupplierNames(){
 		for(Supplier supplier: RetailSystem.getInstance().getSuppliers()){
-			supplierDropDown.addItem(supplier.getName());
+			if(supplier.isActive()){
+				supplierDropDown.addItem(supplier.getName());
+			}
 		}
 	}
 	
 	public void compileSupplierNamesAfterDelete(){
 		for(Supplier supplier: RetailSystem.getInstance().getSuppliers()){
-			supplierDropDownAfterDelete.addItem(supplier.getName());
+			if(supplier.isActive()){
+				supplierDropDownAfterDelete.addItem(supplier.getName());
+			}
 		}
 	}
 	
