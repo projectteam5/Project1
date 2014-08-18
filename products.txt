@@ -1,16 +1,16 @@
 product1;Hello Kitty Island Adventure PC Game;50.0;10.0;supplier1;true
 product2;Magic iBall Processor;500.0;100.0;supplier1;true
-product3;ICU Cam;20.0;2.0;supplier2;true
-product4;Return of the iMac - Manual;40.0;20.0;0002;true
+product3;ICU Cam;20.0;2.0;supplier2;false
+product4;Return of the iMac - Manual;40.0;20.0;0002;false
 product5;Subnetting For Dummies;35.0;20.0;supplier2;true
 product6;Windows Hasta La Vista Home Premium x64;150.0;50.0;0007;true
-product7;Windows Hasta La Vista Home Basic x86;120.0;50.0;0001;true
-product8;Macho MachoFan;600.0;200.0;supplier1;true
-product9;FANtastic Cooling Pad;100.0;50.0;supplier2;true
+product7;Windows Hasta La Vista Home Basic x86;120.0;50.0;0001;false
+product8;Macho MachoFan;600.0;200.0;supplier1;false
+product9;FANtastic Cooling Pad;100.0;50.0;supplier2;false
 product10;Mother-In-Law Board x3Extreme;950.0;100.0;0006;true
-product11;Elephant SSD 4TB;5000.0;1150.0;0005;true
+product11;Elephant SSD 4TB;5000.0;1150.0;0005;false
 product12;BaaBaa RAM 2x16GB;200.0;100.0;supplier1;true
-product13;SilentNight Fan System;200.0;70.0;supplier1;true
+product13;SilentNight Fan System;200.0;70.0;supplier1;false
 product14;WindowSill x86;200.0;80.0;0008;true
 product15;Alabaster Master Blaster SoundCard;150.0;90.0;supplier2;true
 product16;Cold Case;90.0;20.0;0009;true
@@ -18,4 +18,5 @@ product17;Lt.Surge PSU;800.0;100.0;supplier2;true
 product18;ScoobyDoo PSU;200.0;170.0;supplier2;true
 product19;IceToMeetYou Cooling System;500.0;200.0;0003;true
 product90;HydroPump Cooling System 5PP;800.0;300.0;0002;true
-product99;MissignNo HDD 1TB;200.0;30.0;0005;true
+product99;MissignNo HDD 1TB;200.0;30.0;0005;false
+product98;Cris;4000.0;400.0;0001;true
