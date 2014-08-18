@@ -138,7 +138,10 @@ public class AddProductGUI extends JFrame{
 	
 	public void compileSupplierNames(){
 		for(Supplier supplier: RetailSystem.getInstance().getSuppliers()){
-			supplierDropDown.addItem(supplier.getName());
+			if(supplier.isActive()){
+				supplierDropDown.addItem(supplier.getName());
+
+			}
 		}
 	}
 	

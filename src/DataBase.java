@@ -23,12 +23,13 @@ public class DataBase {
 		while ((line = bufReader.readLine()) != null) {
 			String[] parts = line.split(";");
 			count++;
-			if (parts.length == 4) {
+			if (parts.length == 5) {
 				String userID = parts[0];
 				String name = parts[1];
 				String password = parts[2];
 				String type = parts[3];
-				User user = new User(userID, name, password, type);
+				boolean active = Boolean.parseBoolean(parts[4]);
+				User user = new User(userID, name, password, type, active);
 				users.add(user);
 			} else {
 				System.err.println("Skipping corrupted user at line " + count);
@@ -100,12 +101,13 @@ public class DataBase {
 		while ((line = bufReader.readLine()) != null) {
 			String[] parts = line.split(";");
 			count++;
-			if (parts.length == 5) {
+			if (parts.length == 6) {
 				String productID = parts[0];
 				String name = parts[1];
 				double cost = Double.parseDouble(parts[2]); // double
 				double markup = Double.parseDouble(parts[3]); // double
 				String supplierID = parts[4]; // with the id i need to find the
+				boolean active = Boolean.parseBoolean(parts[5]);
 				Supplier supplier = null;
 				for (Supplier supplier_1 : RetailSystem.getInstance().getSuppliers()) {
 					if (supplier_1.getSupplierID().equals(supplierID)) {
@@ -225,7 +227,7 @@ public class DataBase {
 		BufferedWriter out = new BufferedWriter(writer);
 		for (User user : users) {
 			out.write(user.getUserID() + ";" + user.getName() + ";"
-					+ user.getPassword() + ";" + user.getType());
+					+ user.getPassword() + ";" + user.getType() + ";" + user.isActive());
 			out.newLine();
 		}
 		out.close();
@@ -264,7 +266,7 @@ public class DataBase {
 		for (Product product : products) {
 			out.write(product.getProductID() + ";" + product.getName() + ";"
 					+ product.getCost() + ";" + product.getMarkup() + ";"
-					+ product.getSupplier().getSupplierID());
+					+ product.getSupplier().getSupplierID()+ product.isActive());
 			out.newLine();
 		}
 		out.close();
@@ -274,7 +276,6 @@ public class DataBase {
 	// method for saving orders at the end of the session
 	public static void writeOrders(ArrayList<Order> orders, Writer writer)
 			throws IOException {
-		//DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		BufferedWriter out = new BufferedWriter(writer);
 		for (Order order : orders) {
 			out.write(order.getOrderID() + ";" + DateFormat.getDateInstance().format(order.getOrderDate()) + ";"

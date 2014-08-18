@@ -19,11 +19,12 @@ public class AddUserGUI extends JFrame {
 	private JTextField textUserName;
 	private JTextField textUserPass;
 	private JComboBox typeDropDown;
-	JLabel label1;
-	JLabel label2;
-	JLabel label3;
-	JLabel label4;
-	JButton doneButton;
+	private JLabel label1;
+	private JLabel label2;
+	private JLabel label3;
+	private JLabel label4;
+	private JButton doneButton;
+	private JButton userMenuButton;
 
 	public AddUserGUI() {
 		// declaration and initialization of panel, container and layout setting
@@ -45,6 +46,7 @@ public class AddUserGUI extends JFrame {
 		label3 = new JLabel("Password");
 		label4 = new JLabel("Type");
 		doneButton = new JButton("Add");
+		userMenuButton  = new JButton("User Menu");
 		
 		// adding all the components
 		panel.add(label1);
@@ -56,6 +58,7 @@ public class AddUserGUI extends JFrame {
 		panel.add(label4);
 		panel.add(typeDropDown);
 		panel.add(doneButton);
+		panel.add(userMenuButton);
 
 		// Define the panel for the Customer managment
 
@@ -68,6 +71,14 @@ public class AddUserGUI extends JFrame {
 				else{
 					JOptionPane.showMessageDialog(null, "ID already exists or missing fields", "Error", JOptionPane.ERROR_MESSAGE);
 				}
+				
+			}
+		});
+		
+		userMenuButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				UserGUI userGui = new UserGUI();
+				closeGUI();
 				
 			}
 		});
@@ -101,6 +112,10 @@ public class AddUserGUI extends JFrame {
 			}
 		}
 		return userOk;
+	}
+	
+	public void closeGUI(){
+		this.setVisible(false);
 	}
 
 }

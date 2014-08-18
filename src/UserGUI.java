@@ -43,6 +43,7 @@ public class UserGUI extends JFrame {
 		addUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				AddUserGUI addUserGui = new AddUserGUI();
+				closeUserGUI();
 			}
 		});
 
@@ -56,6 +57,7 @@ public class UserGUI extends JFrame {
 		editUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				EditUserGUI gui = new EditUserGUI();
+				closeUserGUI();
 			}
 		});
 
@@ -67,6 +69,7 @@ public class UserGUI extends JFrame {
 		showUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ShowUserGUI showUserGui = new ShowUserGUI();
+				closeUserGUI();
 			}
 		});
 
@@ -79,6 +82,7 @@ public class UserGUI extends JFrame {
 		deleteUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				DeleteUserGUI deleteUserGui = new DeleteUserGUI();
+				closeUserGUI();
 			}
 		});
 

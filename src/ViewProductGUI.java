@@ -45,7 +45,8 @@ public class ViewProductGUI extends JFrame{
 				for(Product product: RetailSystem.getInstance().getProducts()){
 					if(name.equalsIgnoreCase(product.getName())){
 						found = true;
-						label.setText(product.getProductID()+" | "+product.getName()+" | "+product.getCost()+" | "+product.getMarkup()+" | "+product.getSupplier().getName());
+						label.setText("Product ID"+"|"+"Product Name"+"|"+"Product Cost"+"|"+"Product Markup"+"|"+"Supplier Name");
+						label1.setText(product.getProductID()+" | "+product.getName()+" | "+product.getCost()+" | "+product.getMarkup()+" | "+product.getSupplier().getName());
 						break;
 					}
 				}
@@ -75,7 +76,10 @@ public class ViewProductGUI extends JFrame{
 	
 	public void compileProductNames(){
 		for(Product product: RetailSystem.getInstance().getProducts()){
-			productDropDown.addItem(product.getName());
+			if(product.isActive()){
+				productDropDown.addItem(product.getName());
+
+			}
 		}
 	}
 	

@@ -38,14 +38,14 @@ public class DataBaseTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		Reader reader = new StringReader("supplier1;Supplier1 Name;083776655\n"
-				+ "supplier2;Supplier2 Name;083775839\n");
+		Reader reader = new StringReader("supplier1;Supplier1 Name;083776655;true\n"
+				+ "supplier2;Supplier2 Name;083775839;true\n");
 		ArrayList<Supplier> suppliers = DataBase.loadSuppliers(reader);
 		RetailSystem.getInstance().setSuppliers(suppliers);
 		Reader reader1 = new StringReader(
-				"product1;ProductPC1;1000;200;supplier1\n"
-						+ "product2;ProductPC2;2000;400;supplier1\n"
-						+ "product3;ProductPC3;1500;300;supplier2\n");
+				"product1;ProductPC1;1000;200;supplier1;true\n"
+						+ "product2;ProductPC2;2000;400;supplier1;true\n"
+						+ "product3;ProductPC3;1500;300;supplier2;true\n");
 		ArrayList<Product> products = DataBase.loadProducts(reader1);
 		RetailSystem.getInstance().setProducts(products);
 		User user1 = new User("1111","Cris","passw10","Attendant");
@@ -83,8 +83,8 @@ public class DataBaseTest {
 	// Loads user correctly
 	@Test
 	public void testLoadUsersOK2Users() throws IOException {
-		Reader reader = new StringReader("1111;Scott Scott;passw1;Manager\n"
-				+ "1112;Daniel Daniel;passw2;Attendant\n");
+		Reader reader = new StringReader("1111;Scott Scott;passw1;Manager;true\n"
+				+ "1112;Daniel Daniel;passw2;Attendant;true\n");
 		ArrayList<User> list = DataBase.loadUsers(reader);
 		assertEquals(2, list.size());
 	}
@@ -110,8 +110,8 @@ public class DataBaseTest {
 	@Test
 	public void testLoadCustomersOK2Customers() throws IOException {
 		Reader reader = new StringReader(
-				"customer1;Scott Scott;address 1 Dublin;089665544\n"
-						+ "customer2;Henry Bo;address 2 Cork;089334455\n");
+				"customer1;Scott Scott;address 1 Dublin;089665544;true\n"
+						+ "customer2;Henry Bo;address 2 Cork;089334455;true\n");
 		ArrayList<Customer> list = DataBase.loadCustomers(reader);
 		assertEquals(2, list.size());
 	}
@@ -136,8 +136,8 @@ public class DataBaseTest {
 	// Loads suppliers correctly
 	@Test
 	public void testLoadSuppliersOK2Suppliers() throws IOException {
-		Reader reader = new StringReader("supplier1;Supplier1 Name;083776655\n"
-				+ "supplier2;Supplier2 Name;083775839\n");
+		Reader reader = new StringReader("supplier1;Supplier1 Name;083776655;true\n"
+				+ "supplier2;Supplier2 Name;083775839;true\n");
 		ArrayList<Supplier> list = DataBase.loadSuppliers(reader);
 		assertEquals(2, list.size());
 	}
@@ -163,9 +163,9 @@ public class DataBaseTest {
 	@Test
 	public void testLoadProductsOK3Products() throws IOException {
 		Reader reader = new StringReader(
-				"product1;ProductPC1;1000;200;supplier1\n"
-						+ "product2;ProductPC2;2000;400;supplier1\n"
-						+ "product3;ProductPC3;1500;300;supplier2\n");
+				"product1;ProductPC1;1000;200;supplier1;true\n"
+						+ "product2;ProductPC2;2000;400;supplier1;true\n"
+						+ "product3;ProductPC3;1500;300;supplier2;true\n");
 		ArrayList<Product> list = DataBase.loadProducts(reader);
 		assertEquals(3, list.size());
 	}
@@ -192,8 +192,8 @@ public class DataBaseTest {
 	public void testLoadOrderOK2Orders() throws IOException, ParseException {
 		//System.err.println(DateFormat.getDateInstance(DateFormat.DEFAULT).format(new Date()));
 		Reader reader = new StringReader(
-				"order1;14-Aug-2014;product1;10;14-Aug-2014;;false\n"
-						+ "order1;14-Aug-2014;product2;9;14-Aug-2014;14-Aug-2014;false\n");
+				"order1;14-Aug-2014;product1;10;14-Aug-2014;;false;true\n"
+						+ "order1;14-Aug-2014;product2;9;14-Aug-2014;14-Aug-2014;false;true\n");
 		ArrayList<Order> list = DataBase.loadOrders(reader);
 		assertEquals(2, list.size());
 	}
@@ -220,7 +220,7 @@ public class DataBaseTest {
 	// Loads stocks correctly
 	@Test
 	public void testLoadStocksOK2Stocks() throws IOException, ParseException {
-		Reader reader = new StringReader("product1;20\n" + "product2;15\n");
+		Reader reader = new StringReader("product1;20;true\n" + "product2;15;true\n");
 		ArrayList<Stock> list = DataBase.loadStocks(reader);
 		assertEquals(2, list.size());
 	}

@@ -29,6 +29,7 @@ public class EditUserGUI extends JFrame {
 	private String selectedUserIDPrev;
 	private User user;
 	private int controlVariable;
+	private JButton userMenuButton;
 
 	public EditUserGUI() {
 
@@ -45,14 +46,17 @@ public class EditUserGUI extends JFrame {
 		// declaration of the labels and initialization of labels and text field
 		labelTitle = new JLabel(
 				"Please pick the user you want to see from the user list below");
-		userDropDown = new JComboBox(User.userListComplete());
+		userDropDown = new JComboBox();
+		User.userListComplete(userDropDown);
 		editButton = new JButton("Edit User");
 		doneButton = new JButton("Commit");
+		userMenuButton  = new JButton("User Menu");
 
 		// adding all the components
 		panel.add(labelTitle);
 		panel.add(userDropDown);
 		panel.add(editButton);
+		panel.add(userMenuButton);
 
 		Container container = getContentPane();
 		container.add(panel);
@@ -85,6 +89,14 @@ public class EditUserGUI extends JFrame {
 							JOptionPane.WARNING_MESSAGE);
 				}
 
+			}
+		});
+		
+		userMenuButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				UserGUI userGui = new UserGUI();
+				closeGUI();
+				
 			}
 		});
 
@@ -140,5 +152,8 @@ public class EditUserGUI extends JFrame {
 			repaint();
 		}
 
+	}
+	public void closeGUI(){
+		this.setVisible(false);
 	}
 }

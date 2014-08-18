@@ -15,8 +15,8 @@ public class UserTest {
 			.getUsers();
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		Reader reader = new StringReader("1111;Scott Scott;passw1;Manager\n"
-				+ "1112;Daniel Daniel;passw2;Attendant\n");
+		Reader reader = new StringReader("1111;Scott Scott;passw1;Manager;true\n"
+				+ "1112;Daniel Daniel;passw2;Attendant;true\n");
 		ArrayList<User> users = DataBase.loadUsers(reader);
 		RetailSystem.getInstance().setUsers(users);
 	}
@@ -45,11 +45,6 @@ public class UserTest {
 	@Test
 	public void testRetrieveUserNotFound() {
 		assertEquals(null, User.retrieveUser("2222"));
-	}
-
-	@Test
-	public void testUserListComplete() {
-		assertEquals(2, User.userListComplete().length);
 	}
 
 }
