@@ -3,6 +3,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.security.auth.Refreshable;
+import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -15,17 +17,19 @@ import javax.swing.border.EmptyBorder;
 
 public class DeleteSupplierGUI extends JFrame{
 	private JComboBox<String> supplierDropDown = new JComboBox<String>();
+	private JComboBox<String> supplierDropDownAfterDelete = new JComboBox<String>();
 	private JButton buttonMenu;
 	private JButton deleteButton;
 	// Instance of supplier in aid of accessing removal method
 	private Supplier removeSupplier = new Supplier("","","");
+	JPanel panel1;
 	
 	public DeleteSupplierGUI() {
 		setTitle("DELETE SUPPLIER LIST GUI");
 		setSize(400,200);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		JPanel panel1 = new JPanel();
-		compileProductNames();
+		panel1 = new JPanel();
+		compileSupplierNames();
 		deleteButton = new JButton("Delete");
 		buttonMenu = new JButton("Supplier Menu");
 		panel1.add(supplierDropDown);
@@ -46,16 +50,29 @@ public class DeleteSupplierGUI extends JFrame{
 				removeSupplier.removeSupplierFromList(supplierToRemove);
 				JOptionPane.showMessageDialog(null, "Supplier deleted from the list", "Success", JOptionPane.PLAIN_MESSAGE);
 				removeSupplier.saveUser();
+				compileSupplierNamesAfterDelete();
+				refresh();
 			}
 		});
 		
 		buttonMenu.addActionListener(new ActionListener() {		
 			public void actionPerformed(ActionEvent arg0) {
 				SupplierMenuGUI supplierMenuGUI = new SupplierMenuGUI();
-				closeRemoveProductGUI();
+				closeRemoveSupplierGUI();
 			}
-		});
-		
+		});	
+	}
+	
+	public void refresh(){
+		panel1.remove(supplierDropDown);
+		panel1.remove(deleteButton);
+		panel1.remove(buttonMenu);
+		panel1.add(supplierDropDownAfterDelete);
+		panel1.add(deleteButton);
+		panel1.add(buttonMenu);
+		panel1.revalidate();
+		revalidate();
+		repaint();
 	}
 	
 	// Takes the name selected from drop-down menu, finds it on the list
@@ -72,13 +89,19 @@ public class DeleteSupplierGUI extends JFrame{
 	}
 	
 	// Used to fill up the combo box with suppliers from the list
-	public void compileProductNames(){
+	public void compileSupplierNames(){
 		for(Supplier supplier: RetailSystem.getInstance().getSuppliers()){
 			supplierDropDown.addItem(supplier.getName());
 		}
 	}
 	
-	public void closeRemoveProductGUI(){
+	public void compileSupplierNamesAfterDelete(){
+		for(Supplier supplier: RetailSystem.getInstance().getSuppliers()){
+			supplierDropDownAfterDelete.addItem(supplier.getName());
+		}
+	}
+	
+	public void closeRemoveSupplierGUI(){
 		this.setVisible(false);
 	}
 }
