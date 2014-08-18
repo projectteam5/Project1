@@ -16,8 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class CreateOrderGUI extends JFrame implements ActionListener {
-	
+public class OrderEditorGUI extends JFrame implements ActionListener {
 	private JTextField idTextField;
 	private JTextField orderDateTextField;
 	private JComboBox<String> comboBoxList;
@@ -34,45 +33,48 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 	private Date newExpectedDeliveryDate;
 	private Date newReceivedDate;
 	private boolean newReceived;
+	private Order order;
 
-	public CreateOrderGUI() {
-		
+	public OrderEditorGUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(400, 400);
 		JPanel panel = new JPanel();
 		Container container = getContentPane();
 		container.add(panel);
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setLayout(new GridLayout(0,1));	
+		panel.setLayout(new GridLayout(0,1));
 		
+		order = EditOrderGUI.getOrderToEdit();
 		
 		JLabel label1 = new JLabel("OrderID");
-		idTextField = new JTextField();
+		idTextField = new JTextField(order.getOrderID());
 		
 		JLabel label2 = new JLabel("Order Date");
 		orderDateTextField = new JTextField();
-		orderDateTextField.setText(DateFormat.getDateInstance().format(new Date()));
+		orderDateTextField.setText(DateFormat.getDateInstance().format(order.getOrderDate()));
 		
 		JLabel label3 = new JLabel("Product ID");
 		comboBoxList = new JComboBox<String>();
-		comboBoxList.addItem("");
+		comboBoxList.addItem(order.getProduct().getProductID());
 		for(Product p : RetailSystem.getInstance().getProducts()) {
 			comboBoxList.addItem(p.getProductID());
 		}
 		
 		JLabel label4 = new JLabel("Product Quantity");
-		quantityTextField = new JTextField();
+		quantityTextField = new JTextField(String.valueOf(order.getQuantity()));
 		
 		JLabel label5 = new JLabel("Expected Delivery Date");
 		expectedDeliveryDateTextField = new JTextField();
-		expectedDeliveryDateTextField.setText(DateFormat.getDateInstance().format(new Date()));
+		expectedDeliveryDateTextField.setText(DateFormat.getDateInstance().format(order.getExpectedDeliveryDate()));
 		
 		JLabel label6 = new JLabel("Actual Delivery Date");
 		dateReceivedTextField = new JTextField();
-		dateReceivedTextField.setText(DateFormat.getDateInstance().format(new Date()));
+		dateReceivedTextField.setText(DateFormat.getDateInstance().format(order.getDateReceived()));
 		
 		JLabel label7 = new JLabel("Order Recieved?");
+		receivedCheckBox = new JCheckBox("",order.isReceived());
 		receivedCheckBox = new JCheckBox();
+		receivedCheckBox.setSelected(order.isReceived());
 		
 		submitButton = new JButton("Submit");
 		
@@ -102,39 +104,17 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 		Object target = event.getSource();
 		
 		if(target == submitButton) {
+			newOrderId = null;
+			newOrderDate = null;
+			newProduct = null;
+			newQuantity = 0;
+			newExpectedDeliveryDate = null;
+			newReceivedDate = null;
+			newReceived = false;
 			
-			boolean duplicateOrderID = false;
 			boolean dataOK = true;
 			
 			newOrderId = idTextField.getText();
-			
-			String productID = comboBoxList.getSelectedItem().toString();
-			for(Product product: RetailSystem.getInstance().getProducts()){
-				if(productID.contains(product.getProductID())){
-					newProduct = product;
-				}
-			}
-			
-			if(newProduct == null ) {
-				JOptionPane.showMessageDialog(this, "Please choose a product");
-				dataOK = false;
-			}
-			
-			for(Order order: RetailSystem.getInstance().getOrders()){
-				if(order.getOrderID().equalsIgnoreCase(newOrderId)){
-					duplicateOrderID = true;
-				}
-			}
-			if(duplicateOrderID == true){
-				JOptionPane.showMessageDialog(this, "Order in system with same ID");
-			}
-			
-			try {
-				newQuantity = Integer.parseInt(quantityTextField.getText());
-			} catch(NumberFormatException e) {
-				JOptionPane.showMessageDialog(this, "Order quantity must be an Integer");
-				dataOK = false;
-			}
 			
 			try {
 				newOrderDate = DateFormat.getDateInstance().parse(orderDateTextField.getText());
@@ -145,27 +125,31 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 				dataOK = false;
 			}
 			
-			newReceived = receivedCheckBox.isSelected();
-			/*
-			receivedCheckBox.addItemListener(new ItemListener() {
-			      public void itemStateChanged(ItemEvent event) {
-			        if(receivedCheckBox.isSelected()) {
-			        	newReceived = true;
-			        } else {
-			        	newReceived = false;
-			        }
-			    }
-			});
-			*/
-			if ((!duplicateOrderID) && (dataOK==true)){
-				try{
-					JOptionPane.showMessageDialog(this, "Adding product");
-					Order newOrder = new Order(newOrderId, newOrderDate, newProduct, newQuantity, newExpectedDeliveryDate,
-							newReceivedDate, newReceived);
-					RetailSystem.getInstance().getOrders().add(newOrder);
-				}catch(NumberFormatException | ParseException e){
-					JOptionPane.showMessageDialog(this, "Error processing request");
+			try {
+				newQuantity = Integer.parseInt(quantityTextField.getText());
+			} catch(NumberFormatException e) {
+				JOptionPane.showMessageDialog(this, "Order quantity must be an Integer");
+				dataOK = false;
+			}
+			
+			String productID = comboBoxList.getSelectedItem().toString();
+			for(Product product: RetailSystem.getInstance().getProducts()){
+				if(productID.contains(product.getProductID())){
+					newProduct = product;
 				}
+			}
+			
+			newReceived = receivedCheckBox.isSelected();
+			
+			if(dataOK){
+				order.setOrderID(newOrderId);
+				order.setOrderDate(newOrderDate);
+				order.setProduct(newProduct);
+				order.setQuantity(newQuantity);
+				order.setExpectedDeliveryDate(newExpectedDeliveryDate);
+				order.setDateReceived(newReceivedDate);
+				order.setReceived(newReceived);
+				JOptionPane.showMessageDialog(this, "Order has been edited");
 			}
 		}
 	}

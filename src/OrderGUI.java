@@ -12,30 +12,34 @@ public class OrderGUI extends JFrame implements ActionListener {
 	private JButton createOrder;
 	private JButton editOrder;
 	private JButton viewOrder;
+	private JButton removeOrder;
 	
 	public OrderGUI() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(800, 600);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(1000, 800);
 		setTitle(this.getClass().toString());
-		setLayout(new FlowLayout());
 		setLocationRelativeTo(null);	//null sets the frame to centre
 		
 		panel = new JPanel();
 		container = getContentPane();
 		container.add(panel);
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setLayout(new GridLayout(10,25));
+		panel.setLayout(new GridLayout(4, 2));
 		
 		createOrder = new JButton("Create Order");
 		editOrder = new JButton("Edit Order");
 		viewOrder = new JButton("View Order");
+		removeOrder = new JButton("Remove Order");
+		
 		panel.add(createOrder);
 		panel.add(editOrder);
 		panel.add(viewOrder);
+		panel.add(removeOrder);
 		
 		createOrder.addActionListener(this);
 		editOrder.addActionListener(this);
 		viewOrder.addActionListener(this);
+		removeOrder.addActionListener(this);
 		
 		setVisible(true);
 	}
@@ -70,6 +74,18 @@ public class OrderGUI extends JFrame implements ActionListener {
 		if(target == viewOrder) {
 			try {
 				ViewOrderGUI viewOrder = new ViewOrderGUI();
+				this.setVisible(false);
+				this.dispose();
+			} catch(Exception e) {
+				System.err.println(e);
+				System.err.println(e.getMessage());
+				JOptionPane.showMessageDialog(null, "cannot reach viewOrderGUI");
+			}
+		}
+		
+		if(target == removeOrder) {
+			try {
+				RemoveOrderGUI removeOrder = new RemoveOrderGUI();
 				this.setVisible(false);
 				this.dispose();
 			} catch(Exception e) {
