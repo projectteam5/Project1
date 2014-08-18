@@ -1,6 +1,6 @@
 import java.io.FileWriter;
 
-import javax.swing.JOptionPane;
+import javax.swing.JComboBox;
 
 
 
@@ -11,6 +11,7 @@ public class User {
 	private String name;
 	private String password;
 	private String type;
+	private boolean active;
 	
 		
 	public User(String userID, String name, String password, String type) {
@@ -18,6 +19,15 @@ public class User {
 		this.name = name;
 		this.password = password;
 		this.type = type;
+		this.active = true;
+	}
+	
+	public User(String userID, String name, String password, String type, boolean active2) {
+		this.userID = userID;
+		this.name = name;
+		this.password = password;
+		this.type = type;
+		this.active = active2;
 	}
 
 
@@ -60,6 +70,17 @@ public class User {
 		this.type = type;
 	}
 	
+	
+	
+	public boolean isActive() {
+		return active;
+	}
+
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
 	public static boolean existingUser(String id){
 		boolean userOk = false;
 		for(User user : RetailSystem.getInstance().getUsers()){
@@ -91,16 +112,15 @@ public class User {
 		}
 	}
 	
-	public static String[] userListComplete() {
-		String[] userList = new String[RetailSystem.getInstance().getUsers()
-				.size()];
-		int i = 0;
+	public static void userListComplete(JComboBox dropdown) {
 		for (User user : RetailSystem.getInstance().getUsers()) {
-			userList[i] = "ID: " + user.getUserID() + " ; Name: "
-					+ user.getName();
-			i++;
+			if(user.isActive()){
+				String string = "ID: " + user.getUserID() + " ; Name: "
+						+ user.getName(); 
+				dropdown.addItem(string);
+			}
 		}
-		return userList;
+		
 	}
 
 }

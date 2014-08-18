@@ -23,6 +23,7 @@ public class ShowUserGUI extends JFrame {
 	private JLabel labelPassword;
 	private JLabel labelType;
 	private JButton showButton;
+	private JButton userMenuButton;
 	private int returnValue;
 	private String selectedUserID;
 	private String selectedUserIDPrev;
@@ -40,12 +41,15 @@ public class ShowUserGUI extends JFrame {
 
 		labelTitle = new JLabel(
 				"Please pick the user you want to see from the user list below");
-		usersDropDown = new JComboBox(User.userListComplete());
+		usersDropDown = new JComboBox();
+		User.userListComplete(usersDropDown);
 		showButton = new JButton("Show User");
+		userMenuButton  = new JButton("User Menu");
 
 		panel.add(labelTitle);
 		panel.add(usersDropDown);
 		panel.add(showButton);
+		panel.add(userMenuButton);
 
 		returnValue = 2;
 
@@ -62,6 +66,14 @@ public class ShowUserGUI extends JFrame {
 					returnValue = showUserButton();
 					selectedUserIDPrev = selectedUserID;
 				}
+			}
+		});
+		
+		userMenuButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				UserGUI userGui = new UserGUI();
+				closeGUI();
+				
 			}
 		});
 
@@ -97,6 +109,9 @@ public class ShowUserGUI extends JFrame {
 			return 1;
 		}
 
+	}
+	public void closeGUI(){
+		this.setVisible(false);
 	}
 
 }

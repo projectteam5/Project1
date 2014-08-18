@@ -1,10 +1,11 @@
-1111;Scott Pott;passw1;Manager
-1112;Daniel Daniel;passw2;Attendant
-1113;Cris Conti;passw3;Manager
-1114;Erich King;passw4;Manager
-1115;Laura Phelan;passw5;Manager
-1116;Ian Thompson;passw6;Manager
-1117;Calvin McGowan;passw7;Manager
-1118;Colm Dillon;passw8;Manager
-1121;Test;passw21;Attendant
-9999;test;passw99;Attendant
+1111;Scott Pott;passw1;Manager;true
+1112;Daniel Daniel;passw2;Attendant;false
+1113;Cris Conti;passw3;Manager;true
+1114;Erich King;passw4;Manager;true
+1115;Laura Phelan;passw5;Manager;true
+1116;Ian Thompson;passw6;Manager;true
+1117;Calvin McGowan;passw7;Manager;true
+1118;Colm Dillon;passw8;Manager;true
+1121;Test;passw21;Attendant;false
+9999;test;passw99;Attendant;false
+test;test;test2;Attendant;false
