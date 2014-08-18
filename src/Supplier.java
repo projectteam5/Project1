@@ -6,8 +6,16 @@ public class Supplier {
 	private String supplierID;
 	private String name;
 	private String phoneNumber;
+	private boolean active;
 
 	public Supplier(String suppplierID,String name,String phoneNumber) {
+		this.supplierID=suppplierID;
+		this.name=name;
+		this.phoneNumber=phoneNumber;
+		this.active=true;
+	}
+	
+	public Supplier(String suppplierID,String name,String phoneNumber,boolean active) {
 		this.supplierID=suppplierID;
 		this.name=name;
 		this.phoneNumber=phoneNumber;
@@ -32,12 +40,22 @@ public class Supplier {
 		}
 	}
 	
-	public ArrayList<Supplier> getSupplierList(){
+	public static ArrayList<Supplier> getSupplierList(){
 		ArrayList<Supplier> suppliers = new ArrayList<Supplier>();
 		for(Supplier sup:RetailSystem.getInstance().getSuppliers()){
+			if(sup.isActive()){
 			suppliers.add(sup);
+			}
 		}
 		return suppliers;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	public String getSupplierID() {
@@ -73,7 +91,5 @@ public class Supplier {
 	  	 } catch (Exception exception) {
 	  		 exception.printStackTrace();
 	  	 }
-	   }
-
-
+	}
 }
