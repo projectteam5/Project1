@@ -76,10 +76,11 @@ public class DataBase {
 		while ((line = bufReader.readLine()) != null) {
 			String[] parts = line.split(";");
 			count++;
-			if (parts.length == 3) {
+			if (parts.length == 4) {
 				String supplierID = parts[0];
 				String name = parts[1];
 				String phoneNumber = parts[2];
+				boolean active = Boolean.parseBoolean(parts[3]);
 				Supplier supplier = new Supplier(supplierID, name, phoneNumber);
 				suppliers.add(supplier);
 			} else {

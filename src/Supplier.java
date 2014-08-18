@@ -19,6 +19,7 @@ public class Supplier {
 		this.supplierID=suppplierID;
 		this.name=name;
 		this.phoneNumber=phoneNumber;
+		this.active=active;
 	}
 	
 	public void addSupplierToList(Supplier supplier){
