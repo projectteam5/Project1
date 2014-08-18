@@ -1,4 +1,4 @@
-1111;Scott Pott;passw1;Manager;true
+1111;Scott Pott;passw1;Manager;false
 1112;Daniel Daniel;passw2;Attendant;false
 1113;Cris Conti;passw3;Manager;true
 1114;Erich King;passw4;Manager;true
