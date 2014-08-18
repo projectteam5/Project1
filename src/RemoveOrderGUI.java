@@ -2,7 +2,7 @@ import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
+import java.io.FileWriter;
 import java.text.DateFormat;
 
 import javax.swing.JButton;
@@ -19,6 +19,8 @@ public class RemoveOrderGUI extends JFrame implements ActionListener {
 	private JButton removeOrderButton;
 	private JLabel printLabel;
 	
+	private JButton returnToMainMenu;
+	
 	public RemoveOrderGUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(600, 200);
@@ -32,6 +34,8 @@ public class RemoveOrderGUI extends JFrame implements ActionListener {
 		removeOrderButton = new JButton("Remove Order");
 		printLabel = new JLabel();
 		
+		returnToMainMenu = new JButton("Main Menu");
+		
 		for(Order order: RetailSystem.getInstance().getOrders()){
 			orderList.addItem(order.getOrderID());
 		}
@@ -40,7 +44,11 @@ public class RemoveOrderGUI extends JFrame implements ActionListener {
 		panel.add(removeOrderButton);
 		panel.add(printLabel);
 		
+		panel.add(returnToMainMenu);
+		
 		removeOrderButton.addActionListener(this);
+		
+		returnToMainMenu.addActionListener(this);
 
 		setVisible(true);
 	}
@@ -70,6 +78,9 @@ public class RemoveOrderGUI extends JFrame implements ActionListener {
 					
 					if (answer == JOptionPane.YES_OPTION) {
 						RetailSystem.getInstance().getOrders().remove(order);
+						
+						saveOrder();
+						
 						JOptionPane.showMessageDialog(this, "Order "+order.getOrderID()+" has been removed from the system");
 						printLabel.setText("");
 				    }
@@ -82,5 +93,33 @@ public class RemoveOrderGUI extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(this, "No Order With This ID in System!");
 			}
 		}
+		
+		if(target == returnToMainMenu) {
+			try {
+				OrderGUI returnToMainMenu = new OrderGUI();
+				this.setVisible(false);
+				this.dispose();
+			} catch(Exception e) {
+				System.err.println(e);
+				System.err.println(e.getMessage());
+				JOptionPane.showMessageDialog(this, "cannot reach OrderGUI");
+			}
+		}
+		
 	}
+	
+	public static void saveOrder(){
+	  	 try {
+	  		 FileWriter orderFile;
+	  		orderFile = new FileWriter("orders.txt");
+	  		
+	  		 DataBase.writeOrders(RetailSystem.getInstance().getOrders(), orderFile);
+	  		orderFile.close();
+	  		
+	  	 } catch (Exception exception) {
+	  		 
+	  		 exception.printStackTrace();
+	  	 }
+	   }
+	
 }

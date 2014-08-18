@@ -2,6 +2,7 @@ import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
@@ -149,8 +150,26 @@ public class OrderEditorGUI extends JFrame implements ActionListener {
 				order.setExpectedDeliveryDate(newExpectedDeliveryDate);
 				order.setDateReceived(newReceivedDate);
 				order.setReceived(newReceived);
+				
+				saveOrder();
+				
 				JOptionPane.showMessageDialog(this, "Order has been edited");
 			}
 		}
 	}
+	
+	public static void saveOrder(){
+	  	 try {
+	  		 FileWriter orderFile;
+	  		orderFile = new FileWriter("orders.txt");
+	  		
+	  		 DataBase.writeOrders(RetailSystem.getInstance().getOrders(), orderFile);
+	  		orderFile.close();
+	  		
+	  	 } catch (Exception exception) {
+	  		 
+	  		 exception.printStackTrace();
+	  	 }
+	   }
+	
 }

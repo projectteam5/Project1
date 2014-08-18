@@ -1,8 +1,6 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -59,7 +57,7 @@ public class OrderGUI extends JFrame implements ActionListener {
 			} catch(Exception e) {
 				System.err.println(e);
 				System.err.println(e.getMessage());
-				JOptionPane.showMessageDialog(null, "cannot reach createOrderGUI");
+				JOptionPane.showMessageDialog(this, "cannot reach createOrderGUI");
 			}
 		}
 		
@@ -71,7 +69,7 @@ public class OrderGUI extends JFrame implements ActionListener {
 			} catch(Exception e) {
 				System.err.println(e);
 				System.err.println(e.getMessage());
-				JOptionPane.showMessageDialog(null, "cannot reach EditOrderGUI");
+				JOptionPane.showMessageDialog(this, "cannot reach EditOrderGUI");
 			}
 		}
 		
@@ -83,7 +81,7 @@ public class OrderGUI extends JFrame implements ActionListener {
 			} catch(Exception e) {
 				System.err.println(e);
 				System.err.println(e.getMessage());
-				JOptionPane.showMessageDialog(null, "cannot reach viewOrderGUI");
+				JOptionPane.showMessageDialog(this, "cannot reach viewOrderGUI");
 			}
 		}
 		
@@ -95,7 +93,7 @@ public class OrderGUI extends JFrame implements ActionListener {
 			} catch(Exception e) {
 				System.err.println(e);
 				System.err.println(e.getMessage());
-				JOptionPane.showMessageDialog(null, "cannot reach viewOrderGUI");
+				JOptionPane.showMessageDialog(this, "cannot reach viewOrderGUI");
 			}
 		}
 		
@@ -107,7 +105,7 @@ public class OrderGUI extends JFrame implements ActionListener {
 			} catch(Exception e) {
 				System.err.println(e);
 				System.err.println(e.getMessage());
-				JOptionPane.showMessageDialog(null, "cannot reach MenuGUI");
+				JOptionPane.showMessageDialog(this, "cannot reach MenuGUI");
 			}
 		}
 	}

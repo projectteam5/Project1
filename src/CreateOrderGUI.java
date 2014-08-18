@@ -2,6 +2,7 @@ import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
@@ -23,18 +24,23 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 	private JComboBox<String> comboBoxList;
 	private JTextField quantityTextField;
 	private JTextField expectedDeliveryDateTextField;
+	
 	private JTextField dateReceivedTextField;
 	private JCheckBox receivedCheckBox;
+	
 	private JButton submitButton;
+	
+	private JButton returnToMainMenu;
 	
 	private String newOrderId;
 	private Date newOrderDate;
 	private Product newProduct;
 	private int newQuantity;
 	private Date newExpectedDeliveryDate;
+	
 	private Date newReceivedDate;
 	private boolean newReceived;
-
+	
 	public CreateOrderGUI() {
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -67,6 +73,7 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 		expectedDeliveryDateTextField = new JTextField();
 		expectedDeliveryDateTextField.setText(DateFormat.getDateInstance().format(new Date()));
 		
+		
 		JLabel label6 = new JLabel("Actual Delivery Date");
 		dateReceivedTextField = new JTextField();
 		dateReceivedTextField.setText(DateFormat.getDateInstance().format(new Date()));
@@ -75,6 +82,8 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 		receivedCheckBox = new JCheckBox();
 		
 		submitButton = new JButton("Submit");
+		
+		returnToMainMenu = new JButton("Main Menu");
 		
 		panel.add(label1);
 		panel.add(idTextField);
@@ -86,13 +95,20 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 		panel.add(quantityTextField);
 		panel.add(label5);
 		panel.add(expectedDeliveryDateTextField);	
+		//hidden - moving to edit order gui
+		/*
 		panel.add(label6);
 		panel.add(dateReceivedTextField);
 		panel.add(label7);
 		panel.add(receivedCheckBox);
+		*/
 		panel.add(submitButton);
 		
+		panel.add(returnToMainMenu);
+		
 		submitButton.addActionListener(this);
+		
+		returnToMainMenu.addActionListener(this);
 		
 		this.setVisible(true);
 		
@@ -139,34 +155,66 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 			try {
 				newOrderDate = DateFormat.getDateInstance().parse(orderDateTextField.getText());
 				newExpectedDeliveryDate = DateFormat.getDateInstance().parse(expectedDeliveryDateTextField.getText());
-				newReceivedDate = DateFormat.getDateInstance().parse(dateReceivedTextField.getText());
+				//hidden - moved to edit order gui
+				//newReceivedDate = DateFormat.getDateInstance().parse(dateReceivedTextField.getText());
 			} catch (ParseException e) {
 				JOptionPane.showMessageDialog(this, "Date format must be in the form: dd-MMM-yyyy");
 				dataOK = false;
 			}
 			
-			newReceived = receivedCheckBox.isSelected();
-			/*
-			receivedCheckBox.addItemListener(new ItemListener() {
-			      public void itemStateChanged(ItemEvent event) {
-			        if(receivedCheckBox.isSelected()) {
-			        	newReceived = true;
-			        } else {
-			        	newReceived = false;
-			        }
-			    }
-			});
-			*/
+			if(newExpectedDeliveryDate.before(newOrderDate)) {
+				JOptionPane.showMessageDialog(this, "Expected delivery date can not be before Order date");
+				dataOK = false;
+			}
+			
+			//hidden - moved to edit order gui
+			//newReceived = receivedCheckBox.isSelected();
+			
 			if ((!duplicateOrderID) && (dataOK==true)){
 				try{
 					JOptionPane.showMessageDialog(this, "Adding product");
+					
+					newReceivedDate = DateFormat.getDateInstance().parse(orderDateTextField.getText());
+					newReceived = false;
+					
 					Order newOrder = new Order(newOrderId, newOrderDate, newProduct, newQuantity, newExpectedDeliveryDate,
 							newReceivedDate, newReceived);
 					RetailSystem.getInstance().getOrders().add(newOrder);
+					
+					saveOrder();
+					
+					
 				}catch(NumberFormatException | ParseException e){
 					JOptionPane.showMessageDialog(this, "Error processing request");
 				}
 			}
 		}
+		
+		if(target == returnToMainMenu) {
+			try {
+				OrderGUI returnToMainMenu = new OrderGUI();
+				this.setVisible(false);
+				this.dispose();
+			} catch(Exception e) {
+				System.err.println(e);
+				System.err.println(e.getMessage());
+				JOptionPane.showMessageDialog(this, "cannot reach OrderGUI");
+			}
+		}
+		
 	}
+	
+	public static void saveOrder(){
+	  	 try {
+	  		 FileWriter orderFile;
+	  		orderFile = new FileWriter("orders.txt");
+	  		
+	  		 DataBase.writeOrders(RetailSystem.getInstance().getOrders(), orderFile);
+	  		orderFile.close();
+	  		
+	  	 } catch (Exception exception) {
+	  		 
+	  		 exception.printStackTrace();
+	  	 }
+	   }
 }
