@@ -83,6 +83,14 @@ public class MenuGUI extends JFrame {
 
 			}
 		});
+		
+		buttonViewOrder.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ViewAllOrdersGUI allOrders = new ViewAllOrdersGUI();
+				closeMenu();
+
+			}
+		});
 
 		buttonProduct.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

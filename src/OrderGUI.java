@@ -13,6 +13,7 @@ public class OrderGUI extends JFrame implements ActionListener {
 	private JButton editOrder;
 	private JButton viewOrder;
 	private JButton removeOrder;
+	private JButton returnToMainMenu;
 	
 	public OrderGUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -30,16 +31,19 @@ public class OrderGUI extends JFrame implements ActionListener {
 		editOrder = new JButton("Edit Order");
 		viewOrder = new JButton("View Order");
 		removeOrder = new JButton("Remove Order");
+		returnToMainMenu = new JButton("Main Menu");
 		
 		panel.add(createOrder);
 		panel.add(editOrder);
 		panel.add(viewOrder);
 		panel.add(removeOrder);
+		panel.add(returnToMainMenu);
 		
 		createOrder.addActionListener(this);
 		editOrder.addActionListener(this);
 		viewOrder.addActionListener(this);
 		removeOrder.addActionListener(this);
+		returnToMainMenu.addActionListener(this);
 		
 		setVisible(true);
 	}
@@ -92,6 +96,18 @@ public class OrderGUI extends JFrame implements ActionListener {
 				System.err.println(e);
 				System.err.println(e.getMessage());
 				JOptionPane.showMessageDialog(null, "cannot reach viewOrderGUI");
+			}
+		}
+		
+		if(target == returnToMainMenu) {
+			try {
+				MenuGUI returnToMainMenu = new MenuGUI();
+				this.setVisible(false);
+				this.dispose();
+			} catch(Exception e) {
+				System.err.println(e);
+				System.err.println(e.getMessage());
+				JOptionPane.showMessageDialog(null, "cannot reach MenuGUI");
 			}
 		}
 	}
