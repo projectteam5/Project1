@@ -28,12 +28,14 @@ public class SupplierMenuGUI extends JFrame{
 		editButton.addActionListener(new ActionListener() {	
 			public void actionPerformed(ActionEvent e) {
 				EditSupplierGUI editSupplier =new EditSupplierGUI();
+				closeSupplierMenuGUI();
 			}
 		});
 		
 		addButton.addActionListener(new ActionListener() {		
 			public void actionPerformed(ActionEvent arg0) {
 				AddSupplierGUI addSupplierGUI = new AddSupplierGUI();
+				closeSupplierMenuGUI();
 			}
 		});
 		
@@ -42,13 +44,15 @@ public class SupplierMenuGUI extends JFrame{
 		deleteButton.addActionListener(new ActionListener() {	
 			public void actionPerformed(ActionEvent e) {
 				DeleteSupplierGUI deleteSupplierGUI = new DeleteSupplierGUI();
+				closeSupplierMenuGUI();
 			}
 		});
 		
 		// Launches the list suppliers frame
 		viewListButton.addActionListener(new ActionListener() {	
 			public void actionPerformed(ActionEvent e) {
-				ListSuppliersGUI listSupplierGUI = new ListSuppliersGUI();		
+				ListSuppliersGUI listSupplierGUI = new ListSuppliersGUI();	
+				closeSupplierMenuGUI();
 			}
 		});
 		
@@ -56,6 +60,7 @@ public class SupplierMenuGUI extends JFrame{
 		productPerSupplier.addActionListener(new ActionListener() {	
 			public void actionPerformed(ActionEvent e) {
 				SupplierOfProductGUI supplierOfProductGUI = new SupplierOfProductGUI();
+				closeSupplierMenuGUI();
 			}
 		});
 		
