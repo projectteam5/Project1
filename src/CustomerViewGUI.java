@@ -39,7 +39,8 @@ public class CustomerViewGUI extends JFrame {
 		panel.setLayout(new GridLayout(0, 1));
 			
 		labelTitle = new JLabel("Please pick the customer from the list below");
-		customersDropDown = new JComboBox(customerList());
+		customersDropDown = new JComboBox();
+		compileCustomerNames ();
 		viewButton = new JButton("View Customer");
 		
 		panel.add(labelTitle);
@@ -106,6 +107,13 @@ public class CustomerViewGUI extends JFrame {
 			return 1;
 		}
 		
+	}
+	
+	public void compileCustomerNames () {
+		for (Customer customer: RetailSystem.getInstance().getCustomers()) {
+			String string = "ID: "+ customer.getCustomerID()+ "; Name: " + customer.getName();
+			customersDropDown.addItem(string);
+		}
 	}
 
 }
