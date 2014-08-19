@@ -12,6 +12,9 @@ import org.junit.Test;
 public class ProductTest {
 	private ArrayList<Supplier> supplierStatus = RetailSystem.getInstance().getSuppliers();
 	private ArrayList<Product> productStatus = RetailSystem.getInstance().getProducts();
+	private Supplier supplier;
+	private Product product1;
+	private Product product2;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -24,12 +27,10 @@ public class ProductTest {
 		ArrayList<Product> products = DataBase.loadProducts(reader1);
 		RetailSystem.getInstance().setProducts(products);
 
-		Supplier supplier = new Supplier("HHHHHHH", "Supplier Store Place", "087326892");
-		suppliers.add(supplier);
-		Product product1 = new Product("5783JKDS", "Computer", 500.66, 200.00, suppliers.get(0));
-		Product product2 = new Product("5783JKDS", "Another Computer", 7923.00, 100.00, suppliers.get(0));
-		products.add(product1);
-		products.add(product2);
+		supplier = new Supplier("HHHHHHH", "Supplier Store Place", "087326892");
+		product1 = new Product("5783JKDS", "Computer", 500.66, 200.00, supplier);
+		product2 = new Product("5783JKDS", "Another Computer", 7923.00, 100.00, supplier);
+
 
 	}
 
@@ -41,8 +42,8 @@ public class ProductTest {
 	
 	@Test
 	public String addProductToList() {
-		String string = addProductToList(product1);
-		assertEquals("Function to add Product to list has run", string);
+		String string = addProductToList(product);
+		assertEquals("5783JKDS", string);
 	}
 
 }
