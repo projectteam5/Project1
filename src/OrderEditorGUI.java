@@ -154,6 +154,17 @@ public class OrderEditorGUI extends JFrame implements ActionListener {
 				order.setDateReceived(newReceivedDate);
 				order.setReceived(newReceived);
 				
+				if(newReceived=true) {
+					for(Stock stock : RetailSystem.getInstance().getStocks()) {
+						if(stock.getProduct().getProductID().equals(newProduct.getProductID())) {
+							stock.setUnits(stock.getUnits()+newQuantity);
+							order.setActive(false);
+							
+							saveStock();
+						}
+					}
+				}
+				
 				saveOrder();
 				
 				JOptionPane.showMessageDialog(this, "Order has been edited");
@@ -182,5 +193,20 @@ public class OrderEditorGUI extends JFrame implements ActionListener {
 	  		 exception.printStackTrace();
 	  	 }
 	   }
+	
+	public static void saveStock(){
+	  	 try {
+	  		 FileWriter stockFile;
+	  		stockFile = new FileWriter("stocks.txt");
+	  		
+	  		 DataBase.writeStocks(RetailSystem.getInstance().getStocks(), stockFile);
+	  		stockFile.close();
+	  		
+	  	 } catch (Exception exception) {
+	  		 
+	  		 exception.printStackTrace();
+	  	 }
+	   }
+	
 	
 }
