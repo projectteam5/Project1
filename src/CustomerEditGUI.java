@@ -19,6 +19,7 @@ public class CustomerEditGUI extends JFrame {
 	private JTextField AddressField;
 	private JTextField PhoneField;
 	private Customer customer;
+	private JButton customerMenuButton;
 	
 	public CustomerEditGUI(String customerInput) {
 
@@ -42,6 +43,7 @@ public class CustomerEditGUI extends JFrame {
 		JLabel label2 = new JLabel("Address");
 		JLabel label3 = new JLabel("Phone Number");
 		JButton doneButton = new JButton("Done");
+		customerMenuButton = new JButton("Customer Menu");
 
 		// adding all the components
 		panel.add(label1);
@@ -51,6 +53,7 @@ public class CustomerEditGUI extends JFrame {
 		panel.add(label3);
 		panel.add(PhoneField);
 		panel.add(doneButton);
+		panel.add(customerMenuButton);
 		Container container = getContentPane();
 		container.add(panel);
 
@@ -72,6 +75,16 @@ public class CustomerEditGUI extends JFrame {
 		});
 
 		this.setVisible(true);
+		
+		customerMenuButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CustomerGUI customerGui = new CustomerGUI();
+				closeGUI();
+				
+			}
+		});
+
+		setVisible(true);
 	}
 
 	public Customer retrieveCustomer(String id) {
@@ -113,5 +126,9 @@ public class CustomerEditGUI extends JFrame {
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
-	}	
+	}
+	
+	public void closeGUI(){
+		this.setVisible(false);
+	}
 }

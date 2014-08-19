@@ -23,6 +23,7 @@ public class CustomerViewGUI extends JFrame {
 	private JLabel labelAddress;
 	private JLabel labelPhone;
 	private JButton viewButton;
+	private JButton customerMenuButton;
 	private int returnValue;
 	private String selectedCustomerID;
 	private String selectedCustomerIDPrev;
@@ -42,10 +43,12 @@ public class CustomerViewGUI extends JFrame {
 		customersDropDown = new JComboBox();
 		compileCustomerNames ();
 		viewButton = new JButton("View Customer");
+		customerMenuButton = new JButton("Customer Menu");
 		
 		panel.add(labelTitle);
 		panel.add(customersDropDown);
 		panel.add(viewButton);
+		panel.add(customerMenuButton);
 		
 		returnValue = 2;
 		
@@ -63,6 +66,16 @@ public class CustomerViewGUI extends JFrame {
 			}
 		});
 		
+		setVisible(true);
+		
+		customerMenuButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CustomerGUI customerGui = new CustomerGUI();
+				closeGUI();
+				
+			}
+		});
+
 		setVisible(true);
 	}
 	
@@ -114,6 +127,10 @@ public class CustomerViewGUI extends JFrame {
 			String string = "ID: "+ customer.getCustomerID()+ "; Name: " + customer.getName();
 			customersDropDown.addItem(string);
 		}
+	}
+	
+	public void closeGUI(){
+		this.setVisible(false);
 	}
 
 }
