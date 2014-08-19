@@ -67,20 +67,21 @@ public class Product {
 		this.supplier = supplier;
 	}
 	//1
-	public String addProductToList(Product product){
+	public static String addProductToList(Product product){
 		//Will take in a product and add it to the products list in the driver class
 		boolean duplicate = false;
+		String string ="";
 		for(Product p: RetailSystem.getInstance().getProducts()){
 			if(p.getProductID() == product.getProductID()){
 				duplicate = true;
-				return product.getProductID();
+				string =  "existing product";
 			}	
 			
 			}if(!duplicate){
 				RetailSystem.getInstance().getProducts().add(product);
-				return product.getProductID();
+				string =  product.getProductID();
 			}
-			return "Function to add Product to list has run";
+			return string;
 	}
 	//2
 	public boolean changeProductToInactive(Product product){

@@ -41,8 +41,8 @@ public class ProductTest {
 	}
 	
 	@Test
-	public String addProductToList() {
-		String string = addProductToList(product1);
+	public void addProductToListTest() {
+		String string = Product.addProductToList(product1);
 		assertEquals("5783JKDS", string);
 	}
 
