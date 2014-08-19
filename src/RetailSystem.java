@@ -12,14 +12,12 @@ public class RetailSystem {
 	private ArrayList<Order> orders;// array list of orders
 	private ArrayList<Supplier> suppliers;// array list of suppliers
 	private ArrayList<Product> products;// array list of products
-	private ArrayList<Stock> stocks;// array list of stock
+	private ArrayList<Stock> stocks;// array list of stock invoices
+	private ArrayList<Invoice> invoices;// array list of invoices
 
 	private String currentUserType = "";// it store which type of user logged on
 	private String currentUserID = "";// it store which type of user logged on
 	private String[] userTypeList = {"Manager", "Attendant"};//Array with the possible users types
-	private Dimension prefsize = new Dimension(1,30);
-
-
 
 	public RetailSystem() {
 	}
@@ -170,13 +168,5 @@ public class RetailSystem {
 		this.userTypeList = userTypeList;
 	}
 
-	public Dimension getPrefsize() {
-		return prefsize;
-	}
-
-	public void setPrefsize(Dimension prefsize) {
-		this.prefsize = prefsize;
-	}
-	
 
 }

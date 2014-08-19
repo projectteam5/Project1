@@ -10,3 +10,5 @@ supplier2;Supplier2 Name;083775839;true
 0008;IBM;0876344353;true
 0009;test;087564222;true
 0010;Lenovo;0896745231;true
+supplier3;Cri;098764467;false
+nnn;nnn;nnn;true

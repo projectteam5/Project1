@@ -30,6 +30,7 @@ public class AddUserGUI extends JFrame {
 		// declaration and initialization of panel, container and layout setting
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setSize(400, 400);
+		this.setTitle("Create User");
 		JPanel panel = new JPanel();
 		Container container = getContentPane();
 		container.add(panel);

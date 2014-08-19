@@ -33,6 +33,7 @@ public class ShowUserGUI extends JFrame {
 		// and buttons
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(400, 400);
+		this.setTitle("Show User");
 		panel = new JPanel();
 		Container container = getContentPane();
 		container.add(panel);

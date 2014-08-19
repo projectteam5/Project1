@@ -1,0 +1,2 @@
+invoice1;19-Aug-2014;customer1;false;2;product1;2;product12;1
+invoice2;19-Aug-2014;customer2;true;2;product6;1;product12;3

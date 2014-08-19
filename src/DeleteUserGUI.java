@@ -26,6 +26,7 @@ public class DeleteUserGUI extends JFrame {
 		// and buttons
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(400, 400);
+		this.setTitle("Remove User");
 		panel = new JPanel();
 		Container container = getContentPane();
 		container.add(panel);
@@ -36,7 +37,7 @@ public class DeleteUserGUI extends JFrame {
 				"Please pick the user you want to remove from the user list below");
 		usersDropDown = new JComboBox();
 		buildUsersDropDown();
-		deleteButton = new JButton("Delete User");
+		deleteButton = new JButton("Remove User");
 		userMenuButton = new JButton("User Menu");
 
 		panel.add(labelTitle);

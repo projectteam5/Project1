@@ -17,6 +17,7 @@ public class UserGUI extends JFrame {
 		// and buttons
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(400, 400);
+		this.setTitle("User Menu");
 		JPanel panel = new JPanel();
 		Container container = getContentPane();
 		container.add(panel);
@@ -24,7 +25,7 @@ public class UserGUI extends JFrame {
 		panel.setLayout(new GridLayout(0, 1));
 		JButton addUser = new JButton("Add User");
 		JButton editUser = new JButton("Edit User");
-		JButton deleteUser = new JButton("Delete User");
+		JButton deleteUser = new JButton("Remove User");
 		JButton showUser = new JButton("Show User");
 		JButton menuUser = new JButton("Menu");
 
