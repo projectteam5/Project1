@@ -47,11 +47,9 @@ public class CustomerGUI extends JFrame {
 		
 		editCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				CustomerEditGUI CustomerEditGui = new CustomerEditGUI();
+				editCustomerButton();
 			}
 		});
-
-		this.setVisible(true);
 		
 		
 		deleteCustomer.addActionListener(new ActionListener() {
@@ -60,7 +58,6 @@ public class CustomerGUI extends JFrame {
 			}
 		});
 
-		this.setVisible(true);
 	
 		
 		viewCustomer.addActionListener(new ActionListener() {
@@ -69,7 +66,6 @@ public class CustomerGUI extends JFrame {
 			}
 		});
 
-		this.setVisible(true);
 		
 		mainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -84,7 +80,12 @@ public class CustomerGUI extends JFrame {
 	
 
 	public void addCustomerButton() {
-		CustomerAddGUI addCustomerGUI = new CustomerAddGUI();
+		CustomerAddGUI customerAddGUI = new CustomerAddGUI();
+		this.setVisible(false);
+	}
+	
+	public void editCustomerButton() {
+		CustomerEditGUI customerEditGUI = new CustomerEditGUI();
 		this.setVisible(false);
 	}
 

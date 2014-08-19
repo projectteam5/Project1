@@ -22,13 +22,14 @@ public class CustomerEditGUI extends JFrame {
 	private Customer customer;
 	private JButton customerMenuButton;
 	private JComboBox customersDropDown;
+	private JLabel labelTitle;
 	private JButton editButton;
 	
-	public CustomerEditGUI(String customerInput) {
+	public CustomerEditGUI() {
 
 		// initialize the customer variable to display the current values of the
-		// user
-		customerID = customerInput;
+		// customer
+		
 		customer = retrieveCustomer(customerID);
 
 		// declaration and initialization of panel, container and layout setting
@@ -37,6 +38,13 @@ public class CustomerEditGUI extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panel.setLayout(new GridLayout(0, 1));
+		
+		labelTitle = new JLabel(
+				"Please pick the customer you wish to edit from the list below");
+		customersDropDown = new JComboBox();
+		buildCustomersDropDown();
+		editButton = new JButton("Edit Customer");
+		customerMenuButton = new JButton("Customer Menu");
 
 		// declaration of the labels and initialization of labels and text field
 		NameField = new JTextField(customer.getName());
@@ -118,6 +126,16 @@ public class CustomerEditGUI extends JFrame {
 			}
 		}
 		return returnValue;
+	}
+	
+	public void buildCustomersDropDown(){
+		for (Customer customer : RetailSystem.getInstance().getCustomers()){
+			if(!customer.getCustomerID().equals(RetailSystem.getInstance()) && customer.isActive()){
+				String string = "ID: " + customer.getCustomerID() + " ; Name: "
+						+ customer.getName();
+				customersDropDown.addItem(string);
+			}
+		}
 	}
 	
 	public static void saveCustomer() {
