@@ -21,7 +21,7 @@ public class SupplierMenuGUI extends JFrame{
 		JButton viewListButton = new JButton("List Suppliers");
 		JButton deleteButton = new JButton("Delete Supplier");
 		JButton addButton = new JButton("Add Supplier");
-		JButton productPerSupplier = new JButton("ViewSupplierOfProduct");
+		JButton singleSupplierDetails = new JButton("Supplier details");
 		JButton buttonMainMenu = new JButton("Main Menu");
 		
 		// Launches the edit supplier frame
@@ -57,7 +57,7 @@ public class SupplierMenuGUI extends JFrame{
 		});
 		
 		// Launches the the supplier of a particular product frame
-		productPerSupplier.addActionListener(new ActionListener() {	
+		singleSupplierDetails.addActionListener(new ActionListener() {	
 			public void actionPerformed(ActionEvent e) {
 				SupplierDetailsGUI supplierDetailsGUI = new SupplierDetailsGUI();
 				closeSupplierMenuGUI();
@@ -74,10 +74,10 @@ public class SupplierMenuGUI extends JFrame{
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(0,1));
-		panel.add(editButton);
+		panel.add(addButton);		
 		panel.add(deleteButton);
-		panel.add(addButton);
-		panel.add(productPerSupplier);
+		panel.add(editButton);
+		panel.add(singleSupplierDetails);
 		panel.add(viewListButton);
 		panel.add(buttonMainMenu);
 		Container cp = getContentPane();
