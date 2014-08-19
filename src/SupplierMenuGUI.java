@@ -59,7 +59,7 @@ public class SupplierMenuGUI extends JFrame{
 		// Launches the the supplier of a particular product frame
 		productPerSupplier.addActionListener(new ActionListener() {	
 			public void actionPerformed(ActionEvent e) {
-				SupplierOfProductGUI supplierOfProductGUI = new SupplierOfProductGUI();
+				SupplierDetailsGUI supplierDetailsGUI = new SupplierDetailsGUI();
 				closeSupplierMenuGUI();
 			}
 		});
