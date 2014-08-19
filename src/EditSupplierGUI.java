@@ -47,10 +47,10 @@ public class EditSupplierGUI extends JFrame {
 		panel.add(title);
 		panel.add(supplierDropDown);
 		panel.add(buttonEditSupplier);
-		panel.add(supplierNameField);
 		panel.add(supplierName);
-		panel.add(supplierNumberField);
+		panel.add(supplierNameField);
 		panel.add(supplierNumber);
+		panel.add(supplierNumberField);
 		panel.add(buttonCommitEditProduct);
 		panel.add(buttonMenu);
 		Container cp = getContentPane();
