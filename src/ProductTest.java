@@ -12,9 +12,9 @@ import org.junit.Test;
 public class ProductTest {
 	private ArrayList<Supplier> supplierStatus = RetailSystem.getInstance().getSuppliers();
 	private ArrayList<Product> productStatus = RetailSystem.getInstance().getProducts();
-	private Supplier supplier;
-	private Product product1;
-	private Product product2;
+	private static Supplier supplier;
+	private static Product product1;
+	private static Product product2;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -42,7 +42,7 @@ public class ProductTest {
 	
 	@Test
 	public String addProductToList() {
-		String string = addProductToList(product);
+		String string = addProductToList(product1);
 		assertEquals("5783JKDS", string);
 	}
 
