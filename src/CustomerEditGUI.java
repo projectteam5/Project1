@@ -27,10 +27,6 @@ public class CustomerEditGUI extends JFrame {
 	
 	public CustomerEditGUI() {
 
-		// initialize the customer variable to display the current values of the
-		// customer
-		
-		customer = retrieveCustomer(customerID);
 
 		// declaration and initialization of panel, container and layout setting
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -45,8 +41,13 @@ public class CustomerEditGUI extends JFrame {
 		buildCustomersDropDown();
 		editButton = new JButton("Edit Customer");
 		customerMenuButton = new JButton("Customer Menu");
+		
+		panel.add(labelTitle);
+		panel.add(customersDropDown);
+		panel.add(editButton);
+		panel.add(customerMenuButton);
 
-		// declaration of the labels and initialization of labels and text field
+		/* declaration of the labels and initialization of labels and text field
 		NameField = new JTextField(customer.getName());
 		AddressField = new JTextField(customer.getAddress());
 		PhoneField = new JTextField(customer.getPhoneNumber());
@@ -83,7 +84,7 @@ public class CustomerEditGUI extends JFrame {
 				}
 
 			}
-		});
+		});*/
 
 		this.setVisible(true);
 		
