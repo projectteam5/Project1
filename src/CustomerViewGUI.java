@@ -79,7 +79,7 @@ public class CustomerViewGUI extends JFrame {
 		setVisible(true);
 	}
 	
-	public static String[] userList(){
+	public static String[] customerList(){
 		String[] customerList = new String[ RetailSystem.getInstance().getCustomers().size()];
 		int i = 0;
 		for (Customer customer : RetailSystem.getInstance().getCustomers()){
