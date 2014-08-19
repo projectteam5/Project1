@@ -25,8 +25,11 @@ public class ProductTest {
 		RetailSystem.getInstance().setProducts(products);
 
 		Supplier supplier = new Supplier("HHHHHHH", "Supplier Store Place", "087326892");
-		Product product1 = new Product("5783JKDS", "Computer", 500.66, 200.00, supplier);
-		Product product2 = new Product("5783JKDS", "Another Computer", 7923.00, 100.00, supplier);
+		suppliers.add(supplier);
+		Product product1 = new Product("5783JKDS", "Computer", 500.66, 200.00, suppliers.get(0));
+		Product product2 = new Product("5783JKDS", "Another Computer", 7923.00, 100.00, suppliers.get(0));
+		products.add(product1);
+		products.add(product2);
 
 	}
 
