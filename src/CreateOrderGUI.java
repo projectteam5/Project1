@@ -49,8 +49,7 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 		Container container = getContentPane();
 		container.add(panel);
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setLayout(new GridLayout(0,1));	
-		
+		panel.setLayout(new GridLayout(0,1));
 		
 		JLabel label1 = new JLabel("OrderID");
 		idTextField = new JTextField();
@@ -85,8 +84,10 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 		
 		returnToMainMenu = new JButton("Main Menu");
 		
+		
 		panel.add(label1);
 		panel.add(idTextField);
+		
 		panel.add(label2);
 		panel.add(orderDateTextField);
 		panel.add(label3);
@@ -172,7 +173,8 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 			
 			if ((!duplicateOrderID) && (dataOK==true)){
 				try{
-					JOptionPane.showMessageDialog(this, "Adding product");
+					JOptionPane.showMessageDialog(this, "Order Added");
+					
 					
 					newReceivedDate = DateFormat.getDateInstance().parse(orderDateTextField.getText());
 					newReceived = false;

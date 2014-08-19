@@ -49,6 +49,7 @@ public class OrderEditorGUI extends JFrame implements ActionListener {
 		
 		JLabel label1 = new JLabel("OrderID");
 		idTextField = new JTextField(order.getOrderID());
+		idTextField.setEditable(false);
 		
 		JLabel label2 = new JLabel("Order Date");
 		orderDateTextField = new JTextField();
