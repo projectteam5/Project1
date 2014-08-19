@@ -1,3 +1,2 @@
 customer2;Henry Bo;address 2 Cork;089334455;true
-customer 1;kvhfkvfejh;kjkjerveriu;2334456;true
-customer1;Cristiana;address Dublin;08765421;true
+customer3;kvhfkvfejh;kjkjerveriu;2334456;true
