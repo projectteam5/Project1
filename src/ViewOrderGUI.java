@@ -14,10 +14,12 @@ public class ViewOrderGUI extends JFrame implements ActionListener {
 	private JComboBox<String> orderList;
 	
 	private JButton returnToMainMenu;
+	private JLabel counterLabel;
 
 	public ViewOrderGUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(600, 200);
+		setTitle("View All Orders");
 		
 		panel = new JPanel();
 		container = getContentPane();
@@ -37,6 +39,9 @@ public class ViewOrderGUI extends JFrame implements ActionListener {
 		panel.add(printLabel);
 		container.add(panel);
 		
+		counterLabel = new JLabel("Total Orders in System: " + RetailSystem.getInstance().getOrders().size());
+		panel.add(counterLabel, BorderLayout.SOUTH);
+		
 		panel.add(returnToMainMenu);
 		
 		viewOrderButton.addActionListener(this);
@@ -46,7 +51,7 @@ public class ViewOrderGUI extends JFrame implements ActionListener {
 		setVisible(true);
 		
 		for(Order order: RetailSystem.getInstance().getOrders()){
-			orderList.addItem(order.getOrderID());
+				orderList.addItem(order.getOrderID());
 		}
 		
 	}
@@ -71,7 +76,8 @@ public class ViewOrderGUI extends JFrame implements ActionListener {
 							+" | "+DateFormat.getDateInstance().format(order.getExpectedDeliveryDate())
 							+" | "+DateFormat.getDateInstance().format(order.getDateReceived())
 							+" | "+order.isReceived()
-							+" | "+calcOrderCost(order.getProduct().getCost(), order.getQuantity()));
+							+" | "+calcOrderCost(order.getProduct().getCost(), order.getQuantity())
+							+" | "+order.isActive());
 
 					break;
 				}

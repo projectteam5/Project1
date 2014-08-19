@@ -16,7 +16,7 @@ public class OrderGUI extends JFrame implements ActionListener {
 	public OrderGUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(1000, 800);
-		setTitle(this.getClass().toString());
+		setTitle("Order Menu");
 		setLocationRelativeTo(null);	//null sets the frame to centre
 		
 		panel = new JPanel();
@@ -26,9 +26,9 @@ public class OrderGUI extends JFrame implements ActionListener {
 		panel.setLayout(new GridLayout(4, 2));
 		
 		createOrder = new JButton("Create Order");
-		editOrder = new JButton("Edit Order");
-		viewOrder = new JButton("View Order");
-		removeOrder = new JButton("Remove Order");
+		editOrder = new JButton("Edit Open Order");
+		viewOrder = new JButton("View All Orders");
+		removeOrder = new JButton("Remove Open Order");
 		returnToMainMenu = new JButton("Main Menu");
 		
 		panel.add(createOrder);

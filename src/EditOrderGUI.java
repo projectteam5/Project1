@@ -9,7 +9,7 @@ import javax.swing.border.EmptyBorder;
 public class EditOrderGUI extends JFrame implements ActionListener {
 	private JPanel panel;
 	private Container container;
-	private JComboBox<String> orderList;
+	private static JComboBox<String> orderList;
 	private JButton editOrderButton;
 	
 	private static Order orderToEdit;
@@ -19,6 +19,7 @@ public class EditOrderGUI extends JFrame implements ActionListener {
 	public EditOrderGUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(400, 200);
+		setTitle("Edit Open Order");
 		
 		panel = new JPanel();
 		container = getContentPane();
@@ -32,7 +33,11 @@ public class EditOrderGUI extends JFrame implements ActionListener {
 		returnToMainMenu = new JButton("Main Menu");
 		
 		for(Order order: RetailSystem.getInstance().getOrders()){
-			orderList.addItem(order.getOrderID());
+			if(order.isActive()==true) {
+				if(order.isReceived()==false) {
+					orderList.addItem(order.getOrderID());
+				}
+			}
 		}
 		
 		panel.add(orderList);
@@ -57,7 +62,6 @@ public class EditOrderGUI extends JFrame implements ActionListener {
 			
 			for(Order order: RetailSystem.getInstance().getOrders()){
 				if(orderID.equalsIgnoreCase(order.getOrderID())){
-					
 					orderFound = true;
 					orderToEdit = order;
 					OrderEditorGUI editThisOrder = new OrderEditorGUI();
@@ -90,5 +94,13 @@ public class EditOrderGUI extends JFrame implements ActionListener {
 
 	public void setOrderToEdit(Order orderToEdit) {
 		this.orderToEdit = orderToEdit;
+	}
+
+	public static JComboBox<String> getOrderList() {
+		return orderList;
+	}
+
+	public void setOrderList(JComboBox<String> orderList) {
+		this.orderList = orderList;
 	}
 }

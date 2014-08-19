@@ -24,6 +24,7 @@ public class RemoveOrderGUI extends JFrame implements ActionListener {
 	public RemoveOrderGUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(600, 200);
+		setTitle("Remove Open Order");
 		
 		panel = new JPanel();
 		container = getContentPane();
@@ -37,7 +38,11 @@ public class RemoveOrderGUI extends JFrame implements ActionListener {
 		returnToMainMenu = new JButton("Main Menu");
 		
 		for(Order order: RetailSystem.getInstance().getOrders()){
-			orderList.addItem(order.getOrderID());
+			if(order.isActive()==true) {
+				if(order.isReceived()==false) {
+					orderList.addItem(order.getOrderID());
+				}
+			}
 		}
 		
 		panel.add(orderList);
@@ -54,6 +59,7 @@ public class RemoveOrderGUI extends JFrame implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent event) {
+		
 		Object target = event.getSource();
 		
 		if(target == removeOrderButton) {
@@ -63,7 +69,7 @@ public class RemoveOrderGUI extends JFrame implements ActionListener {
 			
 			for(Order order: RetailSystem.getInstance().getOrders()){
 				if(orderID.equalsIgnoreCase(order.getOrderID())){
-					
+						
 					orderFound = true;
 					
 					printLabel.setText(order.getOrderID()
@@ -77,12 +83,18 @@ public class RemoveOrderGUI extends JFrame implements ActionListener {
 					int answer = JOptionPane.showConfirmDialog(this, "Are you sure?", "Remove Order", JOptionPane.YES_NO_OPTION);
 					
 					if (answer == JOptionPane.YES_OPTION) {
-						RetailSystem.getInstance().getOrders().remove(order);
+						order.setActive(false);
+						//RetailSystem.getInstance().getOrders().remove(order);
 						
 						saveOrder();
 						
-						JOptionPane.showMessageDialog(this, "Order "+order.getOrderID()+" has been removed from the system");
+						JOptionPane.showMessageDialog(this, "Order "+order.getOrderID()+" has been set as inactive");
 						printLabel.setText("");
+						
+						OrderGUI orderGUI = new OrderGUI();
+						this.setVisible(false);
+						this.dispose();
+						
 				    }
 					
 					break;

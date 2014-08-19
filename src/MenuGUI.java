@@ -35,7 +35,7 @@ public class MenuGUI extends JFrame {
 		buttonSupplier = new JButton("Manage Suppliers");
 		buttonOrder = new JButton("Manage Orders");
 		buttonAvailability = new JButton("View Stock");
-		buttonViewOrder = new JButton("View Order");
+		buttonViewOrder = new JButton("View Active Orders");
 		buttonSave = new JButton("Save");
 		// if it is a manager i can see Manage Customer, Manage Product
 		// Manage Supplier, Manage Order

@@ -45,6 +45,8 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(400, 400);
+		setTitle("Create Order");
+		
 		JPanel panel = new JPanel();
 		Container container = getContentPane();
 		container.add(panel);
@@ -175,7 +177,6 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 				try{
 					JOptionPane.showMessageDialog(this, "Order Added");
 					
-					
 					newReceivedDate = DateFormat.getDateInstance().parse(orderDateTextField.getText());
 					newReceived = false;
 					
@@ -184,6 +185,16 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 					RetailSystem.getInstance().getOrders().add(newOrder);
 					
 					saveOrder();
+					
+					int answer = JOptionPane.showConfirmDialog(this, "Would you like to create another Order?", "Continue", JOptionPane.YES_NO_OPTION);
+					
+					if (answer == JOptionPane.NO_OPTION) {
+						
+						OrderGUI orderGUI = new OrderGUI();
+						this.setVisible(false);
+						this.dispose();
+						
+				    }
 					
 					
 				}catch(NumberFormatException | ParseException e){

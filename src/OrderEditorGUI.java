@@ -39,6 +39,8 @@ public class OrderEditorGUI extends JFrame implements ActionListener {
 	public OrderEditorGUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(400, 400);
+		setTitle("Order Editor");
+		
 		JPanel panel = new JPanel();
 		Container container = getContentPane();
 		container.add(panel);
@@ -155,6 +157,14 @@ public class OrderEditorGUI extends JFrame implements ActionListener {
 				saveOrder();
 				
 				JOptionPane.showMessageDialog(this, "Order has been edited");
+				
+				//removing the change of isRecieved from EditOrder orderList
+				if(newReceived==true) {
+					EditOrderGUI.getOrderList().removeItem(order.getOrderID());
+				}
+				
+				this.setVisible(false);
+				this.dispose();
 			}
 		}
 	}

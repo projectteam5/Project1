@@ -27,11 +27,14 @@ public class ViewAllOrdersGUI extends JFrame implements ActionListener {
 	private JLabel printLabel2;
 	private JLabel labelTitle;
 	private JLabel labelTitle2;
-	private Component labelTitle3;
+	private JLabel labelTitle3;
+	private JLabel printLabel3;
+	private JLabel labelTitle4;
 
 	public ViewAllOrdersGUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(600, 200);
+		setSize(600, 400);
+		setTitle("View Active Orders");
 		
 		panel = new JPanel();
 		container = getContentPane();
@@ -57,7 +60,13 @@ public class ViewAllOrdersGUI extends JFrame implements ActionListener {
 		
 		returnToMainMenu.addActionListener(this);
 		
-		counterLabel = new JLabel("Number of Orders in System: " + RetailSystem.getInstance().getOrders().size());
+		int count=0;
+		for(Order order : RetailSystem.getInstance().getOrders()) {
+			if(order.isActive()) {
+				count++;
+			}
+		}
+		counterLabel = new JLabel("Active Orders in System: " + count);
 		panel.add(counterLabel, BorderLayout.SOUTH);
 		
 		setVisible(true);
@@ -65,13 +74,17 @@ public class ViewAllOrdersGUI extends JFrame implements ActionListener {
 		labelTitle = new JLabel("Open Orders");
 		labelTitle.setSize(10,10);
 		detailsPanel.add(labelTitle);
+		
+		double totalOpenCost = 0;
 
 		for(Order order: RetailSystem.getInstance().getOrders()) {
 			
-			if(order.isReceived()==false) {
+			if(order.isReceived()==false && order.isActive()==true) {
 				//the order is open
 				
-				printLabel2 = new JLabel(order.getOrderID()
+				totalOpenCost += order.getProduct().getCost() * order.getQuantity();
+				
+					printLabel2 = new JLabel(order.getOrderID()
 						+" | "+DateFormat.getDateInstance().format(order.getOrderDate())
 						+" | "+order.getProduct().getProductID()
 						+" | "+order.getQuantity()
@@ -82,16 +95,25 @@ public class ViewAllOrdersGUI extends JFrame implements ActionListener {
 				printLabel2.setSize(10,10);
 				detailsPanel.add(printLabel2);
 			}
+			
 		}
+		
+		labelTitle4 = new JLabel("Total Open Order Cost: " +"€"+ totalOpenCost);
+		labelTitle4.setSize(10,10);
+		detailsPanel.add(labelTitle4);
 		
 		labelTitle2 = new JLabel("Received Orders");
 		labelTitle2.setSize(10,10);
 		detailsPanel.add(labelTitle2);
-			
+		
+		double totalReceivedCost = 0;
+		
 		for(Order order: RetailSystem.getInstance().getOrders()) {
 			
 			if(order.isReceived()==true) {
 				//the order is received
+				
+				totalReceivedCost += order.getProduct().getCost() * order.getQuantity();
 				
 				printLabel = new JLabel(order.getOrderID()
 					+" | "+DateFormat.getDateInstance().format(order.getOrderDate())
@@ -103,9 +125,17 @@ public class ViewAllOrdersGUI extends JFrame implements ActionListener {
 					+" | "+calcOrderCost(order.getProduct().getCost(), order.getQuantity()));
 			printLabel.setSize(10,10);
 			detailsPanel.add(printLabel);
+			
 			}
 		}
+		
+		labelTitle3 = new JLabel("Total Receved Order Cost: " +"€"+ totalReceivedCost);
+		labelTitle3.setSize(10,10);
+		detailsPanel.add(labelTitle3);
+		
 	}
+	
+	
 	
 	public void actionPerformed(ActionEvent event) {
 		Object target = event.getSource();
@@ -129,4 +159,5 @@ public class ViewAllOrdersGUI extends JFrame implements ActionListener {
 		String s = "€"+orderCost;
 		return s;
 	}
+	
 }
