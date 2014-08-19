@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.io.FileWriter;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -20,6 +21,8 @@ public class CustomerEditGUI extends JFrame {
 	private JTextField PhoneField;
 	private Customer customer;
 	private JButton customerMenuButton;
+	private JComboBox customersDropDown;
+	private JButton editButton;
 	
 	public CustomerEditGUI(String customerInput) {
 
