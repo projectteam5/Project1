@@ -66,37 +66,43 @@ public class Product {
 	public void setSupplier(Supplier supplier) {
 		this.supplier = supplier;
 	}
-	
-	public void addProductToList(Product product){
+	//1
+	public String addProductToList(Product product){
 		//Will take in a product and add it to the products list in the driver class
 		boolean duplicate = false;
 		for(Product p: RetailSystem.getInstance().getProducts()){
 			if(p.getProductID() == product.getProductID()){
-				System.out.println("Product is already in product list");
 				duplicate = true;
-				break;
+				return product.getProductID();
 			}	
 			
 			}if(!duplicate){
 				RetailSystem.getInstance().getProducts().add(product);
+				return product.getProductID();
 			}
+			return "Function to add Product to list has run";
 	}
-	
-	public void removeProductFromList(Product product){
+	//2
+	public boolean changeProductToInactive(Product product){
 		//Will remove a product from the products list in the driver class
-		RetailSystem.getInstance().getProducts().remove(product);
+		product.setActive(false);
+		return product.isActive();
 	}
-		
-	public void viewProduct(Product product){
+	//3
+	public String viewProduct(Product product){
 		//Temp println in place of GUI
 		System.out.println("ID: "+product.getProductID()+"\nName: "+product.getName()+"\nCost: "+product.getCost()+"\nMarkup: "+product.getMarkup()+"\nSupplier: "+product.getSupplier());
+		return product.getProductID();
 	}
-
-	public void viewProductList(){
+	//4
+	public String viewProductList(){
 		//Will list products from product list in driver class
 		for(Product product: RetailSystem.getInstance().getProducts()){
 			System.out.println("ID: "+product.getProductID()+"\nName: "+product.getName()+"\nCost: "+product.getCost()+"\nMarkup: "+product.getMarkup()+"\nSupplier: "+product.getSupplier());
+			product.getProductID();
 		}
+		return "Function to view all products has run";
+
 	}
 
 	public boolean isActive() {
