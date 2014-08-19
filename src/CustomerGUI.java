@@ -24,57 +24,41 @@ public class CustomerGUI extends JFrame {
 		container.add(panel);
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panel.setLayout(new GridLayout(0, 1));
-		JButton AddCustomer = new JButton("Add Customer");
-		JButton EditCustomer = new JButton("Edit Customer");
-		JButton DeleteCustomer = new JButton("Delete Customer");
+		JButton addCustomer = new JButton("Add Customer");
+		JButton editCustomer = new JButton("Edit Customer");
+		JButton deleteCustomer = new JButton("Delete Customer");
 		JButton viewCustomer = new JButton("View Customer");
 		JButton mainMenu = new JButton("Main Menu");
 
 		// adding components
-		panel.add(AddCustomer);
-		panel.add(EditCustomer);
-		panel.add(DeleteCustomer);
+		panel.add(addCustomer);
+		panel.add(editCustomer);
+		panel.add(deleteCustomer);
 		panel.add(viewCustomer);
 		panel.add(mainMenu);
 		
 
 		//Adds customer in a new GUI
-		AddCustomer.addActionListener(new ActionListener() {
+		addCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				addCustomerButton();
 			}
 		});
 		
+		editCustomer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				editCustomerButton();
+			}
+		});
 		
+		
+		deleteCustomer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CustomerDeleteGUI CustomerDeleteGui = new CustomerDeleteGUI();
+			}
+		});
 
-		//Enter customer ID then edit if there is a corresponding Customer ID in the system
-		EditCustomer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				int returnValue = editCustomerButton();
-				if (returnValue == 1) {
-					JOptionPane.showMessageDialog(null, "ID not found!",
-							"Error", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
-		
-		
-		DeleteCustomer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				int returnValue = deleteCustomerButton();
-				if (returnValue == 1) {
-					JOptionPane.showMessageDialog(null, "ID not found!",
-							"Error", JOptionPane.ERROR_MESSAGE);
-				} else {
-					saveCustomer();
-					JOptionPane.showMessageDialog(null,
-							"Customer correctly removed", "Customer Deleted",
-							JOptionPane.INFORMATION_MESSAGE);
-				}
-			}
-		});
-		
-		
+	
 		
 		viewCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -82,7 +66,6 @@ public class CustomerGUI extends JFrame {
 			}
 		});
 
-		this.setVisible(true);
 		
 		mainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -94,56 +77,20 @@ public class CustomerGUI extends JFrame {
 		this.setVisible(true);
 	}
 
-	public static boolean existingID(String id) {
-		for (Customer customer : RetailSystem.getInstance().getCustomers()) {
-			if (customer.getCustomerID().equals(id)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public static boolean notLoginID(String id) {
-		if (RetailSystem.getInstance().getCurrentUserID().equals(id)) {
-			return false;
-		}
-		return true;
-	}
+	
 
 	public void addCustomerButton() {
-		CustomerAddGUI addCustomerGUI = new CustomerAddGUI();
+		CustomerAddGUI customerAddGUI = new CustomerAddGUI();
+		this.setVisible(false);
+	}
+	
+	public void editCustomerButton() {
+		CustomerEditGUI customerEditGUI = new CustomerEditGUI();
 		this.setVisible(false);
 	}
 
-	public int editCustomerButton() {
-		String inputValue = JOptionPane
-				.showInputDialog("Please insert a Customer ID");
-		if (existingID(inputValue)) { 
-			CustomerEditGUI gui = new CustomerEditGUI(inputValue);
-			this.setVisible(false);
-			return 0;
-		} else {
-			return 1;
-		}
-	}
 	
-	public int deleteCustomerButton() {
-		String inputValue = JOptionPane
-				.showInputDialog("Please insert a Customer ID");
-		if (existingID(inputValue)) {
-			Customer customerRemove = null;
-			for (Customer customer : RetailSystem.getInstance().getCustomers()) {
-				if (customer.getCustomerID().equals(inputValue)) {
-					customerRemove = customer;
-				}
-			}
-			RetailSystem.getInstance().getCustomers().remove(customerRemove);
-			return 0;
-		} else {
-			return 1;
-		}
-
-	}
+	
 	
 	public static void saveCustomer() {
 		try {

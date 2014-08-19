@@ -17,10 +17,12 @@ public class CustomerAddGUI extends JFrame {
 	
 	JButton button1 = new JButton("Add Customer");
 	
+	
 	private JTextField textField1;
 	private JTextField textField2;
 	private JTextField textField3;
 	private JTextField textField4;
+	private JButton customerMenuButton;
 
 	public CustomerAddGUI() {
 		setSize(400, 400); // set frames size in pixels
@@ -34,6 +36,7 @@ public class CustomerAddGUI extends JFrame {
 		JLabel label3 = new JLabel("Customer Address");
 		textField4 = new JTextField();
 		JLabel label4 = new JLabel("Customer Phone Number");
+		customerMenuButton = new JButton("Customer Menu");
 		
 		JPanel jpanel = new JPanel();
 		jpanel.setLayout(new GridLayout(0,1));
@@ -45,6 +48,7 @@ public class CustomerAddGUI extends JFrame {
 		jpanel.add(textField3);
 		jpanel.add(label4);
 		jpanel.add(textField4);
+		jpanel.add(customerMenuButton);
 		
 		button1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -58,6 +62,14 @@ public class CustomerAddGUI extends JFrame {
 					saveCustomer();
 					JOptionPane.showMessageDialog(null, "Customer Created and added to system", "Success", JOptionPane.PLAIN_MESSAGE);
 				}
+				
+			}
+		});
+		
+		customerMenuButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CustomerGUI customerGui = new CustomerGUI();
+				closeGUI();
 				
 			}
 		});
@@ -96,6 +108,10 @@ public class CustomerAddGUI extends JFrame {
 			}
 		}
 		return correct;
+	}
+	
+	public void closeGUI(){
+		this.setVisible(false);
 	}
 	
 }

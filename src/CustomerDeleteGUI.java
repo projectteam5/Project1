@@ -20,7 +20,7 @@ public class CustomerDeleteGUI extends JFrame {
 	private JButton customerMenuButton;
 	private String selectedCustomerID;
 	private Customer customerRemove;
-
+	
 	public CustomerDeleteGUI() {
 		// declaration and initialization of panel, container, layout setting
 		// and buttons
