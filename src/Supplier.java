@@ -32,15 +32,6 @@ public class Supplier {
 		RetailSystem.getInstance().getSuppliers().remove(supplier);
 	}
 	
-	public void viewSupplier(Product product){
-		// Takes a product and searches for the supplier name in the product list
-		for(Product pro: RetailSystem.getInstance().getProducts()){
-			if(pro.getProductID()==product.getProductID()){
-				System.out.println("Supplier of product: "+pro.getSupplier().getName());
-			}
-		}
-	}
-	
 	public static ArrayList<Supplier> getSupplierList(){
 		ArrayList<Supplier> suppliers = new ArrayList<Supplier>();
 		for(Supplier sup:RetailSystem.getInstance().getSuppliers()){
