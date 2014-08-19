@@ -22,12 +22,12 @@ public class User {
 		this.active = true;
 	}
 	
-	public User(String userID, String name, String password, String type, boolean active2) {
+	public User(String userID, String name, String password, String type, boolean active) {
 		this.userID = userID;
 		this.name = name;
 		this.password = password;
 		this.type = type;
-		this.active = active2;
+		this.active = active;
 	}
 
 

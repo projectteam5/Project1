@@ -24,6 +24,7 @@ public class LoginGUI {
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(400, 400);
+		frame.setTitle("Login");
 		panel = new JPanel();
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		Container container = frame.getContentPane();

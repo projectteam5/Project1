@@ -21,19 +21,21 @@ public class SupplierMenuGUI extends JFrame{
 		JButton viewListButton = new JButton("List Suppliers");
 		JButton deleteButton = new JButton("Delete Supplier");
 		JButton addButton = new JButton("Add Supplier");
-		JButton productPerSupplier = new JButton("ViewSupplierOfProduct");
+		JButton singleSupplierDetails = new JButton("Supplier details");
 		JButton buttonMainMenu = new JButton("Main Menu");
 		
 		// Launches the edit supplier frame
 		editButton.addActionListener(new ActionListener() {	
 			public void actionPerformed(ActionEvent e) {
 				EditSupplierGUI editSupplier =new EditSupplierGUI();
+				closeSupplierMenuGUI();
 			}
 		});
 		
 		addButton.addActionListener(new ActionListener() {		
 			public void actionPerformed(ActionEvent arg0) {
 				AddSupplierGUI addSupplierGUI = new AddSupplierGUI();
+				closeSupplierMenuGUI();
 			}
 		});
 		
@@ -42,20 +44,23 @@ public class SupplierMenuGUI extends JFrame{
 		deleteButton.addActionListener(new ActionListener() {	
 			public void actionPerformed(ActionEvent e) {
 				DeleteSupplierGUI deleteSupplierGUI = new DeleteSupplierGUI();
+				closeSupplierMenuGUI();
 			}
 		});
 		
 		// Launches the list suppliers frame
 		viewListButton.addActionListener(new ActionListener() {	
 			public void actionPerformed(ActionEvent e) {
-				ListSuppliersGUI listSupplierGUI = new ListSuppliersGUI();		
+				ListSuppliersGUI listSupplierGUI = new ListSuppliersGUI();	
+				closeSupplierMenuGUI();
 			}
 		});
 		
 		// Launches the the supplier of a particular product frame
-		productPerSupplier.addActionListener(new ActionListener() {	
+		singleSupplierDetails.addActionListener(new ActionListener() {	
 			public void actionPerformed(ActionEvent e) {
-				SupplierOfProductGUI supplierOfProductGUI = new SupplierOfProductGUI();
+				SupplierDetailsGUI supplierDetailsGUI = new SupplierDetailsGUI();
+				closeSupplierMenuGUI();
 			}
 		});
 		
@@ -69,10 +74,10 @@ public class SupplierMenuGUI extends JFrame{
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(0,1));
-		panel.add(editButton);
+		panel.add(addButton);		
 		panel.add(deleteButton);
-		panel.add(addButton);
-		panel.add(productPerSupplier);
+		panel.add(editButton);
+		panel.add(singleSupplierDetails);
 		panel.add(viewListButton);
 		panel.add(buttonMainMenu);
 		Container cp = getContentPane();

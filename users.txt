@@ -3,7 +3,7 @@
 1113;Cris Conti;passw3;Manager;true
 1114;Erich King;passw4;Manager;true
 1115;Laura Phelan;passw5;Manager;true
-1116;Ian Thompson;passw6;Manager;true
+1116;Ian Thompson;passw6;Manager;false
 1117;Calvin McGowan;passw7;Manager;true
 1118;Colm Dillon;passw8;Manager;true
 1121;Test;passw21;Attendant;false

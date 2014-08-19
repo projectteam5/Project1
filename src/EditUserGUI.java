@@ -39,6 +39,7 @@ public class EditUserGUI extends JFrame {
 		// declaration and initialization of panel, container and layout setting
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setSize(400, 400);
+		this.setTitle("Edit User");
 		panel = new JPanel();
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panel.setLayout(new GridLayout(0, 1));

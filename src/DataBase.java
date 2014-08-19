@@ -1,5 +1,3 @@
-
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -18,7 +16,7 @@ public class DataBase {
 	public static ArrayList<User> loadUsers(Reader reader) throws IOException {
 		ArrayList<User> users = new ArrayList<User>();
 		BufferedReader bufReader = new BufferedReader(reader);
-		String line = null;//test
+		String line = null;// test
 		int count = 0;
 		while ((line = bufReader.readLine()) != null) {
 			String[] parts = line.split(";");
@@ -49,13 +47,14 @@ public class DataBase {
 		while ((line = bufReader.readLine()) != null) {
 			String[] parts = line.split(";");
 			count++;
-			if (parts.length == 4) {
+			if (parts.length == 5) {
 				String customerID = parts[0];
 				String name = parts[1];
 				String address = parts[2];
 				String phoneNumber = parts[3];
+				boolean active = Boolean.parseBoolean(parts[4]);
 				Customer customer = new Customer(customerID, name, address,
-						phoneNumber);
+						phoneNumber, active);
 				customers.add(customer);
 			} else {
 				System.err.println("Skipping corrupted customer at line "
@@ -81,7 +80,8 @@ public class DataBase {
 				String name = parts[1];
 				String phoneNumber = parts[2];
 				boolean active = Boolean.parseBoolean(parts[3]);
-				Supplier supplier = new Supplier(supplierID, name, phoneNumber);
+				Supplier supplier = new Supplier(supplierID, name, phoneNumber,
+						active);
 				suppliers.add(supplier);
 			} else {
 				System.err.println("Skipping corrupted supplier at line "
@@ -109,16 +109,10 @@ public class DataBase {
 				double markup = Double.parseDouble(parts[3]); // double
 				String supplierID = parts[4]; // with the id i need to find the
 				boolean active = Boolean.parseBoolean(parts[5]);
-				Supplier supplier = null;
-				for (Supplier supplier_1 : RetailSystem.getInstance().getSuppliers()) {
-					if (supplier_1.getSupplierID().equals(supplierID)) {
-						supplier = supplier_1;
-						break; // I need to exit the for
-					}
-				}
+				Supplier supplier = findSupplierWithID(supplierID);
 				if (supplier != null) {
 					Product product = new Product(productID, name, cost,
-							markup, supplier);
+							markup, supplier, active);
 					products.add(product);
 				} else {
 					System.err
@@ -136,7 +130,8 @@ public class DataBase {
 	}
 
 	// method for loading orders in the Array List
-	public static ArrayList<Order> loadOrders(Reader reader) throws IOException, ParseException {
+	public static ArrayList<Order> loadOrders(Reader reader)
+			throws IOException, ParseException {
 		ArrayList<Order> orders = new ArrayList<Order>();
 		BufferedReader bufReader = new BufferedReader(reader);
 		String line = null;
@@ -144,30 +139,33 @@ public class DataBase {
 		while ((line = bufReader.readLine()) != null) {
 			String[] parts = line.split(";");
 			count++;
-			if (parts.length == 7) {
+			if (parts.length == 8) {
 				String orderID = parts[0];
-				Date orderDate = DateFormat.getDateInstance().parse(parts[1]); // transform as date
+				Date orderDate = DateFormat.getDateInstance().parse(parts[1]); // transform
+																				// as
+																				// date
 				String productID = parts[2];
-				//String supplierID = parts[3];
-				int quantity = Integer.parseInt(parts[3]);// transform as int																// int
-				Date expectedDeliveryDate = DateFormat.getDateInstance().parse(parts[4]);// transform as date
+				int quantity = Integer.parseInt(parts[3]);// transform as int //
+															// int
+				Date expectedDeliveryDate = DateFormat.getDateInstance().parse(
+						parts[4]);// transform as date
 				Date dateReceived = null;
-				if (!parts[5].isEmpty()){
-					dateReceived = DateFormat.getDateInstance().parse(parts[5]);// transform as date
+				if (!parts[5].isEmpty()) {
+					dateReceived = DateFormat.getDateInstance().parse(parts[5]);// transform
+																				// as
+																				// date
 				}
-				boolean received = Boolean.parseBoolean(parts[6]);// transform as boolean
-				Product product = null;
+				boolean received = Boolean.parseBoolean(parts[6]);// transform
+																	// as
+																	// boolean
+				boolean active = Boolean.parseBoolean(parts[7]);
 				// before to construct the object order it is necessary retrieve
 				// the object product
-				for (Product product_1 : RetailSystem.getInstance().getProducts()) {
-					if (product_1.getProductID().equals(productID)) {
-						product = product_1;
-						break; // I need to exit the for
-					}
-				}
-				if (product!= null) {
-					Order order = new Order(orderID, orderDate, product, quantity, expectedDeliveryDate,
-							dateReceived, received);
+				Product product = findProductWithID(productID);
+				if (product != null) {
+					Order order = new Order(orderID, orderDate, product,
+							quantity, expectedDeliveryDate, dateReceived,
+							received, active);
 					orders.add(order);
 				} else {
 					System.err
@@ -182,44 +180,108 @@ public class DataBase {
 		}
 		return orders;
 	}
-	
-	// method for loading stocks in the Array List
-		public static ArrayList<Stock> loadStocks(Reader reader) throws IOException, ParseException {
-			ArrayList<Stock> stocks = new ArrayList<Stock>();
-			BufferedReader bufReader = new BufferedReader(reader);
-			String line = null;
-			int count = 0;
-			while ((line = bufReader.readLine()) != null) {
-				String[] parts = line.split(";");
-				count++;
-				if (parts.length == 2) {
-					String productID = parts[0];
-					int quantity = Integer.parseInt(parts[1]);// transform as int																// int
-					Product product = null;
-					// before to construct the object order it is necessary retrieve
-					// the object product
-					for (Product product_1 : RetailSystem.getInstance().getProducts()) {
-						if (product_1.getProductID().equals(productID)) {
-							product = product_1;
-							break; // I need to exit the for
-						}
-					}
-					if (product!= null) {
-						Stock stock = new Stock(quantity, product);
-						stocks.add(stock);
-					} else {
-						System.err
-								.println("Skipping order with not valid  product at line "
-										+ count);
-					}
 
+	// method for loading stocks in the Array List
+	public static ArrayList<Stock> loadStocks(Reader reader)
+			throws IOException, ParseException {
+		ArrayList<Stock> stocks = new ArrayList<Stock>();
+		BufferedReader bufReader = new BufferedReader(reader);
+		String line = null;
+		int count = 0;
+		while ((line = bufReader.readLine()) != null) {
+			String[] parts = line.split(";");
+			count++;
+			if (parts.length == 3) {
+				String productID = parts[0];
+				int quantity = Integer.parseInt(parts[1]);// transform as int
+				boolean active = Boolean.parseBoolean(parts[2]);
+				// before to construct the object order it is necessary retrieve
+				// the object product
+				Product product = findProductWithID(productID);
+				if (product != null) {
+					Stock stock = new Stock(quantity, product, active);
+					stocks.add(stock);
 				} else {
-					System.err.println("Skipping corrupted stock at line " + count);
+					System.err
+							.println("Skipping order with not valid  product at line "
+									+ count);
 				}
 
+			} else {
+				System.err.println("Skipping corrupted stock at line " + count);
 			}
-			return stocks;
+
 		}
+		return stocks;
+	}
+
+	// method for loading invoice in the Array List
+	public static ArrayList<Invoice> loadInvoices(Reader reader)
+			throws IOException, ParseException {
+		ArrayList<Invoice> invoices = new ArrayList<Invoice>();
+		BufferedReader bufReader = new BufferedReader(reader);
+		String line = null;
+		int count = 0;
+		while ((line = bufReader.readLine()) != null) {
+			String[] parts = line.split(";");
+			count++;
+			if (parts.length >= 5) {
+				String invoiceID = parts[0];
+				Date date = DateFormat.getDateInstance().parse(parts[1]);// transform
+																			// as
+																			// int
+				String customerID = parts[2];
+				boolean completed = Boolean.parseBoolean(parts[3]);
+				int quantityOfProductInvoice = Integer.parseInt(parts[4]);
+				Customer customer = null;
+				// before to construct the object order it is necessary retrieve
+				// the object product
+				for (Customer customer_1 : RetailSystem.getInstance()
+						.getCustomers()) {
+					if (customer_1.getCustomerID().equals(customerID)) {
+						customer = customer_1;
+						break; // I need to exit the for
+					}
+				}
+				if (customer != null) {
+					Invoice invoice = new Invoice(invoiceID, date, customer,
+							completed);
+					int i;
+					for (i = 5; i <= (quantityOfProductInvoice * 2) + 4; i = i + 2) {
+						if (parts[i] != null && parts[i + 1] != null
+								&& !parts[i].equals("")
+								&& !parts[i + 1].equals("")) {
+							String productID = parts[i];
+							int quantity = Integer.parseInt(parts[i + 1]);
+							Product product = findProductWithID(productID);
+							if (product != null) {
+								invoice.addProductsInvoice(product, quantity);
+							} else {
+								System.err
+										.println("Skipping invoice with not valid  product at line "
+												+ count);
+							}
+							i = i + 2;
+						} else {
+							System.err.println("Error" + count);
+						}
+
+					}
+					invoices.add(invoice);
+				} else {
+					System.err
+							.println("Skipping invoice with not valid customer at line "
+									+ count);
+				}
+
+			} else {
+				System.err.println("Skipping corrupted invoice at line "
+						+ count);
+			}
+
+		}
+		return invoices;
+	}
 
 	// ---- METHODS FOR SAVE DATA AT THE END OF THE SESSION
 	// method for saving users at the end of the session
@@ -228,12 +290,12 @@ public class DataBase {
 		BufferedWriter out = new BufferedWriter(writer);
 		for (User user : users) {
 			out.write(user.getUserID() + ";" + user.getName() + ";"
-					+ user.getPassword() + ";" + user.getType() + ";" + user.isActive());
+					+ user.getPassword() + ";" + user.getType() + ";"
+					+ user.isActive());
 			out.newLine();
 		}
 		out.close();
 	}
-	
 
 	// method for saving customers at the end of the session
 	public static void writeCustomers(ArrayList<Customer> customers,
@@ -241,7 +303,8 @@ public class DataBase {
 		BufferedWriter out = new BufferedWriter(writer);
 		for (Customer customer : customers) {
 			out.write(customer.getCustomerID() + ";" + customer.getName() + ";"
-					+ customer.getAddress() + ";" + customer.getPhoneNumber());
+					+ customer.getAddress() + ";" + customer.getPhoneNumber()
+					+ ";" + customer.isActive());
 			out.newLine();
 		}
 		out.close();
@@ -253,7 +316,7 @@ public class DataBase {
 		BufferedWriter out = new BufferedWriter(writer);
 		for (Supplier supplier : suppliers) {
 			out.write(supplier.getSupplierID() + ";" + supplier.getName() + ";"
-					+ supplier.getPhoneNumber()+";"+ supplier.isActive());
+					+ supplier.getPhoneNumber() + ";" + supplier.isActive());
 			out.newLine();
 		}
 		out.close();
@@ -267,41 +330,109 @@ public class DataBase {
 		for (Product product : products) {
 			out.write(product.getProductID() + ";" + product.getName() + ";"
 					+ product.getCost() + ";" + product.getMarkup() + ";"
-					+ product.getSupplier().getSupplierID()+ ";"+ product.isActive());
+					+ product.getSupplier().getSupplierID() + ";"
+					+ product.isActive());
 			out.newLine();
 		}
 		out.close();
 
 	}
-	
+
 	// method for saving orders at the end of the session
 	public static void writeOrders(ArrayList<Order> orders, Writer writer)
 			throws IOException {
 		BufferedWriter out = new BufferedWriter(writer);
 		for (Order order : orders) {
-			out.write(order.getOrderID() + ";" + DateFormat.getDateInstance().format(order.getOrderDate()) + ";"
-					+ order.getProduct().getProductID() + ";" 
-					+ order.getQuantity() + ";" 
-					+ DateFormat.getDateInstance().format(order.getExpectedDeliveryDate()) + ";"
-					+ DateFormat.getDateInstance().format(order.getDateReceived())  + ";" 
-					+ order.isReceived());
+			out.write(order.getOrderID()
+					+ ";"
+					+ DateFormat.getDateInstance().format(order.getOrderDate())
+					+ ";"
+					+ order.getProduct().getProductID()
+					+ ";"
+					+ order.getQuantity()
+					+ ";"
+					+ DateFormat.getDateInstance().format(
+							order.getExpectedDeliveryDate())
+					+ ";"
+					+ DateFormat.getDateInstance().format(
+							order.getDateReceived()) + ";" + order.isReceived()
+					+ ";" + order.isActive());
 			out.newLine();
 		}
 		out.close();
 
 	}
-	
+
 	// method for saving stock at the end of the session
 	public static void writeStocks(ArrayList<Stock> stocks, Writer writer)
 			throws IOException {
 		BufferedWriter out = new BufferedWriter(writer);
 		for (Stock stock : stocks) {
-			out.write(stock.getProduct().getProductID() + ";" + stock.getUnits());
+			out.write(stock.getProduct().getProductID() + ";"
+					+ stock.getUnits() + ";" + stock.isActive());
 			out.newLine();
 		}
 		out.close();
 
 	}
-	
+
+	// method for saving invoice at the end of the session
+	public static void writeInvoices(ArrayList<Invoice> invoices, Writer writer)
+			throws IOException {
+		BufferedWriter out = new BufferedWriter(writer);
+		for (Invoice invoice : invoices) {
+			String string = "";
+			for (int i = 0; i < invoice.getProductsInvoice().size(); i++) {
+				if (i < invoice.getProductsInvoice().size()-1) {
+					string = string
+							+ invoice.getProductsInvoice().get(i).getProduct()
+									.getProductID() + ";"
+							+ invoice.getProductsInvoice().get(i).getQuantity()
+							+ ";";
+				}
+				else{
+					string = string
+							+ invoice.getProductsInvoice().get(i).getProduct()
+									.getProductID() + ";"
+							+ invoice.getProductsInvoice().get(i).getQuantity();
+				}
+			}
+			out.write(invoice.getInvoiceID() + ";"
+					+ DateFormat.getDateInstance().format(invoice.getDate())
+					+ ";" + invoice.getCustomer().getCustomerID() + ";"
+					+ invoice.isCompleted() + ";"
+					+ invoice.getProductsInvoice().size() + ";"
+					+ string);
+			out.newLine();
+		}
+		out.close();
+
+	}
+
+	public static Product findProductWithID(String id) {
+		Product product = null;
+		// before to construct the object order it is necessary retrieve
+		// the object product
+		for (Product product_1 : RetailSystem.getInstance().getProducts()) {
+			if (product_1.getProductID().equals(id)) {
+				product = product_1;
+				break; // I need to exit the for
+			}
+		}
+		return product;
+	}
+
+	public static Supplier findSupplierWithID(String id) {
+		Supplier supplier = null;
+		// before to construct the object order it is necessary retrieve
+		// the object product
+		for (Supplier supplier_1 : RetailSystem.getInstance().getSuppliers()) {
+			if (supplier_1.getSupplierID().equals(id)) {
+				supplier = supplier_1;
+				break; // I need to exit the for
+			}
+		}
+		return supplier;
+	}
 
 }

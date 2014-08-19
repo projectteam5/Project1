@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -23,6 +24,10 @@ public class ViewAllOrdersGUI extends JFrame implements ActionListener {
 	private JLabel counterLabel;
 	
 	private JButton returnToMainMenu;
+	private JLabel printLabel2;
+	private JLabel labelTitle;
+	private JLabel labelTitle2;
+	private Component labelTitle3;
 
 	public ViewAllOrdersGUI() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -57,20 +62,51 @@ public class ViewAllOrdersGUI extends JFrame implements ActionListener {
 		
 		setVisible(true);
 		
+		labelTitle = new JLabel("Open Orders");
+		labelTitle.setSize(10,10);
+		detailsPanel.add(labelTitle);
+
 		for(Order order: RetailSystem.getInstance().getOrders()) {
 			
-			printLabel = new JLabel(order.getOrderID()
+			if(order.isReceived()==false) {
+				//the order is open
+				
+				printLabel2 = new JLabel(order.getOrderID()
+						+" | "+DateFormat.getDateInstance().format(order.getOrderDate())
+						+" | "+order.getProduct().getProductID()
+						+" | "+order.getQuantity()
+						+" | "+DateFormat.getDateInstance().format(order.getExpectedDeliveryDate())
+						+" | "+DateFormat.getDateInstance().format(order.getDateReceived())
+						+" | "+order.isReceived()
+						+" | "+calcOrderCost(order.getProduct().getCost(), order.getQuantity()));
+				printLabel2.setSize(10,10);
+				detailsPanel.add(printLabel2);
+			}
+		}
+		
+		labelTitle2 = new JLabel("Received Orders");
+		labelTitle2.setSize(10,10);
+		detailsPanel.add(labelTitle2);
+			
+		for(Order order: RetailSystem.getInstance().getOrders()) {
+			
+			if(order.isReceived()==true) {
+				//the order is received
+				
+				printLabel = new JLabel(order.getOrderID()
 					+" | "+DateFormat.getDateInstance().format(order.getOrderDate())
 					+" | "+order.getProduct().getProductID()
 					+" | "+order.getQuantity()
 					+" | "+DateFormat.getDateInstance().format(order.getExpectedDeliveryDate())
 					+" | "+DateFormat.getDateInstance().format(order.getDateReceived())
-					+" | "+order.isReceived());
-			
+					+" | "+order.isReceived()
+					+" | "+calcOrderCost(order.getProduct().getCost(), order.getQuantity()));
 			printLabel.setSize(10,10);
 			detailsPanel.add(printLabel);
+			}
 		}
 	}
+	
 	public void actionPerformed(ActionEvent event) {
 		Object target = event.getSource();
 		
@@ -85,5 +121,12 @@ public class ViewAllOrdersGUI extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(this, "cannot reach OrderGUI");
 			}
 		}
+	}
+	
+	public String calcOrderCost(double cost, int quantity) {
+		double orderCost = 0;
+		orderCost = cost * quantity;
+		String s = "€"+orderCost;
+		return s;
 	}
 }

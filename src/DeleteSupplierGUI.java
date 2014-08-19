@@ -48,7 +48,6 @@ public class DeleteSupplierGUI extends JFrame{
 				// Using another object to access supplier class method to delete from list
 				Supplier supplierToRemove = findAndReturnSupplierFromList(name);			
 				supplierToRemove.setActive(false);
-				//removeSupplier.removeSupplierFromList(supplierToRemove);
 				JOptionPane.showMessageDialog(null, "Supplier is not active anymore", "Success", JOptionPane.PLAIN_MESSAGE);
 				removeSupplier.saveUser();
 				compileSupplierNamesAfterDelete();
@@ -80,31 +79,25 @@ public class DeleteSupplierGUI extends JFrame{
 	// And returns the supplier
 	private Supplier findAndReturnSupplierFromList(String name) {
 		Supplier supplierToDelete = null;
-		for(Supplier supplier: RetailSystem.getInstance().getSuppliers()){
-			if(supplier.isActive()){
+		for(Supplier supplier: Supplier.getSupplierList()){
 				if(name.equalsIgnoreCase(supplier.getName())){
 					supplierToDelete = supplier;						
 					break;
 				}
-			}
 		}	
 		return supplierToDelete;
 	}
 	
 	// Used to fill up the combo box with suppliers from the list
 	public void compileSupplierNames(){
-		for(Supplier supplier: RetailSystem.getInstance().getSuppliers()){
-			if(supplier.isActive()){
+		for(Supplier supplier: Supplier.getSupplierList()){
 				supplierDropDown.addItem(supplier.getName());
-			}
 		}
 	}
 	
 	public void compileSupplierNamesAfterDelete(){
-		for(Supplier supplier: RetailSystem.getInstance().getSuppliers()){
-			if(supplier.isActive()){
+		for(Supplier supplier: Supplier.getSupplierList()){
 				supplierDropDownAfterDelete.addItem(supplier.getName());
-			}
 		}
 	}
 	

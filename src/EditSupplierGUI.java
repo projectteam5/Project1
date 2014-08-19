@@ -37,7 +37,7 @@ public class EditSupplierGUI extends JFrame {
 		supplierNumberField= new JTextField();
 		supplierName = new JLabel("Supplier Name");
 		supplierNumber = new JLabel("Supplier Number");
-		JButton buttonEditProduct = new JButton("Confirm Update");
+		JButton buttonEditSupplier = new JButton("Confirm supplier to edit");
 		buttonMenu = new JButton("Supplier Menu");
 		buttonCommitEditProduct = new JButton("Save Changes");
 		compileSupplierIDs();
@@ -46,32 +46,39 @@ public class EditSupplierGUI extends JFrame {
 		panel.setLayout(new GridLayout(0,1));
 		panel.add(title);
 		panel.add(supplierDropDown);
-		panel.add(supplierNameField);
+		panel.add(buttonEditSupplier);
 		panel.add(supplierName);
-		panel.add(supplierNumberField);
+		panel.add(supplierNameField);
 		panel.add(supplierNumber);
-		panel.add(buttonEditProduct);
+		panel.add(supplierNumberField);
 		panel.add(buttonCommitEditProduct);
 		panel.add(buttonMenu);
 		Container cp = getContentPane();
 		cp.add(panel);
 		setVisible(true);	
 		
-		buttonEditProduct.addActionListener(new ActionListener() {		
+		buttonEditSupplier.addActionListener(new ActionListener() {		
+			public void actionPerformed(ActionEvent arg0) {
+				String ID = supplierDropDown.getSelectedItem().toString();
+				for(Supplier supplier: supplierAccess.getSupplierList()){
+					if(supplier.getSupplierID().equals(ID)){
+						String tempName= supplier.getName();
+						String tempNumber = supplier.getPhoneNumber();
+						supplierNameField.setText(tempName);
+						supplierNumberField.setText(tempNumber);
+					}
+				}
+			}
+		});
+		
+		buttonCommitEditProduct.addActionListener(new ActionListener() {		
 			public void actionPerformed(ActionEvent arg0) {
 				String ID = supplierDropDown.getSelectedItem().toString();
 				Supplier supplierToEdit=findSupplier(ID);
 				String name = supplierNameField.getText();
 				String number = supplierNumberField.getText();
 				validateAndUpdateSupplier(supplierToEdit,name,number);
-				
-			}
-		});
-		
-		buttonCommitEditProduct.addActionListener(new ActionListener() {		
-			public void actionPerformed(ActionEvent arg0) {
-					supplierAccess.saveUser();
-					JOptionPane.showMessageDialog(null, "Changes saved!", "Success", JOptionPane.WARNING_MESSAGE);
+				supplierAccess.saveUser();
 			}
 		});
 		

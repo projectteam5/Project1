@@ -58,12 +58,12 @@ public class AddSupplierGUI extends JFrame{
 		// Layout of panel
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(0,1));
-		panel.add(textField1);
 		panel.add(label1);
-		panel.add(textField2);
+		panel.add(textField1);
 		panel.add(label2);
-		panel.add(textField3);
+		panel.add(textField2);
 		panel.add(label3);
+		panel.add(textField3);
 		panel.add(addButton);
 		panel.add(button);
 		Container cp = getContentPane();

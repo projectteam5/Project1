@@ -70,7 +70,8 @@ public class ViewOrderGUI extends JFrame implements ActionListener {
 							+" | "+order.getQuantity()
 							+" | "+DateFormat.getDateInstance().format(order.getExpectedDeliveryDate())
 							+" | "+DateFormat.getDateInstance().format(order.getDateReceived())
-							+" | "+order.isReceived());
+							+" | "+order.isReceived()
+							+" | "+calcOrderCost(order.getProduct().getCost(), order.getQuantity()));
 
 					break;
 				}
@@ -94,4 +95,12 @@ public class ViewOrderGUI extends JFrame implements ActionListener {
 			}
 		}
 	}
+	
+	public String calcOrderCost(double cost, int quantity) {
+		double orderCost = 0;
+		orderCost = cost * quantity;
+		String s = "€"+orderCost;
+		return s;
+	}
+	
 }

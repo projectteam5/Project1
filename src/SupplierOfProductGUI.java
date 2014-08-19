@@ -15,6 +15,7 @@ public class SupplierOfProductGUI extends JFrame{
 	private JTextField textField;
 	private JLabel label;
 	private JButton button;
+	private JButton menuButton;
 	private Product productTest;
 
 	public SupplierOfProductGUI() {
@@ -24,6 +25,7 @@ public class SupplierOfProductGUI extends JFrame{
 		textField = new JTextField();
 		label = new JLabel("Enter Product ID");	
 		button = new JButton("Confirm");
+		menuButton = new JButton("Supplier Menu");
 		
 		// Action listener first checks field is filled in, then sends entry to function to find and show supplier
 		// name or returns a message saying the product does not exist.
@@ -41,11 +43,19 @@ public class SupplierOfProductGUI extends JFrame{
 			}
 		});
 		
+		menuButton.addActionListener(new ActionListener() {		
+			public void actionPerformed(ActionEvent arg0) {
+				SupplierMenuGUI supplierMenuGUI = new SupplierMenuGUI();
+				closeSupplierMenuGUI();
+			}
+		});
+		
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(0,1));
 		panel.add(textField);
 		panel.add(label);
 		panel.add(button);
+		panel.add(menuButton);
 		Container cp = getContentPane();
 		cp.add(panel);
 		setVisible(true);
@@ -60,5 +70,9 @@ public class SupplierOfProductGUI extends JFrame{
 			}
 		}
 		return correct;
+	}
+	
+	public void closeSupplierMenuGUI(){
+		setVisible(false);
 	}
 }
