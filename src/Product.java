@@ -84,25 +84,29 @@ public class Product {
 			return string;
 	}
 	//2
-	public boolean changeProductToInactive(Product product){
+	public static boolean changeProductToInactive(Product product){
 		//Will remove a product from the products list in the driver class
 		product.setActive(false);
 		return product.isActive();
 	}
 	//3
-	public String viewProduct(Product product){
+	public static String viewProduct(Product product){
 		//Temp println in place of GUI
+		String string = "";
 		System.out.println("ID: "+product.getProductID()+"\nName: "+product.getName()+"\nCost: "+product.getCost()+"\nMarkup: "+product.getMarkup()+"\nSupplier: "+product.getSupplier());
-		return product.getProductID();
+		string = product.getProductID();
+		return string;
 	}
 	//4
-	public String viewProductList(){
+	public static String viewProductList(){
 		//Will list products from product list in driver class
+		String string = "";
 		for(Product product: RetailSystem.getInstance().getProducts()){
 			System.out.println("ID: "+product.getProductID()+"\nName: "+product.getName()+"\nCost: "+product.getCost()+"\nMarkup: "+product.getMarkup()+"\nSupplier: "+product.getSupplier());
-			product.getProductID();
+			string = product.getProductID();
+			return string;
 		}
-		return "Function to view all products has run";
+		return string;
 
 	}
 
