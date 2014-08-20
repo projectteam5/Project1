@@ -64,7 +64,9 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 		comboBoxList = new JComboBox<String>();
 		comboBoxList.addItem("");
 		for(Product p : RetailSystem.getInstance().getProducts()) {
-			comboBoxList.addItem(p.getProductID());
+			if(p.isActive()==true) {
+				comboBoxList.addItem(p.getProductID());
+			}
 		}
 		
 		JLabel label4 = new JLabel("Product Quantity");
