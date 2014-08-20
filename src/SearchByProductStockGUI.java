@@ -105,9 +105,9 @@ public class SearchByProductStockGUI extends JFrame {
 							}else{
 		
 								JOptionPane.showMessageDialog(null, "Product: "+s.getProduct().getName()+"\nUnits: "+s.getUnits()+orders);
-								orders="";
+								
 							}
-						}
+						}orders="";
 						
 						
 					}
