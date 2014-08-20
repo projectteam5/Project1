@@ -154,7 +154,7 @@ public class OrderEditorGUI extends JFrame implements ActionListener {
 				order.setDateReceived(newReceivedDate);
 				order.setReceived(newReceived);
 				
-				if(newReceived=true) {
+				if(receivedCheckBox.isSelected()) {
 					for(Stock stock : RetailSystem.getInstance().getStocks()) {
 						if(stock.getProduct().getProductID().equals(newProduct.getProductID())) {
 							stock.setUnits(stock.getUnits()+newQuantity);
@@ -170,7 +170,7 @@ public class OrderEditorGUI extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(this, "Order has been edited");
 				
 				//removing the change of isRecieved from EditOrder orderList
-				if(newReceived==true) {
+				if(receivedCheckBox.isSelected()) {
 					EditOrderGUI.getOrderList().removeItem(order.getOrderID());
 				}
 				
