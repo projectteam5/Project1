@@ -97,7 +97,6 @@ public class AddUserGUI extends JFrame {
 			User user = new User(userID, name, password, type);
 			RetailSystem.getInstance().getUsers().add(user);
 			User.saveUser();
-			this.setVisible(false);
 			return 0;
 		}
 		else{

@@ -11,8 +11,8 @@ import org.junit.Test;
 
 public class UserTest {
 
-	private ArrayList<User> userStatus = RetailSystem.getInstance()
-			.getUsers();
+	//private ArrayList<User> userStatus = RetailSystem.getInstance()
+			//.getUsers();
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		Reader reader = new StringReader("1111;Scott Scott;passw1;Manager;true\n"
@@ -21,10 +21,10 @@ public class UserTest {
 		RetailSystem.getInstance().setUsers(users);
 	}
 
-	@After
+	/*@After
 	public void tearDown() throws Exception {
 		RetailSystem.getInstance().setUsers(userStatus);
-	}
+	}*/
 
 	@Test
 	public void testExistingUserTrue() {
