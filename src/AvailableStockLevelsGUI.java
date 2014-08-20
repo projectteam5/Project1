@@ -48,7 +48,7 @@ public class AvailableStockLevelsGUI extends JFrame {
 			}
 			
 			
-			lbl.setFont(new Font("Times New Roman",20,20));
+			//lbl.setFont(new Font("Times New Roman",20,20));
 			lbl.setSize(10,10);
 			centralPanel.add(lbl);
 		}
