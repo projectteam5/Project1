@@ -1,10 +1,13 @@
 import static org.junit.Assert.*;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 //	NOTE!!!!!!!!!!!!
 //	When running the unit tests, error messages are being returned and the test does not run
@@ -18,17 +21,17 @@ import org.junit.Test;
 public class SupplierTest {
 	private ArrayList<Supplier> supplierStatus = RetailSystem.getInstance().getSuppliers();
 	private static Supplier supplier, supplier1;
-	private RetailSystem retailSystem=null;
 	
-	@BeforeClass
+	@BeforeClass // Executed once before start of all tests, used for intensive
+				//	activities such as connecting to a database
 	public static void setUpBeforeClass() throws Exception {
 		//create a Suppliers ArrayList for test
 		Reader reader = new StringReader("1; Name1;083776655;true\n"+ "2;Name2;083775839;true\n");
 		ArrayList<Supplier> suppliers = DataBase.loadSuppliers(reader);
 		RetailSystem.getInstance().setSuppliers(suppliers);
 
-		supplier = new Supplier("1","Name1","083776655");
-		supplier1 = new Supplier("2","Name2","083775839");
+		supplier = new Supplier("3","Name3","55");
+		supplier1 = new Supplier("4","Name4","39");
 		
 	}
 	
@@ -38,38 +41,50 @@ public class SupplierTest {
 	}
 	
 	@Test
+	// Two newly created suppliers should be added to the list in the 3rd and 4th
+	// position. 
 	public void testAddSupplierToList() {
 		// Two suppliers exist on list on list
 		// Adding one more should equal three
 		supplier.addSupplierToList(supplier);
-		assertEquals(3, retailSystem.getSuppliers().size());	
+		assertEquals(supplier, RetailSystem.getInstance().getSuppliers().get(2));
+		supplier.addSupplierToList(supplier1);
+		assertEquals(supplier1, RetailSystem.getInstance().getSuppliers().get(2));
 	}
 
 	@Test
+	// The two suppliers created in setup before class are removed so that
+	// the arrayList should be empty after removal
 	public void testRemoveSupplierFromList(Supplier supplier) {
-		// There should now be two suppliers on the list
-		// that is 3- (removed object)
-		supplier1.removeSupplierFromList(supplier);
-		assertEquals(2, retailSystem.getSuppliers().size());
+		Supplier removeSupplier1 = RetailSystem.getInstance().getSuppliers().get(0);
+		Supplier removeSupplier = RetailSystem.getInstance().getSuppliers().get(1); 
+		supplier1.removeSupplierFromList(removeSupplier);
+		supplier1.removeSupplierFromList(removeSupplier1);
+		assertEquals(null, RetailSystem.getInstance().getSuppliers());
 	}
 
 	@Test
-	public ArrayList<Supplier> testGetSupplierList() {
+	public void testGetSupplierList() {
 		// this test tests that the returned list is equal to what it should of returned
 		// It tests that the objects are also the same.
-		ArrayList<Supplier> newSupplierList = supplier1.getSupplierList();
-		assertEquals(newSupplierList.equals(0),supplier.getSupplierList().equals(0));
-		assertEquals(newSupplierList.equals(1),supplier.getSupplierList().equals(1));
-		return newSupplierList;
+		ArrayList<Supplier> getList = supplier.getSupplierList();
+		assertEquals(RetailSystem.getInstance().getSuppliers(),getList);		
 	}
 	
-	// Unable to test at present, beyond scope of my current knowledge. will research though
-	/*
-	@Test
+	// Unable to test at present, beyond scope of my current knowledge. I do not know how to 
+	// get the contents of a file and compare with an expected file
+	
+	@Ignore
 	
 	public void testSaveUser() {
+		supplier.addSupplierToList(supplier);
+		supplier1.addSupplierToList(supplier1);
+		//BufferedWriter out = new BufferedWriter(arg0);
 		supplier1.saveUser();
-		assertEquals();
-	}*/
+		Reader getReader = new StringReader("1; Name1;083776655;true\n"+ "2;Name2;083775839;true\n"+
+				"3; Name3;55;true\n"+ "4;Name4;39;true\n");
+		//Reader actualReader 
+		
+	}
 
 }
