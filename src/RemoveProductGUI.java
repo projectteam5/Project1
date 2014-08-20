@@ -23,8 +23,6 @@ public class RemoveProductGUI extends JFrame{
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(400, 200);
 		this.setTitle("Remove Product");
-		//Cris exception with null pointer in repopulateComboBox because there was Jpane panel = new JPanel();
-		//and in this way the JPanel declared outside was null
 		panel = new JPanel();
 		Container container = getContentPane();
 		container.add(panel);
@@ -32,8 +30,6 @@ public class RemoveProductGUI extends JFrame{
 		panel.setLayout(new GridLayout(0,1));	
 		compileProductNames();
 		
-		//Cris --> initialize the button
-		//buttonDeleteProduct.setText("Delete");
 		buttonDeleteProduct = new JButton("Delete");
 		buttonMenu = new JButton("Menu");
 		
@@ -71,6 +67,26 @@ public class RemoveProductGUI extends JFrame{
 		});
 	}
 	
+
+	
+	public void repopulateComboBox(){
+		panel.remove(productDropDown);
+		panel.remove(buttonDeleteProduct);
+		panel.remove(buttonMenu);
+		compileProductNames();
+		productDropDown = new JComboBox();
+		compileProductNames();
+		panel.add(productDropDown);
+		panel.add(buttonDeleteProduct);
+		panel.add(buttonMenu);
+		revalidate();
+		repaint();
+	}
+	
+	public void closeRemoveProductGUI(){
+		this.setVisible(false);
+	}
+	
 	public void compileProductNames(){
 		for(Product product: RetailSystem.getInstance().getProducts()){
 			if(product.isActive()){
@@ -78,23 +94,6 @@ public class RemoveProductGUI extends JFrame{
 
 			}
 		}
-	}
-	
-	public void repopulateComboBox(){
-		panel.remove(productDropDown);
-		panel.remove(buttonDeleteProduct);
-		panel.remove(buttonMenu);
-		compileProductNames();
-		panel.add(productDropDown);
-		panel.add(buttonDeleteProduct);
-		panel.add(buttonMenu);
-		//Cris --> refresh gui
-		revalidate();
-		repaint();
-	}
-	
-	public void closeRemoveProductGUI(){
-		this.setVisible(false);
 	}
 	
 	public static void saveProduct(){
