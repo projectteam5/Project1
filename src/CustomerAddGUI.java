@@ -25,7 +25,7 @@ public class CustomerAddGUI extends JFrame {
 	private JButton customerMenuButton;
 
 	public CustomerAddGUI() {
-		setSize(400, 400); // set frames size in pixels
+		setSize(400, 200); // set frames size in pixels
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		textField1 = new JTextField();
@@ -69,7 +69,7 @@ public class CustomerAddGUI extends JFrame {
 		customerMenuButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				CustomerGUI customerGui = new CustomerGUI();
-				closeGUI();
+				closeCustomerAddGUI();
 				
 			}
 		});
@@ -110,7 +110,7 @@ public class CustomerAddGUI extends JFrame {
 		return correct;
 	}
 	
-	public void closeGUI(){
+	public void closeCustomerAddGUI(){
 		this.setVisible(false);
 	}
 	
