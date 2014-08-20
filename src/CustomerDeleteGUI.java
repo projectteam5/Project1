@@ -106,6 +106,7 @@ public class CustomerDeleteGUI extends JFrame {
 			}
 		}
 	}
+	
 	public void closeCustomerDeleteGUI(){
 		this.setVisible(false);
 		dispose();
