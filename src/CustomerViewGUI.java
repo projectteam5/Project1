@@ -32,7 +32,7 @@ public class CustomerViewGUI extends JFrame {
 		// declaration and initialization of panel, container, layout setting
 		// and buttons
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(1000, 800);
+		setSize(400, 800);
 		panel = new JPanel();
 		Container container = getContentPane();
 		container.add(panel);
@@ -71,7 +71,7 @@ public class CustomerViewGUI extends JFrame {
 		customerMenuButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				CustomerGUI customerGui = new CustomerGUI();
-				closeGUI();
+				closeCustomerViewGUI();
 				
 			}
 		});
@@ -129,8 +129,9 @@ public class CustomerViewGUI extends JFrame {
 		}
 	}
 	
-	public void closeGUI(){
+	public void closeCustomerViewGUI(){
 		this.setVisible(false);
+		dispose();
 	}
 
 }

@@ -63,6 +63,7 @@ public class CustomerGUI extends JFrame {
 		viewCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				CustomerViewGUI CustomerViewGui = new CustomerViewGUI();
+				
 			}
 		});
 

@@ -96,7 +96,7 @@ public class CustomerEditGUI extends JFrame {
 		customerMenuButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				CustomerGUI customerGui = new CustomerGUI();
-				closeGUI();
+				closeCustomerEditGUI();
 				
 			}
 		});
@@ -151,7 +151,8 @@ public class CustomerEditGUI extends JFrame {
 		}
 
 	}
-	public void closeGUI(){
+	public void closeCustomerEditGUI(){
 		this.setVisible(false);
+		dispose();
 	}
 }

@@ -54,7 +54,7 @@ public class CustomerDeleteGUI extends JFrame {
 		customerMenuButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				CustomerGUI customerGui = new CustomerGUI();
-				closeGUI();
+				closeCustomerDeleteGUI();
 				
 			}
 		});
@@ -106,8 +106,9 @@ public class CustomerDeleteGUI extends JFrame {
 			}
 		}
 	}
-	public void closeGUI(){
+	public void closeCustomerDeleteGUI(){
 		this.setVisible(false);
+		dispose();
 	}
 
 }
