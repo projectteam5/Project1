@@ -25,7 +25,7 @@ public class CustomerDeleteGUI extends JFrame {
 		// declaration and initialization of panel, container, layout setting
 		// and buttons
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(400, 200);
+		setSize(400, 300);
 		panel = new JPanel();
 		Container container = getContentPane();
 		container.add(panel);

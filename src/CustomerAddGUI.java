@@ -25,7 +25,7 @@ public class CustomerAddGUI extends JFrame {
 	private JButton customerMenuButton;
 
 	public CustomerAddGUI() {
-		setSize(400, 200); // set frames size in pixels
+		setSize(400, 300); // set frames size in pixels
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		textField1 = new JTextField();
