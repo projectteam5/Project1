@@ -92,7 +92,7 @@ public class SearchByProductStockGUI extends JFrame {
 							
 							for(Order o: RetailSystem.getInstance().getOrders()){
 								
-								if(o.getProduct().getProductID().equalsIgnoreCase(s.getProduct().getProductID())){
+								if(o.getProduct().getProductID().equalsIgnoreCase(s.getProduct().getProductID())&&o.isActive()){
 									JOptionPane.showMessageDialog(null, "Product: "+s.getProduct().getName()+"\nUnits: "+s.getUnits()+"\nOrder of "+o.getQuantity()+" units expected on "+dt.format(o.getExpectedDeliveryDate()));
 									orderFound = true;
 								}
