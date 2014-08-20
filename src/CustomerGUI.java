@@ -42,12 +42,14 @@ public class CustomerGUI extends JFrame {
 		addCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				addCustomerButton();
+				closeCustomerGUI();
 			}
 		});
 		
 		editCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				editCustomerButton();
+				closeCustomerGUI();
 			}
 		});
 		
@@ -55,6 +57,7 @@ public class CustomerGUI extends JFrame {
 		deleteCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				CustomerDeleteGUI CustomerDeleteGui = new CustomerDeleteGUI();
+				closeCustomerGUI();
 			}
 		});
 
@@ -63,6 +66,7 @@ public class CustomerGUI extends JFrame {
 		viewCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				CustomerViewGUI CustomerViewGui = new CustomerViewGUI();
+				closeCustomerGUI();
 			}
 		});
 
@@ -105,6 +109,7 @@ public class CustomerGUI extends JFrame {
 	
 	public void closeCustomerGUI(){
 		this.setVisible(false);
+			dispose();
 	}
 	
 	

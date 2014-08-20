@@ -1,14 +1,9 @@
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class Order {
-	private Locale localDate;
-	private DateFormat df;
-	
+
 	private String orderID;
 	private Date orderDate;
 	private Product product;
@@ -18,37 +13,22 @@ public class Order {
 	private boolean received;
 	
 	private boolean active;
-	/*
-	public Order() {
-
-		this.orderID = null;
-		this.orderDate = null;
-		this.product = null;
-		this.quantity = 0;
-		this.expectedDeliveryDate =null;
-		this.dateReceived = null;
-		this.received = false;
-	}
-		*/
 	
 	public Order(String orderID, Date orderDate, 
 			Product product, int quantity, 
 			Date expectedDeliveryDate) throws ParseException  {
-		localDate = new Locale("en", "GB");
-		df = new SimpleDateFormat("dd/MM/yyyy", localDate);
 
 		this.orderID = orderID;
 		this.orderDate = orderDate;
 		this.product = product;
 		this.quantity = quantity;
 		this.expectedDeliveryDate = expectedDeliveryDate;
+		
 	}
 	
 	public Order(String orderID, Date orderDate, 
 			Product product, int quantity, 
 			Date expectedDeliveryDate, Date dateReceived, boolean received) throws ParseException  {
-		localDate = new Locale("en", "GB");
-		df = new SimpleDateFormat("dd/MM/yyyy", localDate);
 
 		this.orderID = orderID;
 		this.orderDate = orderDate;
@@ -57,15 +37,12 @@ public class Order {
 		this.expectedDeliveryDate = expectedDeliveryDate;
 		this.dateReceived = dateReceived;
 		this.received = received;
-		//Cris :when u create a new order, the active value is true by default
 		this.active = true;
 	}
 	
 	public Order(String orderID, Date orderDate, 
 			Product product, int quantity, 
 			Date expectedDeliveryDate, Date dateReceived, boolean received, boolean active) throws ParseException  {
-		localDate = new Locale("en", "GB");
-		df = new SimpleDateFormat("dd/MM/yyyy", localDate);
 
 		this.orderID = orderID;
 		this.orderDate = orderDate;
@@ -89,7 +66,6 @@ public class Order {
 	}
 	
 	public void removeOrderFromList(Order order) {
-		//remove from RetailSystem ArrayList<Order> orders
 		ArrayList<Order> rsOrderList = RetailSystem.getInstance().getOrders();
 		for(Order o : rsOrderList) {
 			if(o.getOrderID().equals(order.getOrderID())) {
@@ -107,10 +83,11 @@ public class Order {
 		}
 	}
 	
-	public boolean receivedOrder() {
-		//if the expectedDeliveryDate == dateReceived
-		//set received = TRUE
-		//else, received = FALSE
+	public boolean receivedOrder(Date expectedDeliveryDate, Date dateReceived) {
+		received = false;
+		if(dateReceived.equals(expectedDeliveryDate)) {
+			received=true;
+		}
 		return received;
 	}
 	
@@ -174,7 +151,6 @@ public class Order {
 		this.received = received;
 	}
 	
-	//Cris --> added getter and setter for active	
 	public boolean isActive() {
 		return active;
 	}

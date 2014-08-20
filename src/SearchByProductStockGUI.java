@@ -33,7 +33,7 @@ public class SearchByProductStockGUI extends JFrame {
 	private JLabel or = new JLabel("--OR--");
 	private JRadioButton searchProductName = new JRadioButton("Search by Product Name",true);
 	private JRadioButton searchByProductID = new JRadioButton("Search by Product ID",false);
-	
+	private String orders;
 	public SearchByProductStockGUI() {
 		this.setSize(400,400);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -72,7 +72,7 @@ public class SearchByProductStockGUI extends JFrame {
 						if(s.getProduct().getName().equalsIgnoreCase(productNameDropDown.getSelectedItem().toString())){
 							
 							for(Order o: RetailSystem.getInstance().getOrders()){
-								if(o.getProduct().getName().equalsIgnoreCase(s.getProduct().getName())){
+								if(o.getProduct().getName().equalsIgnoreCase(s.getProduct().getName())&&o.isActive()){
 									JOptionPane.showMessageDialog(null, "Product: "+s.getProduct().getName()+"\nUnits: "+s.getUnits()+"\nOrder of "+o.getQuantity()+" units expected on "+dt.format(o.getExpectedDeliveryDate()));
 									orderFound = true;
 								}
@@ -92,16 +92,22 @@ public class SearchByProductStockGUI extends JFrame {
 							
 							for(Order o: RetailSystem.getInstance().getOrders()){
 								
-								if(o.getProduct().getProductID().equalsIgnoreCase(s.getProduct().getProductID())){
-									JOptionPane.showMessageDialog(null, "Product: "+s.getProduct().getName()+"\nUnits: "+s.getUnits()+"\nOrder of "+o.getQuantity()+" units expected on "+dt.format(o.getExpectedDeliveryDate()));
+								if(o.getProduct().getProductID().equalsIgnoreCase(s.getProduct().getProductID())&&o.isActive()){
+									
+									orders+="\nOrder of "+o.getQuantity()+" units expected on "+dt.format(o.getExpectedDeliveryDate());
+									
 									orderFound = true;
 								}
 							}
 							
 							if(!orderFound){
 								JOptionPane.showMessageDialog(null, "Product: "+s.getProduct().getName()+"\nUnits: "+s.getUnits());
+							}else{
+		
+								JOptionPane.showMessageDialog(null, "Product: "+s.getProduct().getName()+"\nUnits: "+s.getUnits()+orders);
+								
 							}
-						}
+						}orders="";
 						
 						
 					}
