@@ -14,20 +14,20 @@ public class User {
 	private boolean active;
 	
 		
-	public User(String userID, String name, String password, String type) {
-		this.userID = userID;
-		this.name = name;
-		this.password = password;
-		this.type = type;
-		this.active = true;
-	}
-	
 	public User(String userID, String name, String password, String type, boolean active) {
 		this.userID = userID;
 		this.name = name;
 		this.password = password;
 		this.type = type;
 		this.active = active;
+	}
+	
+	public User(String userID, String name, String password, String type) {
+		this.userID = userID;
+		this.name = name;
+		this.password = password;
+		this.type = type;
+		this.active = true;
 	}
 
 
