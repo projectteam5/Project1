@@ -47,9 +47,9 @@ public class SupplierTest {
 		// Two suppliers exist on list on list
 		// Adding one more should equal three
 		supplier.addSupplierToList(supplier);
-		assertEquals(supplier, RetailSystem.getInstance().getSuppliers().get(2));
+		assertEquals(supplier, RetailSystem.getInstance().getSuppliers().get(0));
 		supplier.addSupplierToList(supplier1);
-		assertEquals(supplier1, RetailSystem.getInstance().getSuppliers().get(2));
+		assertEquals(supplier1, RetailSystem.getInstance().getSuppliers().get(1));
 	}
 
 	@Test
@@ -60,7 +60,7 @@ public class SupplierTest {
 		Supplier removeSupplier = RetailSystem.getInstance().getSuppliers().get(1); 
 		supplier1.removeSupplierFromList(removeSupplier);
 		supplier1.removeSupplierFromList(removeSupplier1);
-		assertEquals(null, RetailSystem.getInstance().getSuppliers());
+		assertEquals(0, RetailSystem.getInstance().getSuppliers().size());
 	}
 
 	@Test
