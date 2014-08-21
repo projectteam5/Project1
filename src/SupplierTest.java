@@ -55,7 +55,7 @@ public class SupplierTest {
 	@Test
 	// The two suppliers created in setup before class are removed so that
 	// the arrayList should be empty after removal
-	public void testRemoveSupplierFromList(Supplier supplier) {
+	public void testRemoveSupplierFromList() {
 		Supplier removeSupplier1 = RetailSystem.getInstance().getSuppliers().get(0);
 		Supplier removeSupplier = RetailSystem.getInstance().getSuppliers().get(1); 
 		supplier1.removeSupplierFromList(removeSupplier);
@@ -80,7 +80,7 @@ public class SupplierTest {
 		supplier.addSupplierToList(supplier);
 		supplier1.addSupplierToList(supplier1);
 		//BufferedWriter out = new BufferedWriter(arg0);
-		supplier1.saveUser();
+		supplier1.saveUser();// I know its save user but i'm calling it in supplier class so it saves supplier
 		Reader getReader = new StringReader("1; Name1;083776655;true\n"+ "2;Name2;083775839;true\n"+
 				"3; Name3;55;true\n"+ "4;Name4;39;true\n");
 		//Reader actualReader 
