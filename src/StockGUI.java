@@ -65,8 +65,8 @@ public class StockGUI extends JFrame {
 
 		
 	}
-	public static void main(String [] args){
-		new StockGUI();
-	}
+	//public static void main(String [] args){
+		//new StockGUI();
+	//}
 
 }
