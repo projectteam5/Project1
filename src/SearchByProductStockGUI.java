@@ -72,7 +72,7 @@ public class SearchByProductStockGUI extends JFrame {
 						if(s.getProduct().getName().equalsIgnoreCase(productNameDropDown.getSelectedItem().toString())){
 							
 							for(Order o: RetailSystem.getInstance().getOrders()){
-								if(o.getProduct().getName().equalsIgnoreCase(s.getProduct().getName())&&o.isActive()){
+								if(o.getProduct().getName().equalsIgnoreCase(s.getProduct().getName())&&o.isActive()&&!o.isReceived()){
 									JOptionPane.showMessageDialog(null, "Product: "+s.getProduct().getName()+"\nUnits: "+s.getUnits()+"\nOrder of "+o.getQuantity()+" units expected on "+dt.format(o.getExpectedDeliveryDate()));
 									orderFound = true;
 								}
@@ -92,7 +92,7 @@ public class SearchByProductStockGUI extends JFrame {
 							
 							for(Order o: RetailSystem.getInstance().getOrders()){
 								
-								if(o.getProduct().getProductID().equalsIgnoreCase(s.getProduct().getProductID())&&o.isActive()){
+								if(o.getProduct().getProductID().equalsIgnoreCase(s.getProduct().getProductID())&&o.isActive()&&!o.isReceived()){
 									
 									orders+="\nOrder of "+o.getQuantity()+" units expected on "+dt.format(o.getExpectedDeliveryDate());
 									
