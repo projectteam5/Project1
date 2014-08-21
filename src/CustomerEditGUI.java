@@ -39,7 +39,7 @@ public class CustomerEditGUI extends JFrame {
 
 		// declaration and initialization of panel, container and layout setting
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setSize(400, 300);
+		setSize(RetailSystem.getInstance().getWidth(), RetailSystem.getInstance().getHeight());
 		this.setTitle("Edit Customer");
 		panel = new JPanel();
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -18,7 +18,7 @@ public class CustomerGUI extends JFrame {
 		// declaration and initialization of panel, container, layout setting
 		// and buttons
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(1000, 800);
+		setSize(RetailSystem.getInstance().getWidthMain(), RetailSystem.getInstance().getHeightMain());
 		JPanel panel = new JPanel();
 		Container container = getContentPane();
 		container.add(panel);
