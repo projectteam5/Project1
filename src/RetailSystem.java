@@ -18,6 +18,10 @@ public class RetailSystem {
 	private String currentUserType = "";// it store which type of user logged on
 	private String currentUserID = "";// it store which type of user logged on
 	private String[] userTypeList = {"Manager", "Attendant"};//Array with the possible users types
+	private int widthMain = 1000;
+	private int heightMain = 800;
+	private int width = 400;
+	private int height = 400;
 
 	public RetailSystem() {
 	}
@@ -167,6 +171,24 @@ public class RetailSystem {
 	public void setUserTypeList(String[] userTypeList) {
 		this.userTypeList = userTypeList;
 	}
+
+	public int getWidthMain() {
+		return widthMain;
+	}
+
+	public int getHeightMain() {
+		return heightMain;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+	
+	
 
 
 }

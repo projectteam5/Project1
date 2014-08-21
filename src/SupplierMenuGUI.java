@@ -14,7 +14,7 @@ public class SupplierMenuGUI extends JFrame{
 
 	public SupplierMenuGUI() {
 		setTitle("SUPPLIER GUI");
-		setSize(400,400);
+		setSize(RetailSystem.getInstance().getWidthMain(), RetailSystem.getInstance().getHeightMain());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
 		JButton editButton = new JButton("Edit Supplier");

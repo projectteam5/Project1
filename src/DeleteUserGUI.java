@@ -25,7 +25,7 @@ public class DeleteUserGUI extends JFrame {
 		// declaration and initialization of panel, container, layout setting
 		// and buttons
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(400, 400);
+		setSize(RetailSystem.getInstance().getWidth(), RetailSystem.getInstance().getHeight());
 		this.setTitle("Remove User");
 		panel = new JPanel();
 		Container container = getContentPane();

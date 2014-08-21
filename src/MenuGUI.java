@@ -22,7 +22,7 @@ public class MenuGUI extends JFrame {
 
 	public MenuGUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(1000, 800);
+		setSize(RetailSystem.getInstance().getWidthMain(), RetailSystem.getInstance().getHeightMain());
 		this.setTitle("Main Menu");
 		JPanel panel = new JPanel();
 		Container container = getContentPane();

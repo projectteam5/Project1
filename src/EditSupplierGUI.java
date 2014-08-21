@@ -31,7 +31,7 @@ public class EditSupplierGUI extends JFrame {
 
 	public EditSupplierGUI() {
 		setTitle("EDIT SUPPLIER");
-		setSize(500,500);
+		setSize(RetailSystem.getInstance().getWidth(), RetailSystem.getInstance().getHeight());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		supplierNameField= new JTextField();
 		supplierNumberField= new JTextField();

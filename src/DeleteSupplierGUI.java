@@ -26,7 +26,7 @@ public class DeleteSupplierGUI extends JFrame{
 	
 	public DeleteSupplierGUI() {
 		setTitle("DELETE SUPPLIER LIST GUI");
-		setSize(400,200);
+		setSize(RetailSystem.getInstance().getWidth(), RetailSystem.getInstance().getHeight());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		panel1 = new JPanel();
 		compileSupplierNames();

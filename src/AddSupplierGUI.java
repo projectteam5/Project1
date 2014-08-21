@@ -22,7 +22,7 @@ public class AddSupplierGUI extends JFrame{
 
 	public AddSupplierGUI() {
 		setTitle("ADD SUPPLIER LIST GUI");
-		setSize(500,500);
+		setSize(RetailSystem.getInstance().getWidth(), RetailSystem.getInstance().getHeight());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);	
 		textField1= new JTextField();
 		textField2= new JTextField();

@@ -22,7 +22,7 @@ public class SupplierDetailsGUI extends JFrame{
 
 	public SupplierDetailsGUI() {
 		setTitle("Supplier Details");
-		setSize(300,300);
+		setSize(RetailSystem.getInstance().getWidth(), RetailSystem.getInstance().getHeight());
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		label = new JLabel("Choose a supplier from the drop down menu");
 		showLabel = new JLabel("");

@@ -9,4 +9,5 @@
 1121;Test;passw21;Attendant;false
 9999;test;passw99;Attendant;false
 test;test;test2;Attendant;false
-user1;test;passwtest;Manager;true
+user1;test;passwtest;Manager;false
+user2;user user;user;Attendant;false
