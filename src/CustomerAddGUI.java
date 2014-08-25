@@ -52,12 +52,11 @@ public class CustomerAddGUI extends JFrame {
 		
 		button1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String customerID = textField1.getText();
 				String name = textField2.getText();
 				String address = textField3.getText();
 				String phoneNumber = textField4.getText();
-				if(customerValidation(customerID, name, address, phoneNumber)){
-					Customer customer = new Customer(customerID, name, address, phoneNumber);
+				if(customerValidation(name, address, phoneNumber)){
+					Customer customer = new Customer(name, address, phoneNumber);
 					RetailSystem.getInstance().getCustomers().add(customer);
 					saveCustomer();
 					JOptionPane.showMessageDialog(null, "Customer Created and added to system", "Success", JOptionPane.PLAIN_MESSAGE);
@@ -92,21 +91,13 @@ public class CustomerAddGUI extends JFrame {
 	}
 
 	
-	public boolean customerValidation(String customerID, String name, String address, String phoneNumber){
+	public boolean customerValidation(String name, String address, String phoneNumber){
 		boolean correct = true;
-		if (customerID.isEmpty() || name.isEmpty() || address.isEmpty() || phoneNumber.isEmpty()){
+		if (name.isEmpty() || address.isEmpty() || phoneNumber.isEmpty()){
 			correct=false;
 			JOptionPane.showMessageDialog(null, "All fields must be filled out!", "Warning", JOptionPane.WARNING_MESSAGE);
 		}
-		else {
-			for(Customer customer :RetailSystem.getInstance().getCustomers()){
-				if (customer.getCustomerID().equals(customerID)){
-					correct = false;
-					JOptionPane.showMessageDialog(null, "Customer ID already exists!", "Warning", JOptionPane.INFORMATION_MESSAGE);	
-				}
-				
-			}
-		}
+		
 		return correct;
 	}
 	

@@ -13,9 +13,9 @@ public class Customer {
 	private boolean active;
 
 	// comment
-	public Customer(String customerID, String name, String address,
+	public Customer(String name, String address,
 			String phoneNumber) {
-		this.customerID = customerID;
+		this.customerID = "Customer"+(RetailSystem.getInstance().getCustomers().size()+1);
 		this.name = name;
 		this.address = address;
 		this.phoneNumber = phoneNumber;
