@@ -1,4 +1,5 @@
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,10 +14,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class ShowUserGUI extends JFrame {
+public class ShowUserGUI extends JPanel {
 
-	private JPanel panel;
 	private JComboBox usersDropDown;
+	private JLabel labelTitleMain;
 	private JLabel labelTitle;
 	private JLabel labelName;
 	private JLabel labelID;
@@ -29,28 +30,20 @@ public class ShowUserGUI extends JFrame {
 	private String selectedUserIDPrev;
 
 	public ShowUserGUI() {
-		// declaration and initialization of panel, container, layout setting
-		// and buttons
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(RetailSystem.getInstance().getWidth(), RetailSystem.getInstance().getHeight());
-		this.setTitle("Show User");
-		panel = new JPanel();
-		Container container = getContentPane();
-		container.add(panel);
-		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setLayout(new GridLayout(0, 1));
+		
+		this.setLayout(new GridLayout(0, 1));
 
+		labelTitleMain = new JLabel("Show a user");
+		labelTitleMain.setFont(new Font("Arial", Font.BOLD, 20));
 		labelTitle = new JLabel(
 				"Please pick the user you want to see from the user list below");
 		usersDropDown = new JComboBox();
 		User.userListComplete(usersDropDown);
 		showButton = new JButton("Show User");
-		userMenuButton  = new JButton("User Menu");
 
-		panel.add(labelTitle);
-		panel.add(usersDropDown);
-		panel.add(showButton);
-		panel.add(userMenuButton);
+		this.add(labelTitle);
+		this.add(usersDropDown);
+		this.add(showButton);
 
 		returnValue = 2;
 
@@ -70,24 +63,15 @@ public class ShowUserGUI extends JFrame {
 			}
 		});
 		
-		userMenuButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				UserGUI userGui = new UserGUI();
-				closeGUI();
-				
-			}
-		});
-
-		setVisible(true);
 	}
 
 	public int showUserButton() {
 		// retrieve the user object in the user ArrayList
 		if (returnValue != 2) {
-			panel.remove(labelName);
-			panel.remove(labelID);
-			panel.remove(labelPassword);
-			panel.remove(labelType);
+			this.remove(labelName);
+			this.remove(labelID);
+			this.remove(labelPassword);
+			this.remove(labelType);
 		}
 		User selectedUser = User.retrieveUser(selectedUserID);
 		if (selectedUser != null) {
@@ -99,20 +83,17 @@ public class ShowUserGUI extends JFrame {
 					+ selectedUser.getPassword());
 			labelType = new JLabel("Type of the selected user: "
 					+ selectedUser.getType());
-			panel.add(labelName);
-			panel.add(labelID);
-			panel.add(labelPassword);
-			panel.add(labelType);
-			panel.revalidate();
-			panel.repaint();
+			this.add(labelName);
+			this.add(labelID);
+			this.add(labelPassword);
+			this.add(labelType);
+			this.revalidate();
+			this.repaint();
 			return 0;
 		} else {
 			return 1;
 		}
 
-	}
-	public void closeGUI(){
-		this.setVisible(false);
 	}
 
 }

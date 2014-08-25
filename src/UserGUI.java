@@ -1,4 +1,6 @@
+import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,35 +8,40 @@ import java.io.FileWriter;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class UserGUI extends JFrame {
+public class UserGUI extends JPanel {
+
+	JButton addUser;
+	JButton editUser;
+	JButton deleteUser;
+	JButton showUser;
+	JLabel labelTitle;
+
+	private final static Font fontButtons = new Font("Arial", Font.BOLD, 12);
+	private final static Color colorButtons = new Color(126, 163, 249);
+	private final static Color colorButtonSelected = new Color(21, 82, 223);
 
 	public UserGUI() {
-		// declaration and initialization of panel, container, layout setting
-		// and buttons
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(RetailSystem.getInstance().getWidthMain(), RetailSystem.getInstance().getHeightMain());
-		this.setTitle("User Menu");
-		JPanel panel = new JPanel();
-		Container container = getContentPane();
-		container.add(panel);
-		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setLayout(new GridLayout(0, 1));
-		JButton addUser = new JButton("Add User");
-		JButton editUser = new JButton("Edit User");
-		JButton deleteUser = new JButton("Remove User");
-		JButton showUser = new JButton("Show User");
-		JButton menuUser = new JButton("Menu");
+		// declaration and initialization of buttons and labels
+		this.setLayout(new GridLayout(0, 1));
+		labelTitle = new JLabel("User Menu");
+		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
+		addUser = new JButton("Add User");
+		editUser = new JButton("Edit User");
+		deleteUser = new JButton("Remove User");
+		showUser = new JButton("Show User");
+		colorButton();
 
 		// adding all the components
-		panel.add(addUser);
-		panel.add(editUser);
-		panel.add(showUser);
-		panel.add(deleteUser);
-		panel.add(menuUser);
+		this.add(labelTitle);
+		this.add(addUser);
+		this.add(editUser);
+		this.add(showUser);
+		this.add(deleteUser);
 
 		/*
 		 * Add button: it opens a new window where it's possible to insert user
@@ -43,8 +50,9 @@ public class UserGUI extends JFrame {
 		 */
 		addUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				AddUserGUI addUserGui = new AddUserGUI();
-				closeUserGUI();
+				colorButton();
+				addUser.setBackground(colorButtonSelected);
+				MenuGUI.getInstance().setPanelAction(new AddUserGUI());
 			}
 		});
 
@@ -57,8 +65,9 @@ public class UserGUI extends JFrame {
 		 */
 		editUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				EditUserGUI gui = new EditUserGUI();
-				closeUserGUI();
+				colorButton();
+				editUser.setBackground(colorButtonSelected);
+				MenuGUI.getInstance().setPanelAction(new EditUserGUI());
 			}
 		});
 
@@ -69,8 +78,9 @@ public class UserGUI extends JFrame {
 		 */
 		showUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ShowUserGUI showUserGui = new ShowUserGUI();
-				closeUserGUI();
+				colorButton();
+				showUser.setBackground(colorButtonSelected);
+				MenuGUI.getInstance().setPanelAction(new ShowUserGUI());
 			}
 		});
 
@@ -82,26 +92,24 @@ public class UserGUI extends JFrame {
 		 */
 		deleteUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				DeleteUserGUI deleteUserGui = new DeleteUserGUI();
-				closeUserGUI();
+				colorButton();
+				deleteUser.setBackground(colorButtonSelected);
+				MenuGUI.getInstance().setPanelAction(new DeleteUserGUI());
 			}
 		});
 
-		/*
-		 * Menu button: it closes the User menu and open a General Menu
-		 */
-		menuUser.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				MenuGUI menuGui = new MenuGUI();
-				closeUserGUI();
-			}
-		});
-
-		this.setVisible(true);
+	
 	}
 
-	public void closeUserGUI() {
-		this.setVisible(false);
+	public void colorButton(){
+		addUser.setBackground(colorButtons);
+		addUser.setFont(fontButtons);
+		editUser.setBackground(colorButtons);
+		editUser.setFont(fontButtons);
+		showUser.setBackground(colorButtons);
+		showUser.setFont(fontButtons);
+		deleteUser.setBackground(colorButtons);
+		deleteUser.setFont(fontButtons);
 	}
 
 }

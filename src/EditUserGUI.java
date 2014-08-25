@@ -1,4 +1,5 @@
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,55 +13,46 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class EditUserGUI extends JFrame {
+public class EditUserGUI extends JPanel {
 
-	private JPanel panel;
 	private JTextField NameField;
 	private JTextField PasswordField;
 	private JComboBox typeDropDown;
 	private JComboBox userDropDown;
 	private JButton doneButton;
 	private JButton editButton;
+	private JLabel labelTitleMain;
+	private JLabel labelTitle;
 	private JLabel labelName;
 	private JLabel labelPassword;
 	private JLabel labelType;
-	private JLabel labelTitle;
 	private String userID;
 	private String selectedUserIDPrev;
 	private User user;
 	private int controlVariable;
-	private JButton userMenuButton;
 
 	public EditUserGUI() {
 
 		controlVariable = 0;
 		selectedUserIDPrev = null;
 
-		// declaration and initialization of panel, container and layout setting
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setSize(RetailSystem.getInstance().getWidth(), RetailSystem.getInstance().getHeight());
-		this.setTitle("Edit User");
-		panel = new JPanel();
-		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setLayout(new GridLayout(0, 1));
+		this.setLayout(new GridLayout(0, 1));
 
 		// declaration of the labels and initialization of labels and text field
+		labelTitleMain = new JLabel("Add a user");
+		labelTitleMain.setFont(new Font("Arial", Font.BOLD, 20));
 		labelTitle = new JLabel(
 				"Please pick the user you want to see from the user list below");
 		userDropDown = new JComboBox();
 		User.userListComplete(userDropDown);
 		editButton = new JButton("Edit User");
 		doneButton = new JButton("Commit");
-		userMenuButton  = new JButton("User Menu");
 
 		// adding all the components
-		panel.add(labelTitle);
-		panel.add(userDropDown);
-		panel.add(editButton);
-		panel.add(userMenuButton);
-
-		Container container = getContentPane();
-		container.add(panel);
+		this.add(labelTitleMain);
+		this.add(labelTitle);
+		this.add(userDropDown);
+		this.add(editButton);
 
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -92,16 +84,7 @@ public class EditUserGUI extends JFrame {
 
 			}
 		});
-		
-		userMenuButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				UserGUI userGui = new UserGUI();
-				closeGUI();
-				
-			}
-		});
 
-		this.setVisible(true);
 	}
 
 	public int editUser() {
@@ -116,20 +99,19 @@ public class EditUserGUI extends JFrame {
 			user.setType(type);
 			User.saveUser();
 			returnValue = 0;
-			this.setVisible(false);
 		}
 		return returnValue;
 	}
 
 	public void populateFields() {
 		if (controlVariable != 0) {
-			panel.remove(labelName);
-			panel.remove(NameField);
-			panel.remove(labelPassword);
-			panel.remove(PasswordField);
-			panel.remove(labelType);
-			panel.remove(typeDropDown);
-			panel.remove(doneButton);
+			this.remove(labelName);
+			this.remove(NameField);
+			this.remove(labelPassword);
+			this.remove(PasswordField);
+			this.remove(labelType);
+			this.remove(typeDropDown);
+			this.remove(doneButton);
 		}
 		controlVariable = 1;
 		user = User.retrieveUser(userID);
@@ -142,19 +124,16 @@ public class EditUserGUI extends JFrame {
 			typeDropDown = new JComboBox(RetailSystem.getInstance()
 					.getUserTypeList());
 			typeDropDown.setSelectedItem(user.getType());
-			panel.add(labelName);
-			panel.add(NameField);
-			panel.add(labelPassword);
-			panel.add(PasswordField);
-			panel.add(labelType);
-			panel.add(typeDropDown);
-			panel.add(doneButton);
+			this.add(labelName);
+			this.add(NameField);
+			this.add(labelPassword);
+			this.add(PasswordField);
+			this.add(labelType);
+			this.add(typeDropDown);
+			this.add(doneButton);
 			revalidate();
 			repaint();
 		}
 
-	}
-	public void closeGUI(){
-		this.setVisible(false);
 	}
 }

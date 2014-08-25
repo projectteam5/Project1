@@ -1,4 +1,5 @@
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,10 +12,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class DeleteUserGUI extends JFrame {
+public class DeleteUserGUI extends JPanel {
 
-	private JPanel panel;
 	private JComboBox usersDropDown;
+	private JLabel labelTitleMain;
 	private JLabel labelTitle;
 	private JButton deleteButton;
 	private JButton userMenuButton;
@@ -24,26 +25,20 @@ public class DeleteUserGUI extends JFrame {
 	public DeleteUserGUI() {
 		// declaration and initialization of panel, container, layout setting
 		// and buttons
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(RetailSystem.getInstance().getWidth(), RetailSystem.getInstance().getHeight());
-		this.setTitle("Remove User");
-		panel = new JPanel();
-		Container container = getContentPane();
-		container.add(panel);
-		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setLayout(new GridLayout(0, 1));
+		
+		this.setLayout(new GridLayout(0, 1));
 
+		labelTitleMain = new JLabel("Remove a user");
+		labelTitleMain.setFont(new Font("Arial", Font.BOLD, 20));
 		labelTitle = new JLabel(
 				"Please pick the user you want to remove from the user list below");
 		usersDropDown = new JComboBox();
 		buildUsersDropDown();
 		deleteButton = new JButton("Remove User");
-		userMenuButton = new JButton("User Menu");
 
-		panel.add(labelTitle);
-		panel.add(usersDropDown);
-		panel.add(deleteButton);
-		panel.add(userMenuButton);
+		this.add(labelTitle);
+		this.add(usersDropDown);
+		this.add(deleteButton);
 
 		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -52,16 +47,6 @@ public class DeleteUserGUI extends JFrame {
 
 		});
 		
-		userMenuButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				UserGUI userGui = new UserGUI();
-				closeGUI();
-				
-			}
-		});
-
-		setVisible(true);
-
 	}
 
 	public void deleteUserButton() {
@@ -83,17 +68,15 @@ public class DeleteUserGUI extends JFrame {
 	}
 
 	public void addAndRefresh() {
-		panel.remove(labelTitle);
-		panel.remove(usersDropDown);
-		panel.remove(deleteButton);
-		panel.remove(userMenuButton);
-		panel.add(labelTitle);
+		this.remove(labelTitle);
+		this.remove(usersDropDown);
+		this.remove(deleteButton);
+		this.add(labelTitle);
 		usersDropDown = new JComboBox();
 		buildUsersDropDown();
-		panel.add(usersDropDown);
-		panel.add(deleteButton);
-		panel.add(userMenuButton);
-		panel.revalidate();
+		this.add(usersDropDown);
+		this.add(deleteButton);
+		this.revalidate();
 		revalidate();
 		repaint();
 	}
@@ -106,9 +89,6 @@ public class DeleteUserGUI extends JFrame {
 				usersDropDown.addItem(string);
 			}
 		}
-	}
-	public void closeGUI(){
-		this.setVisible(false);
 	}
 
 }

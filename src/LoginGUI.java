@@ -73,7 +73,7 @@ public class LoginGUI {
 		int returnValue = loginValidation(id, password);
 		if (!RetailSystem.getInstance().getCurrentUserType().isEmpty()
 				&& returnValue == 0) {
-			MenuGUI menu = new MenuGUI();
+			MenuGUI.getInstance();
 			frame.setVisible(false);
 			return returnValue;
 		} else {
