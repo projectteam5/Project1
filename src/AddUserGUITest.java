@@ -28,21 +28,17 @@ public class AddUserGUITest {
 
 	@Test
 	public void testValidateUserNewUser() {
-		assertTrue(AddUserGUI.validateUser("1120", "name", "password", "Manager"));
-	}
-	@Test
-	public void testValidateUserExistingUser() {
-		assertFalse(AddUserGUI.validateUser("1111", "name", "password", "Manager"));
+		assertTrue(AddUserGUI.validateUser( "name", "password", "Manager"));
 	}
 	
 	@Test
 	public void testValidateUserEmpty() {
-		assertFalse(AddUserGUI.validateUser("1111", "", "", "Manager"));
+		assertFalse(AddUserGUI.validateUser("", "", "Manager"));
 	}
 	
 	@Test
 	public void testValidateUserNull() {
-		assertFalse(AddUserGUI.validateUser(null, null, "", "Manager"));
+		assertFalse(AddUserGUI.validateUser(null, "", "Manager"));
 	}
 
 }

@@ -59,7 +59,7 @@ public class DataBaseTest {
 		ArrayList<Customer> customers = DataBase.loadCustomers(reader2);
 		RetailSystem.getInstance().setCustomers(customers);
 		
-		User user1 = new User("1111","Cris","passw10","Attendant");
+		User user1 = new User("Cris","passw10","Attendant");
 		usersTest = new ArrayList<User>();
 		usersTest.add(user1);
 		Customer customer1 = new Customer("customer1","Scott Scott","address 1 Dublin","089665544");

@@ -15,11 +15,11 @@ import javax.swing.border.EmptyBorder;
 
 public class AddUserGUI extends JFrame {
 	
-	private JTextField textUserID;
+	//private JTextField textUserID;
 	private JTextField textUserName;
 	private JTextField textUserPass;
 	private JComboBox typeDropDown;
-	private JLabel label1;
+	//private JLabel label1;
 	private JLabel label2;
 	private JLabel label3;
 	private JLabel label4;
@@ -38,11 +38,11 @@ public class AddUserGUI extends JFrame {
 		panel.setLayout(new GridLayout(0, 1));
 
 		// declaration of the labels and initialization of labels and text field
-		textUserID = new JTextField();
+		//textUserID = new JTextField();
 		textUserName = new JTextField();
 		textUserPass = new JTextField();
 		typeDropDown = new JComboBox(RetailSystem.getInstance().getUserTypeList());
-		label1 = new JLabel("User ID");
+		//label1 = new JLabel("User ID");
 		label2 = new JLabel("Name");
 		label3 = new JLabel("Password");
 		label4 = new JLabel("Type");
@@ -50,8 +50,8 @@ public class AddUserGUI extends JFrame {
 		userMenuButton  = new JButton("User Menu");
 		
 		// adding all the components
-		panel.add(label1);
-		panel.add(textUserID);
+		//panel.add(label1);
+		//panel.add(textUserID);
 		panel.add(label2);
 		panel.add(textUserName);
 		panel.add(label3);
@@ -89,12 +89,12 @@ public class AddUserGUI extends JFrame {
 	}
 	
 	public int addUser(){
-		String userID = textUserID.getText();
+		//String userID = textUserID.getText();
 		String name = textUserName.getText();
 		String password = textUserPass.getText();
 		String type = typeDropDown.getSelectedItem().toString();
-		if(validateUser(userID, name, password, type)){
-			User user = new User(userID, name, password, type);
+		if(validateUser(name, password, type)){
+			User user = new User(name, password, type);
 			RetailSystem.getInstance().getUsers().add(user);
 			User.saveUser();
 			return 0;
@@ -104,12 +104,10 @@ public class AddUserGUI extends JFrame {
 		}
 	}
 	
-	public static boolean validateUser(String userID, String name, String password, String type){
+	public static boolean validateUser(String name, String password, String type){
 		boolean userOk = false;
-		if(userID != null && name != null && password != null && type != null && !userID.isEmpty() && !name.isEmpty() && !password.isEmpty() && !type.isEmpty()){
-			if(!User.existingUser(userID)){
-				userOk = true;
-			}
+		if( name != null && password != null && type != null && !name.isEmpty() && !password.isEmpty() && !type.isEmpty()){
+			userOk = true;
 		}
 		return userOk;
 	}

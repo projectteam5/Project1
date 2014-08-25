@@ -22,8 +22,8 @@ public class User {
 		this.active = active;
 	}
 	
-	public User(String userID, String name, String password, String type) {
-		this.userID = userID;
+	public User(String name, String password, String type) {
+		this.userID = "User"+(RetailSystem.getInstance().getUsers().size()+1);
 		this.name = name;
 		this.password = password;
 		this.type = type;

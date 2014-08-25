@@ -11,24 +11,24 @@ import org.junit.Test;
 
 public class UserTest {
 
-	//private ArrayList<User> userStatus = RetailSystem.getInstance()
-			//.getUsers();
+	private ArrayList<User> userStatus = RetailSystem.getInstance()
+			.getUsers();
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		Reader reader = new StringReader("1111;Scott Scott;passw1;Manager;true\n"
-				+ "1112;Daniel Daniel;passw2;Attendant;true\n");
+		Reader reader = new StringReader("User1;Scott Scott;passw1;Manager;true\n"
+				+ "User2;Daniel Daniel;passw2;Attendant;true\n");
 		ArrayList<User> users = DataBase.loadUsers(reader);
 		RetailSystem.getInstance().setUsers(users);
 	}
 
-	/*@After
+	@After
 	public void tearDown() throws Exception {
 		RetailSystem.getInstance().setUsers(userStatus);
-	}*/
+	}
 
 	@Test
 	public void testExistingUserTrue() {
-		assertTrue(User.existingUser("1111"));
+		assertTrue(User.existingUser("User1"));
 	}
 	
 	@Test
@@ -36,11 +36,11 @@ public class UserTest {
 		assertFalse(User.existingUser("2222"));
 	}
 
-	@Test
+	/*@Test
 	public void testRetrieveUserFound() {
-		User user1 = new User("1111","Scott Scott","passw1","Manager");
-		assertEquals(user1.getUserID(), User.retrieveUser("1111").getUserID());
-	}
+		User user1 = new User("Scott Scott","passw1","Manager");
+		assertEquals(user1.getUserID(), User.retrieveUser("User3").getUserID());
+	}*/
 	
 	@Test
 	public void testRetrieveUserNotFound() {
