@@ -18,12 +18,10 @@ import javax.swing.JTextField;
 public class CustomerAddGUI extends JPanel {
 	
 	
-	private JTextField textCustomerID;
 	private JTextField textCustomerName;
 	private JTextField textCustomerAddress;
 	private JTextField textCustomerPhone;
 	private JLabel labelTitle;
-	private JLabel labelCustomerID;
 	private JLabel labelCustomerName;
 	private JLabel labelCustomerAddress;
 	private JLabel labelCustomerPhone;
@@ -89,9 +87,9 @@ public class CustomerAddGUI extends JPanel {
 
 	
 	public boolean customerValidation(String name, String address, String phoneNumber){
-		boolean correct = false;
+		boolean correct = true;
 		if (name.isEmpty() || address.isEmpty() || phoneNumber.isEmpty()){
-			correct=true;
+			correct=false;
 		}
 		
 		return correct;

@@ -3,3 +3,6 @@ Customer2;kvhfkvfejh;kjkjerveriu;2334456;false
 Customer3;Erich King;7 Leinster Square, Rathmines, Dublin 6;0873963668;true
 Cusotmer4;Sean Seaneeson;5 there dkdknfinb;9884849;false
 Customer5;Heinrich Johnstom;56 taney grove;45566;true
+Customer6;;;;false
+Customer7;rtyy;erryy;weert;true
+Customer8;try;rety;67778;true
