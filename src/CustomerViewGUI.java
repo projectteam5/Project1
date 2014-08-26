@@ -1,4 +1,5 @@
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,42 +14,37 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class CustomerViewGUI extends JFrame {
+public class CustomerViewGUI extends JPanel {
 	
-	private JPanel panel;
 	private JComboBox customersDropDown;
+	private JLabel labelTitleMain;
 	private JLabel labelTitle;
 	private JLabel labelID;
 	private JLabel labelName;
 	private JLabel labelAddress;
 	private JLabel labelPhone;
 	private JButton viewButton;
-	private JButton customerMenuButton;
 	private int returnValue;
 	private String selectedCustomerID;
 	private String selectedCustomerIDPrev;
 
 	public CustomerViewGUI() {
-		// declaration and initialization of panel, container, layout setting
-		// and buttons
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(RetailSystem.getInstance().getWidth(), RetailSystem.getInstance().getHeight());
-		panel = new JPanel();
-		Container container = getContentPane();
-		container.add(panel);
-		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setLayout(new GridLayout(0, 1));
-			
-		labelTitle = new JLabel("Please pick the customer from the list below");
-		customersDropDown = new JComboBox();
-		compileCustomerNames ();
-		viewButton = new JButton("View Customer");
-		customerMenuButton = new JButton("Customer Menu");
 		
-		panel.add(labelTitle);
-		panel.add(customersDropDown);
-		panel.add(viewButton);
-		panel.add(customerMenuButton);
+		this.setLayout(new GridLayout(0, 1));
+			
+		labelTitleMain = new JLabel("View Customer");
+		labelTitleMain.setFont(new Font("Arial", Font.BOLD, 20));
+		labelTitle = new JLabel(
+				"Please pick the customer you want to view from the list below");
+		customersDropDown = new JComboBox();
+		Customer.customerListComplete(customersDropDown);
+		viewButton = new JButton("View Customer");
+		
+		
+		this.add(labelTitle);
+		this.add(customersDropDown);
+		this.add(viewButton);
+
 		
 		returnValue = 2;
 		
@@ -68,15 +64,6 @@ public class CustomerViewGUI extends JFrame {
 		
 		setVisible(true);
 		
-		customerMenuButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				CustomerGUI customerGui = new CustomerGUI();
-				closeCustomerViewGUI();
-				
-			}
-		});
-
-		setVisible(true);
 	}
 	
 	public static String[] customerList(){
@@ -92,10 +79,10 @@ public class CustomerViewGUI extends JFrame {
 	public int viewCustomerButton(){
 		//retrieve the customer object in the user ArrayList
 		if(returnValue != 2){
-			panel.remove(labelName);
-			panel.remove(labelID);
-			panel.remove(labelAddress);
-			panel.remove(labelPhone);
+			this.remove(labelName);
+			this.remove(labelID);
+			this.remove(labelAddress);
+			this.remove(labelPhone);
 		}
 		Customer selectedCustomer = null;
 		for(Customer customer : RetailSystem.getInstance().getCustomers()){
@@ -108,12 +95,12 @@ public class CustomerViewGUI extends JFrame {
 			labelID = new JLabel("Customer ID: "+ selectedCustomer.getCustomerID());
 			labelAddress = new JLabel("Customer Address: "+ selectedCustomer.getAddress());
 			labelPhone = new JLabel("Customer Phone Number: "+ selectedCustomer.getPhoneNumber());
-			panel.add(labelName);
-			panel.add(labelID);
-			panel.add(labelAddress);
-			panel.add(labelPhone);
-			panel.revalidate();
-			panel.repaint();
+			this.add(labelName);
+			this.add(labelID);
+			this.add(labelAddress);
+			this.add(labelPhone);
+			this.revalidate();
+			this.repaint();
 			return 0;
 		}
 		else{
@@ -129,9 +116,6 @@ public class CustomerViewGUI extends JFrame {
 		}
 	}
 	
-	public void closeCustomerViewGUI(){
-		this.setVisible(false);
-		dispose();
-	}
+	
 
 }

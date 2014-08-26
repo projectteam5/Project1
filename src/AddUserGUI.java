@@ -53,7 +53,7 @@ public class AddUserGUI extends JPanel {
 		this.add(typeDropDown);
 		this.add(doneButton);
 
-		// Define the panel for the Customer managment
+		// Define the panel for the User management
 
 		doneButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
