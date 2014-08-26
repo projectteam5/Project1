@@ -10,5 +10,4 @@ supplier 0007;Acer;0834567732;true
 supplier 0008;IBM;0876344353;true
 supplier 0009;test;087564222;false
 supplier 0010;Lenovo;0896745231;true
-Supplier 111;Test Auto ID;09897546783;true
-Supplier 121;Test 2;0976803;true
+
