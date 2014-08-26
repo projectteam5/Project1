@@ -193,8 +193,16 @@ public class SearchByProductStockGUI extends JPanel {
 		}
 	}
 	public void compileSuppliers(){
+		ArrayList<Supplier>suppliers = new ArrayList<Supplier>();
 		for(Supplier supplier: RetailSystem.getInstance().getSuppliers()){
-			supplierDropDown.addItem(supplier.getName());
+			for(Stock s: RetailSystem.getInstance().getStocks()){
+				if(s.getProduct().getSupplier().equals(supplier)&&!suppliers.contains(supplier)){
+					suppliers.add(supplier);
+				}
+			}
+		}
+		for(Supplier supp: suppliers){
+			supplierDropDown.addItem(supp.getName());
 		}
 	}
 }
