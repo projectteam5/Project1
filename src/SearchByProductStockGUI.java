@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -17,39 +18,45 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 
-public class SearchByProductStockGUI extends JFrame {
+public class SearchByProductStockGUI extends JPanel {
 	private JComboBox<String> productNameDropDown = new JComboBox<String>();
-	private JComboBox<String> productIDDropDown = new JComboBox<String>();
+	private JComboBox<String> supplierDropDown = new JComboBox<String>();
 	private JButton search;
 	private JButton stockMenu;
-	private JPanel panel;
+	private JPanel stockResults;
+	private ArrayList<JLabel> results;
+	private JLabel result;
 	private JLabel productName = new JLabel("Please choose a Product Name from the list below");
-	private JLabel productID = new JLabel("Please choose a ProductID ");
+	private JLabel supplier = new JLabel("Please choose a Supplier");
 	private JLabel or = new JLabel("--OR--");
 	private JRadioButton searchProductName = new JRadioButton("Search by Product Name",true);
-	private JRadioButton searchByProductID = new JRadioButton("Search by Product ID",false);
+	private JRadioButton searchBySupplier = new JRadioButton("Search by Supplier",false);
 	private String orders;
 	public SearchByProductStockGUI() {
-		this.setSize(400,400);
-		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		this.setTitle("Search Stock by Product");
-		panel = new JPanel();
-		Container container = getContentPane();
-		container.add(panel);
-		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setLayout(new GridLayout(0,1));
-		compileProductIDs();
+		//this.setSize(400,400);
+		//this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		//this.setTitle("Search Stock by Product");
+		//panel = new JPanel();
+		//Container container = getContentPane();
+		//container.add(panel);
+		//panel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		results = new ArrayList<JLabel>();
+		stockResults = new JPanel();
+		stockResults.setLayout(new BorderLayout());
+		this.setLayout(new GridLayout(0,1));
+		compileSuppliers();
 		compileProductNames();
 		search = new JButton("Search");
 		
 		if(searchProductName.isSelected()){
-			productIDDropDown.setEnabled(false);
-		}else if(searchByProductID.isSelected()){
+				supplierDropDown.setEnabled(false);
+		}else if(searchBySupplier.isSelected()){
 			productNameDropDown.setEnabled(false);
 		}
 		
@@ -66,19 +73,30 @@ public class SearchByProductStockGUI extends JFrame {
 			
 			
 				for(Stock s:RetailSystem.getInstance().getStocks()){
-						
+						orders+="\n";
 					if(searchProductName.isSelected()){
 						
 						if(s.getProduct().getName().equalsIgnoreCase(productNameDropDown.getSelectedItem().toString())){
 							
 							for(Order o: RetailSystem.getInstance().getOrders()){
 								if(o.getProduct().getName().equalsIgnoreCase(s.getProduct().getName())&&o.isActive()&&!o.isReceived()){
-									JOptionPane.showMessageDialog(null, "Product: "+s.getProduct().getName()+"\nUnits: "+s.getUnits()+"\nOrder of "+o.getQuantity()+" units expected on "+dt.format(o.getExpectedDeliveryDate()));
+									result = new JLabel("Product: "+s.getProduct().getName()+"\nUnits: "+s.getUnits()+"\nOrder of "+o.getQuantity()+" units expected on "+dt.format(o.getExpectedDeliveryDate()));
+									results.add(result);
+									for(JLabel r: results){
+										r.setSize(30, 30);
+										stockResults.add(r,BorderLayout.CENTER);
+										}
+										MenuGUI.getInstance().setPanelAction(stockResults);
 									orderFound = true;
 								}
 							}
 							if(!orderFound){
-								JOptionPane.showMessageDialog(null, "Product: "+s.getProduct().getName()+"\nUnits: "+s.getUnits());
+									result= new JLabel(s.getProduct().getName()+"    "+s.getUnits());
+									results.add(result);
+									for(JLabel r: results){
+									stockResults.add(r);
+									}
+									MenuGUI.getInstance().setPanelAction(stockResults);
 							}
 							
 							
@@ -88,76 +106,81 @@ public class SearchByProductStockGUI extends JFrame {
 						
 					}else{
 						
-						if(s.getProduct().getProductID().equalsIgnoreCase(productIDDropDown.getSelectedItem().toString())){
+						for(Supplier supplier:RetailSystem.getInstance().getSuppliers()){
 							
-							for(Order o: RetailSystem.getInstance().getOrders()){
-								
-								if(o.getProduct().getProductID().equalsIgnoreCase(s.getProduct().getProductID())&&o.isActive()&&!o.isReceived()){
+							if(supplier.getName().equalsIgnoreCase(supplierDropDown.getSelectedItem().toString())){
+								JTextArea details = new JTextArea();
+								JScrollPane scrollPane = new JScrollPane();
+								String supplierName = supplier.getName()+"\n";
+								SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+								String stocksList = "-------------------------------------------------------\n";
+								for(Stock stock: RetailSystem.getInstance().getStocks()){
 									
-									orders+="\nOrder of "+o.getQuantity()+" units expected on "+dt.format(o.getExpectedDeliveryDate());
+									if(stock.getProduct().getSupplier().getName().equalsIgnoreCase(supplier.getName())){
+										stocksList+="Product: "+stock.getProduct().getName()+"||Units: "+stock.getUnits();
+										for(Order o: RetailSystem.getInstance().getOrders()){
+												if(o.getProduct().getProductID().equalsIgnoreCase(stock.getProduct().getProductID())){
+													stocksList +=" An order of "+o.getQuantity()+" units is expected "+dateFormat.format(o.getExpectedDeliveryDate())+"\n";
+												}else{
+													stocksList+="\n";
+												}
+										}
+										details.setText(supplierName+stocksList);
+										scrollPane.setViewportView(details);
+										stockResults.add(scrollPane);
+										MenuGUI.getInstance().setPanelAction(stockResults);
+									}
 									
-									orderFound = true;
 								}
-							}
-							
-							if(!orderFound){
-								JOptionPane.showMessageDialog(null, "Product: "+s.getProduct().getName()+"\nUnits: "+s.getUnits());
-							}else{
-		
-								JOptionPane.showMessageDialog(null, "Product: "+s.getProduct().getName()+"\nUnits: "+s.getUnits()+orders);
 								
 							}
-						}orders="";
+							
+							
+							
+						}
+						
+						
+						
+							}
+							
+						}
 						
 						
 					}
 					
 				
 				
-				
-				}
-				
-			}
-				
-			});
-	
-			stockMenu = new JButton("Return to menu");
 		
-		stockMenu.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-					new StockGUI();
-					dispose();
-			}
-		});
+				});
 		
-		searchByProductID.addActionListener(new ActionListener(){
+		searchBySupplier.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				searchProductName.setSelected(false);
 				productNameDropDown.setEnabled(false);
-				productIDDropDown.setEnabled(true);
+				supplierDropDown.setEnabled(true);
 				
 			}
 		});
 		
 		searchProductName.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				searchByProductID.setSelected(false);
-				productIDDropDown.setEnabled(false);
+				searchBySupplier.setSelected(false);
+				supplierDropDown.setEnabled(false);
 				productNameDropDown.setEnabled(true);
 				
 			}
 		});
 		
-		panel.add(searchProductName);
-		panel.add(productName);
-		panel.add(productNameDropDown);
-		panel.add(or);
-		panel.add(searchByProductID);
-		panel.add(productID);
-		panel.add(productIDDropDown);
-		panel.add(search);
-		panel.add(stockMenu);
-		panel.add(data);
+		add(searchProductName);
+		add(productName);
+		add(productNameDropDown);
+		add(or);
+		add(searchBySupplier);
+		add(supplier);
+		add(supplierDropDown);
+		add(search);
+		//add(stockMenu);
+		add(data);
 		
 		this.setVisible(true);
 		
@@ -169,9 +192,9 @@ public class SearchByProductStockGUI extends JFrame {
 			productNameDropDown.addItem(product.getName());
 		}
 	}
-	public void compileProductIDs(){
-		for(Product product: RetailSystem.getInstance().getProducts()){
-			productIDDropDown.addItem(product.getProductID());
+	public void compileSuppliers(){
+		for(Supplier supplier: RetailSystem.getInstance().getSuppliers()){
+			supplierDropDown.addItem(supplier.getName());
 		}
 	}
 }
