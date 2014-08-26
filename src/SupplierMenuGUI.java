@@ -23,6 +23,7 @@ public class SupplierMenuGUI extends JPanel{
 	JButton deleteButton;
 	JButton viewListButton;
 	JButton singleSupplierDetails;
+	JButton reactivateSupplier;
 	JLabel title;
 
 	public SupplierMenuGUI() {
@@ -34,6 +35,7 @@ public class SupplierMenuGUI extends JPanel{
 	 	viewListButton = new JButton("List Suppliers");
 	 	deleteButton = new JButton("Delete Supplier");
 	 	addButton = new JButton("Add Supplier");
+	 	reactivateSupplier = new JButton("Reactivate Supplier");
 	 	singleSupplierDetails = new JButton("Supplier details");
 	 	
 	 	colorButton();
@@ -41,6 +43,7 @@ public class SupplierMenuGUI extends JPanel{
 	 	this.add(title);
 	 	this.add(addButton);
 	 	this.add(deleteButton);
+	 	this.add(reactivateSupplier);
 	 	this.add(editButton);
 	 	this.add(singleSupplierDetails);
 	 	this.add(viewListButton);
@@ -68,6 +71,15 @@ public class SupplierMenuGUI extends JPanel{
 				colorButton();
 				deleteButton.setBackground(colorButtonSelected);
 				MenuGUI.getInstance().setPanelAction(new DeleteSupplierGUI());
+			}
+		});
+		
+		// Launches the reactivation of a supplier GUI
+		reactivateSupplier.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {		
+				colorButton();
+				reactivateSupplier.setBackground(colorButtonSelected);
+				MenuGUI.getInstance().setPanelAction(new ReactivateSupplierGUI());
 			}
 		});
 		
@@ -100,5 +112,7 @@ public class SupplierMenuGUI extends JPanel{
 		singleSupplierDetails.setFont(fontButtons);
 		viewListButton.setBackground(colorButtons);
 		viewListButton.setFont(fontButtons);
+		reactivateSupplier.setBackground(colorButtons);
+		reactivateSupplier.setFont(fontButtons);
 	}
 }
