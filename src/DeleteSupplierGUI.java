@@ -1,4 +1,5 @@
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,31 +16,30 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 
-public class DeleteSupplierGUI extends JFrame{
+public class DeleteSupplierGUI extends JPanel{
 	private JComboBox<String> supplierDropDown = new JComboBox<String>();
 	private JComboBox<String> supplierDropDownAfterDelete = new JComboBox<String>();
-	private JButton buttonMenu;
 	private JButton deleteButton;
+	private JLabel title;
+	private JLabel instruction;
 	// Instance of supplier in aid of accessing removal method
-	private Supplier removeSupplier = new Supplier("","","");
-	JPanel panel1;
+	private Supplier removeSupplier = new Supplier("","");
 	
 	public DeleteSupplierGUI() {
-		setTitle("DELETE SUPPLIER LIST GUI");
-		setSize(RetailSystem.getInstance().getWidth(), RetailSystem.getInstance().getHeight());
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		panel1 = new JPanel();
-		compileSupplierNames();
+		
+		title = new JLabel("Deactivate Supplier");
+		title.setFont(new Font("Arial", Font.BOLD, 20));
+		instruction = new JLabel("Please choose a supplier from the list below");
 		deleteButton = new JButton("Delete");
-		buttonMenu = new JButton("Supplier Menu");
-		panel1.add(supplierDropDown);
-		panel1.add(deleteButton);
-		panel1.add(buttonMenu);
-		Container container = getContentPane();
-		container.add(panel1);
-		panel1.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel1.setLayout(new GridLayout(0,1));	
-		setVisible(true);
+		compileSupplierNames();
+		
+		this.add(title);
+		this.add(instruction);
+		this.add(supplierDropDown);
+		this.add(deleteButton);
+		this.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.setLayout(new GridLayout(0,1));	
+		this.setVisible(true);
 		
 		deleteButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent argo0){
@@ -49,28 +49,19 @@ public class DeleteSupplierGUI extends JFrame{
 				Supplier supplierToRemove = findAndReturnSupplierFromList(name);			
 				supplierToRemove.setActive(false);
 				JOptionPane.showMessageDialog(null, "Supplier is not active anymore", "Success", JOptionPane.PLAIN_MESSAGE);
-				removeSupplier.saveUser();
+				removeSupplier.saveSupplier();
 				compileSupplierNamesAfterDelete();
 				refresh();
 			}
 		});
-		
-		buttonMenu.addActionListener(new ActionListener() {		
-			public void actionPerformed(ActionEvent arg0) {
-				SupplierMenuGUI supplierMenuGUI = new SupplierMenuGUI();
-				closeRemoveSupplierGUI();
-			}
-		});	
 	}
 	
 	public void refresh(){
-		panel1.remove(supplierDropDown);
-		panel1.remove(deleteButton);
-		panel1.remove(buttonMenu);
-		panel1.add(supplierDropDownAfterDelete);
-		panel1.add(deleteButton);
-		panel1.add(buttonMenu);
-		panel1.revalidate();
+		this.remove(supplierDropDown);
+		this.remove(deleteButton);
+		this.add(supplierDropDownAfterDelete);
+		this.add(deleteButton);
+		this.revalidate();
 		revalidate();
 		repaint();
 	}
@@ -99,9 +90,5 @@ public class DeleteSupplierGUI extends JFrame{
 		for(Supplier supplier: Supplier.getSupplierList()){
 				supplierDropDownAfterDelete.addItem(supplier.getName());
 		}
-	}
-	
-	public void closeRemoveSupplierGUI(){
-		this.setVisible(false);
 	}
 }

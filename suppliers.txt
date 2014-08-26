@@ -1,14 +1,13 @@
 supplier1;Supplier1 Name;083776655;true
 supplier2;Supplier2 Name;083775839;true
-0001;Dell;0831336397;true
-0002;Toshiba;0833452233;true
-0003;Advent;0853454545;true
-0004;Apple;08578766544;true
-0005;HP;0866451232;true
-0006;Asus;0866458732;true
-0007;Acer;0834567732;true
-0008;IBM;0876344353;true
-0009;test;087564222;true
-0010;Lenovo;0896745231;true
-supplier3;Cri;098764467;false
-nnn;nnn;nnn;true
+supplier 0001;Dell;0831336397;true
+supplier 0002;Toshiba;0833452233;true
+supplier 0003;Advent;0853454545;true
+supplier 0004;Apple;08578766544;true
+supplier 0005;HP;0866451232;true
+supplier 0006;Asus;0866458732;true
+supplier 0007;Acer;0834567732;true
+supplier 0008;IBM;0876344353;true
+supplier 0009;test;087564222;false
+supplier 0010;Lenovo;0896745231;true
+
