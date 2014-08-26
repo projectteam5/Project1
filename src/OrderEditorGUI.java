@@ -1,4 +1,4 @@
-import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,14 +10,13 @@ import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
 
-public class OrderEditorGUI extends JFrame implements ActionListener {
+@SuppressWarnings("serial")
+public class OrderEditorGUI extends JPanel implements ActionListener {
 	private JTextField idTextField;
 	private JTextField orderDateTextField;
 	private JComboBox<String> comboBoxList;
@@ -35,68 +34,73 @@ public class OrderEditorGUI extends JFrame implements ActionListener {
 	private Date newReceivedDate;
 	private boolean newReceived;
 	private Order order;
+	private JLabel labelTitleMain;
+	private JLabel labelOrderID;
+	private JLabel labelOrderDate;
+	private JLabel labelProductID;
+	private JLabel labelProductQuantity;
+	private JLabel labelExpectedDeliveryDate;
+	private JLabel labelActualDeliveryDate;
+	private JLabel labelOrderReceived;
 
 	public OrderEditorGUI() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(400, 400);
-		setTitle("Order Editor");
 		
-		JPanel panel = new JPanel();
-		Container container = getContentPane();
-		container.add(panel);
-		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setLayout(new GridLayout(0,1));
+		this.setLayout(new GridLayout(0, 1));
 		
 		order = EditOrderGUI.getOrderToEdit();
 		
-		JLabel label1 = new JLabel("OrderID");
+		labelTitleMain = new JLabel("Order Editor");
+		labelTitleMain.setFont(new Font("Arial", Font.BOLD, 20));
+		
+		labelOrderID = new JLabel("OrderID");
 		idTextField = new JTextField(order.getOrderID());
 		idTextField.setEditable(false);
 		
-		JLabel label2 = new JLabel("Order Date");
+		labelOrderDate = new JLabel("Order Date");
 		orderDateTextField = new JTextField();
 		orderDateTextField.setText(DateFormat.getDateInstance().format(order.getOrderDate()));
 		
-		JLabel label3 = new JLabel("Product ID");
+		labelProductID = new JLabel("Product ID");
 		comboBoxList = new JComboBox<String>();
 		comboBoxList.addItem(order.getProduct().getProductID());
 		for(Product p : RetailSystem.getInstance().getProducts()) {
 			comboBoxList.addItem(p.getProductID());
 		}
 		
-		JLabel label4 = new JLabel("Product Quantity");
+		labelProductQuantity = new JLabel("Product Quantity");
 		quantityTextField = new JTextField(String.valueOf(order.getQuantity()));
 		
-		JLabel label5 = new JLabel("Expected Delivery Date");
+		labelExpectedDeliveryDate = new JLabel("Expected Delivery Date");
 		expectedDeliveryDateTextField = new JTextField();
 		expectedDeliveryDateTextField.setText(DateFormat.getDateInstance().format(order.getExpectedDeliveryDate()));
 		
-		JLabel label6 = new JLabel("Actual Delivery Date");
+		labelActualDeliveryDate = new JLabel("Actual Delivery Date");
 		dateReceivedTextField = new JTextField();
 		dateReceivedTextField.setText(DateFormat.getDateInstance().format(order.getDateReceived()));
 		
-		JLabel label7 = new JLabel("Order Recieved?");
+		labelOrderReceived = new JLabel("Order Recieved?");
 		receivedCheckBox = new JCheckBox("",order.isReceived());
 		receivedCheckBox = new JCheckBox();
 		receivedCheckBox.setSelected(order.isReceived());
 		
 		submitButton = new JButton("Submit");
 		
-		panel.add(label1);
-		panel.add(idTextField);
-		panel.add(label2);
-		panel.add(orderDateTextField);
-		panel.add(label3);
-		panel.add(comboBoxList);
-		panel.add(label4);
-		panel.add(quantityTextField);
-		panel.add(label5);
-		panel.add(expectedDeliveryDateTextField);	
-		panel.add(label6);
-		panel.add(dateReceivedTextField);
-		panel.add(label7);
-		panel.add(receivedCheckBox);
-		panel.add(submitButton);
+		this.add(labelTitleMain);
+		this.add(labelOrderID);
+		this.add(idTextField);
+		this.add(labelOrderDate);
+		this.add(orderDateTextField);
+		this.add(labelProductID);
+		this.add(comboBoxList);
+		this.add(labelProductQuantity);
+		this.add(quantityTextField);
+		this.add(labelExpectedDeliveryDate);
+		this.add(expectedDeliveryDateTextField);	
+		this.add(labelActualDeliveryDate);
+		this.add(dateReceivedTextField);
+		this.add(labelOrderReceived);
+		this.add(receivedCheckBox);
+		this.add(submitButton);
 		
 		submitButton.addActionListener(this);
 		
@@ -175,7 +179,7 @@ public class OrderEditorGUI extends JFrame implements ActionListener {
 				}
 				
 				this.setVisible(false);
-				this.dispose();
+				
 			}
 		}
 	}

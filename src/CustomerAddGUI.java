@@ -1,92 +1,87 @@
 
 
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileWriter;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class CustomerAddGUI extends JFrame {
-	
-	JButton button1 = new JButton("Add Customer");
+public class CustomerAddGUI extends JPanel {
 	
 	
-	private JTextField textField1;
-	private JTextField textField2;
-	private JTextField textField3;
-	private JTextField textField4;
-	private JButton customerMenuButton;
+	private JTextField textCustomerName;
+	private JTextField textCustomerAddress;
+	private JTextField textCustomerPhone;
+	private JLabel labelTitle;
+	private JLabel labelCustomerName;
+	private JLabel labelCustomerAddress;
+	private JLabel labelCustomerPhone;
+	private JButton doneButton;
+	
 
 	public CustomerAddGUI() {
-		setSize(RetailSystem.getInstance().getWidth(), RetailSystem.getInstance().getHeight()); // set frames size in pixels
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
-		textField1 = new JTextField();
-		JLabel label1 = new JLabel("Customer ID");
-		textField2 = new JTextField();
-		JLabel label2 = new JLabel("Customer Name");
-		textField3 = new JTextField();
-		JLabel label3 = new JLabel("Customer Address");
-		textField4 = new JTextField();
-		JLabel label4 = new JLabel("Customer Phone Number");
-		customerMenuButton = new JButton("Customer Menu");
 		
-		JPanel jpanel = new JPanel();
-		jpanel.setLayout(new GridLayout(0,1));
-		jpanel.add(label1);
-		jpanel.add(textField1);
-		jpanel.add(label2);
-		jpanel.add(textField2);
-		jpanel.add(label3);
-		jpanel.add(textField3);
-		jpanel.add(label4);
-		jpanel.add(textField4);
-		jpanel.add(customerMenuButton);
+		this.setLayout(new GridLayout(0, 1));
 		
-		button1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String name = textField2.getText();
-				String address = textField3.getText();
-				String phoneNumber = textField4.getText();
-				if(customerValidation(name, address, phoneNumber)){
-					Customer customer = new Customer(name, address, phoneNumber);
-					RetailSystem.getInstance().getCustomers().add(customer);
-					saveCustomer();
-					JOptionPane.showMessageDialog(null, "Customer Created and added to system", "Success", JOptionPane.PLAIN_MESSAGE);
-				}
-				
-			}
-		});
+		textCustomerName = new JTextField();
+		textCustomerAddress = new JTextField();
+		textCustomerPhone = new JTextField();
+		labelTitle = new JLabel("Add a new customer");
+		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
+		labelCustomerName = new JLabel("Name");
+		labelCustomerAddress = new JLabel("Address");
+		labelCustomerPhone = new JLabel("Phone");
+		doneButton = new JButton("Add");
 		
-		customerMenuButton.addActionListener(new ActionListener() {
+		this.add(labelTitle);
+		this.add(labelCustomerName);
+		this.add(textCustomerName);
+		this.add(labelCustomerAddress);
+		this.add(textCustomerAddress);
+		this.add(labelCustomerPhone);
+		this.add(textCustomerPhone);
+		this.add(doneButton);
+		
+		doneButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				CustomerGUI customerGui = new CustomerGUI();
-				closeCustomerAddGUI();
-				
+				int returnValue = addCustomer();
+				if (returnValue == 0) {
+					JOptionPane.showMessageDialog(null,
+							"Customer added to list", "New Customer created",
+							JOptionPane.PLAIN_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null,
+							"ID already exists or missing fields", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+
 			}
 		});
-		
-		jpanel.add(button1);
-		Container cp = getContentPane();
-		cp.add(jpanel);
-		setVisible(true);
+
+		this.setVisible(true);
 	}
+		
 	
-	public static void saveCustomer() {
-		try {
-			FileWriter customerFile;
-			customerFile = new FileWriter("customers.txt");
-			DataBase.writeCustomers(RetailSystem.getInstance().getCustomers(), customerFile);
-			customerFile.close();// close the customer file
-		} catch (Exception exception) {
-			exception.printStackTrace();
+	public int addCustomer() {
+		String name = textCustomerName.getText();
+		String address = textCustomerAddress.getText();
+		String phone = textCustomerPhone.getText();
+		if (customerValidation(name, address, phone)) {
+			Customer customer = new Customer(name, address, phone);
+			RetailSystem.getInstance().getCustomers().add(customer);
+			Customer.saveCustomer();
+			return 0;
+		} else {
+			return 1;
 		}
 	}
 
@@ -95,14 +90,10 @@ public class CustomerAddGUI extends JFrame {
 		boolean correct = true;
 		if (name.isEmpty() || address.isEmpty() || phoneNumber.isEmpty()){
 			correct=false;
-			JOptionPane.showMessageDialog(null, "All fields must be filled out!", "Warning", JOptionPane.WARNING_MESSAGE);
 		}
 		
 		return correct;
 	}
 	
-	public void closeCustomerAddGUI(){
-		this.setVisible(false);
-	}
 	
 }

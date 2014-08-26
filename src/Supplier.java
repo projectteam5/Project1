@@ -9,7 +9,7 @@ public class Supplier {
 	private boolean active;
 
 	public Supplier(String name,String phoneNumber) {
-		this.supplierID="Supplier "+Supplier.getSupplierList().size()+1;
+		this.supplierID="Supplier "+(Supplier.getSupplierList().size()+1);
 		this.name=name;
 		this.phoneNumber=phoneNumber;
 		this.active=true;

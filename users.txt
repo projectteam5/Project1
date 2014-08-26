@@ -3,7 +3,7 @@ User2;Daniel Daniel;passw2;Attendant;true
 User3;Cris Conti;passw3;Manager;true
 User4;Erich King;passw4;Manager;true
 User5;Laura Phelan;passw5;Manager;true
-User6;Ian Thompson;passw6;Manager;false
+User6;Ian Thompson;passw6;Manager;true
 User7;Calvin McGowan;passw7;Manager;true
 User8;Colm Dillon;passw8;Manager;true
 User9;test;test2;Attendant;false
@@ -11,3 +11,4 @@ User10;test;passwtest;Manager;false
 User11;user user;user;Attendant;true
 User12;Jenny Munnelly;passw12;Manager;false
 User13;testAutoID;passw13;Manager;true
+User14;Tommy;Taylor;Manager;true

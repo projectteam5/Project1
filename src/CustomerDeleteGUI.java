@@ -1,4 +1,5 @@
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,10 +12,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class CustomerDeleteGUI extends JFrame {
+public class CustomerDeleteGUI extends JPanel {
 
-	private JPanel panel;
 	private JComboBox customersDropDown;
+	private JLabel labelTitleMain;
 	private JLabel labelTitle;
 	private JButton deleteButton;
 	private JButton customerMenuButton;
@@ -22,27 +23,21 @@ public class CustomerDeleteGUI extends JFrame {
 	private Customer customerRemove;
 	
 	public CustomerDeleteGUI() {
-		// declaration and initialization of panel, container, layout setting
-		// and buttons
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(RetailSystem.getInstance().getWidth(), RetailSystem.getInstance().getHeight());
-		panel = new JPanel();
-		Container container = getContentPane();
-		container.add(panel);
-		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setLayout(new GridLayout(0, 1));
+		
+		this.setLayout(new GridLayout(0, 1));
 
+		labelTitleMain = new JLabel("Delete Customer");
+		labelTitleMain.setFont(new Font("Arial", Font.BOLD, 20));
 		labelTitle = new JLabel(
-				"Please pick the customer you wish to delete from the list below");
+				"Please pick the customer you want to delete from the list below");
 		customersDropDown = new JComboBox();
 		buildCustomersDropDown();
 		deleteButton = new JButton("Delete Customer");
-		customerMenuButton = new JButton("Customer Menu");
 
-		panel.add(labelTitle);
-		panel.add(customersDropDown);
-		panel.add(deleteButton);
-		panel.add(customerMenuButton);
+		this.add(labelTitle);
+		this.add(customersDropDown);
+		this.add(deleteButton);
+		
 
 		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -51,15 +46,6 @@ public class CustomerDeleteGUI extends JFrame {
 
 		});
 		
-		customerMenuButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				CustomerGUI customerGui = new CustomerGUI();
-				closeCustomerDeleteGUI();
-				
-			}
-		});
-
-		setVisible(true);
 
 	}
 
@@ -82,17 +68,16 @@ public class CustomerDeleteGUI extends JFrame {
 	}
 
 	public void addAndRefresh() {
-		panel.remove(labelTitle);
-		panel.remove(customersDropDown);
-		panel.remove(deleteButton);
-		panel.remove(customerMenuButton);
-		panel.add(labelTitle);
+		this.remove(labelTitle);
+		this.remove(customersDropDown);
+		this.remove(deleteButton);
+		this.remove(customerMenuButton);
+		this.add(labelTitle);
 		customersDropDown = new JComboBox();
 		buildCustomersDropDown();
-		panel.add(customersDropDown);
-		panel.add(deleteButton);
-		panel.add(customerMenuButton);
-		panel.revalidate();
+		this.add(customersDropDown);
+		this.add(deleteButton);
+		this.revalidate();
 		revalidate();
 		repaint();
 	}
@@ -107,9 +92,7 @@ public class CustomerDeleteGUI extends JFrame {
 		}
 	}
 	
-	public void closeCustomerDeleteGUI(){
-		this.setVisible(false);
-		dispose();
+	
 	}
 
-}
+

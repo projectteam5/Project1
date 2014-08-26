@@ -1,4 +1,6 @@
+import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,113 +8,108 @@ import java.io.FileWriter;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class CustomerGUI extends JFrame {
-	
-	private JButton viewCustomer;
+public class CustomerGUI extends JPanel {
+
+	JButton addCustomer;
+	JButton editCustomer;
+	JButton deleteCustomer;
+	JButton showCustomer;
+	JLabel labelTitle;
+
+	private final static Font fontButtons = new Font("Arial", Font.BOLD, 12);
+	private final static Color colorButtons = new Color(126, 163, 249);
+	private final static Color colorButtonSelected = new Color(21, 82, 223);
 
 	public CustomerGUI() {
-		// declaration and initialization of panel, container, layout setting
-		// and buttons
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(RetailSystem.getInstance().getWidthMain(), RetailSystem.getInstance().getHeightMain());
-		JPanel panel = new JPanel();
-		Container container = getContentPane();
-		container.add(panel);
-		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setLayout(new GridLayout(0, 1));
-		JButton addCustomer = new JButton("Add Customer");
-		JButton editCustomer = new JButton("Edit Customer");
-		JButton deleteCustomer = new JButton("Delete Customer");
-		JButton viewCustomer = new JButton("View Customer");
-		JButton mainMenu = new JButton("Main Menu");
+		// declaration and initialization of buttons and labels
+		this.setLayout(new GridLayout(0, 1));
+		labelTitle = new JLabel("User Menu");
+		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
+		addCustomer = new JButton("Add Customer");
+		editCustomer = new JButton("Edit Customer");
+		deleteCustomer = new JButton("Remove Customer");
+		showCustomer = new JButton("Show Customer");
+		colorButton();
 
-		// adding components
-		panel.add(addCustomer);
-		panel.add(editCustomer);
-		panel.add(deleteCustomer);
-		panel.add(viewCustomer);
-		panel.add(mainMenu);
-		
+		// adding all the components
+		this.add(labelTitle);
+		this.add(addCustomer);
+		this.add(editCustomer);
+		this.add(showCustomer);
+		this.add(deleteCustomer);
 
-		//Adds customer in a new GUI
+		/*
+		 * Add button: it opens a new window where it's possible to insert user
+		 * data and if the validation is correct the new user is created and
+		 * inserted in the ArrayList
+		 */
 		addCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				addCustomerButton();
-				closeCustomerGUI();
+				colorButton();
+				addCustomer.setBackground(colorButtonSelected);
+				MenuGUI.getInstance().setPanelAction(new CustomerAddGUI());
 			}
 		});
-		
+
+		/*
+		 * Edit button: it opens a new window where it's possible to select the
+		 * user from a dropdown list. After a user is selected it is possible to
+		 * push the button "Edit User" and automatically will be displayed
+		 * fields with the user data in it. It is possible to modify the data
+		 * and save it with the "Commit" button.
+		 */
 		editCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				editCustomerButton();
-				closeCustomerGUI();
+				colorButton();
+				editCustomer.setBackground(colorButtonSelected);
+				MenuGUI.getInstance().setPanelAction(new CustomerEditGUI());
 			}
 		});
-		
-		
+
+		/*
+		 * Show button: it opens a new window where it's possible to select the
+		 * user from a dropdown list. Pressing the "Show User" button the data
+		 * related to that user will be displayed in a read-only way
+		 */
+		showCustomer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				colorButton();
+				showCustomer.setBackground(colorButtonSelected);
+				MenuGUI.getInstance().setPanelAction(new CustomerViewGUI());
+			}
+		});
+
+		/*
+		 * Delete button: it opens a new window where it's possible to select
+		 * the customer from a dropdown list. After a customer is selected it is
+		 * possible to push the button "Delete Customer" and automatically the customer
+		 * will be removed
+		 */
 		deleteCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				CustomerDeleteGUI CustomerDeleteGui = new CustomerDeleteGUI();
-				closeCustomerGUI();
+				colorButton();
+				deleteCustomer.setBackground(colorButtonSelected);
+				MenuGUI.getInstance().setPanelAction(new CustomerDeleteGUI());
 			}
 		});
 
 	
-		
-		viewCustomer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				CustomerViewGUI CustomerViewGui = new CustomerViewGUI();
-				closeCustomerGUI();
-			}
-		});
-
-		
-		mainMenu.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				MenuGUI menuGui = new MenuGUI();
-				closeCustomerGUI();
-			}
-		});
-
-		this.setVisible(true);
 	}
 
-	
-
-	public void addCustomerButton() {
-		CustomerAddGUI customerAddGUI = new CustomerAddGUI();
-		this.setVisible(false);
+	public void colorButton(){
+		addCustomer.setBackground(colorButtons);
+		addCustomer.setFont(fontButtons);
+		editCustomer.setBackground(colorButtons);
+		editCustomer.setFont(fontButtons);
+		showCustomer.setBackground(colorButtons);
+		showCustomer.setFont(fontButtons);
+		deleteCustomer.setBackground(colorButtons);
+		deleteCustomer.setFont(fontButtons);
 	}
-	
-	public void editCustomerButton() {
-		CustomerEditGUI customerEditGUI = new CustomerEditGUI();
-		this.setVisible(false);
-	}
-
-	
-	
-	
-	public static void saveCustomer() {
-		try {
-			FileWriter customerFile;
-			customerFile = new FileWriter("customers.txt");
-			DataBase.writeCustomers(RetailSystem.getInstance().getCustomers(), customerFile);
-			customerFile.close();// close the customer file
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		}
-	}
-	
-	public void closeCustomerGUI(){
-		this.setVisible(false);
-			dispose();
-	}
-	
-	
 
 }
-

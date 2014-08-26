@@ -13,9 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class CustomerEditGUI extends JFrame {
+public class CustomerEditGUI extends JPanel {
 
-	private JPanel panel;
+	
 	private JTextField nameField;
 	private JTextField addressField;
 	private JTextField phoneField;
@@ -30,20 +30,13 @@ public class CustomerEditGUI extends JFrame {
 	private String selectedCustomerIDPrev;
 	private Customer customer;
 	private int controlVariable;
-	private JButton customerMenuButton;
 
 	public CustomerEditGUI() {
 
 		controlVariable = 0;
 		selectedCustomerIDPrev = null;
 
-		// declaration and initialization of panel, container and layout setting
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setSize(RetailSystem.getInstance().getWidth(), RetailSystem.getInstance().getHeight());
-		this.setTitle("Edit Customer");
-		panel = new JPanel();
-		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setLayout(new GridLayout(0, 1));
+		this.setLayout(new GridLayout(0, 1));
 
 		// declaration of the labels and initialization of labels and text field
 		labelTitle = new JLabel(
@@ -52,15 +45,12 @@ public class CustomerEditGUI extends JFrame {
 		Customer.customerListComplete(customerDropDown);
 		editButton = new JButton("Edit Customer");
 		doneButton = new JButton("Commit Changes");
-		customerMenuButton  = new JButton("Customer Menu");
+		
 		// adding all the components
-		panel.add(labelTitle);
-		panel.add(customerDropDown);
-		panel.add(editButton);
-		panel.add(customerMenuButton);
-
-		Container container = getContentPane();
-		container.add(panel);
+		this.add(labelTitle);
+		this.add(customerDropDown);
+		this.add(editButton);
+	
 
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -93,15 +83,6 @@ public class CustomerEditGUI extends JFrame {
 			}
 		});
 		
-		customerMenuButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				CustomerGUI customerGui = new CustomerGUI();
-				closeCustomerEditGUI();
-				
-			}
-		});
-
-		this.setVisible(true);
 	}
 
 	public int editCustomer() {
@@ -122,11 +103,11 @@ public class CustomerEditGUI extends JFrame {
 
 	public void populateFields() {
 		if (controlVariable != 0) {
-			panel.remove(labelAddress);
-			panel.remove(addressField);
-			panel.remove(labelPhone);
-			panel.remove(phoneField);
-			panel.remove(doneButton);
+			this.remove(labelAddress);
+			this.remove(addressField);
+			this.remove(labelPhone);
+			this.remove(phoneField);
+			this.remove(doneButton);
 		}
 		controlVariable = 1;
 		customer = Customer.retrieveCustomer(customerID);
@@ -138,21 +119,19 @@ public class CustomerEditGUI extends JFrame {
 			labelAddress = new JLabel("Address");
 			labelPhone = new JLabel("Phone Number");
 			
-			panel.add(labelName);
-			panel.add(nameField);
-			panel.add(labelAddress);
-			panel.add(addressField);
-			panel.add(labelPhone);
-			panel.add(phoneField);
-			panel.add(doneButton);
+			this.add(labelName);
+			this.add(nameField);
+			this.add(labelAddress);
+			this.add(addressField);
+			this.add(labelPhone);
+			this.add(phoneField);
+			this.add(doneButton);
 			
 			revalidate();
 			repaint();
 		}
 
 	}
-	public void closeCustomerEditGUI(){
-		this.setVisible(false);
-		dispose();
+	
 	}
-}
+

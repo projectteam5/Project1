@@ -1,64 +1,48 @@
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.DateFormat;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class ViewAllOrdersGUI extends JFrame implements ActionListener {
-
-	private JPanel panel;
+@SuppressWarnings("serial")
+public class ViewAllOrdersGUI extends JPanel {
+	
 	private JPanel detailsPanel;
-	private Container container;
 	private JScrollPane scrollPane;
 	private JLabel orderDetailsLabel;
 	private JLabel printLabel;
 	private JLabel counterLabel;
 	
-	private JButton returnToMainMenu;
 	private JLabel printLabel2;
 	private JLabel labelTitle;
 	private JLabel labelTitle2;
 	private JLabel labelTitle3;
-	private JLabel printLabel3;
 	private JLabel labelTitle4;
+	private JLabel labelTitleMain;
 
 	public ViewAllOrdersGUI() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(600, 400);
-		setTitle("View Active Orders");
 		
-		panel = new JPanel();
-		container = getContentPane();
-		container.add(panel);
-		panel.setLayout(new BorderLayout());
+		this.setLayout(new GridLayout(0, 1));
+		
+		labelTitleMain = new JLabel("View all 	Orders");
+		labelTitleMain.setFont(new Font("Arial", Font.BOLD, 20));
 		
 		detailsPanel = new JPanel(new GridLayout(0,1));
-		detailsPanel.setSize(100,100);
 		
-		scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane(detailsPanel);
 		scrollPane.setViewportView(detailsPanel);
 		orderDetailsLabel = new JLabel("Order Details");
 		
-		returnToMainMenu = new JButton("Main Menu");
+		this.add(labelTitleMain);
+		this.add(detailsPanel);
 		
-		panel.add(detailsPanel);
+		this.add(orderDetailsLabel,BorderLayout.NORTH);
+		this.add(scrollPane,BorderLayout.CENTER);
 		
-		panel.add(orderDetailsLabel,BorderLayout.NORTH);
-		panel.add(scrollPane,BorderLayout.CENTER);
 		scrollPane.setViewportView(detailsPanel);
-		
-		detailsPanel.add(returnToMainMenu);
-		
-		returnToMainMenu.addActionListener(this);
 		
 		int count=0;
 		for(Order order : RetailSystem.getInstance().getOrders()) {
@@ -67,7 +51,7 @@ public class ViewAllOrdersGUI extends JFrame implements ActionListener {
 			}
 		}
 		counterLabel = new JLabel("Active Orders in System: " + count);
-		panel.add(counterLabel, BorderLayout.SOUTH);
+		this.add(counterLabel, BorderLayout.SOUTH);
 		
 		setVisible(true);
 		
@@ -133,24 +117,6 @@ public class ViewAllOrdersGUI extends JFrame implements ActionListener {
 		labelTitle3.setSize(10,10);
 		detailsPanel.add(labelTitle3);
 		
-	}
-	
-	
-	
-	public void actionPerformed(ActionEvent event) {
-		Object target = event.getSource();
-		
-		if(target == returnToMainMenu) {
-			try {
-				MenuGUI returnToMainMenu = new MenuGUI();
-				this.setVisible(false);
-				this.dispose();
-			} catch(Exception e) {
-				System.err.println(e);
-				System.err.println(e.getMessage());
-				JOptionPane.showMessageDialog(this, "cannot reach OrderGUI");
-			}
-		}
 	}
 	
 	public String calcOrderCost(double cost, int quantity) {

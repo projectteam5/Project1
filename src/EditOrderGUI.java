@@ -1,36 +1,31 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileWriter;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 
-public class EditOrderGUI extends JFrame implements ActionListener {
-	private JPanel panel;
-	private Container container;
-	private static JComboBox<String> orderList;
+@SuppressWarnings("serial")
+public class EditOrderGUI extends JPanel implements ActionListener {
+	
 	private JButton editOrderButton;
+	private JLabel labelTitleMain;
+	private static JComboBox<String> orderList;
 	
 	private static Order orderToEdit;
 	
-	private JButton returnToMainMenu;
+	private final static Font fontButtons = new Font("Arial", Font.BOLD, 12);
+	private final static Color colorButtons = new Color(126, 163, 249);
+	private final static Color colorButtonSelected = new Color(21, 82, 223);
 
 	public EditOrderGUI() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(400, 200);
-		setTitle("Edit Open Order");
 		
-		panel = new JPanel();
-		container = getContentPane();
-		container.add(panel);
-		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setLayout(new GridLayout(0,1));
+		this.setLayout(new GridLayout(0, 1));
+		
+		labelTitleMain = new JLabel("Edit an Order");
+		labelTitleMain.setFont(new Font("Arial", Font.BOLD, 20));
 		
 		orderList = new JComboBox<String>();
 		editOrderButton = new JButton("Edit Order");
-		
-		returnToMainMenu = new JButton("Main Menu");
 		
 		for(Order order: RetailSystem.getInstance().getOrders()){
 			if(order.isActive()==true) {
@@ -40,14 +35,11 @@ public class EditOrderGUI extends JFrame implements ActionListener {
 			}
 		}
 		
-		panel.add(orderList);
-		panel.add(editOrderButton);
-		
-		panel.add(returnToMainMenu);
+		this.add(labelTitleMain);
+		this.add(orderList);
+		this.add(editOrderButton);
 		
 		editOrderButton.addActionListener(this);
-		
-		returnToMainMenu.addActionListener(this);
 
 		setVisible(true);
 	}
@@ -64,7 +56,11 @@ public class EditOrderGUI extends JFrame implements ActionListener {
 				if(orderID.equalsIgnoreCase(order.getOrderID())){
 					orderFound = true;
 					orderToEdit = order;
-					OrderEditorGUI editThisOrder = new OrderEditorGUI();
+					
+					colorButton();
+					editOrderButton.setBackground(colorButtonSelected);
+					MenuGUI.getInstance().setPanelAction(new OrderEditorGUI());
+					
 					break;
 				}
 			}
@@ -74,17 +70,12 @@ public class EditOrderGUI extends JFrame implements ActionListener {
 			}
 		}
 		
-		if(target == returnToMainMenu) {
-			try {
-				OrderGUI returnToMainMenu = new OrderGUI();
-				this.setVisible(false);
-				this.dispose();
-			} catch(Exception e) {
-				System.err.println(e);
-				System.err.println(e.getMessage());
-				JOptionPane.showMessageDialog(this, "cannot reach OrderGUI");
-			}
-		}
+	}
+	
+	public void colorButton() {
+		
+		editOrderButton.setBackground(colorButtons);
+		editOrderButton.setFont(fontButtons);
 		
 	}
 
@@ -92,6 +83,7 @@ public class EditOrderGUI extends JFrame implements ActionListener {
 		return orderToEdit;
 	}
 
+	@SuppressWarnings("static-access")
 	public void setOrderToEdit(Order orderToEdit) {
 		this.orderToEdit = orderToEdit;
 	}
@@ -100,6 +92,7 @@ public class EditOrderGUI extends JFrame implements ActionListener {
 		return orderList;
 	}
 
+	@SuppressWarnings("static-access")
 	public void setOrderList(JComboBox<String> orderList) {
 		this.orderList = orderList;
 	}

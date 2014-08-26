@@ -5,48 +5,37 @@ import java.text.DateFormat;
 
 import javax.swing.*;
 
-public class ViewOrderGUI extends JFrame implements ActionListener {
-	private JPanel panel;
-	private Container container;
+@SuppressWarnings("serial")
+public class ViewOrderGUI extends JPanel implements ActionListener {
 	private JButton viewOrderButton;
 	private JLabel orderDetailsLabel ;
 	private JLabel printLabel;
 	private JComboBox<String> orderList;
-	
-	private JButton returnToMainMenu;
 	private JLabel counterLabel;
+	private JLabel labelTitleMain;
 
 	public ViewOrderGUI() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(600, 200);
-		setTitle("View All Orders");
 		
-		panel = new JPanel();
-		container = getContentPane();
-		container.add(panel);
-		panel.setLayout(new GridLayout(0,1));	
+		this.setLayout(new GridLayout(0, 1));
+		
+		labelTitleMain = new JLabel("View an Order");
+		labelTitleMain.setFont(new Font("Arial", Font.BOLD, 20));
 		
 		orderList = new JComboBox<String>();
 		viewOrderButton = new JButton("View Order Details");
 		orderDetailsLabel = new JLabel("Order Details");
 		printLabel = new JLabel();
 		
-		returnToMainMenu = new JButton("Main Menu");
-
-		panel.add(orderDetailsLabel,BorderLayout.NORTH);
-		panel.add(orderList);
-		panel.add(viewOrderButton);
-		panel.add(printLabel);
-		container.add(panel);
+		this.add(labelTitleMain);
+		this.add(orderDetailsLabel,BorderLayout.NORTH);
+		this.add(orderList);
+		this.add(viewOrderButton);
+		this.add(printLabel);
 		
 		counterLabel = new JLabel("Total Orders in System: " + RetailSystem.getInstance().getOrders().size());
-		panel.add(counterLabel, BorderLayout.SOUTH);
-		
-		panel.add(returnToMainMenu);
+		this.add(counterLabel, BorderLayout.SOUTH);
 		
 		viewOrderButton.addActionListener(this);
-		
-		returnToMainMenu.addActionListener(this);
 		
 		setVisible(true);
 		
@@ -89,17 +78,6 @@ public class ViewOrderGUI extends JFrame implements ActionListener {
 			}
 		}
 		
-		if(target == returnToMainMenu) {
-			try {
-				OrderGUI returnToMainMenu = new OrderGUI();
-				this.setVisible(false);
-				this.dispose();
-			} catch(Exception e) {
-				System.err.println(e);
-				System.err.println(e.getMessage());
-				JOptionPane.showMessageDialog(this, "cannot reach OrderGUI");
-			}
-		}
 	}
 	
 	public String calcOrderCost(double cost, int quantity) {

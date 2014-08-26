@@ -1,49 +1,48 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 
-public class OrderGUI extends JFrame implements ActionListener {
-	private JPanel panel;
-	private Container container;
-	private JButton createOrder;
-	private JButton editOrder;
-	private JButton viewOrder;
-	private JButton removeOrder;
-	private JButton returnToMainMenu;
+import javax.swing.*;
+
+@SuppressWarnings("serial")
+public class OrderGUI extends JPanel implements ActionListener {
+	
+	JLabel labelTitle;
+	JButton createOrder;
+	JButton editOrder;
+	JButton viewOrder;
+	JButton removeOrder;
+	JButton returnToMainMenu;
+	
+	private final static Font fontButtons = new Font("Arial", Font.BOLD, 12);
+	private final static Color colorButtons = new Color(126, 163, 249);
+	private final static Color colorButtonSelected = new Color(21, 82, 223);
 	
 	public OrderGUI() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(1000, 800);
-		setTitle("Order Menu");
-		setLocationRelativeTo(null);	//null sets the frame to centre
 		
-		panel = new JPanel();
-		container = getContentPane();
-		container.add(panel);
-		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setLayout(new GridLayout(4, 2));
+		this.setLayout(new GridLayout(0, 1));
+		
+		labelTitle = new JLabel("Order Menu");
+		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		
 		createOrder = new JButton("Create Order");
 		editOrder = new JButton("Edit Open Order");
 		viewOrder = new JButton("View All Orders");
 		removeOrder = new JButton("Remove Open Order");
-		returnToMainMenu = new JButton("Main Menu");
 		
-		panel.add(createOrder);
-		panel.add(editOrder);
-		panel.add(viewOrder);
-		panel.add(removeOrder);
-		panel.add(returnToMainMenu);
+		colorButton();
+		
+		this.add(labelTitle);
+		this.add(createOrder);
+		this.add(editOrder);
+		this.add(viewOrder);
+		this.add(removeOrder);
 		
 		createOrder.addActionListener(this);
 		editOrder.addActionListener(this);
 		viewOrder.addActionListener(this);
 		removeOrder.addActionListener(this);
-		returnToMainMenu.addActionListener(this);
 		
-		setVisible(true);
 	}
 	
 	public void actionPerformed(ActionEvent event) {
@@ -51,9 +50,11 @@ public class OrderGUI extends JFrame implements ActionListener {
 		
 		if(target == createOrder) {
 			try {
-				CreateOrderGUI createOrder = new CreateOrderGUI();
-				this.setVisible(false);
-				this.dispose();
+				
+				colorButton();
+				createOrder.setBackground(colorButtonSelected);
+				MenuGUI.getInstance().setPanelAction(new CreateOrderGUI());
+				
 			} catch(Exception e) {
 				System.err.println(e);
 				System.err.println(e.getMessage());
@@ -63,9 +64,11 @@ public class OrderGUI extends JFrame implements ActionListener {
 		
 		if(target == editOrder) {
 			try {
-				EditOrderGUI editOrder = new EditOrderGUI();
-				this.setVisible(false);
-				this.dispose();
+				
+				colorButton();
+				createOrder.setBackground(colorButtonSelected);
+				MenuGUI.getInstance().setPanelAction(new EditOrderGUI());
+
 			} catch(Exception e) {
 				System.err.println(e);
 				System.err.println(e.getMessage());
@@ -75,9 +78,11 @@ public class OrderGUI extends JFrame implements ActionListener {
 		
 		if(target == viewOrder) {
 			try {
-				ViewOrderGUI viewOrder = new ViewOrderGUI();
-				this.setVisible(false);
-				this.dispose();
+				
+				colorButton();
+				createOrder.setBackground(colorButtonSelected);
+				MenuGUI.getInstance().setPanelAction(new ViewOrderGUI());
+
 			} catch(Exception e) {
 				System.err.println(e);
 				System.err.println(e.getMessage());
@@ -87,9 +92,11 @@ public class OrderGUI extends JFrame implements ActionListener {
 		
 		if(target == removeOrder) {
 			try {
-				RemoveOrderGUI removeOrder = new RemoveOrderGUI();
-				this.setVisible(false);
-				this.dispose();
+				
+				colorButton();
+				createOrder.setBackground(colorButtonSelected);
+				MenuGUI.getInstance().setPanelAction(new RemoveOrderGUI());
+				
 			} catch(Exception e) {
 				System.err.println(e);
 				System.err.println(e.getMessage());
@@ -97,16 +104,19 @@ public class OrderGUI extends JFrame implements ActionListener {
 			}
 		}
 		
-		if(target == returnToMainMenu) {
-			try {
-				MenuGUI returnToMainMenu = new MenuGUI();
-				this.setVisible(false);
-				this.dispose();
-			} catch(Exception e) {
-				System.err.println(e);
-				System.err.println(e.getMessage());
-				JOptionPane.showMessageDialog(this, "cannot reach MenuGUI");
-			}
-		}
 	}
+	
+	public void colorButton() {
+		
+		createOrder.setBackground(colorButtons);
+		createOrder.setFont(fontButtons);
+		editOrder.setBackground(colorButtons);
+		editOrder.setFont(fontButtons);
+		viewOrder.setBackground(colorButtons);
+		viewOrder.setFont(fontButtons);
+		removeOrder.setBackground(colorButtons);
+		removeOrder.setFont(fontButtons);
+		
+	}
+	
 }

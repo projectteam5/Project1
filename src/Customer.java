@@ -23,19 +23,14 @@ public class Customer {
 	}
 
 	public Customer(String customerID, String name, String address,
-			String phoneNumber, boolean active2) {
+			String phoneNumber, boolean active) {
 		this.customerID = customerID;
 		this.name = name;
 		this.address = address;
 		this.phoneNumber = phoneNumber;
-		this.active = active2;
+		this.active = active;
 	}
 
-	public void display() {
-		System.out.println("Customer ID is " + customerID + ", Name is " + name
-				+ ", Address is " + address + ", Phone Number is "
-				+ phoneNumber);
-	}
 
 	public String getCustomerID() {
 		return customerID;
@@ -77,15 +72,14 @@ public class Customer {
 		this.active = active;
 	}
 
-	public static void customerListComplete(JComboBox dropdown) {
-		for (Customer customer : RetailSystem.getInstance().getCustomers()) {
-			if (customer.isActive()) {
-				String string = "ID: " + customer.getCustomerID() + " ; Name: "
-						+ customer.getName();
-				dropdown.addItem(string);
+	public static boolean existingCustomer(String id){
+		boolean customerOk = false;
+		for(Customer customer : RetailSystem.getInstance().getCustomers()){
+			if(customer.getCustomerID().equals(id)){
+				customerOk = true;
 			}
 		}
-
+		return customerOk;
 	}
 
 	public static Customer retrieveCustomer(String id) {
@@ -104,10 +98,21 @@ public class Customer {
 			customerFile = new FileWriter("customers.txt");
 			DataBase.writeCustomers(RetailSystem.getInstance().getCustomers(),
 					customerFile);
-			customerFile.close();// close the user file
+			customerFile.close();// close the customer file
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
+	}
+	
+	public static void customerListComplete(JComboBox dropdown) {
+		for (Customer customer : RetailSystem.getInstance().getCustomers()) {
+			if(customer.isActive()){
+				String string = "ID: " + customer.getCustomerID() + " ; Name: "
+						+ customer.getName(); 
+				dropdown.addItem(string);
+			}
+		}
+		
 	}
 
 }
