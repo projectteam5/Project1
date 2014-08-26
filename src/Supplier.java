@@ -8,15 +8,15 @@ public class Supplier {
 	private String phoneNumber;
 	private boolean active;
 
-	public Supplier(String suppplierID,String name,String phoneNumber) {
-		this.supplierID=suppplierID;
+	public Supplier(String name,String phoneNumber) {
+		this.supplierID="Supplier "+Supplier.getSupplierList().size()+1;
 		this.name=name;
 		this.phoneNumber=phoneNumber;
 		this.active=true;
 	}
 	
-	public Supplier(String suppplierID,String name,String phoneNumber,boolean active) {
-		this.supplierID=suppplierID;
+	public Supplier(String supplierID,String name,String phoneNumber,boolean active) {
+		this.supplierID=supplierID;
 		this.name=name;
 		this.phoneNumber=phoneNumber;
 		this.active=active;
@@ -32,7 +32,9 @@ public class Supplier {
 		RetailSystem.getInstance().getSuppliers().remove(supplier);
 	}
 	
+	
 	public static ArrayList<Supplier> getSupplierList(){
+		// Returns the active list of suppliers
 		ArrayList<Supplier> suppliers = new ArrayList<Supplier>();
 		for(Supplier sup:RetailSystem.getInstance().getSuppliers()){
 			if(sup.isActive()){
@@ -74,7 +76,7 @@ public class Supplier {
 		this.phoneNumber = phoneNumber;
 	}
 	
-	public static void saveUser(){
+	public static void saveSupplier(){
 	  	 try {
 	  		 FileWriter userFile;
 	  		 userFile = new FileWriter("suppliers.txt");

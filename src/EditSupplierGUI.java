@@ -1,4 +1,5 @@
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 
-public class EditSupplierGUI extends JFrame {
+public class EditSupplierGUI extends JPanel {
 	private JTextField supplierNameField;
 	private JTextField supplierNumberField;
 	
@@ -21,40 +22,40 @@ public class EditSupplierGUI extends JFrame {
 	private JComboBox<String> supplierDropDown = new JComboBox<String>();
 	private JButton buttonCommitEditProduct;
 	private JButton buttonMenu;
-	private JPanel panel;
-	private JLabel title = new JLabel("Please chose a supplier from the list below");
-	private JLabel supplierName = new JLabel("Name");
-	private JLabel supplierNumber = new JLabel("Number");
-	private JButton menuButton;
+	private JLabel title;
+	private JLabel instruction; 
+	private JLabel supplierName; 
+	private JLabel supplierNumber;
+	private JButton buttonEditSupplier;
 	private boolean productChosen = false;
 	private Supplier supplierAccess = null;
 
 	public EditSupplierGUI() {
-		setTitle("EDIT SUPPLIER");
-		setSize(RetailSystem.getInstance().getWidth(), RetailSystem.getInstance().getHeight());
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		
+		title= new JLabel("Edit Supplier");
+		title.setFont(new Font("Arial", Font.BOLD, 20));
+		instruction = new JLabel("Please choose a supplier from the list below");
+		supplierNumber = new JLabel("Number");
+		supplierName = new JLabel("Name");
 		supplierNameField= new JTextField();
 		supplierNumberField= new JTextField();
 		supplierName = new JLabel("Supplier Name");
 		supplierNumber = new JLabel("Supplier Number");
-		JButton buttonEditSupplier = new JButton("Confirm supplier to edit");
-		buttonMenu = new JButton("Supplier Menu");
+		buttonEditSupplier = new JButton("Confirm supplier to edit");
 		buttonCommitEditProduct = new JButton("Save Changes");
 		compileSupplierIDs();
-		JPanel panel = new JPanel();
-		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setLayout(new GridLayout(0,1));
-		panel.add(title);
-		panel.add(supplierDropDown);
-		panel.add(buttonEditSupplier);
-		panel.add(supplierName);
-		panel.add(supplierNameField);
-		panel.add(supplierNumber);
-		panel.add(supplierNumberField);
-		panel.add(buttonCommitEditProduct);
-		panel.add(buttonMenu);
-		Container cp = getContentPane();
-		cp.add(panel);
+
+		this.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.setLayout(new GridLayout(0,1));
+		this.add(title);
+		this.add(instruction);
+		this.add(supplierDropDown);
+		this.add(buttonEditSupplier);
+		this.add(supplierName);
+		this.add(supplierNameField);
+		this.add(supplierNumber);
+		this.add(supplierNumberField);
+		this.add(buttonCommitEditProduct);
 		setVisible(true);	
 		
 		buttonEditSupplier.addActionListener(new ActionListener() {		
@@ -78,14 +79,7 @@ public class EditSupplierGUI extends JFrame {
 				String name = supplierNameField.getText();
 				String number = supplierNumberField.getText();
 				validateAndUpdateSupplier(supplierToEdit,name,number);
-				supplierAccess.saveUser();
-			}
-		});
-		
-		buttonMenu.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent ago0){
-				SupplierMenuGUI supplierMenuGUI = new SupplierMenuGUI();
-				closeEditSupplierGUI();	
+				supplierAccess.saveSupplier();
 			}
 		});
 	
@@ -103,7 +97,7 @@ public class EditSupplierGUI extends JFrame {
 	
 	public Supplier findSupplier(String ID) {
 		Supplier supplierToEdit = null;
-		for(Supplier supplier: RetailSystem.getInstance().getSuppliers()){
+		for(Supplier supplier: supplierAccess.getSupplierList()){
 			if(ID.equalsIgnoreCase(supplier.getSupplierID())){
 				supplierToEdit = supplier;
 			}
@@ -112,7 +106,7 @@ public class EditSupplierGUI extends JFrame {
 	}
 	
 	public void compileSupplierIDs(){
-		for(Supplier supplier: RetailSystem.getInstance().getSuppliers()){
+		for(Supplier supplier: supplierAccess.getSupplierList()){
 			supplierDropDown.addItem(supplier.getSupplierID());
 		}
 	}
@@ -133,9 +127,5 @@ public class EditSupplierGUI extends JFrame {
 			}
 		}
 		return correct;
-	}
-	
-	public void closeEditSupplierGUI(){
-		this.setVisible(false);
 	}
 }

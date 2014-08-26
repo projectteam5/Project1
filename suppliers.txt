@@ -8,7 +8,12 @@ supplier2;Supplier2 Name;083775839;true
 0006;Asus;0866458732;true
 0007;Acer;0834567732;true
 0008;IBM;0876344353;true
-0009;test;087564222;true
+0009;test;087564222;false
 0010;Lenovo;0896745231;true
 supplier3;Cri;098764467;false
-nnn;nnn;nnn;true
+nnn;nnn;nnn;false
+45;34;56;false
+Supplier 121;test1;0896706;false
+Supplier 131;test2;08967068788;false
+Supplier 111;1;1;false
+Supplier 121;12;21;true
