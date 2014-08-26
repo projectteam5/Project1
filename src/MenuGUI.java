@@ -140,7 +140,7 @@ public class MenuGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				colorButton();
 				buttonViewOrder.setBackground(colorButtonSelected);
-				//setSubMenu(new ViewAllOrdersGUI());
+				setSubMenu(new ViewAllOrdersGUI());
 				setPanelAction(panelEmpty);
 
 			}
@@ -160,7 +160,7 @@ public class MenuGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				colorButton();
 				buttonOrder.setBackground(colorButtonSelected);
-				//setSubMenu(new OrderGUI());
+				setSubMenu(new OrderGUI());
 				setPanelAction(panelEmpty);
 
 			}

@@ -1,4 +1,4 @@
-import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,29 +8,26 @@ import java.text.ParseException;
 import java.util.Date;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
 
-public class CreateOrderGUI extends JFrame implements ActionListener {
+@SuppressWarnings("serial")
+public class CreateOrderGUI extends JPanel implements ActionListener {
 	
 	private JTextField idTextField;
 	private JTextField orderDateTextField;
-	private JComboBox<String> comboBoxList;
 	private JTextField quantityTextField;
 	private JTextField expectedDeliveryDateTextField;
-	
-	private JTextField dateReceivedTextField;
-	private JCheckBox receivedCheckBox;
-	
+	private JComboBox<String> comboBoxList;
+	private JLabel labelTitle;
+	private JLabel labelOrderDate;
+	private JLabel labelProductID;
+	private JLabel labelProductQuantity;
+	private JLabel labelExpectedDeliveryDate;
 	private JButton submitButton;
-	
-	private JButton returnToMainMenu;
 	
 	private String newOrderId;
 	private Date newOrderDate;
@@ -43,24 +40,19 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 	
 	public CreateOrderGUI() {
 		
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(400, 400);
-		setTitle("Create Order");
+		this.setLayout(new GridLayout(0, 1));
 		
-		JPanel panel = new JPanel();
-		Container container = getContentPane();
-		container.add(panel);
-		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setLayout(new GridLayout(0,1));
+		labelTitle = new JLabel("Create an Order");
+		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		
-		JLabel label1 = new JLabel("OrderID");
+		new JLabel("OrderID");
 		idTextField = new JTextField();
 		
-		JLabel label2 = new JLabel("Order Date");
+		labelOrderDate = new JLabel("Order Date");
 		orderDateTextField = new JTextField();
 		orderDateTextField.setText(DateFormat.getDateInstance().format(new Date()));
 		
-		JLabel label3 = new JLabel("Product ID");
+		labelProductID = new JLabel("Product ID");
 		comboBoxList = new JComboBox<String>();
 		comboBoxList.addItem("");
 		for(Product p : RetailSystem.getInstance().getProducts()) {
@@ -69,51 +61,29 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 			}
 		}
 		
-		JLabel label4 = new JLabel("Product Quantity");
+		labelProductQuantity = new JLabel("Product Quantity");
 		quantityTextField = new JTextField();
 		
-		JLabel label5 = new JLabel("Expected Delivery Date");
+		labelExpectedDeliveryDate = new JLabel("Expected Delivery Date");
 		expectedDeliveryDateTextField = new JTextField();
 		expectedDeliveryDateTextField.setText(DateFormat.getDateInstance().format(new Date()));
 		
-		
-		JLabel label6 = new JLabel("Actual Delivery Date");
-		dateReceivedTextField = new JTextField();
-		dateReceivedTextField.setText(DateFormat.getDateInstance().format(new Date()));
-		
-		JLabel label7 = new JLabel("Order Recieved?");
-		receivedCheckBox = new JCheckBox();
-		
 		submitButton = new JButton("Submit");
 		
-		returnToMainMenu = new JButton("Main Menu");
-		
-		
-		panel.add(label1);
-		panel.add(idTextField);
-		
-		panel.add(label2);
-		panel.add(orderDateTextField);
-		panel.add(label3);
-		panel.add(comboBoxList);
-		panel.add(label4);
-		panel.add(quantityTextField);
-		panel.add(label5);
-		panel.add(expectedDeliveryDateTextField);	
-		//hidden - moving to edit order gui
-		/*
-		panel.add(label6);
-		panel.add(dateReceivedTextField);
-		panel.add(label7);
-		panel.add(receivedCheckBox);
-		*/
-		panel.add(submitButton);
-		
-		panel.add(returnToMainMenu);
+		this.add(labelTitle);
+		//this.add(labelOrderID);
+		//this.add(idTextField);
+		this.add(labelOrderDate);
+		this.add(orderDateTextField);
+		this.add(labelProductID);
+		this.add(comboBoxList);
+		this.add(labelProductQuantity);
+		this.add(quantityTextField);
+		this.add(labelExpectedDeliveryDate);
+		this.add(expectedDeliveryDateTextField);
+		this.add(submitButton);
 		
 		submitButton.addActionListener(this);
-		
-		returnToMainMenu.addActionListener(this);
 		
 		this.setVisible(true);
 		
@@ -160,8 +130,6 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 			try {
 				newOrderDate = DateFormat.getDateInstance().parse(orderDateTextField.getText());
 				newExpectedDeliveryDate = DateFormat.getDateInstance().parse(expectedDeliveryDateTextField.getText());
-				//hidden - moved to edit order gui
-				//newReceivedDate = DateFormat.getDateInstance().parse(dateReceivedTextField.getText());
 			} catch (ParseException e) {
 				JOptionPane.showMessageDialog(this, "Date format must be in the form: dd-MMM-yyyy");
 				dataOK = false;
@@ -172,9 +140,6 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 				dataOK = false;
 			}
 			
-			//hidden - moved to edit order gui
-			//newReceived = receivedCheckBox.isSelected();
-			
 			if ((!duplicateOrderID) && (dataOK==true)){
 				try{
 					JOptionPane.showMessageDialog(this, "Order Added");
@@ -182,38 +147,15 @@ public class CreateOrderGUI extends JFrame implements ActionListener {
 					newReceivedDate = DateFormat.getDateInstance().parse(orderDateTextField.getText());
 					newReceived = false;
 					
-					Order newOrder = new Order(newOrderId, newOrderDate, newProduct, newQuantity, newExpectedDeliveryDate,
+					Order newOrder = new Order(newOrderDate, newProduct, newQuantity, newExpectedDeliveryDate,
 							newReceivedDate, newReceived);
 					RetailSystem.getInstance().getOrders().add(newOrder);
 					
 					saveOrder();
 					
-					int answer = JOptionPane.showConfirmDialog(this, "Would you like to create another Order?", "Continue", JOptionPane.YES_NO_OPTION);
-					
-					if (answer == JOptionPane.NO_OPTION) {
-						
-						OrderGUI orderGUI = new OrderGUI();
-						this.setVisible(false);
-						this.dispose();
-						
-				    }
-					
-					
-				}catch(NumberFormatException | ParseException e){
+				} catch(NumberFormatException | ParseException e) {
 					JOptionPane.showMessageDialog(this, "Error processing request");
 				}
-			}
-		}
-		
-		if(target == returnToMainMenu) {
-			try {
-				OrderGUI returnToMainMenu = new OrderGUI();
-				this.setVisible(false);
-				this.dispose();
-			} catch(Exception e) {
-				System.err.println(e);
-				System.err.println(e.getMessage());
-				JOptionPane.showMessageDialog(this, "cannot reach OrderGUI");
 			}
 		}
 		

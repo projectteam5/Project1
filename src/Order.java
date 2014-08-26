@@ -14,11 +14,11 @@ public class Order {
 	
 	private boolean active;
 	
-	public Order(String orderID, Date orderDate, 
+	public Order(Date orderDate, 
 			Product product, int quantity, 
 			Date expectedDeliveryDate) throws ParseException  {
-
-		this.orderID = orderID;
+		
+		this.orderID = "Order"+(RetailSystem.getInstance().getOrders().size()+1);
 		this.orderDate = orderDate;
 		this.product = product;
 		this.quantity = quantity;
@@ -26,11 +26,11 @@ public class Order {
 		
 	}
 	
-	public Order(String orderID, Date orderDate, 
+	public Order(Date orderDate, 
 			Product product, int quantity, 
 			Date expectedDeliveryDate, Date dateReceived, boolean received) throws ParseException  {
 
-		this.orderID = orderID;
+		this.orderID = "Order"+(RetailSystem.getInstance().getOrders().size()+1);
 		this.orderDate = orderDate;
 		this.product = product;
 		this.quantity = quantity;
@@ -38,6 +38,20 @@ public class Order {
 		this.dateReceived = dateReceived;
 		this.received = received;
 		this.active = true;
+	}
+	
+	public Order(Date orderDate, 
+			Product product, int quantity, 
+			Date expectedDeliveryDate, Date dateReceived, boolean received, boolean active) throws ParseException  {
+
+		this.orderID = "Order"+(RetailSystem.getInstance().getOrders().size()+1);
+		this.orderDate = orderDate;
+		this.product = product;
+		this.quantity = quantity;
+		this.expectedDeliveryDate = expectedDeliveryDate;
+		this.dateReceived = dateReceived;
+		this.received = received;
+		this.active = active;
 	}
 	
 	public Order(String orderID, Date orderDate, 

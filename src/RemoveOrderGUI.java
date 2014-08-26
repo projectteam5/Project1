@@ -1,4 +1,4 @@
-import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,35 +7,28 @@ import java.text.DateFormat;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class RemoveOrderGUI extends JFrame implements ActionListener {
-	private JPanel panel;
-	private Container container;
+@SuppressWarnings("serial")
+public class RemoveOrderGUI extends JPanel implements ActionListener {
+	
 	private JComboBox<String> orderList;
 	private JButton removeOrderButton;
 	private JLabel printLabel;
-	
-	private JButton returnToMainMenu;
+	private JLabel labelTitleMain;
 	
 	public RemoveOrderGUI() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(600, 200);
-		setTitle("Remove Open Order");
 		
-		panel = new JPanel();
-		container = getContentPane();
-		container.add(panel);
-		panel.setLayout(new GridLayout(0,1));	
+		this.setLayout(new GridLayout(0, 1));
+		
+		labelTitleMain = new JLabel("Remove an Order");
+		labelTitleMain.setFont(new Font("Arial", Font.BOLD, 20));
 		
 		orderList = new JComboBox<String>();
 		removeOrderButton = new JButton("Remove Order");
 		printLabel = new JLabel();
-		
-		returnToMainMenu = new JButton("Main Menu");
 		
 		for(Order order: RetailSystem.getInstance().getOrders()){
 			if(order.isActive()==true) {
@@ -45,15 +38,12 @@ public class RemoveOrderGUI extends JFrame implements ActionListener {
 			}
 		}
 		
-		panel.add(orderList);
-		panel.add(removeOrderButton);
-		panel.add(printLabel);
-		
-		panel.add(returnToMainMenu);
+		this.add(labelTitleMain);
+		this.add(orderList);
+		this.add(removeOrderButton);
+		this.add(printLabel);
 		
 		removeOrderButton.addActionListener(this);
-		
-		returnToMainMenu.addActionListener(this);
 
 		setVisible(true);
 	}
@@ -91,10 +81,6 @@ public class RemoveOrderGUI extends JFrame implements ActionListener {
 						JOptionPane.showMessageDialog(this, "Order "+order.getOrderID()+" has been set as inactive");
 						printLabel.setText("");
 						
-						OrderGUI orderGUI = new OrderGUI();
-						this.setVisible(false);
-						this.dispose();
-						
 				    }
 					
 					break;
@@ -103,18 +89,6 @@ public class RemoveOrderGUI extends JFrame implements ActionListener {
 			if(!orderFound){
 				
 				JOptionPane.showMessageDialog(this, "No Order With This ID in System!");
-			}
-		}
-		
-		if(target == returnToMainMenu) {
-			try {
-				OrderGUI returnToMainMenu = new OrderGUI();
-				this.setVisible(false);
-				this.dispose();
-			} catch(Exception e) {
-				System.err.println(e);
-				System.err.println(e.getMessage());
-				JOptionPane.showMessageDialog(this, "cannot reach OrderGUI");
 			}
 		}
 		
