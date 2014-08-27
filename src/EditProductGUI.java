@@ -91,11 +91,13 @@ public class EditProductGUI extends JPanel{
 				if(productChosen){
 					Supplier supplierPicked = null;
 					boolean correctInfo = true;
-					String name = null;
+					boolean duplicateProductName = false;
+					String productName = textFieldName.getText();
+					//String name = null;
 					double cost = 0;
 					double markup = 0;
 					try{
-						name = textFieldName.getText();
+						//name = textFieldName.getText();
 						cost = Double.parseDouble(textFieldCost.getText());
 						markup = Double.parseDouble(textFieldMarkup.getText());
 					}catch(NumberFormatException e){
@@ -110,8 +112,20 @@ public class EditProductGUI extends JPanel{
 						}
 					
 					}
-					if(correctInfo){
-						chosenEditProduct.setName(name);
+					
+					for(Product product: RetailSystem.getInstance().getProducts()){
+						if(product.getName().equalsIgnoreCase(productName)){
+							duplicateProductName = true;
+						
+						}
+					}
+					if(duplicateProductName == true){
+						JOptionPane.showMessageDialog(null, "Product in system with same name");
+
+					}
+					
+					if((correctInfo) && (!duplicateProductName)){
+						chosenEditProduct.setName(textFieldName.getText());
 						chosenEditProduct.setCost(cost);
 						chosenEditProduct.setMarkup(markup);
 						chosenEditProduct.setSupplier(supplierPicked);
@@ -155,6 +169,10 @@ public class EditProductGUI extends JPanel{
 				supplierDropDown.addItem(supplier.getName());
 			}
 		}
+	}
+	
+	public void checkIfDuplicateName(){
+		
 	}
 	
 	public void populateFields(){
