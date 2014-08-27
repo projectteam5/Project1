@@ -34,6 +34,7 @@ public class MenuGUI extends JFrame {
 	private JButton buttonViewOrder;
 	private JLabel menuLabel;
 	private JButton buttonViewGraph;
+	private JButton buttonSale;
 
 	private final static double percHeight1 = 0.80;
 	private final static double percHeight2 = 0.50;
@@ -74,7 +75,7 @@ public class MenuGUI extends JFrame {
 		buttonOrder = new JButton("Manage Orders");
 		buttonAvailability = new JButton("View Stock");
 		buttonViewOrder = new JButton("View Active Orders");
-		
+		buttonSale = new JButton("Sales");
 		buttonViewGraph = new JButton("Graphs");
 		
 		colorButton();
@@ -91,13 +92,14 @@ public class MenuGUI extends JFrame {
 			panelMenu.add(buttonAvailability);
 			panelMenu.add(buttonViewOrder);
 			panelMenu.add(buttonUser);
-			
+			panelMenu.add(buttonSale);
 			panelMenu.add(buttonViewGraph);
 			
 		} else {
 			panelMenu.add(buttonCustomer);
 			panelMenu.add(buttonAvailability);
 			panelMenu.add(buttonViewOrder);
+			panelMenu.add(buttonSale);
 		}
 		
 		container = frame.getContentPane();
@@ -169,6 +171,16 @@ public class MenuGUI extends JFrame {
 				buttonOrder.setBackground(colorButtonSelected);
 				setSubMenu(new OrderGUI());
 				setPanelAction(panelEmpty);
+
+			}
+		});
+		
+		buttonSale.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				colorButton();
+				buttonSale.setBackground(colorButtonSelected);
+				//setSubMenu(new SaleGUI());
+				setPanelAction(new SaleGUI());
 
 			}
 		});
@@ -248,6 +260,8 @@ public class MenuGUI extends JFrame {
 		buttonAvailability.setFont(fontButtons);
 		buttonViewOrder.setBackground(colorButtons);
 		buttonViewOrder.setFont(fontButtons);
+		buttonSale.setBackground(colorButtons);
+		buttonSale.setFont(fontButtons);
 		buttonViewGraph.setBackground(colorButtons);
 		buttonViewGraph.setFont(fontButtons);
 	}
