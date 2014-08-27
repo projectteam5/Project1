@@ -60,6 +60,10 @@ public class LineItemTable extends AbstractTableModel {
 		}
 		return false;
 	}
+	//and the rest
+    public Class getColumnClass(int col){
+            return this.getValueAt(0,col).getClass();
+    }
 	
 
 }
