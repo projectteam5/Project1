@@ -147,7 +147,7 @@ public class MenuGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				colorButton();
 				buttonViewOrder.setBackground(colorButtonSelected);
-				setSubMenu(new ViewAllOrdersGUI());
+				setSubMenu(new ViewAllOrdersSubMenu());
 				setPanelAction(panelEmpty);
 
 			}
