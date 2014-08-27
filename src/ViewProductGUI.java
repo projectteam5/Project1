@@ -17,7 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 public class ViewProductGUI extends JPanel{
 	private JComboBox<String> productDropDown = new JComboBox<String>();
-	private JButton buttonMenu;
+	//private JButton buttonMenu;
 	private JLabel label;
 	private JLabel label1;
 	private JButton buttonViewProduct;
@@ -32,7 +32,7 @@ public class ViewProductGUI extends JPanel{
 		compileProductNames();
 		
 		buttonViewProduct = new JButton("View Product Details");
-		buttonMenu = new JButton("Menu");
+		//buttonMenu = new JButton("Menu");
 		label = new JLabel();
 		label1 = new JLabel();
 
@@ -58,20 +58,20 @@ public class ViewProductGUI extends JPanel{
 			}
 		});
 		
-		buttonMenu.addActionListener(new ActionListener(){
+/*		buttonMenu.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent ago0){
 				ProductMenuGUI productMenuGUI = new ProductMenuGUI();
 				closeViewProductGUI();	
 			}
 		});
-		
+		*/
 		//panel.add(title,BorderLayout.NORTH);
 		this.add(productDropDown);
 		this.add(buttonViewProduct);
 		this.add(label);
 		this.add(label1);
 		//container.add(panel);
-		this.add(buttonMenu);
+		//this.add(buttonMenu);
 		this.setVisible(true);
 		
 	}

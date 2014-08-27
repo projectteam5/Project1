@@ -15,7 +15,7 @@ import javax.swing.border.EmptyBorder;
 
 public class RemoveProductGUI extends JPanel{
 	private JComboBox<String> productDropDown = new JComboBox<String>();
-	private JButton buttonMenu;
+	//private JButton buttonMenu;
 	private JPanel panel;
 	private JButton buttonDeleteProduct; 
 
@@ -31,11 +31,11 @@ public class RemoveProductGUI extends JPanel{
 		compileProductNames();
 		
 		buttonDeleteProduct = new JButton("Delete");
-		buttonMenu = new JButton("Menu");
+		//buttonMenu = new JButton("Menu");
 		
 		this.add(productDropDown);
 		this.add(buttonDeleteProduct);
-		this.add(buttonMenu);
+		//this.add(buttonMenu);
 		this.setVisible(true);
 		
 		//When a user presses the delete button, the system will check which product they are trying to delete
@@ -59,12 +59,12 @@ public class RemoveProductGUI extends JPanel{
 			}
 		});
 		
-		buttonMenu.addActionListener(new ActionListener(){
+/*		buttonMenu.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent ago0){
 				ProductMenuGUI productMenuGUI = new ProductMenuGUI();
 				closeRemoveProductGUI();	
 			}
-		});
+		});*/
 	}
 	
 
@@ -72,13 +72,13 @@ public class RemoveProductGUI extends JPanel{
 	public void repopulateComboBox(){
 		this.remove(productDropDown);
 		this.remove(buttonDeleteProduct);
-		this.remove(buttonMenu);
+		//this.remove(buttonMenu);
 		compileProductNames();
 		productDropDown = new JComboBox();
 		compileProductNames();
 		this.add(productDropDown);
 		this.add(buttonDeleteProduct);
-		this.add(buttonMenu);
+		//this.add(buttonMenu);
 		revalidate();
 		repaint();
 	}

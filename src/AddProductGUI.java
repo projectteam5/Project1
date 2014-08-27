@@ -26,7 +26,7 @@ public class AddProductGUI extends JPanel{
 	private double cost;
 	private double markup;
 	private Supplier supplierPicked;
-	private JButton buttonMenu;
+	//private JButton buttonMenu;
 	
 	private JLabel label1;
 	private JLabel label2;
@@ -59,7 +59,7 @@ public class AddProductGUI extends JPanel{
 		compileSupplierNames();
 		JLabel label5 = new JLabel("Product Supplier ID");
 		JButton submitButton = new JButton("Submit");
-		buttonMenu = new JButton("Menu");
+		//buttonMenu = new JButton("Menu");
 		
 		
 		this.add(label1);
@@ -73,7 +73,7 @@ public class AddProductGUI extends JPanel{
 		this.add(label5);
 		this.add(supplierDropDown);	
 		this.add(submitButton);
-		this.add(buttonMenu);
+		//this.add(buttonMenu);
 		this.setVisible(true);
 		
 		
@@ -145,12 +145,12 @@ public class AddProductGUI extends JPanel{
 		}
 	});
 		
-		buttonMenu.addActionListener(new ActionListener(){
+/*		buttonMenu.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent ago0){
 				ProductMenuGUI productMenuGUI = new ProductMenuGUI();
 				closeAddProductGUI();	
 			}
-		});
+		});*/
 	}
 		
 	
