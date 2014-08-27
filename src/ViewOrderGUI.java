@@ -8,12 +8,19 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class ViewOrderGUI extends JPanel implements ActionListener {
 	private JButton viewOrderButton;
-	private JLabel orderDetailsLabel ;
-	private JLabel printLabel;
 	private JComboBox<String> orderList;
 	private JLabel counterLabel;
 	private JLabel labelTitleMain;
-
+	
+	private JLabel orderID;
+	private JLabel orderDate;
+	private JLabel product;
+	private JLabel quantity;
+	private JLabel deliveryDate;
+	private JLabel receivedDate;
+	private JLabel isReceived;
+	private JLabel orderCost;
+	
 	public ViewOrderGUI() {
 		
 		this.setLayout(new GridLayout(0, 1));
@@ -22,15 +29,30 @@ public class ViewOrderGUI extends JPanel implements ActionListener {
 		labelTitleMain.setFont(new Font("Arial", Font.BOLD, 20));
 		
 		orderList = new JComboBox<String>();
+		
 		viewOrderButton = new JButton("View Order Details");
-		orderDetailsLabel = new JLabel("Order Details");
-		printLabel = new JLabel();
+		
+		orderID = new JLabel();
+		orderDate = new JLabel();
+		product = new JLabel();
+		quantity = new JLabel();
+		deliveryDate = new JLabel();
+		receivedDate = new JLabel();
+		isReceived = new JLabel();
+		orderCost = new JLabel();
 		
 		this.add(labelTitleMain);
-		this.add(orderDetailsLabel,BorderLayout.NORTH);
 		this.add(orderList);
 		this.add(viewOrderButton);
-		this.add(printLabel);
+		
+		this.add(orderID);
+		this.add(orderDate);
+		this.add(product);
+		this.add(quantity);
+		this.add(deliveryDate);
+		this.add(receivedDate);
+		this.add(isReceived);
+		this.add(orderCost);
 		
 		counterLabel = new JLabel("Total Orders in System: " + RetailSystem.getInstance().getOrders().size());
 		this.add(counterLabel, BorderLayout.SOUTH);
@@ -57,18 +79,18 @@ public class ViewOrderGUI extends JPanel implements ActionListener {
 				if(orderID.equalsIgnoreCase(order.getOrderID())){
 
 					orderFound = true;
-
-					printLabel.setText(order.getOrderID()
-							+" | "+DateFormat.getDateInstance().format(order.getOrderDate())
-							+" | "+order.getProduct().getProductID()
-							+" | "+order.getQuantity()
-							+" | "+DateFormat.getDateInstance().format(order.getExpectedDeliveryDate())
-							+" | "+DateFormat.getDateInstance().format(order.getDateReceived())
-							+" | "+order.isReceived()
-							+" | "+calcOrderCost(order.getProduct().getCost(), order.getQuantity())
-							+" | "+order.isActive());
-
+					
+					this.orderID.setText("Order ID: " + order.getOrderID());
+					this.orderDate.setText("Order Date: "+DateFormat.getDateInstance().format(order.getOrderDate()));
+					this.product.setText("Product Name: " + order.getProduct().getName());
+					this.quantity.setText("Quantity: "+ order.getQuantity());
+					this.deliveryDate.setText("Expected Delivery Date: "+ DateFormat.getDateInstance().format(order.getExpectedDeliveryDate()));
+					this.receivedDate.setText("Date Received: "+ DateFormat.getDateInstance().format(order.getDateReceived()));
+					this.isReceived.setText("Is Received?: "+ order.isReceived());
+					this.orderCost.setText("Order Cost: "+ calcOrderCost(order.getProduct().getCost(), order.getQuantity()));
+					
 					break;
+					
 				}
 			}
 			

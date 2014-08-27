@@ -238,8 +238,7 @@ public class DataBase {
 					Invoice invoice = new Invoice(invoiceID, date, customer, totalInvoice, paid, active);
 					if(parts[7]!= null && !parts[7].equals("")){
 						Sale sale = new Sale(DateFormat.getDateInstance().parse(parts[7]));
-						int i;
-						for (i = 8; i <= (quantityOfLineItems * 2) + 7; i = i + 2) {
+						for (int i=8; i <= (quantityOfLineItems * 2) + 7; i = i + 2) {
 						if (parts[i] != null && parts[i + 1] != null
 								&& !parts[i].equals("")
 								&& !parts[i + 1].equals("")) {
@@ -255,13 +254,13 @@ public class DataBase {
 										.println("Skipping invoice with not valid  product at line "
 												+ count);
 							}
-							i = i + 2;
 						} else {
 							System.err.println("Error" + count);
 							}
 
 						}
 						invoice.setSale(sale);
+						RetailSystem.getInstance().getSales().add(sale);
 					}
 					invoices.add(invoice);
 				} else {

@@ -12,7 +12,6 @@ public class OrderGUI extends JPanel implements ActionListener {
 	JButton editOrder;
 	JButton viewOrder;
 	JButton removeOrder;
-	JButton returnToMainMenu;
 	
 	private final static Font fontButtons = new Font("Arial", Font.BOLD, 12);
 	private final static Color colorButtons = new Color(126, 163, 249);
@@ -25,10 +24,10 @@ public class OrderGUI extends JPanel implements ActionListener {
 		labelTitle = new JLabel("Order Menu");
 		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		
-		createOrder = new JButton("Create Order");
-		editOrder = new JButton("Edit Open Order");
-		viewOrder = new JButton("View All Orders");
-		removeOrder = new JButton("Remove Open Order");
+		createOrder = new JButton("Create an Order");
+		editOrder = new JButton("Edit an Order");
+		viewOrder = new JButton("View an Order");
+		removeOrder = new JButton("Remove an Order");
 		
 		colorButton();
 		
@@ -51,9 +50,10 @@ public class OrderGUI extends JPanel implements ActionListener {
 		if(target == createOrder) {
 			try {
 				
+				MenuGUI.getInstance().setPanelAction(new CreateOrderGUI());
 				colorButton();
 				createOrder.setBackground(colorButtonSelected);
-				MenuGUI.getInstance().setPanelAction(new CreateOrderGUI());
+				
 				
 			} catch(Exception e) {
 				System.err.println(e);
@@ -66,7 +66,7 @@ public class OrderGUI extends JPanel implements ActionListener {
 			try {
 				
 				colorButton();
-				createOrder.setBackground(colorButtonSelected);
+				editOrder.setBackground(colorButtonSelected);
 				MenuGUI.getInstance().setPanelAction(new EditOrderGUI());
 
 			} catch(Exception e) {
@@ -80,7 +80,7 @@ public class OrderGUI extends JPanel implements ActionListener {
 			try {
 				
 				colorButton();
-				createOrder.setBackground(colorButtonSelected);
+				viewOrder.setBackground(colorButtonSelected);
 				MenuGUI.getInstance().setPanelAction(new ViewOrderGUI());
 
 			} catch(Exception e) {
@@ -94,7 +94,7 @@ public class OrderGUI extends JPanel implements ActionListener {
 			try {
 				
 				colorButton();
-				createOrder.setBackground(colorButtonSelected);
+				removeOrder.setBackground(colorButtonSelected);
 				MenuGUI.getInstance().setPanelAction(new RemoveOrderGUI());
 				
 			} catch(Exception e) {
