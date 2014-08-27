@@ -7,7 +7,7 @@ public class Invoice {
 	private String invoiceID;
 	private Date date;
 	private Customer customer;
-	private ArrayList<ProductInvoice> productsInvoice;
+	private ArrayList<LineItem> productsInvoice;
 	private boolean completed;
 
 	public Invoice(String invoiceID, Date date, Customer customer,boolean completed) {
@@ -15,7 +15,7 @@ public class Invoice {
 		this.date = date;
 		this.customer = customer;
 		this.completed = completed;
-		this.productsInvoice = new ArrayList<ProductInvoice>();
+		this.productsInvoice = new ArrayList<LineItem>();
 	}
 	
 	public Invoice(String invoiceID, Date date, Customer customer){
@@ -23,12 +23,12 @@ public class Invoice {
 		this.date = date;
 		this.customer = customer;
 		this.completed = true;
-		this.productsInvoice = new ArrayList<ProductInvoice>();
+		this.productsInvoice = new ArrayList<LineItem>();
 	}
 	
 	public void addProductsInvoice(Product product, int quantity){
-		ProductInvoice productInvoice = new ProductInvoice(product, quantity);
-		productsInvoice.add(productInvoice);
+		LineItem lineItem = new LineItem(product, quantity);
+		productsInvoice.add(lineItem);
 	}
 
 	public String getInvoiceID() {
@@ -55,11 +55,11 @@ public class Invoice {
 		this.customer = customer;
 	}
 
-	public ArrayList<ProductInvoice> getProductsInvoice() {
+	public ArrayList<LineItem> getProductsInvoice() {
 		return productsInvoice;
 	}
 
-	public void setProductsInvoice(ArrayList<ProductInvoice> productsInvoice) {
+	public void setProductsInvoice(ArrayList<LineItem> productsInvoice) {
 		this.productsInvoice = productsInvoice;
 	}
 
