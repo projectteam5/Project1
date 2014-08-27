@@ -1,11 +1,10 @@
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -34,15 +33,19 @@ public class SaleGUI extends JPanel {
 	
 
 	public SaleGUI() {
-		this.setLayout(new GridLayout(0,1));
+		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		compileProductNames();
 		quantityField.setText("0");
 		productLabel = new JLabel("Please choose products from the list below");
+		productLabel.setAlignmentX(CENTER_ALIGNMENT);
 		quantityLabel = new JLabel("Please enter an amount");
+		quantityLabel.setAlignmentX(CENTER_ALIGNMENT);
 		buttonAddProduct = new JButton("Add Product");
+		buttonAddProduct.setAlignmentX(CENTER_ALIGNMENT);
 		buttonRefreshList = new JButton("Refresh List");
+		buttonRefreshList.setAlignmentX(CENTER_ALIGNMENT);
 		
-		scrollPaneLineItems = new JScrollPane(table);
+		//scrollPaneLineItems = new JScrollPane(table);
 		this.add(productLabel);
 		this.add(productDropDown);
 		this.add(quantityLabel);
@@ -52,6 +55,7 @@ public class SaleGUI extends JPanel {
 		vet = new Vector<LineItem>();
 		TableModel dataModel = new LineItemTable(vet); 
 		table = new JTable(dataModel);
+		//table.setSize(200, 70);
 		scrollPaneLineItems = new JScrollPane(table);
 		this.add(scrollPaneLineItems);
 		this.add(buttonRefreshList);
