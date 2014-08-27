@@ -24,12 +24,12 @@ public class LineItemTable extends AbstractTableModel {
 	public int getRowCount() {
 		return vet.size();
 	}
+	
 
 	// return the value of each cell
-	public String getValueAt(int row, int col) {
+	public Object getValueAt(int row, int col) {
 		LineItem lineItem = (LineItem) vet.elementAt(row);
-		String val = null;
-		boolean tick = false;
+		Object val = null;
 		// it returns the value for each column
 		switch (col) {
 		case 0:
@@ -42,9 +42,8 @@ public class LineItemTable extends AbstractTableModel {
 			val = String.valueOf(lineItem.getTotalCost());
 			break;
 		case 3:
-			tick = lineItem.isRemoved();
-		default:
-			val = "";
+			val = lineItem.isRemoved();
+			break;
 		}
 		return val;
 	}
