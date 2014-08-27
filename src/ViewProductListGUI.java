@@ -20,10 +20,10 @@ import javax.swing.table.TableModel;
 
 public class ViewProductListGUI extends JPanel{
 	private JLabel title;
-	private JPanel showSupplierPanel;
-	private JScrollPane scrollPaneSuppliers;
-	private Vector<Supplier> vect;
-	private Vector<Supplier> vect2;
+	private JPanel showProductPanel;
+	private JScrollPane scrollPaneProducts;
+	private Vector<Product> vet;
+	private Vector<Product> vet2;
 	private JTable table;
 	
 
@@ -41,11 +41,11 @@ public class ViewProductListGUI extends JPanel{
 		title = new JLabel("Product List. Amount of products: "+RetailSystem.getInstance().getProducts().size());
 		title.setFont(new Font("Arial", Font.BOLD, 20));
 		this.setLayout(new GridLayout(0,1));
-		vect = new Vector<Supplier>(RetailSystem.getInstance().getSuppliers());
-		TableModel dataModel = new SupplierTable(vect); 
+		vet = new Vector<Product>(RetailSystem.getInstance().getProducts());
+		TableModel dataModel = new ProductTable(vet); 
 		table = new JTable(dataModel);
-		scrollPaneSuppliers = new JScrollPane(table);
-		this.add(scrollPaneSuppliers);
+		scrollPaneProducts = new JScrollPane(table);
+		this.add(scrollPaneProducts);
 /*		JScrollPane scrollPaneProducts = new JScrollPane();
 		JLabel title = new JLabel("Product List. Amount of products: "+RetailSystem.getInstance().getProducts().size());
 		buttonMenu = new JButton("Menu");
