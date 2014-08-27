@@ -130,7 +130,7 @@ public class AddProductGUI extends JPanel{
 			
 			
 			//If product is not already in system, add to system
-			if ((!duplicateProductID) && (correctInfo==true)){
+			if ((!duplicateProductID) && (correctInfo==true) && (!duplicateProductName)){
 				try{
 					JOptionPane.showMessageDialog(null, "Adding product");
 					Product product = new Product(productID, name, cost, markup, supplierPicked);
