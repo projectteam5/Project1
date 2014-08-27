@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 
-public class AvailableStockLevelsGUI extends JFrame {
+public class AvailableStockLevelsGUI extends JPanel {
 	private Container contentPane;
 	private JPanel panel;
 
@@ -22,11 +22,7 @@ public class AvailableStockLevelsGUI extends JFrame {
 		//the frames attributes
 		this.setSize(600,400);
 		//this.setResizable(false);
-		this.setTitle("Available Stock Levels");
-		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setLayout(new BorderLayout());
-		
-		contentPane= getContentPane();
 		panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		
@@ -54,18 +50,8 @@ public class AvailableStockLevelsGUI extends JFrame {
 		}
 		scrollPane.setViewportView(centralPanel);// puts the scroll pane on the central panel with the data
 		
-		
-		
-		JButton ok = new JButton("Ok");
-		ok.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				new StockGUI();
-				dispose();// gets rid of just this GUI
-			}
-		});
 		panel.add(scrollPane,BorderLayout.CENTER);// puts the scrollpane which now contains the central panel into the center
-		panel.add(ok,BorderLayout.SOUTH);// button on bottom
-		contentPane.add(panel);
+		this.add(panel);
 		
 		this.setVisible(true);
 	}

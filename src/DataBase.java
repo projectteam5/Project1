@@ -225,37 +225,31 @@ public class DataBase {
 		while ((line = bufReader.readLine()) != null) {
 			String[] parts = line.split(";");
 			count++;
-			if (parts.length >= 5) {
+			if (parts.length >= 7) {
 				String invoiceID = parts[0];
-				Date date = DateFormat.getDateInstance().parse(parts[1]);// transform
-																			// as
-																			// int
+				Date date = DateFormat.getDateInstance().parse(parts[1]);
 				String customerID = parts[2];
-				boolean completed = Boolean.parseBoolean(parts[3]);
-				int quantityOfProductInvoice = Integer.parseInt(parts[4]);
-				Customer customer = null;
-				// before to construct the object order it is necessary retrieve
-				// the object product
-				for (Customer customer_1 : RetailSystem.getInstance()
-						.getCustomers()) {
-					if (customer_1.getCustomerID().equals(customerID)) {
-						customer = customer_1;
-						break; // I need to exit the for
-					}
-				}
+				double totalInvoice = Double.parseDouble(parts[3]);
+				boolean paid = Boolean.parseBoolean(parts[4]);
+				boolean active = Boolean.parseBoolean(parts[5]);
+				int quantityOfLineItems = Integer.parseInt(parts[6]);
+				Customer customer = findCustomerWithID(customerID);
 				if (customer != null) {
-					Invoice invoice = new Invoice(invoiceID, date, customer,
-							completed);
-					int i;
-					for (i = 5; i <= (quantityOfProductInvoice * 2) + 4; i = i + 2) {
+					Invoice invoice = new Invoice(invoiceID, date, customer, totalInvoice, paid, active);
+					if(parts[7]!= null && !parts[7].equals("")){
+						Sale sale = new Sale(DateFormat.getDateInstance().parse(parts[7]));
+						int i;
+						for (i = 8; i <= (quantityOfLineItems * 2) + 7; i = i + 2) {
 						if (parts[i] != null && parts[i + 1] != null
 								&& !parts[i].equals("")
 								&& !parts[i + 1].equals("")) {
+							
 							String productID = parts[i];
 							int quantity = Integer.parseInt(parts[i + 1]);
 							Product product = findProductWithID(productID);
 							if (product != null) {
-								invoice.addProductsInvoice(product, quantity);
+								LineItem lineItem = new LineItem(product, quantity);
+								sale.addLineItem(lineItem);
 							} else {
 								System.err
 										.println("Skipping invoice with not valid  product at line "
@@ -264,8 +258,10 @@ public class DataBase {
 							i = i + 2;
 						} else {
 							System.err.println("Error" + count);
-						}
+							}
 
+						}
+						invoice.setSale(sale);
 					}
 					invoices.add(invoice);
 				} else {
@@ -382,27 +378,27 @@ public class DataBase {
 		BufferedWriter out = new BufferedWriter(writer);
 		for (Invoice invoice : invoices) {
 			String string = "";
-			for (int i = 0; i < invoice.getProductsInvoice().size(); i++) {
-				if (i < invoice.getProductsInvoice().size()-1) {
+			for (int i = 0; i < invoice.getSale().getLineItems().size(); i++) {
+				if (i < invoice.getSale().getLineItems().size() - 1) {
 					string = string
-							+ invoice.getProductsInvoice().get(i).getProduct()
+							+ invoice.getSale().getLineItems().get(i).getProduct()
 									.getProductID() + ";"
-							+ invoice.getProductsInvoice().get(i).getQuantity()
+							+ invoice.getSale().getLineItems().get(i).getQuantity()
 							+ ";";
-				}
-				else{
+				} else {
 					string = string
-							+ invoice.getProductsInvoice().get(i).getProduct()
+							+ invoice.getSale().getLineItems().get(i).getProduct()
 									.getProductID() + ";"
-							+ invoice.getProductsInvoice().get(i).getQuantity();
+							+ invoice.getSale().getLineItems().get(i).getQuantity();
 				}
 			}
 			out.write(invoice.getInvoiceID() + ";"
-					+ DateFormat.getDateInstance().format(invoice.getDate())
+					+ DateFormat.getDateInstance().format(invoice.getInvoiceDate())
 					+ ";" + invoice.getCustomer().getCustomerID() + ";"
-					+ invoice.isCompleted() + ";"
-					+ invoice.getProductsInvoice().size() + ";"
-					+ string);
+					+ invoice.getTotalInvoice() + ";"
+					+ invoice.isPaid()+ ";"+ invoice.isActive()+ ";"
+					+ invoice.getSale().getLineItems().size() + ";" 
+					+ DateFormat.getDateInstance().format(invoice.getSale().getSaleDate()) + ";"+ string);
 			out.newLine();
 		}
 		out.close();
@@ -433,6 +429,19 @@ public class DataBase {
 			}
 		}
 		return supplier;
+	}
+
+	public static Customer findCustomerWithID(String id) {
+		Customer customer = null;
+		// before to construct the object order it is necessary retrieve
+		// the object product
+		for (Customer customer_1 : RetailSystem.getInstance().getCustomers()) {
+			if (customer_1.getCustomerID().equals(id)) {
+				customer = customer_1;
+				break; // I need to exit the for
+			}
+		}
+		return customer;
 	}
 
 }

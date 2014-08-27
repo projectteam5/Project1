@@ -5,4 +5,7 @@ Cusotmer4;Sean Seaneeson;5 there dkdknfinb;9884849;false
 Customer5;Heinrich Johnstom;56 taney grove;45566;true
 Customer6;;;;false
 Customer7;rtyy;erryy;weert;true
-Customer8;try;rety;67778;true
+Customer8;try;rety;67778;false
+Customer9;test custumer;ijijijij;790889;true
+Customer10;test custumer;ijijijij;790889;true
+Customer11;test custumer3;ijijijij;790889;false
