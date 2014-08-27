@@ -30,8 +30,13 @@ public class SaleGUI extends JPanel {
 	private JPanel showLineItemsPanel;
 	private JScrollPane scrollPaneLineItems;
 	private JButton buttonRefreshList;
-	
-	
+	private JButton buttonConfirmSale;
+	private Sale sale;
+	private JLabel runningTotalLabel = new JLabel("Running Total:");
+	private JTextField runningTotalField = new JTextField("");
+	private double runningTotal;
+	private double runningCost;
+	private double deductionCost;
 
 	public SaleGUI() {
 		this.setLayout(new GridLayout(0,1));
@@ -41,6 +46,7 @@ public class SaleGUI extends JPanel {
 		quantityLabel = new JLabel("Please enter an amount");
 		buttonAddProduct = new JButton("Add Product");
 		buttonRefreshList = new JButton("Refresh List");
+		buttonConfirmSale = new JButton("Confirm Sale");
 		
 		scrollPaneLineItems = new JScrollPane(table);
 		this.add(productLabel);
@@ -54,10 +60,13 @@ public class SaleGUI extends JPanel {
 		table = new JTable(dataModel);
 		scrollPaneLineItems = new JScrollPane(table);
 		this.add(scrollPaneLineItems);
+		this.add(runningTotalLabel);
+		this.add(runningTotalField);
 		this.add(buttonRefreshList);
+		this.add(buttonConfirmSale);
 		
 		
-		
+		//Add running total
 		buttonAddProduct.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String name = productDropDown.getSelectedItem().toString();
@@ -69,10 +78,10 @@ public class SaleGUI extends JPanel {
 					if(name.equalsIgnoreCase(product.getName())){
 						//Add lineItem to array of lineItems
 						Product addingProduct = product;
-						Sale sale = new Sale();
 						LineItem lineItem = new LineItem(product, amount);
-						sale.addLineItem(lineItem);
 						vet.add(lineItem);
+						runningCost = lineItem.getTotalCost();
+						runningTotalCalc();
 						repopulate();
 						
 					}
@@ -81,6 +90,33 @@ public class SaleGUI extends JPanel {
 
 			}
 			
+		});
+		
+		buttonRefreshList.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				for(LineItem lineItem: vet){
+					if(lineItem.isRemoved()){
+						vet.remove(lineItem);
+						deductionCost = lineItem.getTotalCost();
+						removalCostCalc();
+						repopulate();
+					}
+				}
+			}
+		});
+		
+		buttonConfirmSale.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0){
+				boolean valid = false;
+				sale = new Sale();
+				int i = 0;
+				for(LineItem lineItem: vet){
+					sale.addLineItem(lineItem);
+					System.out.println("LineItem: "+sale.getLineItems().get(i).getProduct().getName());
+				}
+				//Create invoice
+				//Invoice invoice = new Invoice("HJKD789", sale.getSaleDate(), Customer customer, )
+			}
 		});
 		
 		
@@ -93,7 +129,10 @@ public class SaleGUI extends JPanel {
 		this.remove(quantityField);
 		this.remove(buttonAddProduct);
 		this.remove(scrollPaneLineItems);
+		this.remove(runningTotalLabel);
+		this.remove(runningTotalField);
 		this.remove(buttonRefreshList);
+		this.remove(buttonConfirmSale);
 		
 		this.add(productLabel);
 		this.add(productDropDown);
@@ -101,14 +140,26 @@ public class SaleGUI extends JPanel {
 		this.add(quantityField);
 		this.add(buttonAddProduct);
 		this.add(scrollPaneLineItems);
+		this.add(runningTotalLabel);
+		this.add(runningTotalField);
 		this.add(buttonRefreshList);
+		this.add(buttonConfirmSale);
 		revalidate();
 		repaint();
 		
 	}
 	
-
+	public void runningTotalCalc(){
+		runningTotal = runningTotal + runningCost;
+		runningTotalField.setText(String.valueOf(runningTotal));
+		
+	}
 	
+	public void removalCostCalc(){
+		runningTotal = runningTotal - deductionCost;
+		runningTotalField.setText(String.valueOf(runningTotal));
+	}
+
 	public void compileProductNames(){
 		for(Product product: RetailSystem.getInstance().getProducts()){
 			if(product.isActive()){
