@@ -126,8 +126,7 @@ public class EditProductGUI extends JPanel{
 					}
 
 
-					
-					if((correctInfo) && (!duplicateProductName)){
+					if((correctInfo) && (!duplicateProductName) &&(!textFieldName.equals(null))&& (cost!=0) && (markup!=0)){
 						chosenEditProduct.setName(textFieldName.getText());
 						chosenEditProduct.setCost(cost);
 						chosenEditProduct.setMarkup(markup);
@@ -135,6 +134,8 @@ public class EditProductGUI extends JPanel{
 						JOptionPane.showMessageDialog(null, "Product has been edited");
 						saveProduct();
 						
+					}else{
+						JOptionPane.showMessageDialog(null, "Please fill out all fields");
 					}
 				}else{
 					JOptionPane.showMessageDialog(null, "You cannot edit without chosing a product");
