@@ -82,8 +82,10 @@ public class AddProductGUI extends JPanel{
 			public void actionPerformed(ActionEvent argo0){
 				
 			boolean duplicateProductID = false;
+			boolean duplicateProductName = false;
 			boolean correctInfo = true;
 			String productID = textFieldProductID.getText();
+			String productName = textFieldName.getText();
 			String name = textFieldName.getText();
 			try{
 			cost = Double.parseDouble(textFieldCost.getText());
@@ -111,6 +113,18 @@ public class AddProductGUI extends JPanel{
 			}
 			if(duplicateProductID == true){
 				JOptionPane.showMessageDialog(null, "Product in system with same ID");
+
+			}
+			
+			//Check to see if product NAME is already in system
+			for(Product product: RetailSystem.getInstance().getProducts()){
+				if(product.getProductID().equalsIgnoreCase(productName)){
+					duplicateProductName = true;
+				
+				}
+			}
+			if(duplicateProductName == true){
+				JOptionPane.showMessageDialog(null, "Product in system with same name");
 
 			}
 			
