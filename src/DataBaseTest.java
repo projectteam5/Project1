@@ -27,6 +27,8 @@ public class DataBaseTest {
 			.getCustomers();
 	private ArrayList<User> usersStatus = RetailSystem.getInstance()
 			.getUsers();
+	private ArrayList<Order> ordersStatus = RetailSystem.getInstance()
+			.getOrders();
 	private static ArrayList<User> usersTest;
 	private static ArrayList<Customer> customersTest;
 	private static ArrayList<Supplier> suppliersTest;
@@ -67,6 +69,11 @@ public class DataBaseTest {
 		ArrayList<User> users = DataBase.loadUsers(reader3);
 		RetailSystem.getInstance().setUsers(users);
 		
+		//create a Customers ArrayList for test
+		Reader reader4 = new StringReader("");
+		ArrayList<Order> orders = DataBase.loadOrders(reader4);
+		RetailSystem.getInstance().setOrders(orders);
+		
 		User user1 = new User("Cris","passw10","Attendant");
 		usersTest = new ArrayList<User>();
 		usersTest.add(user1);
@@ -81,7 +88,7 @@ public class DataBaseTest {
 		productsTest = new ArrayList<Product>();
 		productsTest.add(product1);
 		
-		Order order1 = new Order("order10", date, RetailSystem.getInstance().getProducts().get(0),10,date,date,false );
+		Order order1 = new Order(date, RetailSystem.getInstance().getProducts().get(0),10,date,date,false );
 		ordersTest = new ArrayList<Order>();
 		ordersTest.add(order1);
 		Stock stock1 = new Stock(10, product1);
@@ -106,6 +113,7 @@ public class DataBaseTest {
 		RetailSystem.getInstance().setProducts(productStatus);
 		RetailSystem.getInstance().setCustomers(customerStatus);
 		RetailSystem.getInstance().setUsers(usersStatus);
+		RetailSystem.getInstance().setOrders(ordersStatus);
 	}
 	
 	// TEST FOR USERS
@@ -334,7 +342,7 @@ public class DataBaseTest {
 		String datestring =DateFormat.getDateInstance().format(date);
 		Writer userFile = new StringWriter();
 		DataBase.writeOrders(ordersTest,userFile);
-		assertEquals("order10;"+datestring+";product1;10;"+datestring+";"+datestring+";false"+";true",userFile.toString().trim());
+		assertEquals("Order1;"+datestring+";product1;10;"+datestring+";"+datestring+";false"+";true",userFile.toString().trim());
 	}
 	
 	//Writes a stock

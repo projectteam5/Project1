@@ -2,7 +2,7 @@ Supplier 1;test;08789;true
 Supplier 2;Supplier1 Name;083776655;true
 Supplier 3;Supplier2 Name;083775839;true
 Supplier 4;Dell;0831336397;true
-Supplier 5;super;083133639;true
+Supplier 5;super;083133639;false
 Supplier 6;Toshiba;0833452233;true
 Supplier 7;Advent;0853454545;true
 Supplier 8;Apple;08578766544;true
@@ -11,4 +11,4 @@ Supplier 10;Asus;0866458732;true
 Supplier 11;Acer;0834567732;true
 Supplier 12;IBM;0876344353;true
 Supplier 13;Lenovo;0896745231;true
-Supplier 14;Sup sup;0896787996;false
+Supplier 14;Sup sup;0896787996;true
