@@ -13,3 +13,5 @@ User12;Jenny Munnelly;passw12;Manager;false
 User13;testAutoID;passw13;Manager;true
 User14;Tommy;Taylor;Manager;true
 User15;test;test;Manager;false
+User16;test;test;Manager;true
+User17;test;test;Manager;true
