@@ -1,15 +1,14 @@
 //test commit
 import java.util.Vector;
 
-import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 
 public class LineItemTable extends AbstractTableModel {
 
 	private Vector<LineItem> vet = null;
 	// Vector with columns names
-	private String[] ColName = { "Product Name",
-			"Amount", "Total Cost", "Remove"};
+	private String[] ColName = { "Product Name", "Amount", "Total Cost",
+			"Remove" };
 
 	public LineItemTable(Vector<LineItem> vet) {
 		this.vet = vet;
@@ -24,7 +23,6 @@ public class LineItemTable extends AbstractTableModel {
 	public int getRowCount() {
 		return vet.size();
 	}
-	
 
 	// return the value of each cell
 	public Object getValueAt(int row, int col) {
@@ -55,15 +53,22 @@ public class LineItemTable extends AbstractTableModel {
 
 	// return if a cell is editable
 	public boolean isCellEditable(int row, int col) {
-		if(col == 3){
+		if (col == 3) {
 			return true;
-		}
-		return false;
+		} else
+			return false;
 	}
-	//and the rest
-    public Class getColumnClass(int col){
-            return this.getValueAt(0,col).getClass();
-    }
-	
+
+	public void setValueAt(Object value, int row, int col) {
+		LineItem lineItem = (LineItem) vet.elementAt(row);
+		value = !lineItem.isRemoved();
+		lineItem.setRemoved((Boolean) value);
+		fireTableCellUpdated(row, col);
+	}
+
+	// and the rest
+	public Class getColumnClass(int col) {
+		return this.getValueAt(0, col).getClass();
+	}
 
 }

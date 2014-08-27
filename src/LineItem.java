@@ -4,7 +4,7 @@ public class LineItem {
 	private Product product;
 	private int quantity;
 	private double totalCost;
-	private boolean removed;
+	private Boolean removed;
 
 	public LineItem(Product product, int quantity) {
 		this.product = product;
@@ -37,11 +37,11 @@ public class LineItem {
 		this.totalCost = totalCost;
 	}
 
-	public boolean isRemoved() {
+	public Boolean isRemoved() {
 		return removed;
 	}
 
-	public void setRemoved(boolean removed) {
+	public void setRemoved(Boolean removed) {
 		this.removed = removed;
 	}
 	
