@@ -28,7 +28,7 @@ public class OrderTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 
-		order = new Order("ODR001", date1, product, 10, date2, date3, false);
+		order = new Order(date1, product, 10, date2, date3, false);
 		
 	}
 
@@ -37,7 +37,7 @@ public class OrderTest {
 		
 		//setUp the test
 		
-		supplier = new Supplier("SUP001", "Supplier", "1234");
+		supplier = new Supplier("SUP001", "Supplier");
 		
 		product = new Product("PRD001", "Product", 100, 25, supplier);
 		
@@ -49,7 +49,7 @@ public class OrderTest {
 		
 		date3 = new Date();
 		
-		order = new Order("ODR001", date1, product, 10, date2, date3, false);
+		order = new Order(date1, product, 10, date2, date3, false);
 		
 		
 	}
@@ -73,6 +73,7 @@ public class OrderTest {
 	}
 	
 	
+	@SuppressWarnings("unused")
 	@Test (expected = IndexOutOfBoundsException.class)
 	public void testForException() {
 		
