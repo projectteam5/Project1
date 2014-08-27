@@ -13,29 +13,29 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 
-public class RemoveProductGUI extends JFrame{
+public class RemoveProductGUI extends JPanel{
 	private JComboBox<String> productDropDown = new JComboBox<String>();
 	private JButton buttonMenu;
 	private JPanel panel;
 	private JButton buttonDeleteProduct; 
 
 	public RemoveProductGUI() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(400, 200);
-		this.setTitle("Remove Product");
-		panel = new JPanel();
-		Container container = getContentPane();
-		container.add(panel);
-		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setLayout(new GridLayout(0,1));	
+		//setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		//setSize(400, 200);
+		//this.setTitle("Remove Product");
+		//panel = new JPanel();
+		//Container container = getContentPane();
+		//container.add(panel);
+		//panel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.setLayout(new GridLayout(0,1));	
 		compileProductNames();
 		
 		buttonDeleteProduct = new JButton("Delete");
 		buttonMenu = new JButton("Menu");
 		
-		panel.add(productDropDown);
-		panel.add(buttonDeleteProduct);
-		panel.add(buttonMenu);
+		this.add(productDropDown);
+		this.add(buttonDeleteProduct);
+		this.add(buttonMenu);
 		this.setVisible(true);
 		
 		//When a user presses the delete button, the system will check which product they are trying to delete
@@ -70,15 +70,15 @@ public class RemoveProductGUI extends JFrame{
 
 	
 	public void repopulateComboBox(){
-		panel.remove(productDropDown);
-		panel.remove(buttonDeleteProduct);
-		panel.remove(buttonMenu);
+		this.remove(productDropDown);
+		this.remove(buttonDeleteProduct);
+		this.remove(buttonMenu);
 		compileProductNames();
 		productDropDown = new JComboBox();
 		compileProductNames();
-		panel.add(productDropDown);
-		panel.add(buttonDeleteProduct);
-		panel.add(buttonMenu);
+		this.add(productDropDown);
+		this.add(buttonDeleteProduct);
+		this.add(buttonMenu);
 		revalidate();
 		repaint();
 	}

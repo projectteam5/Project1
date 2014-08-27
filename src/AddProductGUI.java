@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 
-public class AddProductGUI extends JFrame{
+public class AddProductGUI extends JPanel{
 	private JTextField textFieldProductID;
 	private JTextField textFieldName;
 	private JTextField textFieldCost;
@@ -28,25 +28,31 @@ public class AddProductGUI extends JFrame{
 	private Supplier supplierPicked;
 	private JButton buttonMenu;
 	
+	private JLabel label1;
+	private JLabel label2;
+	private JLabel label3;
+	private JLabel label4;
+	private JLabel label5;
+	
 
 	public AddProductGUI() {
 		
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(400, 400);
-		this.setTitle("Add Product");
-		JPanel panel = new JPanel();
-		Container container = getContentPane();
-		container.add(panel);
-		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setLayout(new GridLayout(0,1));	
+		//setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		//setSize(400, 400);
+		//this.setTitle("Add Product");
+		//JPanel panel = new JPanel();
+		//Container container = getContentPane();
+		//container.add(panel);
+		//panel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.setLayout(new GridLayout(0,1));	
 		
-		JLabel label1 = new JLabel("Product ID");
+		label1 = new JLabel("Product ID");
 		textFieldProductID = new JTextField();
-		JLabel label2 = new JLabel("Product Name");
+		label2 = new JLabel("Product Name");
 		textFieldName = new JTextField();
-		JLabel label3 = new JLabel("Product Cost");
+		label3 = new JLabel("Product Cost");
 		textFieldCost = new JTextField();
-		JLabel label4 = new JLabel("Product Markup");
+		label4 = new JLabel("Product Markup");
 		textFieldMarkup = new JTextField();
 		
 
@@ -56,18 +62,18 @@ public class AddProductGUI extends JFrame{
 		buttonMenu = new JButton("Menu");
 		
 		
-		panel.add(label1);
-		panel.add(textFieldProductID);
-		panel.add(label2);
-		panel.add(textFieldName);
-		panel.add(label3);
-		panel.add(textFieldCost);
-		panel.add(label4);
-		panel.add(textFieldMarkup);
-		panel.add(label5);
-		panel.add(supplierDropDown);	
-		panel.add(submitButton);
-		panel.add(buttonMenu);
+		this.add(label1);
+		this.add(textFieldProductID);
+		this.add(label2);
+		this.add(textFieldName);
+		this.add(label3);
+		this.add(textFieldCost);
+		this.add(label4);
+		this.add(textFieldMarkup);
+		this.add(label5);
+		this.add(supplierDropDown);	
+		this.add(submitButton);
+		this.add(buttonMenu);
 		this.setVisible(true);
 		
 		
