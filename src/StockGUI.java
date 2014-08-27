@@ -1,4 +1,6 @@
+import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,63 +12,51 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 
-public class StockGUI extends JFrame {
-
-	/**
-	 * 
-	 */
+public class StockGUI extends JPanel {
+	
+	JButton searchByProduct = new JButton("Search by Product");
+	JButton viewListOfStock = new JButton("View list of stock");
+	JLabel title;
+	private final static Font fontButtons = new Font("Arial", Font.BOLD, 12);
+	private final static Color colorButtons = new Color(126, 163, 249);
+	private final static Color colorButtonSelected = new Color(21, 82, 223);
 	public StockGUI()  {
-		this.setTitle("Stock Checker");
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(400,400);
 		
-		Container contentPane = this.getContentPane();
+		this.setLayout(new GridLayout(0,1));
+		//this.setSize(400,400);
+		title = new JLabel("Stock Viewer");	
+		add(title);
+		add(searchByProduct);
+		add(viewListOfStock);
 		
-		JPanel optionsPanel = new JPanel();
-		
-		
-		 JButton searchByProduct = new JButton("Search by Product");
-		 JButton viewListOfStock = new JButton("View list of stock");
-		 JButton menu = new JButton("Menu");
-		
-		optionsPanel.setLayout(new GridLayout(0,1));
-		
-		
-		optionsPanel.add(searchByProduct);
-		optionsPanel.add(viewListOfStock);
-		optionsPanel.add(menu);
 		
 		
 		searchByProduct.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				
-				new SearchByProductStockGUI();
-				dispose();
+				searchByProduct.setBackground(colorButtonSelected);
+				MenuGUI.getInstance().setPanelAction(new SearchByProductStockGUI());
+				//dispose();
 			}
 		});
 		
 		viewListOfStock.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				new AvailableStockLevelsGUI();
-				dispose();
+				viewListOfStock.setBackground(colorButtonSelected);
+				MenuGUI.getInstance().setPanelAction(new AvailableStockLevelsGUI());
+				//dispose();
 			}
 		});
 		
-		menu.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				new MenuGUI();
-				dispose();
-			}
-		});
-		
-		
-		contentPane.add(optionsPanel);
+		colorButton();
 		setVisible(true);
 
 		
 	}
-	//public static void main(String [] args){
-		//new StockGUI();
-	//}
+	public void colorButton(){
+		searchByProduct.setBackground(colorButtons);
+		searchByProduct.setFont(fontButtons);
+		viewListOfStock.setBackground(colorButtons);
+		viewListOfStock.setFont(fontButtons);
+	}
 
 }

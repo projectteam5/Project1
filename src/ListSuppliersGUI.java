@@ -1,29 +1,26 @@
-import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Vector;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
+import javax.swing.JTable;
+import javax.swing.table.TableModel;
 
 public class ListSuppliersGUI extends JPanel{
 	
 	private JLabel title;
 	private JPanel showSupplierPanel;
 	private JScrollPane scrollPaneSuppliers;
+	private Vector<Supplier> vet;
+	private JTable table;
+	private Vector<Supplier> vet2;
 	
 	public ListSuppliersGUI() {
 		
-		scrollPaneSuppliers = new JScrollPane();
+		/*scrollPaneSuppliers = new JScrollPane();
 		title = new JLabel("Supplier List. Total number of suppliers: "+RetailSystem.getInstance().getSuppliers().size());
 		title.setFont(new Font("Arial", Font.BOLD, 20));	
 		showSupplierPanel = new JPanel();
@@ -40,7 +37,18 @@ public class ListSuppliersGUI extends JPanel{
 		this.setLayout(new GridLayout(0, 1));
 		scrollPaneSuppliers.setViewportView(showSupplierPanel);
 		this.add(scrollPaneSuppliers);
-		setVisible(true);
+		setVisible(true);*/
+		
+		title = new JLabel("Supplier List. Total number of suppliers: "+RetailSystem.getInstance().getSuppliers().size());
+		title.setFont(new Font("Arial", Font.BOLD, 20));
+		this.setLayout(new GridLayout(0,1));
+		vet = new Vector<Supplier>(RetailSystem.getInstance().getSuppliers());
+		TableModel dataModel = new SupplierTable(vet); 
+		table = new JTable(dataModel);
+		scrollPaneSuppliers = new JScrollPane(table);
+		this.add(scrollPaneSuppliers);
+		
 	}
+	
 	
 }
