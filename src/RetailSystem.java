@@ -14,6 +14,7 @@ public class RetailSystem {
 	private ArrayList<Product> products;// array list of products
 	private ArrayList<Stock> stocks;// array list of stock invoices
 	private ArrayList<Invoice> invoices;// array list of invoices
+	private static ArrayList<Sale> sales;// array list of sales
 
 	private String currentUserType = "";// it store which type of user logged on
 	private String currentUserID = "";// it store which type of user logged on
@@ -37,6 +38,7 @@ public class RetailSystem {
 	// main function that drives all the application
 	public static void main(String[] args) {
 		// load of all the data
+		sales = new ArrayList<Sale>();
 		FileReader userFile;
 		RetailSystem retailSystem = getInstance();
 		// load users
@@ -85,6 +87,15 @@ public class RetailSystem {
 		try {
 			userFile = new FileReader("stocks.txt");
 			retailSystem.setStocks(DataBase.loadStocks(userFile));
+			userFile.close();// close the user file
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		// load invoices
+		try {
+			userFile = new FileReader("invoices.txt");
+			retailSystem.setInvoices(DataBase.loadInvoices(userFile));
 			userFile.close();// close the user file
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -175,6 +186,14 @@ public class RetailSystem {
 
 	public void setInvoices(ArrayList<Invoice> invoices) {
 		this.invoices = invoices;
+	}
+
+	public ArrayList<Sale> getSales() {
+		return sales;
+	}
+
+	public void setSales(ArrayList<Sale> sales) {
+		this.sales = sales;
 	}
 
 	
