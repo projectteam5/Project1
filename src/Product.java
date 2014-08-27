@@ -8,8 +8,8 @@ public class Product {
 	private Supplier supplier;
 	private boolean active;
 
-	public Product(String productID, String name, double cost, double markup, Supplier supplier) {
-		this.productID = productID;
+	public Product(String name, double cost, double markup, Supplier supplier) {
+		this.productID = "Product"+(RetailSystem.getInstance().getProducts().size()+1);
 		this.name = name;
 		this.cost = cost;
 		this.markup = markup;
