@@ -1,4 +1,4 @@
-//GUI working. Method working
+//GUI working. Method working//test commit
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.GridLayout;
@@ -15,24 +15,26 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 
-public class ViewProductGUI extends JFrame{
+public class ViewProductGUI extends JPanel{
 	private JComboBox<String> productDropDown = new JComboBox<String>();
 	private JButton buttonMenu;
+	private JLabel label;
+	private JLabel label1;
+	private JButton buttonViewProduct;
 
 	public ViewProductGUI() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+/*		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(400, 300);
 		this.setTitle("View Product");
 		JPanel panel = new JPanel();
-		Container container = getContentPane();
-		panel.setLayout(new GridLayout(0,1));	
+		Container container = getContentPane();*/
+		this.setLayout(new GridLayout(0,1));	
 		compileProductNames();
 		
-		JButton buttonViewProduct = new JButton("View Product Details");
-		//JLabel title = new JLabel("Product Details");
+		buttonViewProduct = new JButton("View Product Details");
 		buttonMenu = new JButton("Menu");
-		final JLabel label = new JLabel();
-		final JLabel label1 = new JLabel();
+		label = new JLabel();
+		label1 = new JLabel();
 
 
 
@@ -64,12 +66,12 @@ public class ViewProductGUI extends JFrame{
 		});
 		
 		//panel.add(title,BorderLayout.NORTH);
-		panel.add(productDropDown);
-		panel.add(buttonViewProduct);
-		panel.add(label);
-		panel.add(label1);
-		container.add(panel);
-		panel.add(buttonMenu);
+		this.add(productDropDown);
+		this.add(buttonViewProduct);
+		this.add(label);
+		this.add(label1);
+		//container.add(panel);
+		this.add(buttonMenu);
 		this.setVisible(true);
 		
 	}

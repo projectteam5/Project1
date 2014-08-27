@@ -29,7 +29,7 @@ public class ProductTest {
 		ArrayList<Product> products = DataBase.loadProducts(reader1);
 		RetailSystem.getInstance().setProducts(products);
 
-		supplier = new Supplier("HHHHHHH", "Supplier Store Place", "087326892");
+		supplier = new Supplier("HHHHHHH", "Supplier Store Place", "087326892", true);
 		product1 = new Product("5783JKDS", "Computer", 500.66, 200.00, supplier);
 		product2 = new Product("5783JKDS", "Another Computer", 7923.00, 100.00, supplier);
 		product3 = new Product("HJFKD89", "Extra Computer", 7943, 903, supplier);

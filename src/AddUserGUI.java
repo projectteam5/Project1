@@ -25,6 +25,7 @@ public class AddUserGUI extends JPanel {
 	private JLabel labelUserPass;
 	private JLabel labelUserType;
 	private JButton doneButton;
+	private String userID;
 
 	public AddUserGUI() {
 		// declaration and initialization of panel, container and layout setting
@@ -60,7 +61,7 @@ public class AddUserGUI extends JPanel {
 				int returnValue = addUser();
 				if (returnValue == 0) {
 					JOptionPane.showMessageDialog(null,
-							"User correctly inserted", "Inserted",
+							"User correctly inserted with ID: "+userID, "Inserted",
 							JOptionPane.PLAIN_MESSAGE);
 				} else {
 					JOptionPane.showMessageDialog(null,
@@ -71,8 +72,6 @@ public class AddUserGUI extends JPanel {
 			}
 		});
 
-		this.setVisible(true);
-
 	}
 
 	public int addUser() {
@@ -81,7 +80,11 @@ public class AddUserGUI extends JPanel {
 		String type = typeDropDown.getSelectedItem().toString();
 		if (validateUser(name, password, type)) {
 			User user = new User(name, password, type);
+			userID = user.getUserID();
 			RetailSystem.getInstance().getUsers().add(user);
+			//clean the textField
+			textUserName.setText("");
+			textUserPass.setText("");
 			User.saveUser();
 			return 0;
 		} else {

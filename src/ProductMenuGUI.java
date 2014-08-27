@@ -1,39 +1,45 @@
+//test commit
+import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class ProductMenuGUI extends JFrame{
+public class ProductMenuGUI extends JPanel{
+	private final static Font fontButtons = new Font("Arial", Font.BOLD, 12);
+	private final static Color colorButtons = new Color(126, 163, 249);
+	private final static Color colorButtonSelected = new Color(21, 82, 223);
+	
+	private JButton buttonAddProduct;
+	private JButton buttonRemoveProduct;
+	private JButton buttonViewProduct;
+	private JButton buttonViewProductList;
+	private JButton buttonEditProduct;
 
 	public ProductMenuGUI() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(1000, 800);
-		this.setTitle("Product Menu");
-		JPanel panel = new JPanel();
-		Container container = getContentPane();
-		container.add(panel);
-		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setLayout(new GridLayout(0,1));
-		JButton buttonAddProduct = new JButton("Add Product to System");
-		JButton buttonRemoveProduct = new JButton("Remove Product From System");
-		JButton buttonViewProduct = new JButton("View Single Product");
-		JButton buttonViewProductList = new JButton("View All Products in System");
-		JButton buttonEditProduct = new JButton("Edit Product");
-		JButton buttonMainMenu = new JButton("Main Menu");
+		this.setLayout(new GridLayout(0,1));
+		buttonAddProduct = new JButton("Add Product");
+		buttonRemoveProduct = new JButton("Remove Product");
+		buttonViewProduct = new JButton("View Product");
+		buttonViewProductList = new JButton("View All Products");
+		buttonEditProduct = new JButton("Edit Product");
+		
+		colourButton();
 		
 		if(RetailSystem.getInstance().getCurrentUserType().equalsIgnoreCase("Manager")){
-			panel.add(buttonAddProduct);
-			panel.add(buttonRemoveProduct);
-			panel.add(buttonViewProduct);
-			panel.add(buttonViewProductList);
-			panel.add(buttonEditProduct);
-			panel.add(buttonMainMenu);
+			this.add(buttonAddProduct);
+			this.add(buttonRemoveProduct);
+			this.add(buttonViewProduct);
+			this.add(buttonViewProductList);
+			this.add(buttonEditProduct);
 			
 		}else{
 			JOptionPane.showMessageDialog(null, "No access at attendant level!");
@@ -41,47 +47,45 @@ public class ProductMenuGUI extends JFrame{
 		
 		buttonAddProduct.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent argo0){
-				AddProductGUI addProductGUI = new AddProductGUI();
-				closeProductMenuGUI();
+				colourButton();
+				buttonAddProduct.setBackground(colorButtonSelected);
+				MenuGUI.getInstance().setPanelAction(new AddProductGUI());
 			}
 		});
-		
+
 		buttonRemoveProduct.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent argo0){
-				RemoveProductGUI removeProductGUI = new RemoveProductGUI();
-				closeProductMenuGUI();
+				colourButton();
+				buttonRemoveProduct.setBackground(colorButtonSelected);
+				MenuGUI.getInstance().setPanelAction(new RemoveProductGUI());
+
 			}
 		});
 		
 		buttonViewProduct.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent argo0){
-				ViewProductGUI viewProductGUI = new ViewProductGUI();
-				closeProductMenuGUI();
+				colourButton();
+				buttonViewProduct.setBackground(colorButtonSelected);
+				MenuGUI.getInstance().setPanelAction(new ViewProductGUI());
 			}
 		});
 		
 		buttonViewProductList.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent argo0){
-				ViewProductListGUI viewProductListGUI = new ViewProductListGUI();
-				closeProductMenuGUI();
+				colourButton();
+				buttonViewProductList.setBackground(colorButtonSelected);
+				MenuGUI.getInstance().setPanelAction(new ViewProductListGUI());
 			}
 		});
 		
 		buttonEditProduct.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent argo0){
-				EditProductGUI editProductGUI = new EditProductGUI();
-				closeProductMenuGUI();
+				colourButton();
+				buttonEditProduct.setBackground(colorButtonSelected);
+				MenuGUI.getInstance().setPanelAction(new EditProductGUI());
 			}
 		});
-		
-		buttonMainMenu.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent argo0){
-				MenuGUI menuGUI = new MenuGUI();
-				closeProductMenuGUI();
-			}
-		});
-		
-		
+	
 		this.setVisible(true);
 	
 
@@ -89,6 +93,19 @@ public class ProductMenuGUI extends JFrame{
 	}
 	public void closeProductMenuGUI(){
 		this.setVisible(false);
+	}
+	
+	public void colourButton(){
+		buttonAddProduct.setBackground(colorButtons);
+		buttonRemoveProduct.setFont(fontButtons);
+		buttonRemoveProduct.setBackground(colorButtons);
+		buttonRemoveProduct.setFont(fontButtons);
+		buttonViewProduct.setBackground(colorButtons);
+		buttonViewProduct.setFont(fontButtons);
+		buttonViewProductList.setBackground(colorButtons);
+		buttonViewProductList.setFont(fontButtons);
+		buttonEditProduct.setBackground(colorButtons);
+		buttonEditProduct.setFont(fontButtons);
 	}
 
 

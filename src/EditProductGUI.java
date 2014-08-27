@@ -1,4 +1,4 @@
-//GUI done. Method working
+//GUI done. Method working//test commit
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 
-public class EditProductGUI extends JFrame{
+public class EditProductGUI extends JPanel{
 	private JComboBox<String> productDropDown = new JComboBox<String>();
 	private JComboBox<String> supplierDropDown = new JComboBox<String>();
 	private static Product chosenEditProduct;
@@ -35,14 +35,14 @@ public class EditProductGUI extends JFrame{
 
 
 	public EditProductGUI() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+/*		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(400, 400);
 		this.setTitle("Edit Product");
 		panel = new JPanel();
 		Container container = getContentPane();
 		container.add(panel);
-		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setLayout(new GridLayout(0,1));
+		panel.setBorder(new EmptyBorder(5, 5, 5, 5));*/
+		this.setLayout(new GridLayout(0,1));
 		compileProductNames();
 		compileSupplierNames();
 
@@ -50,19 +50,19 @@ public class EditProductGUI extends JFrame{
 		buttonCommitEditProduct = new JButton("Submit Edit");
 		buttonMenu = new JButton("Menu");
 
-		panel.add(title);
-		panel.add(productDropDown);
-		panel.add(buttonEditProduct);
-		panel.add(productName);
-		panel.add(textFieldName);
-		panel.add(productCost);
-		panel.add(textFieldCost);
-		panel.add(productMarkup);
-		panel.add(textFieldMarkup);
-		panel.add(supplierName);
-		panel.add(supplierDropDown);
-		panel.add(buttonCommitEditProduct);
-		panel.add(buttonMenu);
+		this.add(title);
+		this.add(productDropDown);
+		this.add(buttonEditProduct);
+		this.add(productName);
+		this.add(textFieldName);
+		this.add(productCost);
+		this.add(textFieldCost);
+		this.add(productMarkup);
+		this.add(textFieldMarkup);
+		this.add(supplierName);
+		this.add(supplierDropDown);
+		this.add(buttonCommitEditProduct);
+		this.add(buttonMenu);
 		this.setVisible(true);
 		
 		buttonEditProduct.addActionListener(new ActionListener(){
@@ -91,11 +91,13 @@ public class EditProductGUI extends JFrame{
 				if(productChosen){
 					Supplier supplierPicked = null;
 					boolean correctInfo = true;
-					String name = null;
+					boolean duplicateProductName = false;
+					String productName = textFieldName.getText();
+					//String name = null;
 					double cost = 0;
 					double markup = 0;
 					try{
-						name = textFieldName.getText();
+						//name = textFieldName.getText();
 						cost = Double.parseDouble(textFieldCost.getText());
 						markup = Double.parseDouble(textFieldMarkup.getText());
 					}catch(NumberFormatException e){
@@ -110,8 +112,20 @@ public class EditProductGUI extends JFrame{
 						}
 					
 					}
-					if(correctInfo){
-						chosenEditProduct.setName(name);
+					
+					for(Product product: RetailSystem.getInstance().getProducts()){
+						if(product.getName().equalsIgnoreCase(productName)){
+							duplicateProductName = true;
+						
+						}
+					}
+					if(duplicateProductName == true){
+						JOptionPane.showMessageDialog(null, "Product in system with same name");
+
+					}
+					
+					if((correctInfo) && (!duplicateProductName)){
+						chosenEditProduct.setName(textFieldName.getText());
 						chosenEditProduct.setCost(cost);
 						chosenEditProduct.setMarkup(markup);
 						chosenEditProduct.setSupplier(supplierPicked);
@@ -157,31 +171,35 @@ public class EditProductGUI extends JFrame{
 		}
 	}
 	
+	public void checkIfDuplicateName(){
+		
+	}
+	
 	public void populateFields(){
-		panel.remove(productName);
-		panel.remove(textFieldName);
-		panel.remove(productCost);
-		panel.remove(textFieldCost);
-		panel.remove(productMarkup);
-		panel.remove(textFieldMarkup);
-		panel.remove(supplierName);
-		panel.remove(supplierDropDown);
-		panel.remove(buttonCommitEditProduct);
-		panel.remove(buttonMenu);
+		this.remove(productName);
+		this.remove(textFieldName);
+		this.remove(productCost);
+		this.remove(textFieldCost);
+		this.remove(productMarkup);
+		this.remove(textFieldMarkup);
+		this.remove(supplierName);
+		this.remove(supplierDropDown);
+		this.remove(buttonCommitEditProduct);
+		this.remove(buttonMenu);
 		supplierDropDown.setSelectedItem(chosenEditProduct.getSupplier().getName());
 		textFieldName = new JTextField(chosenEditProduct.getName());
 		textFieldCost = new JTextField(String.valueOf(chosenEditProduct.getCost()));
 		textFieldMarkup = new JTextField(String.valueOf(chosenEditProduct.getMarkup()));
-		panel.add(productName);
-		panel.add(textFieldName);
-		panel.add(productCost);
-		panel.add(textFieldCost);
-		panel.add(productMarkup);
-		panel.add(textFieldMarkup);
-		panel.add(supplierName);
-		panel.add(supplierDropDown);
-		panel.add(buttonCommitEditProduct);
-		panel.add(buttonMenu);
+		this.add(productName);
+		this.add(textFieldName);
+		this.add(productCost);
+		this.add(textFieldCost);
+		this.add(productMarkup);
+		this.add(textFieldMarkup);
+		this.add(supplierName);
+		this.add(supplierDropDown);
+		this.add(buttonCommitEditProduct);
+		this.add(buttonMenu);
 		revalidate();
 		repaint();
 	}
