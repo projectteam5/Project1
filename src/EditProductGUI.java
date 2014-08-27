@@ -124,9 +124,7 @@ public class EditProductGUI extends JPanel{
 					if(duplicateProductName == true){
 						JOptionPane.showMessageDialog(null, "Product in system with same name");
 					}
-					else{
-						JOptionPane.showMessageDialog(null, "Working");
-					}
+
 
 					
 					if((correctInfo) && (!duplicateProductName)){
