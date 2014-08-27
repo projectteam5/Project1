@@ -18,7 +18,6 @@ public class CustomerDeleteGUI extends JPanel {
 	private JLabel labelTitleMain;
 	private JLabel labelTitle;
 	private JButton deleteButton;
-	private JButton customerMenuButton;
 	private String selectedCustomerID;
 	private Customer customerRemove;
 	
@@ -29,7 +28,8 @@ public class CustomerDeleteGUI extends JPanel {
 		labelTitleMain = new JLabel("Delete Customer");
 		labelTitleMain.setFont(new Font("Arial", Font.BOLD, 20));
 		labelTitle = new JLabel(
-				"Please pick the customer you want to delete from the list below");
+				"Please pick the customer you want"
+				+ " to delete from the list below");
 		customersDropDown = new JComboBox();
 		buildCustomersDropDown();
 		deleteButton = new JButton("Delete Customer");
@@ -46,7 +46,6 @@ public class CustomerDeleteGUI extends JPanel {
 
 		});
 		
-
 	}
 
 	public void deleteCustomerButton() {
@@ -71,7 +70,6 @@ public class CustomerDeleteGUI extends JPanel {
 		this.remove(labelTitle);
 		this.remove(customersDropDown);
 		this.remove(deleteButton);
-		this.remove(customerMenuButton);
 		this.add(labelTitle);
 		customersDropDown = new JComboBox();
 		buildCustomersDropDown();
@@ -93,6 +91,6 @@ public class CustomerDeleteGUI extends JPanel {
 	}
 	
 	
-	}
+}
 
 

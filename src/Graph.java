@@ -1,4 +1,5 @@
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
@@ -49,6 +50,7 @@ public class Graph extends JPanel {
     		  dataset.addValue(s.getUnits(), january, coolingFans);
     	  }
       }
+      
       
       /*
        * hardcode values into graph...

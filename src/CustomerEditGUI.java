@@ -25,6 +25,7 @@ public class CustomerEditGUI extends JPanel {
 	private JLabel labelName;
 	private JLabel labelAddress;
 	private JLabel labelPhone;
+	private JLabel labelTitleMain;
 	private JLabel labelTitle;
 	private String customerID;
 	private String selectedCustomerIDPrev;
@@ -39,14 +40,17 @@ public class CustomerEditGUI extends JPanel {
 		this.setLayout(new GridLayout(0, 1));
 
 		// declaration of the labels and initialization of labels and text field
+		labelTitleMain = new JLabel("Edit a customer");
 		labelTitle = new JLabel(
-				"Please pick the customer you want to edit from the customer list below");
+				"Please pick the customer you want to edit"
+				+ " from the customer list below");
 		customerDropDown = new JComboBox();
 		Customer.customerListComplete(customerDropDown);
 		editButton = new JButton("Edit Customer");
 		doneButton = new JButton("Commit Changes");
 		
 		// adding all the components
+		this.add(labelTitleMain);
 		this.add(labelTitle);
 		this.add(customerDropDown);
 		this.add(editButton);
@@ -64,8 +68,15 @@ public class CustomerEditGUI extends JPanel {
 					populateFields();
 					selectedCustomerIDPrev = customerID;
 				}
+				
+		
+				
 			}
+			
+			
 		});
+		
+	
 
 		doneButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -91,7 +102,6 @@ public class CustomerEditGUI extends JPanel {
 		String address = addressField.getText();
 		String phone = phoneField.getText();
 		if (name != null && address != null && phone != null) {
-
 			customer.setName(name);
 			customer.setAddress(address);
 			customer.setPhoneNumber(phone);
@@ -103,11 +113,16 @@ public class CustomerEditGUI extends JPanel {
 
 	public void populateFields() {
 		if (controlVariable != 0) {
+			this.remove(labelName);
+			this.remove(nameField);
 			this.remove(labelAddress);
 			this.remove(addressField);
 			this.remove(labelPhone);
 			this.remove(phoneField);
+			this.remove(customerDropDown);
+			this.remove(editButton);
 			this.remove(doneButton);
+
 		}
 		controlVariable = 1;
 		customer = Customer.retrieveCustomer(customerID);
@@ -119,6 +134,9 @@ public class CustomerEditGUI extends JPanel {
 			labelAddress = new JLabel("Address");
 			labelPhone = new JLabel("Phone Number");
 			
+			this.remove(customerDropDown);
+			this.remove(editButton);
+			this.remove(labelTitle);
 			this.add(labelName);
 			this.add(nameField);
 			this.add(labelAddress);
