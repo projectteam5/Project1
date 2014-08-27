@@ -24,7 +24,7 @@ public class EditProductGUI extends JPanel{
 	private JTextField textFieldCost = new JTextField("");
 	private JTextField textFieldMarkup = new JTextField("");
 	private JButton buttonCommitEditProduct;
-	private JButton buttonMenu;
+	//private JButton buttonMenu;
 	private JPanel panel;
 	private JLabel title = new JLabel("Please chose a product from the list below");
 	private JLabel productName = new JLabel("Name");
@@ -48,7 +48,7 @@ public class EditProductGUI extends JPanel{
 
 		JButton buttonEditProduct = new JButton("Edit");
 		buttonCommitEditProduct = new JButton("Submit Edit");
-		buttonMenu = new JButton("Menu");
+		//buttonMenu = new JButton("Menu");
 
 		this.add(title);
 		this.add(productDropDown);
@@ -62,7 +62,7 @@ public class EditProductGUI extends JPanel{
 		this.add(supplierName);
 		this.add(supplierDropDown);
 		this.add(buttonCommitEditProduct);
-		this.add(buttonMenu);
+		//this.add(buttonMenu);
 		this.setVisible(true);
 		
 		buttonEditProduct.addActionListener(new ActionListener(){
@@ -93,11 +93,9 @@ public class EditProductGUI extends JPanel{
 					boolean correctInfo = true;
 					boolean duplicateProductName = false;
 					String productName = textFieldName.getText();
-					//String name = null;
 					double cost = 0;
 					double markup = 0;
 					try{
-						//name = textFieldName.getText();
 						cost = Double.parseDouble(textFieldCost.getText());
 						markup = Double.parseDouble(textFieldMarkup.getText());
 					}catch(NumberFormatException e){
@@ -113,16 +111,23 @@ public class EditProductGUI extends JPanel{
 					
 					}
 					
-					for(Product product: RetailSystem.getInstance().getProducts()){
-						if(product.getName().equalsIgnoreCase(productName)){
-							duplicateProductName = true;
-						
+					if(!productName.equalsIgnoreCase(chosenEditProduct.getName())){
+						for(Product product: RetailSystem.getInstance().getProducts()){
+							if(product.getName().equalsIgnoreCase(productName)){
+								duplicateProductName = true;
+							
+							}
+							
+								
+							}
 						}
-					}
 					if(duplicateProductName == true){
 						JOptionPane.showMessageDialog(null, "Product in system with same name");
-
 					}
+					else{
+						JOptionPane.showMessageDialog(null, "Working");
+					}
+
 					
 					if((correctInfo) && (!duplicateProductName)){
 						chosenEditProduct.setName(textFieldName.getText());
@@ -141,12 +146,12 @@ public class EditProductGUI extends JPanel{
 			
 		}
 		});
-		buttonMenu.addActionListener(new ActionListener(){
+/*		buttonMenu.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent ago0){
 				ProductMenuGUI productMenuGUI = new ProductMenuGUI();
 				closeEditProductGUI();	
 			}
-		});
+		});*/
 		
 
 		
@@ -185,7 +190,7 @@ public class EditProductGUI extends JPanel{
 		this.remove(supplierName);
 		this.remove(supplierDropDown);
 		this.remove(buttonCommitEditProduct);
-		this.remove(buttonMenu);
+		//this.remove(buttonMenu);
 		supplierDropDown.setSelectedItem(chosenEditProduct.getSupplier().getName());
 		textFieldName = new JTextField(chosenEditProduct.getName());
 		textFieldCost = new JTextField(String.valueOf(chosenEditProduct.getCost()));
@@ -199,7 +204,7 @@ public class EditProductGUI extends JPanel{
 		this.add(supplierName);
 		this.add(supplierDropDown);
 		this.add(buttonCommitEditProduct);
-		this.add(buttonMenu);
+		//this.add(buttonMenu);
 		revalidate();
 		repaint();
 	}
@@ -212,9 +217,9 @@ public class EditProductGUI extends JPanel{
 		this.chosenEditProduct = chosenEditProduct;
 	}
 
-	public void closeEditProductGUI(){
+/*	public void closeEditProductGUI(){
 		this.setVisible(false);
-	}
+	}*/
 	
 	public static void saveProduct(){
 	       try {
