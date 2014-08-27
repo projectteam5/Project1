@@ -169,5 +169,14 @@ public class RetailSystem {
 		this.userTypeList = userTypeList;
 	}
 
+	public ArrayList<Invoice> getInvoices() {
+		return invoices;
+	}
+
+	public void setInvoices(ArrayList<Invoice> invoices) {
+		this.invoices = invoices;
+	}
+
+	
 	
 }

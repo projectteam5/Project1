@@ -3,32 +3,31 @@ import java.util.Date;
 
 
 public class Invoice {
-	
 	private String invoiceID;
-	private Date date;
+	private Date invoiceDate;
 	private Customer customer;
-	private ArrayList<LineItem> productsInvoice;
-	private boolean completed;
+	private Sale sale;
+	private double totalInvoice;
+	private boolean paid;
+	private boolean active;
 
-	public Invoice(String invoiceID, Date date, Customer customer,boolean completed) {
+	public Invoice(String invoiceID, Date date, Customer customer, double totalInvoice, Sale sale) {
 		this.invoiceID = invoiceID;
-		this.date = date;
+		this.invoiceDate = date;
 		this.customer = customer;
-		this.completed = completed;
-		this.productsInvoice = new ArrayList<LineItem>();
+		this.sale = sale;
+		this.totalInvoice = totalInvoice;
+		this.paid = true;
+		this.active = true;
 	}
 	
-	public Invoice(String invoiceID, Date date, Customer customer){
+	public Invoice(String invoiceID, Date date, Customer customer, double totalInvoice, boolean paid, boolean active) {
 		this.invoiceID = invoiceID;
-		this.date = date;
+		this.invoiceDate = date;
 		this.customer = customer;
-		this.completed = true;
-		this.productsInvoice = new ArrayList<LineItem>();
-	}
-	
-	public void addProductsInvoice(Product product, int quantity){
-		LineItem lineItem = new LineItem(product, quantity);
-		productsInvoice.add(lineItem);
+		this.totalInvoice = totalInvoice;
+		this.paid = paid;
+		this.active = active;
 	}
 
 	public String getInvoiceID() {
@@ -39,12 +38,12 @@ public class Invoice {
 		this.invoiceID = invoiceID;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getInvoiceDate() {
+		return invoiceDate;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setInvoiceDate(Date invoiceDate) {
+		this.invoiceDate = invoiceDate;
 	}
 
 	public Customer getCustomer() {
@@ -55,22 +54,36 @@ public class Invoice {
 		this.customer = customer;
 	}
 
-	public ArrayList<LineItem> getProductsInvoice() {
-		return productsInvoice;
+	public Sale getSale() {
+		return sale;
 	}
 
-	public void setProductsInvoice(ArrayList<LineItem> productsInvoice) {
-		this.productsInvoice = productsInvoice;
+	public void setSale(Sale sale) {
+		this.sale = sale;
 	}
 
-	public boolean isCompleted() {
-		return completed;
+	public double getTotalInvoice() {
+		return totalInvoice;
 	}
 
-	public void setCompleted(boolean completed) {
-		this.completed = completed;
+	public void setTotalInvoice(double totalInvoice) {
+		this.totalInvoice = totalInvoice;
+	}
+
+	public boolean isPaid() {
+		return paid;
+	}
+
+	public void setPaid(boolean paid) {
+		this.paid = paid;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 	
-	
-
 }
