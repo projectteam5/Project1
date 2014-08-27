@@ -178,7 +178,14 @@ public class OrderEditorGUI extends JPanel implements ActionListener {
 					EditOrderGUI.getOrderList().removeItem(order.getOrderID());
 				}
 				
-				this.setVisible(false);
+				idTextField.setEditable(false);
+				orderDateTextField.setEditable(false);
+				comboBoxList.setEnabled(false);
+				quantityTextField.setEditable(false);
+				expectedDeliveryDateTextField.setEditable(false);
+				dateReceivedTextField.setEditable(false);
+				receivedCheckBox.setEnabled(false);
+				submitButton.setEnabled(false);
 				
 			}
 		}

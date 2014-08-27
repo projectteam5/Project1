@@ -17,7 +17,6 @@ import javax.swing.JTextField;
 @SuppressWarnings("serial")
 public class CreateOrderGUI extends JPanel implements ActionListener {
 	
-	private JTextField idTextField;
 	private JTextField orderDateTextField;
 	private JTextField quantityTextField;
 	private JTextField expectedDeliveryDateTextField;
@@ -29,7 +28,6 @@ public class CreateOrderGUI extends JPanel implements ActionListener {
 	private JLabel labelExpectedDeliveryDate;
 	private JButton submitButton;
 	
-	private String newOrderId;
 	private Date newOrderDate;
 	private Product newProduct;
 	private int newQuantity;
@@ -46,7 +44,7 @@ public class CreateOrderGUI extends JPanel implements ActionListener {
 		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		
 		new JLabel("OrderID");
-		idTextField = new JTextField();
+		new JTextField();
 		
 		labelOrderDate = new JLabel("Order Date");
 		orderDateTextField = new JTextField();
@@ -71,8 +69,6 @@ public class CreateOrderGUI extends JPanel implements ActionListener {
 		submitButton = new JButton("Submit");
 		
 		this.add(labelTitle);
-		//this.add(labelOrderID);
-		//this.add(idTextField);
 		this.add(labelOrderDate);
 		this.add(orderDateTextField);
 		this.add(labelProductID);
@@ -97,8 +93,6 @@ public class CreateOrderGUI extends JPanel implements ActionListener {
 			boolean duplicateOrderID = false;
 			boolean dataOK = true;
 			
-			newOrderId = idTextField.getText();
-			
 			String productID = comboBoxList.getSelectedItem().toString();
 			for(Product product: RetailSystem.getInstance().getProducts()){
 				if(productID.contains(product.getProductID())){
@@ -109,15 +103,6 @@ public class CreateOrderGUI extends JPanel implements ActionListener {
 			if(newProduct == null ) {
 				JOptionPane.showMessageDialog(this, "Please choose a product");
 				dataOK = false;
-			}
-			
-			for(Order order: RetailSystem.getInstance().getOrders()){
-				if(order.getOrderID().equalsIgnoreCase(newOrderId)){
-					duplicateOrderID = true;
-				}
-			}
-			if(duplicateOrderID == true){
-				JOptionPane.showMessageDialog(this, "Order in system with same ID");
 			}
 			
 			try {
@@ -152,6 +137,13 @@ public class CreateOrderGUI extends JPanel implements ActionListener {
 					RetailSystem.getInstance().getOrders().add(newOrder);
 					
 					saveOrder();
+					
+					orderDateTextField.setEditable(false);
+					quantityTextField.setEditable(false);
+					expectedDeliveryDateTextField.setEditable(false);
+					comboBoxList.setEnabled(false);
+					submitButton.setEnabled(false);
+					
 					
 				} catch(NumberFormatException | ParseException e) {
 					JOptionPane.showMessageDialog(this, "Error processing request");
