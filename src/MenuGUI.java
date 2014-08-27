@@ -33,6 +33,7 @@ public class MenuGUI extends JFrame {
 	private JButton buttonAvailability;
 	private JButton buttonViewOrder;
 	private JLabel menuLabel;
+	private JButton buttonViewGraph;
 
 	private final static double percHeight1 = 0.80;
 	private final static double percHeight2 = 0.50;
@@ -73,6 +74,9 @@ public class MenuGUI extends JFrame {
 		buttonOrder = new JButton("Manage Orders");
 		buttonAvailability = new JButton("View Stock");
 		buttonViewOrder = new JButton("View Active Orders");
+		
+		buttonViewGraph = new JButton("Graphs");
+		
 		colorButton();
 		
 		// if it is a manager i can see Manage Customer, Manage Product
@@ -87,6 +91,9 @@ public class MenuGUI extends JFrame {
 			panelMenu.add(buttonAvailability);
 			panelMenu.add(buttonViewOrder);
 			panelMenu.add(buttonUser);
+			
+			panelMenu.add(buttonViewGraph);
+			
 		} else {
 			panelMenu.add(buttonCustomer);
 			panelMenu.add(buttonAvailability);
@@ -166,6 +173,17 @@ public class MenuGUI extends JFrame {
 			}
 		});
 		
+		buttonViewGraph.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				colorButton();
+				buttonViewGraph.setBackground(colorButtonSelected);
+				setSubMenu(new GraphGUI());
+				setPanelAction(panelEmpty);
+			}
+		});
+		
 		frame.getRootPane().addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {
             	resize();
@@ -230,6 +248,8 @@ public class MenuGUI extends JFrame {
 		buttonAvailability.setFont(fontButtons);
 		buttonViewOrder.setBackground(colorButtons);
 		buttonViewOrder.setFont(fontButtons);
+		buttonViewGraph.setBackground(colorButtons);
+		buttonViewGraph.setFont(fontButtons);
 	}
 
 }
