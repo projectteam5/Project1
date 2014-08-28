@@ -15,7 +15,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-public class Graph extends JPanel {
+public class GraphOfTopProductsFromOrders extends JPanel {
 
    private static final long serialVersionUID = 1L;
    @SuppressWarnings("deprecation")
@@ -23,9 +23,11 @@ public class Graph extends JPanel {
    private ArrayList<Order> lastMonth;
    private ArrayList<Order> secondLastMonth;
    private ArrayList<Order> thirdLastMonth;
-   private DataSetValue returnedDataSet;
+   private DataSetValue firstDS;
+   private DataSetValue secondDS;
+   private DataSetValue thirdDS;
 
-   public Graph(String applicationTitle, String chartTitle) {
+   public GraphOfTopProductsFromOrders(String applicationTitle, String chartTitle) {
 	    lastMonth = new ArrayList<Order>();
 	    secondLastMonth = new ArrayList<Order>();
 	    thirdLastMonth = new ArrayList<Order>();
@@ -48,41 +50,43 @@ public class Graph extends JPanel {
   
    private CategoryDataset createDataset() {
      // row keys...
-      final String january = "1st Month";
-      final String feb = "2nd Month";
-      final String mar = "3rd Month";
+      final String january = "Previous Month";
+      final String feb = "2nd Last Month";
+      final String mar = "3rd Last Month";
 
       // create the dataset...
       final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
       
       seperateAndRedefineStocksPerMonth(RetailSystem.getInstance().getOrders());
-      findDataValuesForLastMonth(lastMonth); 
-      dataset.addValue(returnedDataSet.getValue1(), january, returnedDataSet.getName1());
-      dataset.addValue(returnedDataSet.getValue2(), january, returnedDataSet.getName2());
-      dataset.addValue(returnedDataSet.getValue3(), january, returnedDataSet.getName3());
+      findDataValuesForLastMonth(lastMonth,1); 
+      dataset.addValue(firstDS.getValue1(), firstDS.getName1(),january);
+      dataset.addValue(firstDS.getValue2(), firstDS.getName2(),january);
+      dataset.addValue(firstDS.getValue3(), firstDS.getName3(),january);
       
-      findDataValuesForLastMonth(secondLastMonth); 
-      dataset.addValue(returnedDataSet.getValue1(), feb, returnedDataSet.getName1());
-      dataset.addValue(returnedDataSet.getValue2(), feb, returnedDataSet.getName2());
-      dataset.addValue(returnedDataSet.getValue3(), feb, returnedDataSet.getName3());
       
-      findDataValuesForLastMonth(thirdLastMonth); 
-      dataset.addValue(returnedDataSet.getValue1(), mar, returnedDataSet.getName1());
-      dataset.addValue(returnedDataSet.getValue2(), mar, returnedDataSet.getName2());
-      dataset.addValue(returnedDataSet.getValue3(), mar, returnedDataSet.getName3());
+      findDataValuesForLastMonth(secondLastMonth,2); 
+      dataset.addValue(secondDS.getValue1(), secondDS.getName1(),feb);
+      dataset.addValue(secondDS.getValue2(), secondDS.getName2(),feb);
+      dataset.addValue(secondDS.getValue3(), secondDS.getName3(),feb);
+      
+      
+      findDataValuesForLastMonth(thirdLastMonth,3); 
+      dataset.addValue(thirdDS.getValue1(),  thirdDS.getName1(), mar);
+      dataset.addValue(thirdDS.getValue2(),  thirdDS.getName2(), mar);
+      dataset.addValue(thirdDS.getValue3(),  thirdDS.getName3(), mar);
       
       return dataset;
   }
    
    // previous months data values
-   public void findDataValuesForLastMonth(ArrayList<Order> month){
+   public void findDataValuesForLastMonth(ArrayList<Order> month, int monthID){
 	   int numberOneQuantity=0;
 	   int numberTwoQuantity=0;
 	   int numberThreeQuantity=0;
 	   // column keys...
 	   String numberOneName = "";
 	   String numberTwoName = "";
-	   String numberThreeName = ""; 
+	   String numberThreeName = "";	   
 	  
 	  int highestQuantity=0,secondHighestQuantity=0,thirdHighestQuantity=0;
 	      
@@ -107,7 +111,7 @@ public class Graph extends JPanel {
     		 }
     	  }
 	  }
-    	  
+	   
 	  for(Order orders12:month){
 		  numberThreeQuantity=orders12.getQuantity();
     	  for(Order ord12:month){
@@ -119,9 +123,20 @@ public class Graph extends JPanel {
     	  }
 	  }
 	  
-	  DataSetValue mySet = new DataSetValue(numberOneQuantity, numberOneName, numberTwoQuantity,
-			  numberTwoName, numberThreeQuantity, numberThreeName);
-	  returnedDataSet=mySet;
+	  if(monthID==1){
+		  System.out.println("1="+numberOneQuantity+numberTwoQuantity+numberThreeQuantity);
+		  firstDS = new DataSetValue(numberOneQuantity, numberOneName, numberTwoQuantity,
+				  numberTwoName, numberThreeQuantity, numberThreeName);
+	  }
+	  else if(monthID==2){
+		  System.out.println("2="+numberOneQuantity+numberTwoQuantity+numberThreeQuantity);
+		  secondDS = new DataSetValue(numberOneQuantity, numberOneName, numberTwoQuantity,
+				  numberTwoName, numberThreeQuantity, numberThreeName); 
+	  }
+	  else
+		  System.out.println("3="+numberOneQuantity+numberTwoQuantity+numberThreeQuantity);
+		  thirdDS = new DataSetValue(numberOneQuantity, numberOneName, numberTwoQuantity,
+				  numberTwoName, numberThreeQuantity, numberThreeName);
    }
    
    
@@ -140,7 +155,6 @@ public class Graph extends JPanel {
 	   }
    }
    
-   
    // Function to return the difference in months from today to order date
    public static int addDaysFromDateString(Date orderDate, Date todaysDate) {
        int result;
@@ -155,7 +169,6 @@ public class Graph extends JPanel {
        int b = calendar2.get(Calendar.MONTH);
        
        result = a-b;
-       System.out.println(result);
       
        return result;
    }

@@ -47,7 +47,7 @@ public class GraphGUI extends JPanel implements ActionListener {
 		if(target == viewOrderGraph) {
 			try {
 				
-				MenuGUI.getInstance().setPanelAction(new Graph("",""));
+				MenuGUI.getInstance().setPanelAction(new GraphOfTopProductsFromOrders("",""));
 				colorButton();
 				viewOrderGraph.setBackground(colorButtonSelected);
 				
