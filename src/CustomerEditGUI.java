@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,7 +41,6 @@ public class CustomerEditGUI extends JPanel {
 		this.setLayout(new GridLayout(0, 1));
 
 		// declaration of the labels and initialization of labels and text field
-		labelTitleMain = new JLabel("Edit a customer");
 		labelTitle = new JLabel(
 				"Please pick the customer you want to edit"
 				+ " from the customer list below");
@@ -50,7 +50,6 @@ public class CustomerEditGUI extends JPanel {
 		doneButton = new JButton("Commit Changes");
 		
 		// adding all the components
-		this.add(labelTitleMain);
 		this.add(labelTitle);
 		this.add(customerDropDown);
 		this.add(editButton);

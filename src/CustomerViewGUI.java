@@ -31,11 +31,9 @@ public class CustomerViewGUI extends JPanel {
 	public CustomerViewGUI() {
 		
 		this.setLayout(new GridLayout(0, 1));
-			
-		labelTitleMain = new JLabel("View Customer");
-		labelTitleMain.setFont(new Font("Arial", Font.BOLD, 20));
+	
 		labelTitle = new JLabel(
-				"Please pick the customer you want to view from the list below");
+				"Please pick the customer you want to view from the customer list below");
 		customersDropDown = new JComboBox();
 		Customer.customerListComplete(customersDropDown);
 		viewButton = new JButton("View Customer");
