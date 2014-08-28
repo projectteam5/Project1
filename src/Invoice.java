@@ -111,4 +111,12 @@ public class Invoice {
 		
 	}
 	
+	public static String returnIDfromCombobox(String selectedObjectString){
+		String[] selectedObjectArray = selectedObjectString.split(";");
+		String selectedObjectIDString = selectedObjectArray[0];
+		String[] selectedObjectIDArray = selectedObjectIDString.split(":");
+		String ID = selectedObjectIDArray[0].trim();
+		return ID;
+	}
+	
 }

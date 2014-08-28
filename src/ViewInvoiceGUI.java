@@ -1,3 +1,6 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -9,6 +12,7 @@ public class ViewInvoiceGUI extends JPanel{
 	private JComboBox<String> invoiceDropDown = new JComboBox<String>();
 	private JButton buttonViewInvoice;
 	private JLabel invoiceDetails;
+	private String selectedInvoiceID;
 
 	public ViewInvoiceGUI() {
 		invoiceLabel = new JLabel("Please choose an invoice from the list below");
@@ -22,6 +26,13 @@ public class ViewInvoiceGUI extends JPanel{
 		this.add(invoiceDetails);
 		
 		this.setVisible(true);
+		
+		buttonViewInvoice.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				selectedInvoiceID = Customer.returnIDfromCombobox(invoiceDropDown.getSelectedItem().toString());
+				System.out.println("selectedInvoiceID: "+selectedInvoiceID);
+			}
+		});
 	}
 
 
