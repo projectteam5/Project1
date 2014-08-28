@@ -112,9 +112,6 @@ public class ProductMenuGUI extends JPanel{
 
 		
 	}
-	public void closeProductMenuGUI(){
-		this.setVisible(false);
-	}
 	
 	public void colourButton(){
 		buttonAddProduct.setBackground(colorButtons);

@@ -25,7 +25,6 @@ public class EditProductGUI extends JPanel{
 	private JTextField textFieldMarkup = new JTextField("");
 	private JButton buttonCommitEditProduct;
 	private JButton buttonEditProduct;
-	//private JButton buttonMenu;
 	private JPanel panel;
 	private JLabel title = new JLabel("Please chose a product from the list below");
 	private JLabel productName = new JLabel("Name");
@@ -36,20 +35,12 @@ public class EditProductGUI extends JPanel{
 
 
 	public EditProductGUI() {
-/*		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(400, 400);
-		this.setTitle("Edit Product");
-		panel = new JPanel();
-		Container container = getContentPane();
-		container.add(panel);
-		panel.setBorder(new EmptyBorder(5, 5, 5, 5));*/
 		this.setLayout(new GridLayout(0,1));
 		compileProductNames();
 		compileSupplierNames();
 
 		buttonEditProduct = new JButton("Edit");
 		buttonCommitEditProduct = new JButton("Submit Edit");
-		//buttonMenu = new JButton("Menu");
 
 		this.add(title);
 		this.add(productDropDown);
@@ -63,7 +54,6 @@ public class EditProductGUI extends JPanel{
 		this.add(supplierName);
 		this.add(supplierDropDown);
 		this.add(buttonCommitEditProduct);
-		//this.add(buttonMenu);
 		this.setVisible(true);
 		
 		buttonEditProduct.addActionListener(new ActionListener(){
@@ -86,6 +76,7 @@ public class EditProductGUI extends JPanel{
 			}
 			
 		});
+		
 		//Checks details and submits edited product to system
 		buttonCommitEditProduct.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent argo0){
@@ -147,17 +138,7 @@ public class EditProductGUI extends JPanel{
 			
 		}
 		});
-/*		buttonMenu.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent ago0){
-				ProductMenuGUI productMenuGUI = new ProductMenuGUI();
-				closeEditProductGUI();	
-			}
-		});*/
-		
-
-		
-
-		
+	
 	}
 	
 	public void compileProductNames(){
@@ -177,9 +158,6 @@ public class EditProductGUI extends JPanel{
 		}
 	}
 	
-	public void checkIfDuplicateName(){
-		
-	}
 	
 	public void populateFields(){
 		this.remove(productName);
@@ -247,9 +225,6 @@ public class EditProductGUI extends JPanel{
 		this.chosenEditProduct = chosenEditProduct;
 	}
 
-/*	public void closeEditProductGUI(){
-		this.setVisible(false);
-	}*/
 	
 	public static void saveProduct(){
 	       try {
