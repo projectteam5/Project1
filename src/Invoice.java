@@ -1,3 +1,4 @@
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -11,8 +12,8 @@ public class Invoice {
 	private boolean paid;
 	private boolean active;
 
-	public Invoice(String invoiceID, Date date, Customer customer, double totalInvoice, Sale sale) {
-		this.invoiceID = invoiceID;
+	public Invoice(Date date, Customer customer, double totalInvoice, Sale sale) {
+		this.invoiceID = "Invoice"+(RetailSystem.getInstance().getInvoices().size()+1);
 		this.invoiceDate = date;
 		this.customer = customer;
 		this.sale = sale;
@@ -84,6 +85,17 @@ public class Invoice {
 
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+	
+	public static void saveInvoice(){
+		try {
+			FileWriter userFile;
+			userFile = new FileWriter("invoices.txt");
+			DataBase.writeInvoices(RetailSystem.getInstance().getInvoices(), userFile);
+			userFile.close();// close the invoice file
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
 	}
 	
 }

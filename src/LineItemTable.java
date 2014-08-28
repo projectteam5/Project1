@@ -66,7 +66,6 @@ public class LineItemTable extends AbstractTableModel {
 		fireTableCellUpdated(row, col);
 	}
 
-	// and the rest
 	public Class getColumnClass(int col) {
 		return this.getValueAt(0, col).getClass();
 	}

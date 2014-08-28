@@ -44,6 +44,7 @@ public class LineItem {
 	public void setRemoved(Boolean removed) {
 		this.removed = removed;
 	}
+
 	
 	
 

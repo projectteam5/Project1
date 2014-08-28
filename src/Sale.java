@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Sale {
 	
-	private static ArrayList<LineItem> lineItems;
+	private ArrayList<LineItem> lineItems;
 	private Date saleDate;
 
 	public Sale() {

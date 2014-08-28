@@ -76,6 +76,11 @@ public class DataBaseTest {
 		Reader reader4 = new StringReader("");
 		ArrayList<Order> orders = DataBase.loadOrders(reader4);
 		RetailSystem.getInstance().setOrders(orders);
+		
+		// create a Invoice ArrayList for test
+		Reader reader5 = new StringReader("");
+		ArrayList<Invoice> invoices = DataBase.loadInvoices(reader5);
+		RetailSystem.getInstance().setInvoices(invoices);
 
 		// create a Sale ArrayList for test
 		ArrayList<Sale> sales = new ArrayList<Sale>();
@@ -106,15 +111,16 @@ public class DataBaseTest {
 
 		Sale sale = new Sale();
 		LineItem lineItem1 = new LineItem(RetailSystem.getInstance()
-				.getProducts().get(0), 10);
+				.getProducts().get(0), 7);
 		LineItem lineItem2 = new LineItem(RetailSystem.getInstance()
 				.getProducts().get(0), 4);
 		sale.addLineItem(lineItem1);
 		sale.addLineItem(lineItem2);
-		Invoice invoice1 = new Invoice("invoice1", date, RetailSystem
+		Invoice invoice1 = new Invoice(date, RetailSystem
 				.getInstance().getCustomers().get(0), 200.0, sale);
 		invoicesTest = new ArrayList<Invoice>();
 		invoicesTest.add(invoice1);
+		//System.err.println(invoicesTest.get(0).getSale().getLineItems().get(1).getQuantity());
 
 	}
 
@@ -305,8 +311,8 @@ public class DataBaseTest {
 	public void testLoadInvoicesOK2Invoices() throws IOException,
 			ParseException {
 		Reader reader = new StringReader(
-				"invoice1;19-Aug-2014;customer1;200;true;true;2;19-Aug-2014;product1;2;product2;1\n"
-						+ "invoice2;19-Aug-2014;customer2;200;true;true;2;19-Aug-2014;product1;2;product2;1\n");
+				"Invoice1;19-Aug-2014;customer1;200;true;true;2;19-Aug-2014;product1;2;product2;1\n"
+						+ "Invoice2;19-Aug-2014;customer2;200;true;true;2;19-Aug-2014;product1;2;product2;1\n");
 		ArrayList<Invoice> list = DataBase.loadInvoices(reader);
 		assertEquals(2, list.size());
 	}
@@ -323,8 +329,8 @@ public class DataBaseTest {
 	@Test
 	public void testLoadInvoicesCorrupteds() throws IOException, ParseException {
 		Reader reader = new StringReader(
-				"invoice1;19-Aug-2014\n"
-						+ "invoice2;19-Aug-2014;customer2;200;true;true;2;19-Aug-2014;product1;2;product2;1\n");
+				"Invoice1;19-Aug-2014\n"
+						+ "Invoice2;19-Aug-2014;customer2;200;true;true;2;19-Aug-2014;product1;2;product2;1\n");
 		ArrayList<Invoice> list = DataBase.loadInvoices(reader);
 		assertEquals(1, list.size());
 	}
@@ -388,8 +394,8 @@ public class DataBaseTest {
 		String datestring = DateFormat.getDateInstance().format(date);
 		Writer userFile = new StringWriter();
 		DataBase.writeInvoices(invoicesTest, userFile);
-		assertEquals("invoice1;" + datestring + ";customer1;200.0;true;true;2;"
-				+ datestring + ";product1;10;product1;4", userFile.toString()
+		assertEquals("Invoice1;" + datestring + ";customer1;200.0;true;true;2;"
+				+ datestring + ";product1;7;product1;4", userFile.toString()
 				.trim());
 	}
 
