@@ -49,9 +49,6 @@ public class ProductMenuGUI extends JPanel{
 			this.add(buttonViewProduct);
 			this.add(buttonViewProductList);
 			
-			//fixing the layout
-			JLabel labelEmpty = new JLabel(" ");;
-			this.add(labelEmpty);
 
 			
 		}else{

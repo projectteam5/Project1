@@ -1,5 +1,6 @@
 //GUI done. Method working//test commit//
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,23 +26,27 @@ public class EditProductGUI extends JPanel{
 	private JTextField textFieldMarkup = new JTextField("");
 	private JButton buttonCommitEditProduct;
 	private JButton buttonEditProduct;
-	private JPanel panel;
 	private JLabel title = new JLabel("Please chose a product from the list below");
 	private JLabel productName = new JLabel("Name");
 	private JLabel productCost = new JLabel("Cost");
 	private JLabel productMarkup = new JLabel("Markup");
 	private JLabel supplierName = new JLabel("Supplier");
+	private JLabel mainTitle;
 	private boolean productChosen = false;
 
 
 	public EditProductGUI() {
 		this.setLayout(new GridLayout(0,1));
+		
 		compileProductNames();
 		compileSupplierNames();
 
+		mainTitle = new JLabel("Edit Product");
+		mainTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		buttonEditProduct = new JButton("Edit");
 		buttonCommitEditProduct = new JButton("Submit Edit");
 
+		this.add(mainTitle);
 		this.add(title);
 		this.add(productDropDown);
 		this.add(buttonEditProduct);

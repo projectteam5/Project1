@@ -1,5 +1,4 @@
 
-
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -16,8 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class CustomerAddGUI extends JPanel {
-	
-	
+
 	private JTextField textCustomerName;
 	private JTextField textCustomerAddress;
 	private JTextField textCustomerPhone;
@@ -26,22 +24,21 @@ public class CustomerAddGUI extends JPanel {
 	private JLabel labelCustomerAddress;
 	private JLabel labelCustomerPhone;
 	private JButton doneButton;
-	
 
 	public CustomerAddGUI() {
-		
+
 		this.setLayout(new GridLayout(0, 1));
-		
+
 		textCustomerName = new JTextField();
 		textCustomerAddress = new JTextField();
 		textCustomerPhone = new JTextField();
-		labelTitle = new JLabel("Add a new customer");
+		labelTitle = new JLabel("Add Customer");
 		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		labelCustomerName = new JLabel("Name");
 		labelCustomerAddress = new JLabel("Address");
 		labelCustomerPhone = new JLabel("Phone");
 		doneButton = new JButton("Add");
-		
+
 		this.add(labelTitle);
 		this.add(labelCustomerName);
 		this.add(textCustomerName);
@@ -50,7 +47,17 @@ public class CustomerAddGUI extends JPanel {
 		this.add(labelCustomerPhone);
 		this.add(textCustomerPhone);
 		this.add(doneButton);
-		
+
+		// fixing the layout
+		JLabel labelEmpty = new JLabel(" ");
+		JLabel labelEmpty1 = new JLabel(" ");
+		JLabel labelEmpty2 = new JLabel(" ");
+		JLabel labelEmpty3 = new JLabel(" ");
+		this.add(labelEmpty);
+		this.add(labelEmpty1);
+		this.add(labelEmpty2);
+		this.add(labelEmpty3);
+
 		doneButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int returnValue = addCustomer();
@@ -69,8 +76,7 @@ public class CustomerAddGUI extends JPanel {
 
 		this.setVisible(true);
 	}
-		
-	
+
 	public int addCustomer() {
 		String name = textCustomerName.getText();
 		String address = textCustomerAddress.getText();
@@ -85,15 +91,14 @@ public class CustomerAddGUI extends JPanel {
 		}
 	}
 
-	
-	public boolean customerValidation(String name, String address, String phoneNumber){
+	public boolean customerValidation(String name, String address,
+			String phoneNumber) {
 		boolean correct = true;
-		if (name.isEmpty() || address.isEmpty() || phoneNumber.isEmpty()){
-			correct=false;
+		if (name.isEmpty() || address.isEmpty() || phoneNumber.isEmpty()) {
+			correct = false;
 		}
-		
+
 		return correct;
 	}
-	
-	
+
 }

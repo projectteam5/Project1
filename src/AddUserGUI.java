@@ -38,7 +38,7 @@ public class AddUserGUI extends JPanel {
 		textUserPass = new JTextField();
 		typeDropDown = new JComboBox(RetailSystem.getInstance()
 				.getUserTypeList());
-		labelTitle = new JLabel("Add user");
+		labelTitle = new JLabel("Add User");
 		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		labelUserName = new JLabel("Name");
 		labelUserPass = new JLabel("Password");

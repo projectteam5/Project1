@@ -1,5 +1,6 @@
 //GUI done. Method working//test commit
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,52 +9,73 @@ import java.io.FileWriter;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-
-public class RemoveProductGUI extends JPanel{
+public class RemoveProductGUI extends JPanel {
 	private JComboBox<String> productDropDown = new JComboBox<String>();
 	private JPanel panel;
-	private JButton buttonDeleteProduct; 
+	private JButton buttonDeleteProduct;
+	private JLabel labelTitle;
 
 	public RemoveProductGUI() {
-		this.setLayout(new GridLayout(0,1));	
+		this.setLayout(new GridLayout(0, 1));
+
+		labelTitle = new JLabel("Remove Product");
+		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		compileProductNames();
-		
+
 		buttonDeleteProduct = new JButton("Delete");
-		
+
+		// fixing the layout
+		JLabel labelEmpty = new JLabel(" ");
+		JLabel labelEmpty1 = new JLabel(" ");
+		JLabel labelEmpty2 = new JLabel(" ");
+		JLabel labelEmpty3 = new JLabel(" ");
+		JLabel labelEmpty4 = new JLabel(" ");
+		JLabel labelEmpty5 = new JLabel(" ");
+		this.add(labelTitle);
+		this.add(labelEmpty);
 		this.add(productDropDown);
 		this.add(buttonDeleteProduct);
-		this.setVisible(true);
+
+		this.add(labelEmpty);
+		this.add(labelEmpty1);
+		this.add(labelEmpty2);
+		this.add(labelEmpty3);
+		this.add(labelEmpty4);
 		
-		//When a user presses the delete button, the system will check which product they are trying to delete
-		buttonDeleteProduct.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent argo0){
+
+		// When a user presses the delete button, the system will check which
+		// product they are trying to delete
+		buttonDeleteProduct.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argo0) {
 				String name = productDropDown.getSelectedItem().toString();
 				boolean found = false;
-				for(Product product: RetailSystem.getInstance().getProducts()){
-					if(name.equalsIgnoreCase(product.getName())){
+				for (Product product : RetailSystem.getInstance().getProducts()) {
+					if (name.equalsIgnoreCase(product.getName())) {
 						found = true;
 						product.setActive(false);
-						JOptionPane.showMessageDialog(null, "Product "+product.getName()+" has been removed from the system");
+						JOptionPane.showMessageDialog(null, "Product "
+								+ product.getName()
+								+ " has been removed from the system");
 						saveProduct();
 						repopulateComboBox();
 						break;
 					}
 				}
-				if(!found){
-					JOptionPane.showMessageDialog(null, "No Product With This ID in System!");
+				if (!found) {
+					JOptionPane.showMessageDialog(null,
+							"No Product With This ID in System!");
 				}
 			}
 		});
-		
-	}
-	
 
-	
-	public void repopulateComboBox(){
+	}
+
+	public void repopulateComboBox() {
 		this.remove(productDropDown);
 		this.remove(buttonDeleteProduct);
 		compileProductNames();
@@ -64,26 +86,26 @@ public class RemoveProductGUI extends JPanel{
 		revalidate();
 		repaint();
 	}
-	
-	public void compileProductNames(){
-		for(Product product: RetailSystem.getInstance().getProducts()){
-			if(product.isActive()){
+
+	public void compileProductNames() {
+		for (Product product : RetailSystem.getInstance().getProducts()) {
+			if (product.isActive()) {
 				productDropDown.addItem(product.getName());
 
 			}
 		}
 	}
-	
-	public static void saveProduct(){
-	       try {
-	           FileWriter productFile;
-	           productFile = new FileWriter("products.txt");
-	           DataBase.writeProducts(RetailSystem.getInstance().getProducts(), productFile);
-	           productFile.close();
-	       } catch (Exception exception) {
-	           exception.printStackTrace();
-	       }
-	   }
 
+	public static void saveProduct() {
+		try {
+			FileWriter productFile;
+			productFile = new FileWriter("products.txt");
+			DataBase.writeProducts(RetailSystem.getInstance().getProducts(),
+					productFile);
+			productFile.close();
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+	}
 
 }

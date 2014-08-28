@@ -1,13 +1,1 @@
-invoice1;19-Aug-2014;Customer4;200.0;true;true;2;19-Aug-2014;Product1;2;Product1;3
-Invoice2;28-Aug-2014;Customer2;2180.0;true;true;3;28-Aug-2014;Product1;3;Product1;1;Product1;5
-Invoice3;28-Aug-2014;Customer1;3150.0;true;true;1;28-Aug-2014;Product1;3
-Invoice4;28-Aug-2014;Customer3;300.0;true;true;1;28-Aug-2014;Product1;1
-Invoice5;28-Aug-2014;Customer2;280.0;true;true;1;28-Aug-2014;Product1;1
-Invoice6;28-Aug-2014;Customer5;0.0;true;true;0;28-Aug-2014;
-Invoice7;28-Aug-2014;Customer6;0.0;true;true;0;28-Aug-2014;
-Invoice8;28-Aug-2014;Customer7;0.0;true;true;0;28-Aug-2014;
-Invoice9;28-Aug-2014;Customer1;120.0;true;true;1;28-Aug-2014;Product1;2
-Invoice10;28-Aug-2014;Customer1;2220.0;true;true;1;28-Aug-2014;Product1;2
-Invoice11;28-Aug-2014;Customer1;720.0;true;true;2;28-Aug-2014;Product1;2;Product1;1
-Invoice12;28-Aug-2014;Customer1;235.0;true;true;2;28-Aug-2014;Product1;3;Product1;1
-Invoice13;28-Aug-2014;Customer7;2100.0;true;true;1;28-Aug-2014;Product10;2
+Invoice1;28-Aug-2014;Customer9;800.0;true;true;3;28-Aug-2014;Product6;1;Product6;2;Product6;1

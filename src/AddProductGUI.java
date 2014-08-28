@@ -1,5 +1,6 @@
 //GUI done. Method working//test commit
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,9 +31,12 @@ public class AddProductGUI extends JPanel {
 	private JLabel label3;
 	private JLabel label4;
 	private JLabel label5;
+	private JLabel labelTitle;
 
 	public AddProductGUI() {
 		this.setLayout(new GridLayout(0, 1));
+		labelTitle = new JLabel("Add Product");
+		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		label2 = new JLabel("Product Name");
 		textFieldName = new JTextField();
 		label3 = new JLabel("Product Cost");
@@ -44,6 +48,7 @@ public class AddProductGUI extends JPanel {
 		JLabel label5 = new JLabel("Product Supplier ID");
 		JButton submitButton = new JButton("Submit");
 
+		this.add(labelTitle);
 		this.add(label2);
 		this.add(textFieldName);
 		this.add(label3);
@@ -53,7 +58,16 @@ public class AddProductGUI extends JPanel {
 		this.add(label5);
 		this.add(supplierDropDown);
 		this.add(submitButton);
-		this.setVisible(true);
+
+		// fixing the layout
+		JLabel labelEmpty = new JLabel(" ");
+		JLabel labelEmpty1 = new JLabel(" ");
+		JLabel labelEmpty2 = new JLabel(" ");
+		JLabel labelEmpty3 = new JLabel(" ");
+		this.add(labelEmpty);
+		this.add(labelEmpty1);
+		this.add(labelEmpty2);
+		this.add(labelEmpty3);
 
 		submitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argo0) {
@@ -102,8 +116,10 @@ public class AddProductGUI extends JPanel {
 						try {
 							JOptionPane.showMessageDialog(null,
 									"Adding product");
-							Product product = new Product(name, cost, markup,supplierPicked);
-							RetailSystem.getInstance().getProducts().add(product);
+							Product product = new Product(name, cost, markup,
+									supplierPicked);
+							RetailSystem.getInstance().getProducts()
+									.add(product);
 							saveProduct();
 							cleanFileds();
 						} catch (NumberFormatException e) {
@@ -128,7 +144,6 @@ public class AddProductGUI extends JPanel {
 			}
 		}
 	}
-
 
 	public JTextField getTextFieldName() {
 		return textFieldName;
@@ -162,7 +177,6 @@ public class AddProductGUI extends JPanel {
 		this.names = names;
 	}
 
-
 	public static void saveProduct() {
 		try {
 			FileWriter productFile;
@@ -174,8 +188,8 @@ public class AddProductGUI extends JPanel {
 			exception.printStackTrace();
 		}
 	}
-	
-	public void cleanFileds(){
+
+	public void cleanFileds() {
 		textFieldName.setText("");
 		textFieldCost.setText("");
 		textFieldMarkup.setText("");

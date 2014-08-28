@@ -30,10 +30,10 @@ public class ShowUserGUI extends JPanel {
 	private String selectedUserIDPrev;
 
 	public ShowUserGUI() {
-		
+
 		this.setLayout(new GridLayout(0, 1));
 
-		labelTitleMain = new JLabel("Show user");
+		labelTitleMain = new JLabel("View User");
 		labelTitleMain.setFont(new Font("Arial", Font.BOLD, 20));
 		labelTitle = new JLabel(
 				"Please pick the user you want to see from the user list below");
@@ -44,7 +44,6 @@ public class ShowUserGUI extends JPanel {
 		labelID = new JLabel("ID of the selected user:");
 		labelPassword = new JLabel("Password of the selected user:");
 		labelType = new JLabel("Type of the selected user:");
-		
 
 		this.add(labelTitleMain);
 		this.add(labelTitle);
@@ -54,17 +53,23 @@ public class ShowUserGUI extends JPanel {
 		this.add(labelID);
 		this.add(labelPassword);
 		this.add(labelType);
-		//fixing the layout
+		// fixing the layout
 		JLabel labelEmpty = new JLabel(" ");
+		JLabel labelEmpty1 = new JLabel(" ");
+		JLabel labelEmpty2 = new JLabel(" ");
+		JLabel labelEmpty3 = new JLabel(" ");
 		this.add(labelEmpty);
-			
+		this.add(labelEmpty1);
+		this.add(labelEmpty2);
+		this.add(labelEmpty3);
 
 		returnValue = 2;
 
 		showButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				selectedUserID = RetailSystem.returnIDfromCombobox(usersDropDown.getSelectedItem()
-						.toString());
+				selectedUserID = RetailSystem
+						.returnIDfromCombobox(usersDropDown.getSelectedItem()
+								.toString());
 				if (returnValue == 2
 						|| !selectedUserID.equals(selectedUserIDPrev)) {
 					returnValue = showUserButton();
@@ -72,11 +77,11 @@ public class ShowUserGUI extends JPanel {
 				}
 			}
 		});
-		
+
 	}
 
 	public int showUserButton() {
-		
+
 		User selectedUser = User.retrieveUser(selectedUserID);
 		if (selectedUser != null) {
 			labelName.setText("Name of the selected user: "
@@ -87,7 +92,7 @@ public class ShowUserGUI extends JPanel {
 					+ selectedUser.getPassword());
 			labelType.setText("Type of the selected user: "
 					+ selectedUser.getType());
-			
+
 			this.revalidate();
 			this.repaint();
 			return 0;
