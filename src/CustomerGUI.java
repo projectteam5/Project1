@@ -42,6 +42,11 @@ public class CustomerGUI extends JPanel {
 		this.add(editCustomer);
 		this.add(showCustomer);
 		this.add(deleteCustomer);
+		//fixing the layout
+		JLabel labelEmpty = new JLabel(" ");
+		JLabel labelEmpty1 = new JLabel(" ");
+		this.add(labelEmpty);
+		this.add(labelEmpty1);
 
 		/*
 		 * Add button: it opens a new window where it's possible to insert user

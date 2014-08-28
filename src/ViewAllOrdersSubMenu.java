@@ -33,6 +33,19 @@ public class ViewAllOrdersSubMenu extends JPanel implements ActionListener {
 		
 		this.add(labelTitle);
 		this.add(viewOrders);
+		//fixing the layout
+		JLabel labelEmpty = new JLabel(" ");
+		JLabel labelEmpty1 = new JLabel(" ");
+		JLabel labelEmpty2 = new JLabel(" ");
+		JLabel labelEmpty3 = new JLabel(" ");
+		JLabel labelEmpty4 = new JLabel(" ");
+		JLabel labelEmpty5 = new JLabel(" ");
+		this.add(labelEmpty);
+		this.add(labelEmpty1);
+		this.add(labelEmpty2);
+		this.add(labelEmpty3);
+		this.add(labelEmpty4);
+		this.add(labelEmpty5);
 		
 		viewOrders.addActionListener(this);
 		

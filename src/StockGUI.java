@@ -25,9 +25,19 @@ public class StockGUI extends JPanel {
 		this.setLayout(new GridLayout(0,1));
 		//this.setSize(400,400);
 		title = new JLabel("Stock Viewer");	
+		title.setFont(new Font("Arial", Font.BOLD, 20));
 		add(title);
 		add(searchByProduct);
 		add(viewListOfStock);
+		//fixing the layout
+		JLabel labelEmpty = new JLabel(" ");
+		JLabel labelEmpty1 = new JLabel(" ");
+		JLabel labelEmpty2 = new JLabel(" ");
+		JLabel labelEmpty3 = new JLabel(" ");
+		this.add(labelEmpty);
+		this.add(labelEmpty1);
+		this.add(labelEmpty2);
+		this.add(labelEmpty3);
 		
 		
 		

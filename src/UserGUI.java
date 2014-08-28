@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileWriter;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,15 +22,18 @@ public class UserGUI extends JPanel {
 	JButton showUser;
 	JLabel labelTitle;
 
+
 	private final static Font fontButtons = new Font("Arial", Font.BOLD, 12);
 	private final static Color colorButtons = new Color(126, 163, 249);
 	private final static Color colorButtonSelected = new Color(21, 82, 223);
 
 	public UserGUI() {
 		// declaration and initialization of buttons and labels
-		this.setLayout(new GridLayout(0, 1));
+		this.setLayout(new GridLayout(0,1));
 		labelTitle = new JLabel("User Menu");
 		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
+		labelTitle.setAlignmentY(TOP_ALIGNMENT);
+		
 		addUser = new JButton("Add User");
 		editUser = new JButton("Edit User");
 		deleteUser = new JButton("Remove User");
@@ -42,6 +46,11 @@ public class UserGUI extends JPanel {
 		this.add(editUser);
 		this.add(showUser);
 		this.add(deleteUser);
+		//fixing the layout
+		JLabel labelEmpty = new JLabel(" ");
+		JLabel labelEmpty1 = new JLabel(" ");
+		this.add(labelEmpty);
+		this.add(labelEmpty1);
 
 		/*
 		 * Add button: it opens a new window where it's possible to insert user

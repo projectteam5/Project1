@@ -15,9 +15,6 @@ public class CustomerTest {
 	public void tearDown() throws Exception {
 	}
 
-	@Test
-	public void testReturnIDfromCombobox() {
-		assertEquals("Customer1", Customer.returnIDfromCombobox("ID: Customer1 ; Name: CustomerName"));
-	}
+
 
 }

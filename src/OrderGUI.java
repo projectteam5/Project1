@@ -36,6 +36,11 @@ public class OrderGUI extends JPanel implements ActionListener {
 		this.add(editOrder);
 		this.add(viewOrder);
 		this.add(removeOrder);
+		//fixing the layout
+		JLabel labelEmpty = new JLabel(" ");
+		JLabel labelEmpty1 = new JLabel(" ");
+		this.add(labelEmpty);
+		this.add(labelEmpty1);
 		
 		createOrder.addActionListener(this);
 		editOrder.addActionListener(this);

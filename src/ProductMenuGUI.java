@@ -23,9 +23,12 @@ public class ProductMenuGUI extends JPanel{
 	private JButton buttonViewProduct;
 	private JButton buttonViewProductList;
 	private JButton buttonEditProduct;
+	JLabel labelTitle;
 
 	public ProductMenuGUI() {
 		this.setLayout(new GridLayout(0,1));
+		labelTitle = new JLabel("Product Menu");
+		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		buttonAddProduct = new JButton("Add Product");
 		buttonRemoveProduct = new JButton("Remove Product");
 		buttonViewProduct = new JButton("View Product");
@@ -35,11 +38,16 @@ public class ProductMenuGUI extends JPanel{
 		colourButton();
 		
 		if(RetailSystem.getInstance().getCurrentUserType().equalsIgnoreCase("Manager")){
+			this.add(labelTitle);
 			this.add(buttonAddProduct);
 			this.add(buttonRemoveProduct);
 			this.add(buttonViewProduct);
 			this.add(buttonViewProductList);
 			this.add(buttonEditProduct);
+			//fixing the layout
+			JLabel labelEmpty = new JLabel(" ");;
+			this.add(labelEmpty);
+
 			
 		}else{
 			JOptionPane.showMessageDialog(null, "No access at attendant level!");
