@@ -1,6 +1,10 @@
 import java.awt.GridLayout;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.JPanel;
 
@@ -14,11 +18,18 @@ import org.jfree.data.category.DefaultCategoryDataset;
 public class Graph extends JPanel {
 
    private static final long serialVersionUID = 1L;
-   private Date date = new Date();
+   @SuppressWarnings("deprecation")
+   static Date date = new Date();
+   private ArrayList<Order> lastMonth;
+   private ArrayList<Order> secondLastMonth;
+   private ArrayList<Order> thirdLastMonth;
+   private DataSetValue returnedDataSet;
 
    public Graph(String applicationTitle, String chartTitle) {
-	   
-	   this.setLayout(new GridLayout(0,1));
+	    lastMonth = new ArrayList<Order>();
+	    secondLastMonth = new ArrayList<Order>();
+	    thirdLastMonth = new ArrayList<Order>();
+	    this.setLayout(new GridLayout(0,1));
 
         // based on the dataset we create the chart
         JFreeChart pieChart = ChartFactory.createBarChart("Best sellers by orders", "Products", "Amount", createDataset(),PlotOrientation.VERTICAL, true, true, false);
@@ -40,54 +51,112 @@ public class Graph extends JPanel {
       final String january = "1st Month";
       final String feb = "2nd Month";
       final String mar = "3rd Month";
-      // column keys...
-      String numberOne = "";
-      String numberTwo = "";
-      String numberThree = "";
-      
-      int numberOneQuantity=0;
-      int numberTwoQuantity=0;
-      int numberThreeQuantity=0;
 
       // create the dataset...
       final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-      int i=0,j=0,n=0;
-      for(Order orders:RetailSystem.getInstance().getOrders()){
-    	  if(orders.getQuantity()>i){
-    		  i=orders.getQuantity();
-    		  numberOne = orders.getProduct().getName();
-    		  numberOneQuantity = orders.getQuantity();
-    	  }
-      }
       
-      for(Order orders:RetailSystem.getInstance().getOrders()){
-    	  if(orders.getQuantity()>j&&orders.getQuantity()<i){
-    		  j=orders.getQuantity();
-    		  numberTwo = orders.getProduct().getName();
-    		  numberTwoQuantity = orders.getQuantity();
-    	  }
-      }
+      seperateAndRedefineStocksPerMonth(RetailSystem.getInstance().getOrders());
+      findDataValuesForLastMonth(lastMonth); 
+      dataset.addValue(returnedDataSet.getValue1(), january, returnedDataSet.getName1());
+      dataset.addValue(returnedDataSet.getValue2(), january, returnedDataSet.getName2());
+      dataset.addValue(returnedDataSet.getValue3(), january, returnedDataSet.getName3());
       
-      for(Order orders:RetailSystem.getInstance().getOrders()){
-    	  if(orders.getQuantity()>n&&orders.getQuantity()<j){
-    		  n=orders.getQuantity();
-    		  numberThree = orders.getProduct().getName();
-    		  numberThreeQuantity = orders.getQuantity();
-    	  }
-      }
+      findDataValuesForLastMonth(secondLastMonth); 
+      dataset.addValue(returnedDataSet.getValue1(), feb, returnedDataSet.getName1());
+      dataset.addValue(returnedDataSet.getValue2(), feb, returnedDataSet.getName2());
+      dataset.addValue(returnedDataSet.getValue3(), feb, returnedDataSet.getName3());
       
-      dataset.addValue(numberOneQuantity, january, numberOne);
-      dataset.addValue(numberTwoQuantity, january, numberTwo);
-      dataset.addValue(numberThreeQuantity, january, numberThree);
-      
-      dataset.addValue(numberOneQuantity, feb, numberOne);
-      dataset.addValue(numberTwoQuantity, feb, numberTwo);
-      dataset.addValue(numberThreeQuantity, feb, numberThree);
-      
-      dataset.addValue(numberOneQuantity, mar, numberOne);
-      dataset.addValue(numberTwoQuantity, mar, numberTwo);
-      dataset.addValue(numberThreeQuantity, mar, numberThree);
+      findDataValuesForLastMonth(thirdLastMonth); 
+      dataset.addValue(returnedDataSet.getValue1(), mar, returnedDataSet.getName1());
+      dataset.addValue(returnedDataSet.getValue2(), mar, returnedDataSet.getName2());
+      dataset.addValue(returnedDataSet.getValue3(), mar, returnedDataSet.getName3());
       
       return dataset;
   }
+   
+   // previous months data values
+   public void findDataValuesForLastMonth(ArrayList<Order> month){
+	   int numberOneQuantity=0;
+	   int numberTwoQuantity=0;
+	   int numberThreeQuantity=0;
+	   // column keys...
+	   String numberOneName = "";
+	   String numberTwoName = "";
+	   String numberThreeName = ""; 
+	  
+	  int highestQuantity=0,secondHighestQuantity=0,thirdHighestQuantity=0;
+	      
+      for(Order orders:month){
+    	  numberOneQuantity=orders.getQuantity();
+    	  for(Order ord:month){
+    		 highestQuantity = ord.getQuantity();
+    		 if(numberOneQuantity<=highestQuantity){
+    			 numberOneQuantity = highestQuantity;
+    			 numberOneName = ord.getProduct().getName();
+    		 }
+    	  }
+      }
+      
+	  for(Order orders1:month){
+		  numberTwoQuantity = orders1.getQuantity();
+    	  for(Order ord1:month){
+    		 secondHighestQuantity=ord1.getQuantity();
+    		 if(numberTwoQuantity<=secondHighestQuantity && secondHighestQuantity<numberOneQuantity){
+    			 numberTwoQuantity=secondHighestQuantity;
+    			 numberTwoName = ord1.getProduct().getName();
+    		 }
+    	  }
+	  }
+    	  
+	  for(Order orders12:month){
+		  numberThreeQuantity=orders12.getQuantity();
+    	  for(Order ord12:month){
+    		 thirdHighestQuantity=ord12.getQuantity();
+    		 if(numberThreeQuantity<=thirdHighestQuantity && thirdHighestQuantity<numberTwoQuantity){
+    			 numberThreeQuantity=thirdHighestQuantity;
+    			 numberThreeName = ord12.getProduct().getName();
+    		 }
+    	  }
+	  }
+	  
+	  DataSetValue mySet = new DataSetValue(numberOneQuantity, numberOneName, numberTwoQuantity,
+			  numberTwoName, numberThreeQuantity, numberThreeName);
+	  returnedDataSet=mySet;
+   }
+   
+   
+   // Function to separate the months of orders and add to specific list
+   public void seperateAndRedefineStocksPerMonth(ArrayList<Order> orders){
+	   for(Order o: orders){
+		   if(addDaysFromDateString(o.getOrderDate(), date)==1){
+			   lastMonth.add(o);
+		   }
+		   else if(addDaysFromDateString(o.getOrderDate(), date)==2){
+			   secondLastMonth.add(o);
+		   }
+		   else if(addDaysFromDateString(o.getOrderDate(), date)==3){
+			   thirdLastMonth.add(o);
+		   }
+	   }
+   }
+   
+   
+   // Function to return the difference in months from today to order date
+   public static int addDaysFromDateString(Date orderDate, Date todaysDate) {
+       int result;
+       
+       Calendar calendar = new GregorianCalendar();
+       Calendar calendar2 = new GregorianCalendar();
+       DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
+      
+       calendar.setTime(todaysDate);
+       calendar2.setTime(orderDate);
+       int a = calendar.get(Calendar.MONTH);
+       int b = calendar2.get(Calendar.MONTH);
+       
+       result = a-b;
+       System.out.println(result);
+      
+       return result;
+   }
 }
