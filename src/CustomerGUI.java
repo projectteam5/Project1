@@ -28,7 +28,7 @@ public class CustomerGUI extends JPanel {
 	public CustomerGUI() {
 		// declaration and initialization of buttons and labels
 		this.setLayout(new GridLayout(0, 1));
-		labelTitle = new JLabel("User Menu");
+		labelTitle = new JLabel("Customer Menu");
 		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		addCustomer = new JButton("Add Customer");
 		editCustomer = new JButton("Edit Customer");

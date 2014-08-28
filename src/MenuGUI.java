@@ -43,7 +43,7 @@ public class MenuGUI extends JFrame {
 	private final static double percWidth2 = 0.15;
 	private final static double percWidth3 = 0.50;
 	private final static double percWidthEmpty = 0.03;
-	private final static double percHeigthEmpty = 0.10;
+	private final static double percHeigthEmpty = 0.05;
 	
 	private final static Font fontButtons = new Font("Arial", Font.BOLD, 16);
 	private final static Color colorButtons = new Color(126,163,249);
@@ -235,13 +235,16 @@ public class MenuGUI extends JFrame {
 	
 	public void resize(){
 		panelMenu.setSize((int)(frame.getWidth()*percWidth1),(int) (frame.getHeight()*percHeight1));
-		panelMenu.setLocation((int)(frame.getWidth()*percWidthEmpty),(int)(frame.getHeight()*percHeigthEmpty));
+		panelMenu.setLocation((int)(frame.getWidth()*percWidthEmpty),0);//(int)(frame.getHeight()*percHeigthEmpty)
+		panelMenu.setBorder(new EmptyBorder((int)(frame.getHeight()*percHeigthEmpty), 0, 0 , 0));
 		
-		panelSubMenu.setSize((int)(frame.getWidth()*percWidth2),(int) (frame.getHeight()*percHeight2));
-		panelSubMenu.setLocation((int)(panelMenu.getLocation().getX()+ panelMenu.getWidth()+ frame.getWidth()*percWidthEmpty),(int)(frame.getHeight()*percHeigthEmpty));
+		panelSubMenu.setSize((int)(frame.getWidth()*percWidth2),(int) (frame.getHeight()*percHeight1));
+		panelSubMenu.setLocation((int)(panelMenu.getLocation().getX()+ panelMenu.getWidth()+ frame.getWidth()*percWidthEmpty),0);
+		panelSubMenu.setBorder(new EmptyBorder((int)(frame.getHeight()*percHeigthEmpty), 0, 0 , 0));
 		
 		panelAction.setSize((int)(frame.getWidth()*percWidth3),(int) (frame.getHeight()*percHeight1));
-		panelAction.setLocation((int)(panelSubMenu.getLocation().getX()+panelSubMenu.getWidth()+frame.getWidth()*percWidthEmpty),(int)(frame.getHeight()*percHeigthEmpty));
+		panelAction.setLocation((int)(panelSubMenu.getLocation().getX()+panelSubMenu.getWidth()+frame.getWidth()*percWidthEmpty),0);
+		panelAction.setBorder(new EmptyBorder((int)(frame.getHeight()*percHeigthEmpty), 0, 0 , 0));
 		
 		frame.revalidate();
 		frame.repaint();

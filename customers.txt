@@ -1,11 +1,10 @@
 Customer1;Henry BoBoserson;Address 2 Cork;089334455;true
 Customer2;kvhfkvfejh;kjkjerveriu;2334456;false
 Customer3;Erich King;7 Leinster Square, Rathmines, Dublin 6;0873963668;true
-Cusotmer4;Sean Seaneeson;5 there dkdknfinb;9884849;false
-Customer5;Heinrich Johnstom;56 taney grove;45566;true
-Customer6;;;;false
-Customer7;rtyy;erryy;weert;true
-Customer8;try;rety;67778;false
+Customer4;Heinrich Johnstom;56 taney grove;45566;false
+Customer5;;;;false
+Customer6;rtyy;erryy;weert;true
+Customer7;try;rety;67778;false
+Customer8;test customer;ijijijij;790889;true
 Customer9;test customer;ijijijij;790889;true
-Customer10;test customer;ijijijij;790889;true
-Customer11;test custumer3;ijijijij;790889;false
+Customer10;test custumer3;ijijijij;790889;false

@@ -113,13 +113,5 @@ public class Customer {
 			}
 		}
 	}
-	
-	public static String returnIDfromCombobox(String selectedCustomerString){
-		String[] selectedCustomerArray = selectedCustomerString.split(";");
-		String selectedCustomerIDString = selectedCustomerArray[0];
-		String[] selectedCustomerIDArray = selectedCustomerIDString.split(":");
-		String customerID = selectedCustomerIDArray[1].trim();
-		return customerID;
-	}
 
 }

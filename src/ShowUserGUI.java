@@ -49,12 +49,8 @@ public class ShowUserGUI extends JPanel {
 
 		showButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String selectedUserString = usersDropDown.getSelectedItem()
-						.toString();
-				String[] selectedUserArray = selectedUserString.split(";");
-				String selectedUserIDString = selectedUserArray[0];
-				String[] selectedUserIDArray = selectedUserIDString.split(":");
-				selectedUserID = selectedUserIDArray[1].trim();
+				selectedUserID = RetailSystem.returnIDfromCombobox(usersDropDown.getSelectedItem()
+						.toString());
 				if (returnValue == 2
 						|| !selectedUserID.equals(selectedUserIDPrev)) {
 					returnValue = showUserButton();

@@ -118,6 +118,18 @@ public class Product {
 		this.active = active;
 	}
 	
+	//used in DataBase
+	public static Product findProductWithID(String id) {
+		Product product = null;
+		for (Product product_1 : RetailSystem.getInstance().getProducts()) {
+			if (product_1.getProductID().equals(id)){
+				product = product_1;
+				break; // I need to exit the for
+			}
+		}
+		return product;
+	}
+	
 	//used in sale GUI
 	public static Product findProductWithName(String name) {
 		Product product = null;

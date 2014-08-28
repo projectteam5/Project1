@@ -1,8 +1,8 @@
 import java.awt.Container;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,10 +26,11 @@ public class LoginGUI {
 		frame.setSize(400, 400);
 		frame.setTitle("Login");
 		panel = new JPanel();
-		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panel.setBorder(new EmptyBorder(120, 50, 120, 50));
 		Container container = frame.getContentPane();
 		container.add(panel);
-		panel.setLayout(new GridLayout(0, 1));
+		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+		//panel.setLayout(new GridLayout(0, 1));
 
 		// declaration of the labels and initialization of labels and text field
 		JLabel label_1 = new JLabel("Please insert your identification number");

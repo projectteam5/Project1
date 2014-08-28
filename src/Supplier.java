@@ -86,4 +86,19 @@ public class Supplier {
 	  		 exception.printStackTrace();
 	  	 }
 	}
+	
+	//used in DataBase
+	public static Supplier findSupplierWithID(String id) {
+		Supplier supplier = null;
+		// before to construct the object order it is necessary retrieve
+		// the object product
+		for (Supplier supplier_1 : RetailSystem.getInstance().getSuppliers()) {
+			if (supplier_1.getSupplierID().equals(id)) {
+				supplier = supplier_1;
+				break; // I need to exit the for
+			}
+
+		}
+		return supplier;
+	}
 }

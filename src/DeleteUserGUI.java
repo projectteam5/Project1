@@ -51,11 +51,7 @@ public class DeleteUserGUI extends JPanel {
 
 	public void deleteUserButton() {
 		userRemove = null;
-		String selectedUserString = usersDropDown.getSelectedItem().toString();
-		String[] selectedUserArray = selectedUserString.split(";");
-		String selectedUserIDString = selectedUserArray[0];
-		String[] selectedUserIDArray = selectedUserIDString.split(":");
-		selectedUserID = selectedUserIDArray[1].trim();
+		selectedUserID = RetailSystem.returnIDfromCombobox(usersDropDown.getSelectedItem().toString());
 		userRemove = User.retrieveUser(selectedUserID);
 		if (userRemove != null) {
 			userRemove.setActive(false);
