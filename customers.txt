@@ -1,4 +1,4 @@
-Customer1;Henry Bo;address 2 Cork;089334455;true
+Customer1;Henry BoBo;Address 2 Cork;089334455;true
 Customer2;kvhfkvfejh;kjkjerveriu;2334456;false
 Customer3;Erich King;7 Leinster Square, Rathmines, Dublin 6;0873963668;true
 Cusotmer4;Sean Seaneeson;5 there dkdknfinb;9884849;false

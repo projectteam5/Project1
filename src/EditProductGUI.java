@@ -1,4 +1,4 @@
-//GUI done. Method working
+//GUI done. Method working//test commit//
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -24,7 +24,8 @@ public class EditProductGUI extends JPanel{
 	private JTextField textFieldCost = new JTextField("");
 	private JTextField textFieldMarkup = new JTextField("");
 	private JButton buttonCommitEditProduct;
-	private JButton buttonMenu;
+	private JButton buttonEditProduct;
+	//private JButton buttonMenu;
 	private JPanel panel;
 	private JLabel title = new JLabel("Please chose a product from the list below");
 	private JLabel productName = new JLabel("Name");
@@ -46,9 +47,9 @@ public class EditProductGUI extends JPanel{
 		compileProductNames();
 		compileSupplierNames();
 
-		JButton buttonEditProduct = new JButton("Edit");
+		buttonEditProduct = new JButton("Edit");
 		buttonCommitEditProduct = new JButton("Submit Edit");
-		buttonMenu = new JButton("Menu");
+		//buttonMenu = new JButton("Menu");
 
 		this.add(title);
 		this.add(productDropDown);
@@ -62,7 +63,7 @@ public class EditProductGUI extends JPanel{
 		this.add(supplierName);
 		this.add(supplierDropDown);
 		this.add(buttonCommitEditProduct);
-		this.add(buttonMenu);
+		//this.add(buttonMenu);
 		this.setVisible(true);
 		
 		buttonEditProduct.addActionListener(new ActionListener(){
@@ -91,11 +92,11 @@ public class EditProductGUI extends JPanel{
 				if(productChosen){
 					Supplier supplierPicked = null;
 					boolean correctInfo = true;
-					String name = null;
+					boolean duplicateProductName = false;
+					String productName = textFieldName.getText();
 					double cost = 0;
 					double markup = 0;
 					try{
-						name = textFieldName.getText();
 						cost = Double.parseDouble(textFieldCost.getText());
 						markup = Double.parseDouble(textFieldMarkup.getText());
 					}catch(NumberFormatException e){
@@ -110,14 +111,33 @@ public class EditProductGUI extends JPanel{
 						}
 					
 					}
-					if(correctInfo){
-						chosenEditProduct.setName(name);
+					
+					if(!productName.equalsIgnoreCase(chosenEditProduct.getName())){
+						for(Product product: RetailSystem.getInstance().getProducts()){
+							if(product.getName().equalsIgnoreCase(productName)){
+								duplicateProductName = true;
+							
+							}
+							
+								
+							}
+						}
+					if(duplicateProductName == true){
+						JOptionPane.showMessageDialog(null, "Product in system with same name");
+					}
+
+
+					if((correctInfo) && (!duplicateProductName) &&(!textFieldName.equals(null))&& (cost!=0) && (markup!=0)){
+						chosenEditProduct.setName(textFieldName.getText());
 						chosenEditProduct.setCost(cost);
 						chosenEditProduct.setMarkup(markup);
 						chosenEditProduct.setSupplier(supplierPicked);
 						JOptionPane.showMessageDialog(null, "Product has been edited");
 						saveProduct();
+						populateFields2();
 						
+					}else{
+						JOptionPane.showMessageDialog(null, "Please fill out all fields");
 					}
 				}else{
 					JOptionPane.showMessageDialog(null, "You cannot edit without chosing a product");
@@ -127,12 +147,12 @@ public class EditProductGUI extends JPanel{
 			
 		}
 		});
-		buttonMenu.addActionListener(new ActionListener(){
+/*		buttonMenu.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent ago0){
 				ProductMenuGUI productMenuGUI = new ProductMenuGUI();
 				closeEditProductGUI();	
 			}
-		});
+		});*/
 		
 
 		
@@ -157,6 +177,10 @@ public class EditProductGUI extends JPanel{
 		}
 	}
 	
+	public void checkIfDuplicateName(){
+		
+	}
+	
 	public void populateFields(){
 		this.remove(productName);
 		this.remove(textFieldName);
@@ -167,7 +191,6 @@ public class EditProductGUI extends JPanel{
 		this.remove(supplierName);
 		this.remove(supplierDropDown);
 		this.remove(buttonCommitEditProduct);
-		this.remove(buttonMenu);
 		supplierDropDown.setSelectedItem(chosenEditProduct.getSupplier().getName());
 		textFieldName = new JTextField(chosenEditProduct.getName());
 		textFieldCost = new JTextField(String.valueOf(chosenEditProduct.getCost()));
@@ -181,9 +204,39 @@ public class EditProductGUI extends JPanel{
 		this.add(supplierName);
 		this.add(supplierDropDown);
 		this.add(buttonCommitEditProduct);
-		this.add(buttonMenu);
 		revalidate();
 		repaint();
+	}
+	
+	public void populateFields2(){
+		this.remove(productDropDown);
+		this.remove(buttonEditProduct);
+		this.remove(productName);
+		this.remove(textFieldName);
+		this.remove(productCost);
+		this.remove(textFieldCost);
+		this.remove(productMarkup);
+		this.remove(textFieldMarkup);
+		this.remove(supplierName);
+		this.remove(supplierDropDown);
+		this.remove(buttonCommitEditProduct);
+		productDropDown = new JComboBox();
+		compileProductNames();
+		productDropDown.setSelectedIndex(0);
+		this.add(productDropDown);
+		this.add(buttonEditProduct);
+		this.add(productName);
+		this.add(textFieldName);
+		this.add(productCost);
+		this.add(textFieldCost);
+		this.add(productMarkup);
+		this.add(textFieldMarkup);
+		this.add(supplierName);
+		this.add(supplierDropDown);
+		this.add(buttonCommitEditProduct);
+		revalidate();
+		repaint();
+		
 	}
 
 	public static Product getChosenEditProduct() {
@@ -194,9 +247,9 @@ public class EditProductGUI extends JPanel{
 		this.chosenEditProduct = chosenEditProduct;
 	}
 
-	public void closeEditProductGUI(){
+/*	public void closeEditProductGUI(){
 		this.setVisible(false);
-	}
+	}*/
 	
 	public static void saveProduct(){
 	       try {

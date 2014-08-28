@@ -12,7 +12,6 @@ public class ViewAllOrdersGUI extends JPanel {
 	private JLabel counterLabel;
 	
 	private JLabel printLabel2;
-	private JLabel labelTitle;
 	private JLabel labelTitle2;
 	private JLabel labelTitle3;
 	private JLabel labelTitle4;
@@ -22,9 +21,8 @@ public class ViewAllOrdersGUI extends JPanel {
 		
 		this.setLayout(new GridLayout(0, 1));
 		
-		labelTitleMain = new JLabel("View all 	Orders");
+		labelTitleMain = new JLabel("Open 	Orders");
 		labelTitleMain.setFont(new Font("Arial", Font.BOLD, 20));
-		
 		this.add(labelTitleMain);
 		
 		int count=0;
@@ -33,9 +31,6 @@ public class ViewAllOrdersGUI extends JPanel {
 				count++;
 			}
 		}
-		
-		labelTitle = new JLabel("Open Orders");
-		this.add(labelTitle);
 		
 		double totalOpenCost = 0;
 
@@ -48,7 +43,7 @@ public class ViewAllOrdersGUI extends JPanel {
 				
 					printLabel2 = new JLabel(order.getOrderID()
 						+" | "+DateFormat.getDateInstance().format(order.getOrderDate())
-						+" | "+order.getProduct().getProductID()
+						+" | "+order.getProduct().getName()
 						+" | "+order.getQuantity()
 						+" | "+DateFormat.getDateInstance().format(order.getExpectedDeliveryDate())
 						+" | "+DateFormat.getDateInstance().format(order.getDateReceived())
@@ -60,9 +55,11 @@ public class ViewAllOrdersGUI extends JPanel {
 		}
 		
 		labelTitle4 = new JLabel("Total Open Order Cost: " +"€"+ totalOpenCost);
+		labelTitle4.setFont(new Font("Arial", Font.ITALIC, 12));
 		this.add(labelTitle4);
 		
 		labelTitle2 = new JLabel("Received Orders");
+		labelTitle2.setFont(new Font("Arial", Font.BOLD, 20));
 		this.add(labelTitle2);
 		
 		double totalReceivedCost = 0;
@@ -76,7 +73,7 @@ public class ViewAllOrdersGUI extends JPanel {
 				
 				printLabel = new JLabel(order.getOrderID()
 					+" | "+DateFormat.getDateInstance().format(order.getOrderDate())
-					+" | "+order.getProduct().getProductID()
+					+" | "+order.getProduct().getName()
 					+" | "+order.getQuantity()
 					+" | "+DateFormat.getDateInstance().format(order.getExpectedDeliveryDate())
 					+" | "+DateFormat.getDateInstance().format(order.getDateReceived())
@@ -88,9 +85,11 @@ public class ViewAllOrdersGUI extends JPanel {
 		}
 		
 		labelTitle3 = new JLabel("Total Receved Order Cost: " +"€"+ totalReceivedCost);
+		labelTitle3.setFont(new Font("Arial", Font.ITALIC, 12));
 		this.add(labelTitle3);
 		
 		counterLabel = new JLabel("Active Orders in System: " + count);
+		counterLabel.setFont(new Font("Arial", Font.BOLD, 15));
 		this.add(counterLabel);
 		
 		this.setVisible(true);

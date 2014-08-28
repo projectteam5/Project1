@@ -203,7 +203,7 @@ public class DataBase {
 					stocks.add(stock);
 				} else {
 					System.err
-							.println("Skipping order with not valid  product at line "
+							.println("Skipping stock with not valid  product at line "
 									+ count);
 				}
 

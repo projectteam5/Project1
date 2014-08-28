@@ -1,4 +1,4 @@
-import static org.junit.Assert.*;
+/*import static org.junit.Assert.*;
 
 import java.io.Reader;
 import java.io.StringReader;
@@ -61,11 +61,11 @@ public class ProductTest {
 		String string = Product.viewProduct(product1);
 		assertEquals("5783JKDS", string);
 	}
-/*	@Test
+	@Test
 	public void viewProductListTest(){
 		String string = Product.viewProductList();
 		assertEquals("Product1", string);
 		assertEquals("Product2", string);
-	}*/
+	}
 
-}
+}*/

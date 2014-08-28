@@ -25,10 +25,10 @@ public class DataBaseTest {
 			.getProducts();
 	private ArrayList<Customer> customerStatus = RetailSystem.getInstance()
 			.getCustomers();
-	private ArrayList<User> usersStatus = RetailSystem.getInstance()
-			.getUsers();
+	private ArrayList<User> usersStatus = RetailSystem.getInstance().getUsers();
 	private ArrayList<Order> ordersStatus = RetailSystem.getInstance()
 			.getOrders();
+	private ArrayList<Sale> salesStatus = RetailSystem.getInstance().getSales();
 	private static ArrayList<User> usersTest;
 	private static ArrayList<Customer> customersTest;
 	private static ArrayList<Supplier> suppliersTest;
@@ -36,6 +36,7 @@ public class DataBaseTest {
 	private static ArrayList<Order> ordersTest;
 	private static ArrayList<Stock> stocksTest;
 	private static ArrayList<Invoice> invoicesTest;
+	private static ArrayList<Sale> salesTest;
 	private static Date date = new Date();
 
 	/*
@@ -45,65 +46,76 @@ public class DataBaseTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		//create a Suppliers ArrayList for test
-		Reader reader = new StringReader("supplier1;Supplier1 Name;083776655;true\n"
-				+ "supplier2;Supplier2 Name;083775839;true\n");
+		// create a Suppliers ArrayList for test
+		Reader reader = new StringReader(
+				"supplier1;Supplier1 Name;083776655;true\n"
+						+ "supplier2;Supplier2 Name;083775839;true\n");
 		ArrayList<Supplier> suppliers = DataBase.loadSuppliers(reader);
 		RetailSystem.getInstance().setSuppliers(suppliers);
-		//create a Products ArrayList for test
+		// create a Products ArrayList for test
 		Reader reader1 = new StringReader(
 				"product1;ProductPC1;1000;200;supplier1;true\n"
 						+ "product2;ProductPC2;2000;400;supplier1;true\n"
 						+ "product3;ProductPC3;1500;300;supplier2;true\n");
 		ArrayList<Product> products = DataBase.loadProducts(reader1);
 		RetailSystem.getInstance().setProducts(products);
-		
-		//create a Customers ArrayList for test
-		Reader reader2 = new StringReader("customer1;Scott Scott;address 1 Dublin;089665544;true\n"
-				+ "customer2;Henry Bo;address 2 Cork;089334455;true\n");
+
+		// create a Customers ArrayList for test
+		Reader reader2 = new StringReader(
+				"customer1;Scott Scott;address 1 Dublin;089665544;true\n"
+						+ "customer2;Henry Bo;address 2 Cork;089334455;true\n");
 		ArrayList<Customer> customers = DataBase.loadCustomers(reader2);
 		RetailSystem.getInstance().setCustomers(customers);
-		
-		//create a Customers ArrayList for test
+
+		// create a User ArrayList for test
 		Reader reader3 = new StringReader("");
 		ArrayList<User> users = DataBase.loadUsers(reader3);
 		RetailSystem.getInstance().setUsers(users);
-		
-		//create a Customers ArrayList for test
+
+		// create a Order ArrayList for test
 		Reader reader4 = new StringReader("");
 		ArrayList<Order> orders = DataBase.loadOrders(reader4);
 		RetailSystem.getInstance().setOrders(orders);
-		
-		User user1 = new User("Cris","passw10","Attendant");
+
+		// create a Sale ArrayList for test
+		ArrayList<Sale> sales = new ArrayList<Sale>();
+		RetailSystem.getInstance().setSales(sales);
+
+		User user1 = new User("Cris", "passw10", "Attendant");
 		usersTest = new ArrayList<User>();
 		usersTest.add(user1);
-		Customer customer1 = new Customer("Scott Scott","address 1 Dublin","089665544");
+		Customer customer1 = new Customer("Scott Scott", "address 1 Dublin",
+				"089665544");
 		customersTest = new ArrayList<Customer>();
-		customersTest.add(customer1); 
-		Supplier supplier1 = new Supplier("Supplier1 Name","083776655");
+		customersTest.add(customer1);
+		Supplier supplier1 = new Supplier("Supplier1 Name", "083776655");
 		suppliersTest = new ArrayList<Supplier>();
 		suppliersTest.add(supplier1);
-		
-		Product product1 = new Product("product1","ProductPC1",1000, 200, supplier1);
+
+		Product product1 = new Product("ProductPC1", 1000, 200, supplier1);
 		productsTest = new ArrayList<Product>();
 		productsTest.add(product1);
-		
-		Order order1 = new Order(date, RetailSystem.getInstance().getProducts().get(0),10,date,date,false );
+
+		Order order1 = new Order(date, RetailSystem.getInstance().getProducts()
+				.get(0), 10, date, date, false);
 		ordersTest = new ArrayList<Order>();
 		ordersTest.add(order1);
 		Stock stock1 = new Stock(10, product1);
 		stocksTest = new ArrayList<Stock>();
 		stocksTest.add(stock1);
-		
+
 		Sale sale = new Sale();
-		LineItem lineItem1 = new LineItem(RetailSystem.getInstance().getProducts().get(0),10);
-		LineItem lineItem2 = new LineItem(RetailSystem.getInstance().getProducts().get(0),4);
+		LineItem lineItem1 = new LineItem(RetailSystem.getInstance()
+				.getProducts().get(0), 10);
+		LineItem lineItem2 = new LineItem(RetailSystem.getInstance()
+				.getProducts().get(0), 4);
 		sale.addLineItem(lineItem1);
 		sale.addLineItem(lineItem2);
-		Invoice invoice1 = new Invoice("invoice1", date, RetailSystem.getInstance().getCustomers().get(0), 200.0, sale);
+		Invoice invoice1 = new Invoice("invoice1", date, RetailSystem
+				.getInstance().getCustomers().get(0), 200.0, sale);
 		invoicesTest = new ArrayList<Invoice>();
 		invoicesTest.add(invoice1);
-		
+
 	}
 
 	/*
@@ -117,18 +129,20 @@ public class DataBaseTest {
 		RetailSystem.getInstance().setCustomers(customerStatus);
 		RetailSystem.getInstance().setUsers(usersStatus);
 		RetailSystem.getInstance().setOrders(ordersStatus);
+		RetailSystem.getInstance().setSales(salesStatus);
 	}
-	
+
 	// TEST FOR USERS
 	// Loads user correctly
 	@Test
 	public void testLoadUsersOK2Users() throws IOException {
-		Reader reader = new StringReader("User1;Scott Scott;passw1;Manager;true\n"
-				+ "User2;Daniel Daniel;passw2;Attendant;true\n");
+		Reader reader = new StringReader(
+				"User1;Scott Scott;passw1;Manager;true\n"
+						+ "User2;Daniel Daniel;passw2;Attendant;true\n");
 		ArrayList<User> list = DataBase.loadUsers(reader);
 		assertEquals(2, list.size());
 	}
-	
+
 	// Loads file empty
 	@Test
 	public void testLoadUsersEmpty() throws IOException {
@@ -144,7 +158,7 @@ public class DataBaseTest {
 		ArrayList<User> list = DataBase.loadUsers(reader);
 		assertEquals(0, list.size());
 	}
-	
+
 	// TEST FOR CUSTOMERS
 	// Loads customer correctly
 	@Test
@@ -171,13 +185,14 @@ public class DataBaseTest {
 		ArrayList<Customer> list = DataBase.loadCustomers(reader);
 		assertEquals(0, list.size());
 	}
-	
+
 	// TEST FOR SUPPLIERS
 	// Loads suppliers correctly
 	@Test
 	public void testLoadSuppliersOK2Suppliers() throws IOException {
-		Reader reader = new StringReader("supplier1;Supplier1 Name;083776655;true\n"
-				+ "supplier2;Supplier2 Name;083775839;true\n");
+		Reader reader = new StringReader(
+				"supplier1;Supplier1 Name;083776655;true\n"
+						+ "supplier2;Supplier2 Name;083775839;true\n");
 		ArrayList<Supplier> list = DataBase.loadSuppliers(reader);
 		assertEquals(2, list.size());
 	}
@@ -197,7 +212,7 @@ public class DataBaseTest {
 		ArrayList<Supplier> list = DataBase.loadSuppliers(reader);
 		assertEquals(0, list.size());
 	}
-	
+
 	// TEST FOR PRODUCTS
 	// Loads products correctly
 	@Test
@@ -225,12 +240,13 @@ public class DataBaseTest {
 		ArrayList<Product> list = DataBase.loadProducts(reader);
 		assertEquals(0, list.size());
 	}
-	
+
 	// TEST FOR ORDERS
 	// Loads orders correctly
 	@Test
 	public void testLoadOrderOK2Orders() throws IOException, ParseException {
-		//System.err.println(DateFormat.getDateInstance(DateFormat.DEFAULT).format(new Date()));
+		// System.err.println(DateFormat.getDateInstance(DateFormat.DEFAULT).format(new
+		// Date()));
 		Reader reader = new StringReader(
 				"order1;14-Aug-2014;product1;10;14-Aug-2014;;false;true\n"
 						+ "order1;14-Aug-2014;product2;9;14-Aug-2014;14-Aug-2014;false;true\n");
@@ -255,12 +271,13 @@ public class DataBaseTest {
 		ArrayList<Order> list = DataBase.loadOrders(reader);
 		assertEquals(1, list.size());
 	}
-	
+
 	// TEST FOR STOCKS
 	// Loads stocks correctly
 	@Test
 	public void testLoadStocksOK2Stocks() throws IOException, ParseException {
-		Reader reader = new StringReader("product1;20;true\n" + "product2;15;true\n");
+		Reader reader = new StringReader("product1;20;true\n"
+				+ "product2;15;true\n");
 		ArrayList<Stock> list = DataBase.loadStocks(reader);
 		assertEquals(2, list.size());
 	}
@@ -281,88 +298,99 @@ public class DataBaseTest {
 		ArrayList<Stock> list = DataBase.loadStocks(reader);
 		assertEquals(2, list.size());
 	}
-	
+
 	// TEST FOR INVOICES
-		// Loads invoices correctly
-		@Test
-		public void testLoadInvoicesOK2Invoices() throws IOException, ParseException {
-			Reader reader = new StringReader("invoice1;19-Aug-2014;customer1;200;true;true;2;19-Aug-2014;product1;2;product2;1\n"
-					+"invoice2;19-Aug-2014;customer2;200;true;true;2;19-Aug-2014;product1;2;product2;1\n");
-			ArrayList<Invoice> list = DataBase.loadInvoices(reader);
-			assertEquals(2, list.size());
-		}
+	// Loads invoices correctly
+	@Test
+	public void testLoadInvoicesOK2Invoices() throws IOException,
+			ParseException {
+		Reader reader = new StringReader(
+				"invoice1;19-Aug-2014;customer1;200;true;true;2;19-Aug-2014;product1;2;product2;1\n"
+						+ "invoice2;19-Aug-2014;customer2;200;true;true;2;19-Aug-2014;product1;2;product2;1\n");
+		ArrayList<Invoice> list = DataBase.loadInvoices(reader);
+		assertEquals(2, list.size());
+	}
 
-		// Loads file empty
-		@Test
-		public void testLoadInvoicesEmpty() throws IOException, ParseException {
-			Reader reader = new StringReader("");
-			ArrayList<Invoice> list = DataBase.loadInvoices(reader);
-			assertEquals(0, list.size());
-		}
+	// Loads file empty
+	@Test
+	public void testLoadInvoicesEmpty() throws IOException, ParseException {
+		Reader reader = new StringReader("");
+		ArrayList<Invoice> list = DataBase.loadInvoices(reader);
+		assertEquals(0, list.size());
+	}
 
-		// Skips lines with corrupted data
-		@Test
-		public void testLoadInvoicesCorrupteds() throws IOException, ParseException {
-			Reader reader = new StringReader("invoice1;19-Aug-2014\n"
-					+"invoice2;19-Aug-2014;customer2;200;true;true;2;19-Aug-2014;product1;2;product2;1\n");
-			ArrayList<Invoice> list = DataBase.loadInvoices(reader);
-			assertEquals(1, list.size());
-		}
-		
-	//TEST FOR WRITING DATA METHODS
-	//Writes a user
+	// Skips lines with corrupted data
+	@Test
+	public void testLoadInvoicesCorrupteds() throws IOException, ParseException {
+		Reader reader = new StringReader(
+				"invoice1;19-Aug-2014\n"
+						+ "invoice2;19-Aug-2014;customer2;200;true;true;2;19-Aug-2014;product1;2;product2;1\n");
+		ArrayList<Invoice> list = DataBase.loadInvoices(reader);
+		assertEquals(1, list.size());
+	}
+
+	// TEST FOR WRITING DATA METHODS
+	// Writes a user
 	@Test
 	public void testwriteUsers() throws IOException, ParseException {
 		Writer userFile = new StringWriter();
-		DataBase.writeUsers(usersTest,userFile);
-		assertEquals("User1;Cris;passw10;Attendant;true",userFile.toString().trim());
+		DataBase.writeUsers(usersTest, userFile);
+		assertEquals("User1;Cris;passw10;Attendant;true", userFile.toString()
+				.trim());
 	}
-	
-	//Writes a customer 
+
+	// Writes a customer
 	public void testwriteCustomers() throws IOException, ParseException {
 		Writer userFile = new StringWriter();
-		DataBase.writeCustomers(customersTest,userFile);
-		assertEquals("Customer3;Scott Scott;address 1 Dublin;089665544",userFile.toString().trim());
+		DataBase.writeCustomers(customersTest, userFile);
+		assertEquals("Customer3;Scott Scott;address 1 Dublin;089665544",
+				userFile.toString().trim());
 	}
-	
-	//Writes a supplier
+
+	// Writes a supplier
 	public void testwriteSuppliers() throws IOException, ParseException {
 		Writer userFile = new StringWriter();
-		DataBase.writeSuppliers(suppliersTest,userFile);
-		assertEquals("Supplier 31;Supplier1 Name;083776655;true",userFile.toString().trim());
+		DataBase.writeSuppliers(suppliersTest, userFile);
+		assertEquals("Supplier 31;Supplier1 Name;083776655;true", userFile
+				.toString().trim());
 	}
-	/*
-	//Writes a product
+
+	// Writes a product
 	public void testwriteSProductss() throws IOException, ParseException {
 		Writer userFile = new StringWriter();
-		DataBase.writeProducts(productsTest,userFile);
-		assertEquals("product1;ProductPC1;1000;200;supplier1;true",userFile.toString().trim());
+		DataBase.writeProducts(productsTest, userFile);
+		assertEquals("Product1;ProductPC1;1000;200;supplier1;true", userFile
+				.toString().trim());
 	}
-	*/
-	//Writes a order
+
+	// Writes a order
 	@Test
 	public void testwriteOrders() throws IOException, ParseException {
-		String datestring =DateFormat.getDateInstance().format(date);
+		String datestring = DateFormat.getDateInstance().format(date);
 		Writer userFile = new StringWriter();
-		DataBase.writeOrders(ordersTest,userFile);
-		assertEquals("Order1;"+datestring+";product1;10;"+datestring+";"+datestring+";false"+";true",userFile.toString().trim());
+		DataBase.writeOrders(ordersTest, userFile);
+		assertEquals("Order1;" + datestring + ";product1;10;" + datestring
+				+ ";" + datestring + ";false" + ";true", userFile.toString()
+				.trim());
 	}
-	
-	//Writes a stock
+
+	// Writes a stock
 	@Test
 	public void testwriteStocks() throws IOException, ParseException {
 		Writer userFile = new StringWriter();
-		DataBase.writeStocks(stocksTest,userFile);
-		assertEquals("product1;10;true",userFile.toString().trim());
+		DataBase.writeStocks(stocksTest, userFile);
+		assertEquals("Product4;10;true", userFile.toString().trim());
 	}
-	
-	//Writes a invoices
+
+	// Writes a invoices
 	@Test
 	public void testwriteInvoices() throws IOException, ParseException {
-		String datestring =DateFormat.getDateInstance().format(date);
+		String datestring = DateFormat.getDateInstance().format(date);
 		Writer userFile = new StringWriter();
-		DataBase.writeInvoices(invoicesTest,userFile);
-		assertEquals("invoice1;"+datestring+";customer1;200.0;true;true;2;"+datestring+";product1;10;product1;4",userFile.toString().trim());
+		DataBase.writeInvoices(invoicesTest, userFile);
+		assertEquals("invoice1;" + datestring + ";customer1;200.0;true;true;2;"
+				+ datestring + ";product1;10;product1;4", userFile.toString()
+				.trim());
 	}
 
 }
