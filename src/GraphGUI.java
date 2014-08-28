@@ -28,8 +28,8 @@ public class GraphGUI extends JPanel implements ActionListener {
 		labelTitle = new JLabel("Graph Menu");
 		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		
-		viewOrderGraph = new JButton("View Order Graph");
-		viewStockGraph = new JButton("View Stock Graph");
+		viewOrderGraph = new JButton("View most popular products by Orders");
+		viewStockGraph = new JButton("View Predictions Graph");
 		
 		colorButton();
 		
@@ -73,6 +73,8 @@ public class GraphGUI extends JPanel implements ActionListener {
 		
 		viewOrderGraph.setBackground(colorButtons);
 		viewOrderGraph.setFont(fontButtons);
+		viewStockGraph.setBackground(colorButtons);
+		viewStockGraph.setFont(fontButtons);
 		
 	}
 		
