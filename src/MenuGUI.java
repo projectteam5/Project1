@@ -35,6 +35,7 @@ public class MenuGUI extends JFrame {
 	private JLabel menuLabel;
 	private JButton buttonViewGraph;
 	private JButton buttonSale;
+	private JButton buttonInvoice;
 
 	private final static double percHeight1 = 0.80;
 	private final static double percHeight2 = 0.50;
@@ -77,6 +78,7 @@ public class MenuGUI extends JFrame {
 		buttonViewOrder = new JButton("View Active Orders");
 		buttonSale = new JButton("Sales");
 		buttonViewGraph = new JButton("Graphs");
+		buttonInvoice = new JButton("Invoices");
 		
 		colorButton();
 		
@@ -94,12 +96,14 @@ public class MenuGUI extends JFrame {
 			panelMenu.add(buttonUser);
 			panelMenu.add(buttonSale);
 			panelMenu.add(buttonViewGraph);
+			panelMenu.add(buttonInvoice);
 			
 		} else {
 			panelMenu.add(buttonCustomer);
 			panelMenu.add(buttonAvailability);
 			panelMenu.add(buttonViewOrder);
 			panelMenu.add(buttonSale);
+			panelMenu.add(buttonInvoice);
 		}
 		
 		container = frame.getContentPane();
@@ -196,6 +200,15 @@ public class MenuGUI extends JFrame {
 			}
 		});
 		
+		buttonInvoice.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				colorButton();
+				buttonInvoice.setBackground(colorButtonSelected);
+				setSubMenu(new InvoiceMenuGUI());
+				setPanelAction(panelEmpty);
+			}
+		});
+		
 		frame.getRootPane().addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {
             	resize();
@@ -264,6 +277,8 @@ public class MenuGUI extends JFrame {
 		buttonSale.setFont(fontButtons);
 		buttonViewGraph.setBackground(colorButtons);
 		buttonViewGraph.setFont(fontButtons);
+		buttonInvoice.setBackground(colorButtons);
+		buttonInvoice.setFont(fontButtons);
 	}
 
 }
