@@ -5,12 +5,12 @@ import javax.swing.table.AbstractTableModel;
 
 public class StockTable extends AbstractTableModel {
 	private Vector<Stock> v = null;
-	private String[] colNames = {"Product","Units"};
-	
+	private String[] colNames = {"Product","Units","Orders expected"};
 	
 	public StockTable(Vector<Stock> v) {
 		this.v = v;
 	}
+	
 	public int getColumnCount(){
 		return colNames.length;
 	}
@@ -27,6 +27,14 @@ public class StockTable extends AbstractTableModel {
 		case 1: 
 			val = stock.getUnits()+"";
 			break;
+		/*case 2:
+			for(Order o:RetailSystem.getInstance().getOrders()){
+				if(stock.getProduct().getName().equalsIgnoreCase(o.getProduct().getName())){
+					val = o.getExpectedDeliveryDate()+"";
+				}else{
+					val = "";
+				}
+			}*/
 		
 		default: 
 			val = "";
