@@ -68,20 +68,12 @@ public class DeleteUserGUI extends JPanel {
 	}
 
 	public void addAndRefresh() {
-		this.remove(labelTitle);
-		this.remove(usersDropDown);
-		this.remove(deleteButton);
-		this.add(labelTitle);
-		usersDropDown = new JComboBox();
+		usersDropDown.removeAllItems();
 		buildUsersDropDown();
-		this.add(usersDropDown);
-		this.add(deleteButton);
-		this.revalidate();
-		revalidate();
-		repaint();
 	}
 	
-	public void buildUsersDropDown(){
+	public void 
+	buildUsersDropDown(){
 		for (User user : RetailSystem.getInstance().getUsers()){
 			if(!user.getUserID().equals(RetailSystem.getInstance().getCurrentUserID()) && user.isActive()){
 				String string = "ID: " + user.getUserID() + " ; Name: "

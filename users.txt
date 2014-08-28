@@ -1,5 +1,5 @@
 User1;Scott Pott;passw1;Manager;false
-User2;Daniel Daniel;passw2;Attendant;true
+User2;Daniel Daniel;passw2;Attendant;false
 User3;Cris Conti;passw3;Manager;true
 User4;Erich King;passw4;Manager;true
 User5;Laura Phelan;passw5;Manager;true
@@ -11,7 +11,7 @@ User10;test;passwtest;Manager;false
 User11;user uffi;user;Attendant;true
 User12;Jenny Munnelly;passw12;Manager;false
 User13;testAutoID;passw13;Manager;true
-User14;Tommy;Taylor;Manager;true
+User14;Tommy;Taylor;Manager;false
 User15;test;test;Manager;false
 User16;test;test;Manager;true
 User17;test;test;Manager;true

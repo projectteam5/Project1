@@ -1,2 +1,8 @@
 invoice1;19-Aug-2014;Customer1;200.0;true;true;2;19-Aug-2014;Product6;2;Product10;3
 Invoice2;28-Aug-2014;Customer1;2180.0;true;true;3;28-Aug-2014;Product1;3;Product2;1;Product14;5
+Invoice3;28-Aug-2014;Customer3;3150.0;true;true;1;28-Aug-2014;Product10;3
+Invoice4;28-Aug-2014;Customer3;300.0;true;true;1;28-Aug-2014;Product12;1
+Invoice5;28-Aug-2014;Customer7;280.0;true;true;1;28-Aug-2014;Product14;1
+Invoice6;28-Aug-2014;Customer5;0.0;true;true;0;28-Aug-2014;
+Invoice7;28-Aug-2014;Customer5;0.0;true;true;0;28-Aug-2014;
+Invoice8;28-Aug-2014;Customer1;0.0;true;true;0;28-Aug-2014;

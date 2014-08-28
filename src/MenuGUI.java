@@ -179,7 +179,7 @@ public class MenuGUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				colorButton();
 				buttonSale.setBackground(colorButtonSelected);
-				//setSubMenu(new SaleGUI());
+				setSubMenu(panelEmpty);
 				setPanelAction(new SaleGUI());
 
 			}
