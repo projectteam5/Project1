@@ -25,14 +25,8 @@ public class ViewInvoiceGUI extends JPanel{
 	//For showing invoice details
 	private JLabel invoiceInfoLabel1;
 	private JLabel invoiceInfoLabel2;
-/*	private JPanel showInvoicePanel;
-	private JScrollPane scrollPaneInvoice;
-	private Vector<Invoice> vet;
+	private Vector<LineItem> vet;
 	private JTable table;
-	private Vector<Invoice> vet2;*/
-	//For showing lineItems
-	private Vector<LineItem> vet3;
-	private JTable table2;
 	private JScrollPane scrollPaneLineItems;
 	private boolean populated = false;
 
@@ -44,22 +38,17 @@ public class ViewInvoiceGUI extends JPanel{
 		invoiceInfoLabel1 = new JLabel("");
 		invoiceInfoLabel2 = new JLabel("");
 		
-/*		vet = new Vector<Invoice>();
-		dataModel = new InvoiceTable(vet);
+		vet = new Vector<LineItem>();
+		dataModel = new LineItemTable(vet);
 		table = new JTable(dataModel);
-		scrollPaneInvoice = new JScrollPane(table);*/
-		
-		vet3 = new Vector<LineItem>();
-		dataModel = new LineItemTable(vet3);
-		table2 = new JTable(dataModel);
-		scrollPaneLineItems = new JScrollPane(table2);
+		scrollPaneLineItems = new JScrollPane(table);
+		table.removeColumn(table.getColumnModel().getColumn(3));
 		
 		Invoice.invoiceListComplete(invoiceDropDown);
 		this.add(invoiceLabel);
 		this.add(invoiceDropDown);
 		this.add(buttonViewInvoice);
 		this.add(invoiceDetails);
-		//this.add(scrollPaneInvoice);
 		this.add(invoiceInfoLabel1);
 		this.add(invoiceInfoLabel2);
 		this.add(scrollPaneLineItems);
@@ -72,11 +61,9 @@ public class ViewInvoiceGUI extends JPanel{
 				for(Invoice invoice: RetailSystem.getInstance().getInvoices()){
 					if(selectedInvoiceID.equalsIgnoreCase(invoice.getInvoiceID())){
 						chosenInvoice = invoice;
-						//System.out.println("1."+selectedInvoiceID+" 2."+invoice.getInvoiceID());
 					}
 				}
 				//Show information from invoice in a label
-				//showInvoiceInformation(chosenInvoice);
 				invoiceInfoLabel1.setText("Invoice Date: "+chosenInvoice.getInvoiceDate()+" | Invoice ID: "+chosenInvoice.getInvoiceID());
 				invoiceInfoLabel2.setText("Customer Name: "+chosenInvoice.getCustomer().getName()+" | Customer ID: "+chosenInvoice.getCustomer().getCustomerID()+" | Total Cost: €"+chosenInvoice.getTotalInvoice());
 				//Show information from Invoice.Sale.LineItems in another just below
@@ -87,22 +74,18 @@ public class ViewInvoiceGUI extends JPanel{
 		});
 	}
 	
-/*	public void showInvoiceInformation(Invoice invoice){
-		vet.add(invoice);
-		repopulate();
-	}*/
 	
 	public void showLineItemInformation(Invoice invoice){
 		for(LineItem lineItem: invoice.getSale().getLineItems()){
-			vet3.add(lineItem);
+			vet.add(lineItem);
 			repopulate();
 			populated = true;
 		}
 	}
 	
 	public void repopulate() {
-		table2.revalidate();
-		table2.repaint();
+		table.revalidate();
+		table.repaint();
 	}
 
 
