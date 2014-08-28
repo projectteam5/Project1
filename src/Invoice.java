@@ -108,6 +108,15 @@ public class Invoice {
 				dropdown.addItem(string);
 			}
 		}
-		
 	}	
+	
+	public static Invoice retrieveInvoiceWithID(String id){
+		Invoice invoice = null;
+		for(Invoice invoice_1: RetailSystem.getInstance().getInvoices()){
+			if(invoice_1.getInvoiceID().equals(id)){
+				invoice = invoice_1;
+			}
+		}
+		return invoice;
+	}
 }

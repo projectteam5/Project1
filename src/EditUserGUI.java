@@ -39,7 +39,7 @@ public class EditUserGUI extends JPanel {
 		this.setLayout(new GridLayout(0, 1));
 
 		// declaration of the labels and initialization of labels and text field
-		labelTitleMain = new JLabel("Add a user");
+		labelTitleMain = new JLabel("Edit user");
 		labelTitleMain.setFont(new Font("Arial", Font.BOLD, 20));
 		labelTitle = new JLabel(
 				"Please pick the user you want to see from the user list below");
@@ -47,13 +47,27 @@ public class EditUserGUI extends JPanel {
 		User.userListComplete(userDropDown);
 		editButton = new JButton("Edit User");
 		doneButton = new JButton("Commit");
+		NameField = new JTextField("");
+		PasswordField = new JTextField("");
+		labelName = new JLabel("Name");
+		labelPassword = new JLabel("Password");
+		labelType = new JLabel("Type");
+		typeDropDown = new JComboBox(RetailSystem.getInstance().getUserTypeList());
+		
+		
 
 		// adding all the components
 		this.add(labelTitleMain);
 		this.add(labelTitle);
 		this.add(userDropDown);
 		this.add(editButton);
-
+		this.add(labelName);
+		this.add(NameField);
+		this.add(labelPassword);
+		this.add(PasswordField);
+		this.add(labelType);
+		this.add(typeDropDown);
+		
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				userID = RetailSystem.returnIDfromCombobox(userDropDown.getSelectedItem()
@@ -100,32 +114,12 @@ public class EditUserGUI extends JPanel {
 	}
 
 	public void populateFields() {
-		if (controlVariable != 0) {
-			this.remove(labelName);
-			this.remove(NameField);
-			this.remove(labelPassword);
-			this.remove(PasswordField);
-			this.remove(labelType);
-			this.remove(typeDropDown);
-			this.remove(doneButton);
-		}
-		controlVariable = 1;
+			controlVariable = 1;
 		user = User.retrieveUser(userID);
 		if (user != null) {
-			NameField = new JTextField(user.getName());
-			PasswordField = new JTextField(user.getPassword());
-			labelName = new JLabel("Name");
-			labelPassword = new JLabel("Password");
-			labelType = new JLabel("Type");
-			typeDropDown = new JComboBox(RetailSystem.getInstance()
-					.getUserTypeList());
+			NameField.setText(user.getName());
+			PasswordField.setText(user.getPassword());
 			typeDropDown.setSelectedItem(user.getType());
-			this.add(labelName);
-			this.add(NameField);
-			this.add(labelPassword);
-			this.add(PasswordField);
-			this.add(labelType);
-			this.add(typeDropDown);
 			this.add(doneButton);
 			revalidate();
 			repaint();

@@ -28,7 +28,7 @@ public class DeleteUserGUI extends JPanel {
 		
 		this.setLayout(new GridLayout(0, 1));
 
-		labelTitleMain = new JLabel("Remove a user");
+		labelTitleMain = new JLabel("Remove user");
 		labelTitleMain.setFont(new Font("Arial", Font.BOLD, 20));
 		labelTitle = new JLabel(
 				"Please pick the user you want to remove from the user list below");
@@ -36,9 +36,20 @@ public class DeleteUserGUI extends JPanel {
 		buildUsersDropDown();
 		deleteButton = new JButton("Remove User");
 
+		this.add(labelTitleMain);
 		this.add(labelTitle);
 		this.add(usersDropDown);
 		this.add(deleteButton);
+		
+		//fixing the layout
+		JLabel labelEmpty = new JLabel(" ");
+		JLabel labelEmpty1 = new JLabel(" ");
+		JLabel labelEmpty2 = new JLabel(" ");
+		JLabel labelEmpty3 = new JLabel(" ");
+		this.add(labelEmpty);
+		this.add(labelEmpty1);
+		this.add(labelEmpty2);
+		this.add(labelEmpty3);
 
 		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

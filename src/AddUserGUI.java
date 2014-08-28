@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -30,19 +31,20 @@ public class AddUserGUI extends JPanel {
 	public AddUserGUI() {
 		// declaration and initialization of panel, container and layout setting
 
-		this.setLayout(new GridLayout(0, 1));
+		this.setLayout(new GridLayout(0,1));
 
 		// declaration of the labels and initialization of labels and text field
 		textUserName = new JTextField();
 		textUserPass = new JTextField();
 		typeDropDown = new JComboBox(RetailSystem.getInstance()
 				.getUserTypeList());
-		labelTitle = new JLabel("Add a new user");
+		labelTitle = new JLabel("Add user");
 		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		labelUserName = new JLabel("Name");
 		labelUserPass = new JLabel("Password");
 		labelUserType = new JLabel("Type");
 		doneButton = new JButton("Add");
+		
 
 		// adding all the components
 		this.add(labelTitle);
@@ -53,6 +55,16 @@ public class AddUserGUI extends JPanel {
 		this.add(labelUserType);
 		this.add(typeDropDown);
 		this.add(doneButton);
+		
+		//fixing the layout
+		JLabel labelEmpty = new JLabel(" ");
+		JLabel labelEmpty1 = new JLabel(" ");
+		JLabel labelEmpty2 = new JLabel(" ");
+		JLabel labelEmpty3 = new JLabel(" ");
+		this.add(labelEmpty);
+		this.add(labelEmpty1);
+		this.add(labelEmpty2);
+		this.add(labelEmpty3);
 
 		// Define the panel for the User management
 
