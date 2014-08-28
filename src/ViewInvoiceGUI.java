@@ -103,6 +103,7 @@ public class ViewInvoiceGUI extends JPanel{
 	
 	
 	public void showLineItemInformation(Invoice invoice){
+		vet.clear();
 		for(LineItem lineItem: invoice.getSale().getLineItems()){
 			vet.add(lineItem);
 			repopulate();
