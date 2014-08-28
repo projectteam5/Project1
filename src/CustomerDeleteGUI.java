@@ -50,11 +50,8 @@ public class CustomerDeleteGUI extends JPanel {
 
 	public void deleteCustomerButton() {
 		customerRemove = null;
-		String selectedCustomerString = customersDropDown.getSelectedItem().toString();
-		String[] selectedCustomerArray = selectedCustomerString.split(";");
-		String selectedCustomerIDString = selectedCustomerArray[0];
-		String[] selectedCustomerIDArray = selectedCustomerIDString.split(":");
-		selectedCustomerID = selectedCustomerIDArray[1].trim();
+		//Cris: using the static method in Customer class
+		selectedCustomerID = Customer.returnIDfromCombobox(customersDropDown.getSelectedItem().toString());
 		customerRemove = Customer.retrieveCustomer(selectedCustomerID);
 		if (customerRemove != null) {
 			customerRemove.setActive(false);

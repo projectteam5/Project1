@@ -56,12 +56,8 @@ public class EditUserGUI extends JPanel {
 
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String selectedUserString = userDropDown.getSelectedItem()
-						.toString();
-				String[] selectedUserArray = selectedUserString.split(";");
-				String selectedUserIDString = selectedUserArray[0];
-				String[] selectedUserIDArray = selectedUserIDString.split(":");
-				userID = selectedUserIDArray[1].trim();
+				userID = Customer.returnIDfromCombobox(userDropDown.getSelectedItem()
+						.toString());
 				if (controlVariable == 0 || !userID.equals(selectedUserIDPrev)) {
 					populateFields();
 					selectedUserIDPrev = userID;
