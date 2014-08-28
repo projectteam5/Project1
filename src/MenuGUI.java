@@ -233,13 +233,13 @@ public class MenuGUI extends JFrame {
 	public void resize(){
 		panelMenu.setSize((int)(frame.getWidth()*percWidth1),(int) (frame.getHeight()*percHeight1));
 		panelMenu.setLocation((int)(frame.getWidth()*percWidthEmpty),(int)(frame.getHeight()*percHeigthEmpty));//
-		panelMenu.setBackground(Color.RED);
+		//panelMenu.setBackground(Color.RED);
 		panelSubMenu.setSize((int)(frame.getWidth()*percWidth2),(int) (frame.getHeight()*percHeight2));
 		panelSubMenu.setLocation((int)(panelMenu.getLocation().getX()+ panelMenu.getWidth()+ frame.getWidth()*percWidthEmpty),(int)(frame.getHeight()*percHeigthEmpty));
-		panelSubMenu.setBackground(Color.RED);
+		//panelSubMenu.setBackground(Color.RED);
 		panelAction.setSize((int)(frame.getWidth()*percWidth3),(int) (frame.getHeight()*percHeight1));
 		panelAction.setLocation((int)(panelSubMenu.getLocation().getX()+panelSubMenu.getWidth()+frame.getWidth()*percWidthEmpty),(int)(frame.getHeight()*percHeigthEmpty));
-		panelAction.setBackground(Color.RED);
+		//panelAction.setBackground(Color.RED);
 		frame.revalidate();
 		frame.repaint();
 	}
