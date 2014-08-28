@@ -404,28 +404,15 @@ public class DataBase {
 
 	}
 
-	public static Product findProductWithID(String id) {
-		Product product = null;
-		// before to construct the object order it is necessary retrieve
-		// the object product
-		for (Product product_1 : RetailSystem.getInstance().getProducts()) {
-			if (product_1.getProductID().equals(id)) {
-				product = product_1;
-				break; // I need to exit the for
-			}
-		}
-		return product;
-	}
-
 	public static Supplier findSupplierWithID(String id) {
 		Supplier supplier = null;
 		// before to construct the object order it is necessary retrieve
 		// the object product
 		for (Supplier supplier_1 : RetailSystem.getInstance().getSuppliers()) {
-			if (supplier_1.getSupplierID().equals(id)) {
+			//we can have product with supplier not active anymore
 				supplier = supplier_1;
 				break; // I need to exit the for
-			}
+			
 		}
 		return supplier;
 	}
@@ -435,12 +422,23 @@ public class DataBase {
 		// before to construct the object order it is necessary retrieve
 		// the object product
 		for (Customer customer_1 : RetailSystem.getInstance().getCustomers()) {
-			if (customer_1.getCustomerID().equals(id)) {
+			//we can have invoice for customer no more active
 				customer = customer_1;
 				break; // I need to exit the for
-			}
+			
 		}
 		return customer;
+	}
+	//used in DataBase
+	public static Product findProductWithID(String id) {
+		Product product = null;
+		for (Product product_1 : RetailSystem.getInstance().getProducts()) {
+			//we can have order for product no more active
+				product = product_1;
+				break; // I need to exit the for
+			
+		}
+		return product;
 	}
 
 }

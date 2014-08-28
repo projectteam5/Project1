@@ -1,8 +1,6 @@
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.BoxLayout;
@@ -16,53 +14,47 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableModel;
 
-
 public class SaleGUI extends JPanel {
-	
+
 	private JLabel productLabel;
 	private JLabel customerLabel;
 	private JLabel labelTitle;
 	private JLabel quantityLabel;
 	private JLabel runningTotalLabel = new JLabel("Running Total:");
-	
+
 	private JComboBox<String> productDropDown = new JComboBox<String>();
 	private JComboBox<String> customerDropDown = new JComboBox<String>();
-	
+
 	private JTextField quantityField = new JTextField("", 10);
 	private JTextField runningTotalField = new JTextField("");
-	
+
 	private JButton buttonAddProduct;
 	private JButton buttonRefreshList;
 	private JButton buttonConfirmSale;
-	
-	//private ArrayList<LineItem> lineItems = new ArrayList<LineItem>();
-	//private JLabel productListings = new JLabel("");
-	
+
 	private Vector<LineItem> vet;
 	private JTable table;
-	//private JPanel showLineItemsPanel;
 	private JScrollPane scrollPaneLineItems;
-	
+
 	private Sale sale;
-	
-	
+
 	private double runningTotal;
 	private double runningCost;
 	private double deductionCost;
+	private int amount;
 	private Customer customerPicked;
 	private TableModel dataModel;
 
 	public SaleGUI() {
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-		compileProductNames();
-		//Customer can have same name :)
-		//compileCustomerNames(); //Check to make sure if customers can have same names. If so use IDs to populate instead
-		Customer.customerListComplete(customerDropDown);//Combobox for Customer
+		Product.compileProductNames(productDropDown);
+		Customer.customerListComplete(customerDropDown);// Combobox for Customer
 		quantityField.setText("0");
 		labelTitle = new JLabel("New Sale");
 		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		labelTitle.setAlignmentX(CENTER_ALIGNMENT);
-		customerLabel = new JLabel("Please choose a customer from the list below");
+		customerLabel = new JLabel(
+				"Please choose a customer from the list below");
 		customerLabel.setAlignmentX(CENTER_ALIGNMENT);
 		productLabel = new JLabel("Please choose products from the list below");
 		productLabel.setAlignmentX(CENTER_ALIGNMENT);
@@ -75,7 +67,7 @@ public class SaleGUI extends JPanel {
 		buttonConfirmSale = new JButton("Confirm Sale");
 		buttonConfirmSale.setAlignmentX(CENTER_ALIGNMENT);
 		runningTotalLabel.setAlignmentX(CENTER_ALIGNMENT);
-		
+
 		this.add(labelTitle);
 		this.add(customerLabel);
 		this.add(customerDropDown);
@@ -84,9 +76,9 @@ public class SaleGUI extends JPanel {
 		this.add(quantityLabel);
 		this.add(quantityField);
 		this.add(buttonAddProduct);
-		
+
 		vet = new Vector<LineItem>();
-		dataModel = new LineItemTable(vet); 
+		dataModel = new LineItemTable(vet);
 		table = new JTable(dataModel);
 		scrollPaneLineItems = new JScrollPane(table);
 		this.add(scrollPaneLineItems);
@@ -94,158 +86,108 @@ public class SaleGUI extends JPanel {
 		this.add(runningTotalField);
 		this.add(buttonRefreshList);
 		this.add(buttonConfirmSale);
-		
-		
-		//Add running total
+
+		// Add running total
 		buttonAddProduct.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String name = productDropDown.getSelectedItem().toString();
-				
-				int amount = 0;
-				try {
-					amount = Integer.parseInt(quantityField.getText());
-					if(amount<=0){
-						 error();
+				String amountString = quantityField.getText();
+				if (amountString != null) {
+					try {
+						amount = Integer.parseInt(amountString);
+						if (amount <= 0) {
+							error();
+						}
+					} catch (NumberFormatException e) {
+						error();
 					}
-				} catch (NumberFormatException e) {
-					 error();
+					// Find product from product name
+					Product product = Product.findProductWithName(name);
+					if (product != null) {
+						addProduct(product);
+					}
 				}
-				//Testing print
-				//System.out.println("Product: "+name+"\nAmount:"+amount);
-				//Find product from product name
-				Product product = findProductWithName(name);
-			//	for(Product product: RetailSystem.getInstance().getProducts()){
-					//if(name.equalsIgnoreCase(product.getName())){
-				if(product != null && amount!=0){
-						//Add lineItem to array of lineItems
-					//Product addingProduct = product;
-					LineItem lineItem = new LineItem(product, amount);
-					vet.add(lineItem);
-					runningCost = lineItem.getTotalCost();
-					runningTotalCalc();
-					repopulate();
-						
-				}
-				//}
 			}
-			
 		});
-		
+
 		buttonRefreshList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Vector<LineItem> rem = new Vector<LineItem>();
-				for(LineItem lineItem: vet){
-					if(lineItem.isRemoved()){
-						rem.add(lineItem);
-						deductionCost = lineItem.getTotalCost();
-						removalCostCalc();
-					}
-				}
-				vet.removeAll(rem);
-				repopulate();
+				removeProduct();
 			}
 		});
 
-		
-		buttonConfirmSale.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0){
-				boolean valid = false;
-				sale = new Sale();
-				//for(LineItem lineItem: vet){
-				for(int i=0; i<vet.size(); i++){
-					sale.addLineItem(vet.get(i));
-					System.out.println("LineItem: "+sale.getLineItems().get(i).getProduct().getName());
-				}
-				
-				//Get customer
-				String selectedCustomerString = customerDropDown.getSelectedItem()
-						.toString();
-				String[] selectedCustomerArray = selectedCustomerString.split(";");
-				String selectedCustomerIDString = selectedCustomerArray[0];
-				String[] selectedCustomerIDArray = selectedCustomerIDString.split(":");
-				String customerID = selectedCustomerIDArray[1].trim();
-				//String customerChoice = customerDropDown.getSelectedItem().toString();
-				for(Customer customer: RetailSystem.getInstance().getCustomers()){
-					//if(customerChoice.contains(customer.getName()))
-					if(customer.getCustomerID().equals(customerID)){
-						customerPicked = customer;
-					}
-				}
-				//Create invoice //Issue here
-				Invoice invoice = new Invoice(sale.getSaleDate(), customerPicked, runningTotal, sale);
-				RetailSystem.getInstance().getInvoices().add(invoice);
-				Invoice.saveInvoice();
-				JOptionPane.showMessageDialog(null,
-						"Invoice saved and printed", "Print",
-						JOptionPane.PLAIN_MESSAGE);
-				clear();
-				//System.out.println("Invoice ID: "+invoice.getInvoiceID()+"\nSale Date: "+invoice.getSale().getSaleDate()+"\nCustomer: "+invoice.getCustomer().getName()+"\nTotal: "+invoice.getTotalInvoice());
+		buttonConfirmSale.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				confirmSale();
 			}
 		});
-		
-		
+
 	}
 	
-	public void repopulate(){
+	public void addProduct(Product product){
+		LineItem lineItem = new LineItem(product, amount);
+		vet.add(lineItem);
+		runningTotal = runningTotal + lineItem.getTotalCost();
+		runningTotalField.setText(String.valueOf(runningTotal));
+		repopulate();
+	}
+	
+	public void removeProduct(){
+		Vector<LineItem> rem = new Vector<LineItem>();
+		for (LineItem lineItem : vet) {
+			if (lineItem.isRemoved()) {
+				rem.add(lineItem);
+				runningTotal = runningTotal - lineItem.getTotalCost();
+			}
+		}
+		vet.removeAll(rem);
+		runningTotalField.setText(String.valueOf(runningTotal));
+		repopulate();
+	}
+	
+	public void confirmSale(){
+		// Get customer
+		String customerID = Customer.returnIDfromCombobox(customerDropDown.getSelectedItem().toString());
+		customerPicked = Customer.retrieveCustomer(customerID);
+		//Create Sale
+		sale = new Sale();
+		// for(LineItem lineItem: vet){
+		for (int i = 0; i < vet.size(); i++) {
+			sale.addLineItem(vet.get(i));
+		}
+		// Create invoice //Issue here
+		Invoice invoice = new Invoice(sale.getSaleDate(),
+				customerPicked, runningTotal, sale);
+		RetailSystem.getInstance().getInvoices().add(invoice);
+		Invoice.saveInvoice();
+		JOptionPane.showMessageDialog(null,
+				"Invoice saved and printed", "Print",
+				JOptionPane.PLAIN_MESSAGE);
+		clear();
+	}
+	
+
+	public void repopulate() {
 		table.revalidate();
-		table.repaint();		
-	}
-	
-	public void runningTotalCalc(){
-		runningTotal = runningTotal + runningCost;
-		runningTotalField.setText(String.valueOf(runningTotal));
-		
-	}
-	
-	public void removalCostCalc(){
-		runningTotal = runningTotal - deductionCost;
-		runningTotalField.setText(String.valueOf(runningTotal));
+		table.repaint();
 	}
 
-	public void compileProductNames(){
-		for(Product product: RetailSystem.getInstance().getProducts()){
-			if(product.isActive()){
-				productDropDown.addItem(product.getName());
-
-			}
-		}
-	}
-	public static Product findProductWithName(String name) {
-		Product product = null;
-		for (Product product_1 : RetailSystem.getInstance().getProducts()) {
-			if (product_1.getName().equals(name)) {
-				product = product_1;
-				break; // I need to exit the for
-			}
-		}
-		return product;
-	}
-	
-	public void clear(){
+	public void clear() {
 		customerDropDown.removeAllItems();
 		Customer.customerListComplete(customerDropDown);
-		
+
 		productDropDown.removeAllItems();
-		compileProductNames();
-		
+		Product.compileProductNames(productDropDown);
+
 		quantityField.setText("0");
 		runningTotalField.setText("");
 		vet.clear();
 		repopulate();
-		
 	}
-	private void error(){
+
+	private void error() {
 		JOptionPane.showMessageDialog(null,
 				"The amount has to be a positive integer", "Error",
 				JOptionPane.ERROR_MESSAGE);
 	}
-	/*public void compileCustomerNames(){
-		for(Customer customer: RetailSystem.getInstance().getCustomers()){
-			if(customer.isActive()){
-				customerDropDown.addItem(customer.getName());
-			}
-		}
-	}*/
-
-
 }

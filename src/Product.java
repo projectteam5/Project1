@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import javax.swing.JComboBox;
 
 public class Product {
 	private String productID;
@@ -118,5 +118,26 @@ public class Product {
 		this.active = active;
 	}
 	
+	//used in sale GUI
+	public static Product findProductWithName(String name) {
+		Product product = null;
+		for (Product product_1 : RetailSystem.getInstance().getProducts()) {
+			if (product_1.getName().equals(name)) {
+				product = product_1;
+				break; // I need to exit the for
+			}
+		}
+		return product;
+	}
+
+	
+	//used in sale gui
+	public static void compileProductNames(JComboBox<String> productDropDown){
+		for(Product product: RetailSystem.getInstance().getProducts()){
+			if(product.isActive()){
+				productDropDown.addItem(product.getName());
+			}
+		}
+	}
 	
 }
