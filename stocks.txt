@@ -9,3 +9,14 @@ product13;11;true
 product15;1;true
 product17;4;true
 product18;9;true
+product90;8;true
+product14;10;true
+product4;12;true
+product6;8;true
+product7;9;true
+product10;14;true
+product11;8;true
+product16;10;true
+product19;18;true
+product99;12;true
+product98;6;true

@@ -34,6 +34,7 @@ public class StockGUI extends JPanel {
 		searchByProduct.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				searchByProduct.setBackground(colorButtonSelected);
+				viewListOfStock.setBackground(colorButtons);
 				MenuGUI.getInstance().setPanelAction(new SearchByProductStockGUI());
 				//dispose();
 			}
@@ -42,6 +43,7 @@ public class StockGUI extends JPanel {
 		viewListOfStock.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				viewListOfStock.setBackground(colorButtonSelected);
+				searchByProduct.setBackground(colorButtons);
 				MenuGUI.getInstance().setPanelAction(new AvailableStockLevelsGUI());
 				//dispose();
 			}

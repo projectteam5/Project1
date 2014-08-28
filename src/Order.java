@@ -1,4 +1,6 @@
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.ArrayList;
 
@@ -66,6 +68,18 @@ public class Order {
 		this.dateReceived = dateReceived;
 		this.received = received;
 		this.active = active;
+	}
+	public Order(Product product){
+		
+		this.orderID = "Order"+RetailSystem.getInstance().getOrders().size()+1;
+		this.orderDate = new Date();
+		this.product = product;
+		this.quantity = 20;
+		this.expectedDeliveryDate = autogenExpectedDate(orderDate);
+		this.dateReceived = null;
+		this.received = false;
+		this.active = true;
+	
 	}
 	
 	public void addOrderToList(Order order) {
@@ -181,5 +195,12 @@ public class Order {
 				+ " | " + expectedDeliveryDate 
 				+ " | " + dateReceived 
 				+ " | " + received);
+	}
+	public Date autogenExpectedDate(Date orderDate){
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(orderDate);
+		cal.add(Calendar.DATE, 7);
+		return cal.getTime();
 	}
 }

@@ -70,5 +70,21 @@ public class Stock {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
+	public void autoGenterateOrder(){
+		boolean found = false;
+		if(this.units<=5){
+			for(Order o: RetailSystem.getInstance().getOrders()){
+				if(o.getProduct().getProductID().equalsIgnoreCase(this.product.getProductID())){
+					found = true;
+				}
+					
+			}
+			if(!found){
+			Order newOrder = new Order(this.product);
+			RetailSystem.getInstance().getOrders().add(newOrder);
+			}
+		}
+		
+	}
 
 }
