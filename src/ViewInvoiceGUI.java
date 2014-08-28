@@ -29,9 +29,12 @@ public class ViewInvoiceGUI extends JPanel{
 	private JTable table;
 	private JScrollPane scrollPaneLineItems;
 	private boolean populated = false;
+	private JLabel title;
 
 
 	public ViewInvoiceGUI() {
+		title = new JLabel("Viewing Invoice");
+		title.setFont(new Font("Arial", Font.BOLD, 20));
 		invoiceLabel = new JLabel("Please choose an invoice from the list below");
 		buttonViewInvoice = new JButton("View Invoice");
 		invoiceDetails = new JLabel("Invoice Details:");
@@ -45,6 +48,7 @@ public class ViewInvoiceGUI extends JPanel{
 		table.removeColumn(table.getColumnModel().getColumn(3));
 		
 		Invoice.invoiceListComplete(invoiceDropDown);
+		this.add(title);
 		this.add(invoiceLabel);
 		this.add(invoiceDropDown);
 		this.add(buttonViewInvoice);
