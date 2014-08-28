@@ -6,3 +6,6 @@ Invoice5;28-Aug-2014;Customer7;280.0;true;true;1;28-Aug-2014;Product14;1
 Invoice6;28-Aug-2014;Customer5;0.0;true;true;0;28-Aug-2014;
 Invoice7;28-Aug-2014;Customer5;0.0;true;true;0;28-Aug-2014;
 Invoice8;28-Aug-2014;Customer1;0.0;true;true;0;28-Aug-2014;
+Invoice9;28-Aug-2014;Customer1;120.0;true;true;1;28-Aug-2014;Product1;2
+Invoice10;28-Aug-2014;Customer3;2220.0;true;true;1;28-Aug-2014;Product10;2
+Invoice11;28-Aug-2014;Customer5;720.0;true;true;2;28-Aug-2014;Product1;2;Product2;1
