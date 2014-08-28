@@ -1,18 +1,21 @@
 import java.awt.Color;
+
+import javax.swing.JPanel;
    
     import org.jfree.chart.ChartFactory;
-    import org.jfree.chart.ChartFrame;
-    import org.jfree.chart.JFreeChart;
-    import org.jfree.chart.plot.PlotOrientation;
-    import org.jfree.chart.plot.XYPlot;
-    import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-    import org.jfree.data.xy.XYSeries;
-    import org.jfree.data.xy.XYSeriesCollection;
-    import org.jfree.ui.RectangleInsets;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.ui.RectangleInsets;
    
-    public class GraphPrediction {
+    public class GraphPrediction extends JPanel{
       
-      public static void main(String[] args) {
+      public GraphPrediction() {
             
         XYSeries                series1   = new XYSeries("Hard Drives");
                                 series1.add(20, 10);
@@ -43,9 +46,11 @@ import java.awt.Color;
                                 renderer.setBaseShapesVisible(true);
                                 renderer.setBaseShapesFilled (true);
    
-        ChartFrame              frame     = new ChartFrame("ChartFrame", chart);
-                                frame.setSize   (450, 250);
-                                frame.setVisible(true);                   
+        ChartPanel              chartPanel     = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
+        
+        this.add(chartPanel);
+                                              
       }  
    
     }

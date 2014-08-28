@@ -37,6 +37,14 @@ public class GraphGUI extends JPanel implements ActionListener {
 		this.add(viewOrderGraph);
 		this.add(viewStockGraph);
 		
+		viewStockGraph.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MenuGUI.getInstance().setPanelAction(new GraphPrediction());
+				colorButton();
+				viewStockGraph.setBackground(colorButtonSelected);
+			}
+		});
+		
 		viewOrderGraph.addActionListener(this);
 		
 	}
