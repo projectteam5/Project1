@@ -55,7 +55,7 @@ public class CustomerEditGUI extends JPanel {
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// Cris: using the static method in Customer class
-				customerID = Customer.returnIDfromCombobox(customerDropDown
+				customerID = RetailSystem.returnIDfromCombobox(customerDropDown
 						.getSelectedItem().toString());
 				if (controlVariable == 0
 						|| !customerID.equals(selectedCustomerIDPrev)) {

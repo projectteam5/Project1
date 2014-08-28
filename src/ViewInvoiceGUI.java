@@ -40,11 +40,11 @@ public class ViewInvoiceGUI extends JPanel{
 		this.add(buttonViewInvoice);
 		this.add(invoiceDetails);
 		
-		this.setVisible(true);
+		//this.setVisible(true);
 		
 		buttonViewInvoice.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				selectedInvoiceID = Customer.returnIDfromCombobox(invoiceDropDown.getSelectedItem().toString());
+				selectedInvoiceID = RetailSystem.returnIDfromCombobox(invoiceDropDown.getSelectedItem().toString());
 				System.out.println("selectedInvoiceID: "+selectedInvoiceID);
 				//Find invoice item
 				for(Invoice invoice: RetailSystem.getInstance().getInvoices()){

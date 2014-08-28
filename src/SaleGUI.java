@@ -147,7 +147,7 @@ public class SaleGUI extends JPanel {
 	
 	public void confirmSale(){
 		// Get customer
-		String customerID = Customer.returnIDfromCombobox(customerDropDown.getSelectedItem().toString());
+		String customerID = RetailSystem.returnIDfromCombobox(customerDropDown.getSelectedItem().toString());
 		customerPicked = Customer.retrieveCustomer(customerID);
 		//Create Sale
 		sale = new Sale();

@@ -109,7 +109,7 @@ public class DataBase {
 				double markup = Double.parseDouble(parts[3]); // double
 				String supplierID = parts[4]; // with the id i need to find the
 				boolean active = Boolean.parseBoolean(parts[5]);
-				Supplier supplier = findSupplierWithID(supplierID);
+				Supplier supplier = Supplier.findSupplierWithID(supplierID);
 				if (supplier != null) {
 					Product product = new Product(productID, name, cost,
 							markup, supplier, active);
@@ -161,7 +161,7 @@ public class DataBase {
 				boolean active = Boolean.parseBoolean(parts[7]);
 				// before to construct the object order it is necessary retrieve
 				// the object product
-				Product product = findProductWithID(productID);
+				Product product = Product.findProductWithID(productID);
 				if (product != null) {
 					Order order = new Order(orderID, orderDate, product,
 							quantity, expectedDeliveryDate, dateReceived,
@@ -197,7 +197,7 @@ public class DataBase {
 				boolean active = Boolean.parseBoolean(parts[2]);
 				// before to construct the object order it is necessary retrieve
 				// the object product
-				Product product = findProductWithID(productID);
+				Product product = Product.findProductWithID(productID);
 				if (product != null) {
 					Stock stock = new Stock(quantity, product, active);
 					stocks.add(stock);
@@ -233,29 +233,33 @@ public class DataBase {
 				boolean paid = Boolean.parseBoolean(parts[4]);
 				boolean active = Boolean.parseBoolean(parts[5]);
 				int quantityOfLineItems = Integer.parseInt(parts[6]);
-				Customer customer = findCustomerWithID(customerID);
+				Customer customer = Customer.retrieveCustomer(customerID);
 				if (customer != null) {
-					Invoice invoice = new Invoice(invoiceID, date, customer, totalInvoice, paid, active);
-					if(parts[7]!= null && !parts[7].equals("")){
-						Sale sale = new Sale(DateFormat.getDateInstance().parse(parts[7]));
-						for (int i=8; i <= (quantityOfLineItems * 2) + 7; i = i + 2) {
-						if (parts[i] != null && parts[i + 1] != null
-								&& !parts[i].equals("")
-								&& !parts[i + 1].equals("")) {
-							
-							String productID = parts[i];
-							int quantity = Integer.parseInt(parts[i + 1]);
-							Product product = findProductWithID(productID);
-							if (product != null) {
-								LineItem lineItem = new LineItem(product, quantity);
-								sale.addLineItem(lineItem);
+					Invoice invoice = new Invoice(invoiceID, date, customer,
+							totalInvoice, paid, active);
+					if (parts[7] != null && !parts[7].equals("")) {
+						Sale sale = new Sale(DateFormat.getDateInstance()
+								.parse(parts[7]));
+						for (int i = 8; i <= (quantityOfLineItems * 2) + 7; i = i + 2) {
+							if (parts[i] != null && parts[i + 1] != null
+									&& !parts[i].equals("")
+									&& !parts[i + 1].equals("")) {
+
+								String productID = parts[i];
+								int quantity = Integer.parseInt(parts[i + 1]);
+								Product product = Product
+										.findProductWithID(productID);
+								if (product != null) {
+									LineItem lineItem = new LineItem(product,
+											quantity);
+									sale.addLineItem(lineItem);
+								} else {
+									System.err
+											.println("Skipping invoice with not valid  product at line "
+													+ count);
+								}
 							} else {
-								System.err
-										.println("Skipping invoice with not valid  product at line "
-												+ count);
-							}
-						} else {
-							System.err.println("Error" + count);
+								System.err.println("Error" + count);
 							}
 
 						}
@@ -380,65 +384,41 @@ public class DataBase {
 			for (int i = 0; i < invoice.getSale().getLineItems().size(); i++) {
 				if (i < invoice.getSale().getLineItems().size() - 1) {
 					string = string
-							+ invoice.getSale().getLineItems().get(i).getProduct()
-									.getProductID() + ";"
-							+ invoice.getSale().getLineItems().get(i).getQuantity()
-							+ ";";
+							+ invoice.getSale().getLineItems().get(i)
+									.getProduct().getProductID()
+							+ ";"
+							+ invoice.getSale().getLineItems().get(i)
+									.getQuantity() + ";";
 				} else {
 					string = string
-							+ invoice.getSale().getLineItems().get(i).getProduct()
-									.getProductID() + ";"
-							+ invoice.getSale().getLineItems().get(i).getQuantity();
+							+ invoice.getSale().getLineItems().get(i)
+									.getProduct().getProductID()
+							+ ";"
+							+ invoice.getSale().getLineItems().get(i)
+									.getQuantity();
 				}
 			}
-			out.write(invoice.getInvoiceID() + ";"
-					+ DateFormat.getDateInstance().format(invoice.getInvoiceDate())
-					+ ";" + invoice.getCustomer().getCustomerID() + ";"
-					+ invoice.getTotalInvoice() + ";"
-					+ invoice.isPaid()+ ";"+ invoice.isActive()+ ";"
-					+ invoice.getSale().getLineItems().size() + ";" 
-					+ DateFormat.getDateInstance().format(invoice.getSale().getSaleDate()) + ";"+ string);
+			out.write(invoice.getInvoiceID()
+					+ ";"
+					+ DateFormat.getDateInstance().format(
+							invoice.getInvoiceDate())
+					+ ";"
+					+ invoice.getCustomer().getCustomerID()
+					+ ";"
+					+ invoice.getTotalInvoice()
+					+ ";"
+					+ invoice.isPaid()
+					+ ";"
+					+ invoice.isActive()
+					+ ";"
+					+ invoice.getSale().getLineItems().size()
+					+ ";"
+					+ DateFormat.getDateInstance().format(
+							invoice.getSale().getSaleDate()) + ";" + string);
 			out.newLine();
 		}
 		out.close();
 
-	}
-
-	public static Supplier findSupplierWithID(String id) {
-		Supplier supplier = null;
-		// before to construct the object order it is necessary retrieve
-		// the object product
-		for (Supplier supplier_1 : RetailSystem.getInstance().getSuppliers()) {
-			//we can have product with supplier not active anymore
-				supplier = supplier_1;
-				break; // I need to exit the for
-			
-		}
-		return supplier;
-	}
-
-	public static Customer findCustomerWithID(String id) {
-		Customer customer = null;
-		// before to construct the object order it is necessary retrieve
-		// the object product
-		for (Customer customer_1 : RetailSystem.getInstance().getCustomers()) {
-			//we can have invoice for customer no more active
-				customer = customer_1;
-				break; // I need to exit the for
-			
-		}
-		return customer;
-	}
-	//used in DataBase
-	public static Product findProductWithID(String id) {
-		Product product = null;
-		for (Product product_1 : RetailSystem.getInstance().getProducts()) {
-			//we can have order for product no more active
-				product = product_1;
-				break; // I need to exit the for
-			
-		}
-		return product;
 	}
 
 }

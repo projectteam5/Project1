@@ -49,7 +49,7 @@ public class ShowUserGUI extends JPanel {
 
 		showButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				selectedUserID = Customer.returnIDfromCombobox(usersDropDown.getSelectedItem()
+				selectedUserID = RetailSystem.returnIDfromCombobox(usersDropDown.getSelectedItem()
 						.toString());
 				if (returnValue == 2
 						|| !selectedUserID.equals(selectedUserIDPrev)) {

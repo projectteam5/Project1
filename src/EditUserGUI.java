@@ -56,7 +56,7 @@ public class EditUserGUI extends JPanel {
 
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				userID = Customer.returnIDfromCombobox(userDropDown.getSelectedItem()
+				userID = RetailSystem.returnIDfromCombobox(userDropDown.getSelectedItem()
 						.toString());
 				if (controlVariable == 0 || !userID.equals(selectedUserIDPrev)) {
 					populateFields();

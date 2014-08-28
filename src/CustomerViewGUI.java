@@ -49,7 +49,7 @@ public class CustomerViewGUI extends JPanel {
 		viewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// Cris: using the static method in Customer class
-				selectedCustomerID = Customer.returnIDfromCombobox(customersDropDown.getSelectedItem().toString());
+				selectedCustomerID = RetailSystem.returnIDfromCombobox(customersDropDown.getSelectedItem().toString());
 				if(returnValue == 2 || !selectedCustomerID.equals(selectedCustomerIDPrev)){
 					returnValue = viewCustomerButton();
 					selectedCustomerIDPrev = selectedCustomerID;
