@@ -2,6 +2,8 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.swing.JComboBox;
+
 
 public class Invoice {
 	private String invoiceID;
@@ -96,6 +98,17 @@ public class Invoice {
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
+	}
+	
+	public static void invoiceListComplete(JComboBox dropdown) {
+		for (Invoice invoice : RetailSystem.getInstance().getInvoices()) {
+			if(invoice.isActive()){
+				String string = "ID: " + invoice.getInvoiceID() + " ; Name: "
+						+ invoice.getCustomer().getName(); 
+				dropdown.addItem(string);
+			}
+		}
+		
 	}
 	
 }
