@@ -36,15 +36,18 @@ public class ViewInvoiceGUI extends JPanel{
 	private TableModel dataModel;
 	private JTable table;
 	private JScrollPane scrollPaneLineItems;
-	private boolean populated = false;
+	//private boolean populated = false;
+	//private JLabel title;
 
 
 	public ViewInvoiceGUI() {
+
 		
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-		labelTitle = new JLabel("Invoice Details");
+		labelTitle = new JLabel("Viewing Invoice");
 		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		labelTitle.setAlignmentX(CENTER_ALIGNMENT);
+
 		invoiceLabel = new JLabel("Please choose an invoice from the list below");
 		invoiceLabel.setAlignmentX(CENTER_ALIGNMENT);
 		buttonViewInvoice = new JButton("View Invoice");
@@ -62,12 +65,14 @@ public class ViewInvoiceGUI extends JPanel{
 		table.removeColumn(table.getColumnModel().getColumn(3));
 		
 		Invoice.invoiceListComplete(invoiceDropDown);
+
 		
 		//fixing the layout
 		JLabel labelEmpty = new JLabel(" ");
 		JLabel labelEmpty1 = new JLabel(" ");
 		
 		this.add(labelTitle);
+
 		this.add(invoiceLabel);
 		this.add(labelEmpty);
 		this.add(invoiceDropDown);

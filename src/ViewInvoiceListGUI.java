@@ -20,16 +20,19 @@ public class ViewInvoiceListGUI extends JPanel{
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		title = new JLabel("Invoice List. Total number of Invoices: "+RetailSystem.getInstance().getInvoices().size());
 		title.setFont(new Font("Arial", Font.BOLD, 20));
+
 		vet = new Vector<Invoice>(RetailSystem.getInstance().getInvoices());
 		TableModel dataModel = new InvoiceTable(vet); 
 		table = new JTable(dataModel);
 		scrollPaneInvoices = new JScrollPane(table);
+
 		//fixing the layout
 		JLabel labelEmpty = new JLabel(" ");
 		JLabel labelEmpty1 = new JLabel(" ");
 		this.add(labelEmpty);
 		this.add(title);
 		this.add(labelEmpty1);
+
 		this.add(scrollPaneInvoices);
 	}
 
