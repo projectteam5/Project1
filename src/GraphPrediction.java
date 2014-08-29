@@ -38,10 +38,13 @@ public class GraphPrediction extends JPanel {
 	
 	double balanceJan;double balanceFeb;double balanceMar;double balanceApr;double balanceMay;double balanceJun;
 	double balanceJul;double balanceAug;double balanceSep;double balanceOct;double balanceNov;double balanceDec;
+	double totalSalesInYear=0;double average;double perCentIncrease;
 
 	public GraphPrediction() {
     	  
     	  for(Invoice inv:RetailSystem.getInstance().getInvoices()){
+    		  totalSalesInYear = totalSalesInYear+inv.getTotalInvoice();
+    		  
     		  if(addDaysFromDateString(inv.getInvoiceDate())==1){
     			  january.add(inv);
     		  }
@@ -78,6 +81,10 @@ public class GraphPrediction extends JPanel {
     		  else
     			  dec.add(inv);
     	  }
+    	  
+    	  average = totalSalesInYear/12;
+    	  perCentIncrease=(average/totalSalesInYear);
+    	  System.out.println(perCentIncrease);
     	  
     	  for(Invoice inv:january){
     		  balanceJan = balanceJan+inv.getTotalInvoice();
@@ -116,6 +123,9 @@ public class GraphPrediction extends JPanel {
     		  balanceDec = balanceDec+inv.getTotalInvoice();
     	  }
     	  
+    	  
+    	  
+    	  
 
             
         XYSeries                series1   = new XYSeries("Sales per month");
@@ -131,10 +141,25 @@ public class GraphPrediction extends JPanel {
                                 series1.add(10, balanceOct);
                                 series1.add(11, balanceNov);
                                 series1.add(12, balanceDec);
+                                
+       XYSeries					series2 = new XYSeries("Predictions for Year 2");
+       							series2.add(1,balanceJan+(balanceJan*perCentIncrease));
+       							series2.add(2,balanceFeb+(balanceFeb*perCentIncrease));
+       							series2.add(3,balanceMar+(balanceMar*perCentIncrease));
+       							series2.add(4,balanceApr+(balanceApr*perCentIncrease));
+       							series2.add(5,balanceMay+(balanceMay*perCentIncrease));
+       							series2.add(6,balanceJun+(balanceJun*perCentIncrease));
+       							series2.add(7,balanceJul+(balanceJul*perCentIncrease));
+       							series2.add(8,balanceAug+(balanceAug*perCentIncrease));
+       							series2.add(9,balanceSep+(balanceSep*perCentIncrease));
+       							series2.add(10,balanceOct+(balanceOct*perCentIncrease));
+       							series2.add(11,balanceNov+(balanceNov*perCentIncrease));
+       							series2.add(12,balanceDec+(balanceDec*perCentIncrease));
    
                         
         XYSeriesCollection      xyDataset = new XYSeriesCollection();
                                 xyDataset.addSeries(series1);
+                                xyDataset.addSeries(series2);
                                 
    
         JFreeChart              chart     = ChartFactory.createXYLineChart("Sales V Time","Months","EURO",xyDataset,PlotOrientation.VERTICAL,true,false,false);
