@@ -66,7 +66,7 @@ public class CustomerReactivate extends JPanel {
 		customerDropDown.revalidate();
 		customerDropDown.repaint();
 	}
-
+	//reactivate customer
 	public void customerReactivate(Customer customer) {
 		customer.setActive(true);
 		Customer.saveCustomer();

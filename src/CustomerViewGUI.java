@@ -53,7 +53,7 @@ public class CustomerViewGUI extends JPanel {
 		this.add(labelAddress);
 		this.add(labelPhone);
 
-		// fixing the layout
+		// fixing the layout....
 		JLabel labelEmpty = new JLabel(" ");
 		JLabel labelEmpty1 = new JLabel(" ");
 		JLabel labelEmpty2 = new JLabel(" ");

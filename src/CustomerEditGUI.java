@@ -40,7 +40,7 @@ public class CustomerEditGUI extends JPanel {
 
 		this.setLayout(new GridLayout(0, 1));
 
-		// declaration of the labels and initialization of labels and text field
+		// declaration of the labels and initialisation of labels and text field
 		mainTitle = new JLabel("Edit Customer");
 		mainTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		labelTitle = new JLabel("Please pick the customer you want to edit"
