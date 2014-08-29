@@ -1,10 +1,14 @@
 Customer1;Henry BoBoserson;Address 2 Cork;089334455;true
 Customer2;kvhfkvfejh;kjkjerveriu;2334456;false
 Customer3;Erich King;7 Leinster Square, Rathmines, Dublin 6;0873963668;true
-Customer4;Heinrich Johnstom;56 taney grove;45566;false
+Customer4;Heinrich Johnstom;56 taney grove;45566;true
 Customer5;;;;false
 Customer6;Robbie Tarquinson;Tarquinstown;098 7676767676;true
 Customer7;try;rety;67778;false
 Customer8;Test Customer;Test Ville;790889;true
 Customer9;Test Mc Customer;Test Crescent;01 79088945;true
-Customer10;test custumer3;ijijijij;790889;false
+Customer10;test custumer3;ijijijij;790889;true
+Customer11;errr;eerrr;4455;true
+Customer12;ereeer;erreee;44555;true
+Customer13;444;rrr;eerr;true
+Customer14;eee;eee;455;true
