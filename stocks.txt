@@ -1,4 +1,4 @@
-Product1;20;true
+Product1;0;true
 Product2;15;true
 Product3;7;true
 Product5;265;true
