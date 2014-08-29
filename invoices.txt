@@ -7,3 +7,4 @@ Invoice6;28-Jan-2014;Customer6;700.0;true;true;3;28-Aug-2014;Product16;2;Product
 Invoice7;29-Aug-2014;Customer1;1200.0;true;true;1;29-Aug-2014;Product2;2
 Invoice8;29-Aug-2014;Customer1;1200.0;true;true;1;29-Aug-2014;Product2;2
 Invoice9;29-Aug-2014;Customer1;9000.0;true;true;1;29-Aug-2014;Product2;15
+Invoice10;29-Aug-2014;Customer1;150.0;true;true;1;29-Aug-2014;Product9;1

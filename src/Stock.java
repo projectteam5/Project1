@@ -107,7 +107,6 @@ public class Stock {
 			
 		}
 		saveStock();
-		
 	}
 	public static void saveStock(){
 		try {
