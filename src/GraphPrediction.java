@@ -163,10 +163,10 @@ public class GraphPrediction extends JPanel {
                                 
    
         JFreeChart              chart     = ChartFactory.createXYLineChart("Sales V Time","Months","EURO",xyDataset,PlotOrientation.VERTICAL,true,false,false);
-                                chart.setBackgroundPaint(Color.gray); 
+                                chart.setBackgroundPaint(Color.white); 
                         
         XYPlot                  plot      = (XYPlot) chart.getPlot();
-                                plot.setBackgroundPaint       (Color.white);
+                                plot.setBackgroundPaint       (Color.lightGray);
                                 plot.setDomainGridlinePaint   (Color.GREEN);
                                 plot.setRangeGridlinePaint    (Color.orange);
                                 plot.setAxisOffset            (new RectangleInsets(50, 0, 20, 5));
