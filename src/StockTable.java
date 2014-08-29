@@ -21,7 +21,6 @@ public class StockTable extends AbstractTableModel {
 	public String getValueAt(int row, int col){
 		Stock stock = (Stock)v.elementAt(row);
 		String val = null;
-		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
 		switch(col){
 		case 0: 
 			val = stock.getProduct().getName();

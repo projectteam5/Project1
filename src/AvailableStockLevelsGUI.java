@@ -13,7 +13,7 @@ public class AvailableStockLevelsGUI extends JPanel {
 	 private JLabel title;
 	 private JScrollPane scrollPane;
 	 private Vector<Stock> v;
-	 private Vector<Order> v2;
+	 
 	 private JTable table;
 	
 	public AvailableStockLevelsGUI() {
@@ -21,7 +21,6 @@ public class AvailableStockLevelsGUI extends JPanel {
 		title.setFont(new Font("Arial", Font.BOLD, 20));
 		this.setLayout(new GridLayout(0,1));
 		v = new Vector<Stock>(RetailSystem.getInstance().getStocks());
-		v2 = new Vector<Order>(RetailSystem.getInstance().getOrders());
 		TableModel dataModel = new StockTable(v); 
 		table = new JTable(dataModel);
 		scrollPane = new JScrollPane(table);
