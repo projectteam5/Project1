@@ -27,7 +27,7 @@ public class CustomerGUI extends JPanel {
 	private final static Color colorButtonSelected = new Color(21, 82, 223);
 
 	public CustomerGUI() {
-		// declaration and initialisation of buttons and labels
+		// declaration and initialisation of buttons and labels....
 		this.setLayout(new GridLayout(0, 1));
 		labelTitle = new JLabel("Customer Menu");
 		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
