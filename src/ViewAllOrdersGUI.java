@@ -26,13 +26,14 @@ public class ViewAllOrdersGUI extends JPanel {
 		labelTitleMain.setFont(new Font("Arial", Font.BOLD, 20));
 		this.add(labelTitleMain);
 		
+		/*
 		int count=0;
 		for(Order order : RetailSystem.getInstance().getOrders()) {
 			if(order.isActive()) {
 				count++;
 			}
 		}
-		
+		*/
 		double totalOpenCost = 0;
 		
 		formatHeadingLabel = new JLabel(
@@ -128,7 +129,7 @@ public class ViewAllOrdersGUI extends JPanel {
 		labelTitle3.setFont(new Font("Arial", Font.ITALIC, 12));
 		this.add(labelTitle3);
 		
-		counterLabel = new JLabel("Active Orders in System: " + count);
+		counterLabel = new JLabel("Active Orders in System: " + Order.getActiveOrdersCount() );
 		counterLabel.setFont(new Font("Arial", Font.BOLD, 15));
 		this.add(counterLabel);
 		

@@ -28,7 +28,6 @@ public class MenuGUI extends JFrame {
 	private JButton buttonSupplier;
 	private JButton buttonOrder;
 	private JButton buttonAvailability;
-	private JButton buttonViewOrder;
 	private JLabel menuLabel;
 	private JButton buttonViewGraph;
 	private JButton buttonSale;
@@ -73,7 +72,6 @@ public class MenuGUI extends JFrame {
 		buttonSupplier = new JButton("Manage Suppliers");
 		buttonOrder = new JButton("Manage Orders");
 		buttonAvailability = new JButton("View Stock");
-		buttonViewOrder = new JButton("View Active Orders");
 		buttonSale = new JButton("Sales");
 		buttonViewGraph = new JButton("Graphs");
 		buttonInvoice = new JButton("Invoices");
@@ -91,7 +89,6 @@ public class MenuGUI extends JFrame {
 			panelMenu.add(buttonSupplier);
 			panelMenu.add(buttonOrder);
 			panelMenu.add(buttonAvailability);
-			panelMenu.add(buttonViewOrder);
 			panelMenu.add(buttonUser);
 			panelMenu.add(buttonSale);
 			panelMenu.add(buttonViewGraph);
@@ -101,7 +98,6 @@ public class MenuGUI extends JFrame {
 		} else {
 			panelMenu.add(buttonCustomer);
 			panelMenu.add(buttonAvailability);
-			panelMenu.add(buttonViewOrder);
 			panelMenu.add(buttonSale);
 			panelMenu.add(buttonInvoice);
 		}
@@ -144,16 +140,6 @@ public class MenuGUI extends JFrame {
 				colorButton();
 				buttonAvailability.setBackground(colorButtonSelected);
 				setSubMenu(new StockGUI());
-				setPanelAction(panelEmpty);
-
-			}
-		});
-
-		buttonViewOrder.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				colorButton();
-				buttonViewOrder.setBackground(colorButtonSelected);
-				setSubMenu(new ViewAllOrdersSubMenu());
 				setPanelAction(panelEmpty);
 
 			}
@@ -280,8 +266,6 @@ public class MenuGUI extends JFrame {
 		buttonOrder.setFont(fontButtons);
 		buttonAvailability.setBackground(colorButtons);
 		buttonAvailability.setFont(fontButtons);
-		buttonViewOrder.setBackground(colorButtons);
-		buttonViewOrder.setFont(fontButtons);
 		buttonSale.setBackground(colorButtons);
 		buttonSale.setFont(fontButtons);
 		buttonViewGraph.setBackground(colorButtons);

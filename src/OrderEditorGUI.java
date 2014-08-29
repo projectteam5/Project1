@@ -164,18 +164,20 @@ public class OrderEditorGUI extends JPanel implements ActionListener {
 							stock.setUnits(stock.getUnits()+newQuantity);
 							//order.setActive(false);
 							
-							saveStock();
+							Stock.saveStock();
 						}
 					}
 				}
 				
-				saveOrder();
+				Order.saveOrder();
 				
 				JOptionPane.showMessageDialog(this, "Order has been edited");
 				
 				//removing the change of isRecieved from EditOrder orderList
 				if(receivedCheckBox.isSelected()) {
+					
 					EditOrderGUI.getOrderList().removeItem(order.getOrderID());
+					
 				}
 				
 				idTextField.setEditable(false);
@@ -190,34 +192,4 @@ public class OrderEditorGUI extends JPanel implements ActionListener {
 			}
 		}
 	}
-	
-	public static void saveOrder(){
-	  	 try {
-	  		 FileWriter orderFile;
-	  		orderFile = new FileWriter("orders.txt");
-	  		
-	  		 DataBase.writeOrders(RetailSystem.getInstance().getOrders(), orderFile);
-	  		orderFile.close();
-	  		
-	  	 } catch (Exception exception) {
-	  		 
-	  		 exception.printStackTrace();
-	  	 }
-	   }
-	
-	public static void saveStock(){
-	  	 try {
-	  		 FileWriter stockFile;
-	  		stockFile = new FileWriter("stocks.txt");
-	  		
-	  		 DataBase.writeStocks(RetailSystem.getInstance().getStocks(), stockFile);
-	  		stockFile.close();
-	  		
-	  	 } catch (Exception exception) {
-	  		 
-	  		 exception.printStackTrace();
-	  	 }
-	   }
-	
-	
 }

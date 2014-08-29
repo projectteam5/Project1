@@ -7,11 +7,12 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class OrderGUI extends JPanel implements ActionListener {
 	
-	JLabel labelTitle;
-	JButton createOrder;
-	JButton editOrder;
-	JButton viewOrder;
-	JButton removeOrder;
+	private JLabel labelTitle;
+	private JButton createOrder;
+	private JButton editOrder;
+	private JButton viewOrder;
+	private JButton removeOrder;
+	private JButton viewAllOrders;
 	
 	private final static Font fontButtons = new Font("Arial", Font.BOLD, 12);
 	private final static Color colorButtons = new Color(126, 163, 249);
@@ -28,6 +29,7 @@ public class OrderGUI extends JPanel implements ActionListener {
 		editOrder = new JButton("Edit an Order");
 		viewOrder = new JButton("View an Order");
 		removeOrder = new JButton("Remove an Order");
+		viewAllOrders = new JButton("View All Orders");
 		
 		colorButton();
 		
@@ -36,6 +38,7 @@ public class OrderGUI extends JPanel implements ActionListener {
 		this.add(editOrder);
 		this.add(viewOrder);
 		this.add(removeOrder);
+		this.add(viewAllOrders);
 		//fixing the layout
 		JLabel labelEmpty = new JLabel(" ");
 		JLabel labelEmpty1 = new JLabel(" ");
@@ -46,6 +49,7 @@ public class OrderGUI extends JPanel implements ActionListener {
 		editOrder.addActionListener(this);
 		viewOrder.addActionListener(this);
 		removeOrder.addActionListener(this);
+		viewAllOrders.addActionListener(this);
 		
 	}
 	
@@ -55,10 +59,9 @@ public class OrderGUI extends JPanel implements ActionListener {
 		if(target == createOrder) {
 			try {
 				
-				MenuGUI.getInstance().setPanelAction(new CreateOrderGUI());
 				colorButton();
 				createOrder.setBackground(colorButtonSelected);
-				
+				MenuGUI.getInstance().setPanelAction(new CreateOrderGUI());
 				
 			} catch(Exception e) {
 				System.err.println(e);
@@ -109,6 +112,20 @@ public class OrderGUI extends JPanel implements ActionListener {
 			}
 		}
 		
+		if(target == viewAllOrders) {
+			try {
+				
+				colorButton();
+				viewAllOrders.setBackground(colorButtonSelected);
+				MenuGUI.getInstance().setPanelAction(new ViewAllOrdersGUI());
+				
+			} catch(Exception e) {
+				System.err.println(e);
+				System.err.println(e.getMessage());
+				JOptionPane.showMessageDialog(this, "cannot reach ViewAllOrdersGUI");
+			}
+		}
+		
 	}
 	
 	public void colorButton() {
@@ -121,6 +138,8 @@ public class OrderGUI extends JPanel implements ActionListener {
 		viewOrder.setFont(fontButtons);
 		removeOrder.setBackground(colorButtons);
 		removeOrder.setFont(fontButtons);
+		viewAllOrders.setBackground(colorButtons);
+		viewAllOrders.setFont(fontButtons);
 		
 	}
 	

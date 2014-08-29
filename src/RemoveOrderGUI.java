@@ -30,6 +30,8 @@ public class RemoveOrderGUI extends JPanel implements ActionListener {
 		removeOrderButton = new JButton("Remove Order");
 		printLabel = new JLabel();
 		
+		Order.getOrdersCheck(orderList);
+		/*
 		for(Order order: RetailSystem.getInstance().getOrders()){
 			if(order.isActive()==true) {
 				if(order.isReceived()==false) {
@@ -37,7 +39,7 @@ public class RemoveOrderGUI extends JPanel implements ActionListener {
 				}
 			}
 		}
-		
+		*/
 		this.add(labelTitleMain);
 		this.add(orderList);
 		this.add(removeOrderButton);
@@ -56,77 +58,70 @@ public class RemoveOrderGUI extends JPanel implements ActionListener {
 		
 		if(target == removeOrderButton) {
 			
-			String orderID = orderList.getSelectedItem().toString();
 			boolean orderFound = false;
 			
-			for(Order order: RetailSystem.getInstance().getOrders()){
-				if(orderID.equalsIgnoreCase(order.getOrderID())){
-						
-					orderFound = true;
+			if(orderList.getSelectedIndex()<0) {
+				
+				orderFound = false;
+				
+			} else {
+			
+				String orderID = orderList.getSelectedItem().toString();
+				
+				for(Order order: RetailSystem.getInstance().getOrders()){
 					
-					printLabel.setText("<html><table>"
-							+ "<tr>"
-							+ "<td>"+ order.getOrderID() +"</td>"
-							+ "<td>"+DateFormat.getDateInstance().format(order.getOrderDate())+"</td>"
-							+ "<td>"+order.getProduct().getName()+"</td>"
-							+ "<td>"+order.getQuantity()+"</td>"
-							+ "<td>"+DateFormat.getDateInstance().format(order.getExpectedDeliveryDate())+"</td>"
-							+ "<td>"+DateFormat.getDateInstance().format(order.getDateReceived())+"</td>"
-							+ "<td>"+order.isReceived()+"</td>"
-							+ "</tr>"
-							+ "</table></html>");
-					
-					int answer = JOptionPane.showConfirmDialog(this, "Are you sure?", "Remove Order", JOptionPane.YES_NO_OPTION);
-					
-					if (answer == JOptionPane.YES_OPTION) {
-						order.setActive(false);
-						//RetailSystem.getInstance().getOrders().remove(order);
+					if(orderID.equalsIgnoreCase(order.getOrderID())){
+							
+						orderFound = true;
 						
-						saveOrder();
+						printLabel.setText("<html><table>"
+								+ "<tr>"
+								+ "<td>"+ order.getOrderID() +"</td>"
+								+ "<td>"+DateFormat.getDateInstance().format(order.getOrderDate())+"</td>"
+								+ "<td>"+order.getProduct().getName()+"</td>"
+								+ "<td>"+order.getQuantity()+"</td>"
+								+ "<td>"+DateFormat.getDateInstance().format(order.getExpectedDeliveryDate())+"</td>"
+								+ "<td>"+DateFormat.getDateInstance().format(order.getDateReceived())+"</td>"
+								+ "<td>"+order.isReceived()+"</td>"
+								+ "</tr>"
+								+ "</table></html>");
 						
-						JOptionPane.showMessageDialog(this, "Order "+order.getOrderID()+" has been set as inactive");
+						int answer = JOptionPane.showConfirmDialog(this, "Are you sure?", "Remove Order", JOptionPane.YES_NO_OPTION);
 						
-						//remove(printLabel);
+						if (answer == JOptionPane.YES_OPTION) {
+							order.setActive(false);
+							//RetailSystem.getInstance().getOrders().remove(order);
+							
+							Order.saveOrder();
+							
+							JOptionPane.showMessageDialog(this, "Order "+order.getOrderID()+" has been set as inactive");
+							
+							//remove(printLabel);
+							
+							orderList.removeItem(orderID);
+							
+							printLabel.setText("");
+							
+					    }
 						
-						orderList.removeItem(orderID);
+						if (answer == JOptionPane.NO_OPTION) {
+							
+							printLabel.setText("");
+							
+					    }
 						
-						printLabel.setText("");
+						repaint();
 						
-				    }
-					
-					if (answer == JOptionPane.NO_OPTION) {
+						revalidate();
 						
-						printLabel.setText("");
-						
-				    }
-					
-					repaint();
-					
-					revalidate();
-					
-					break;
+						break;
+					}
 				}
 			}
 			if(!orderFound){
 				
 				JOptionPane.showMessageDialog(this, "No Order With This ID in System!");
 			}
-		}
-		
+		}	
 	}
-	
-	public static void saveOrder(){
-	  	 try {
-	  		 FileWriter orderFile;
-	  		orderFile = new FileWriter("orders.txt");
-	  		
-	  		 DataBase.writeOrders(RetailSystem.getInstance().getOrders(), orderFile);
-	  		orderFile.close();
-	  		
-	  	 } catch (Exception exception) {
-	  		 
-	  		 exception.printStackTrace();
-	  	 }
-	   }
-	
 }

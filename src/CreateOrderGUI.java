@@ -2,7 +2,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileWriter;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
@@ -53,11 +52,7 @@ public class CreateOrderGUI extends JPanel implements ActionListener {
 		labelProductID = new JLabel("Product ID");
 		comboBoxList = new JComboBox<String>();
 		comboBoxList.addItem("");
-		for(Product p : RetailSystem.getInstance().getProducts()) {
-			if(p.isActive()==true) {
-				comboBoxList.addItem(p.getProductID() + " - " + p.getName());
-			}
-		}
+		Order.getProducts(comboBoxList);
 		
 		labelProductQuantity = new JLabel("Product Quantity");
 		quantityTextField = new JTextField();
@@ -125,9 +120,11 @@ public class CreateOrderGUI extends JPanel implements ActionListener {
 				dataOK = false;
 			}
 			
+			// check if an open (!isReceived) Order is for this Product already - if so, we cannot Order
+			
 			if( Order.checkForOrders(newProduct) ) {
 				
-				JOptionPane.showMessageDialog(this, "Can not order this Product again");
+				JOptionPane.showMessageDialog( this, "Open Order exists for this Product" );
 				
 				dataOK = false;
 				
@@ -144,7 +141,7 @@ public class CreateOrderGUI extends JPanel implements ActionListener {
 							newReceivedDate, newReceived);
 					RetailSystem.getInstance().getOrders().add(newOrder);
 					
-					saveOrder();
+					Order.saveOrder();
 					
 					orderDateTextField.setEditable(false);
 					quantityTextField.setEditable(false);
@@ -154,24 +151,11 @@ public class CreateOrderGUI extends JPanel implements ActionListener {
 					
 					
 				} catch(NumberFormatException | ParseException e) {
-					JOptionPane.showMessageDialog(this, "Error processing request");
+					
+					JOptionPane.showMessageDialog( this, "Error processing request" );
+					
 				}
 			}
-		}
-		
+		}	
 	}
-	
-	public static void saveOrder(){
-	  	 try {
-	  		 FileWriter orderFile;
-	  		orderFile = new FileWriter("orders.txt");
-	  		
-	  		 DataBase.writeOrders(RetailSystem.getInstance().getOrders(), orderFile);
-	  		orderFile.close();
-	  		
-	  	 } catch (Exception exception) {
-	  		 
-	  		 exception.printStackTrace();
-	  	 }
-	   }
 }

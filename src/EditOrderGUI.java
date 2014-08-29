@@ -27,6 +27,8 @@ public class EditOrderGUI extends JPanel implements ActionListener {
 		orderList = new JComboBox<String>();
 		editOrderButton = new JButton("Edit Order");
 		
+		Order.getOrdersCheck(orderList);
+		/*
 		for(Order order: RetailSystem.getInstance().getOrders()){
 			if(order.isActive()==true) {
 				if(order.isReceived()==false) {
@@ -34,7 +36,7 @@ public class EditOrderGUI extends JPanel implements ActionListener {
 				}
 			}
 		}
-		
+		*/
 		this.add(orderList);
 		this.add(editOrderButton);
 		
@@ -44,23 +46,35 @@ public class EditOrderGUI extends JPanel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent event) {
+		
 		Object target = event.getSource();
 		
 		if(target == editOrderButton) {
 			
-			String orderID = orderList.getSelectedItem().toString();
 			boolean orderFound = false;
 			
-			for(Order order: RetailSystem.getInstance().getOrders()){
-				if(orderID.equalsIgnoreCase(order.getOrderID())){
-					orderFound = true;
-					orderToEdit = order;
+			if(orderList.getSelectedIndex()<0) {
+				
+				orderFound = false;
+				
+			} else {
+			
+				String orderID = orderList.getSelectedItem().toString();
+				
+				for(Order order: RetailSystem.getInstance().getOrders()){
 					
-					colorButton();
-					editOrderButton.setBackground(colorButtonSelected);
-					MenuGUI.getInstance().setPanelAction(new OrderEditorGUI());
-					
-					break;
+					if(orderID.equalsIgnoreCase(order.getOrderID())){
+						
+						orderFound = true;
+						
+						orderToEdit = order;
+						
+						colorButton();
+						editOrderButton.setBackground(colorButtonSelected);
+						MenuGUI.getInstance().setPanelAction(new OrderEditorGUI());
+						
+						break;
+					}
 				}
 			}
 			if(!orderFound){

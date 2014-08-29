@@ -66,10 +66,12 @@ public class ViewOrderGUI extends JPanel implements ActionListener {
 		
 		setVisible(true);
 		
+		Order.getOrders(orderList);
+		/*
 		for(Order order: RetailSystem.getInstance().getOrders()){
 				orderList.addItem(order.getOrderID());
 		}
-		
+		*/
 	}
 	
 	public void actionPerformed(ActionEvent event) {
@@ -77,26 +79,36 @@ public class ViewOrderGUI extends JPanel implements ActionListener {
 		
 		if(target == viewOrderButton) {
 			
-			String orderID = orderList.getSelectedItem().toString();
 			boolean orderFound = false;
-
-			for(Order order: RetailSystem.getInstance().getOrders()){
-				if(orderID.equalsIgnoreCase(order.getOrderID())){
-
-					orderFound = true;
+			
+			if(orderList.getSelectedIndex()<0) {
+				
+				orderFound = false;
+				
+			} else {
+			
+				String orderID = orderList.getSelectedItem().toString();
+	
+				for(Order order: RetailSystem.getInstance().getOrders()){
 					
-					this.orderID.setText("Order ID: " + order.getOrderID());
-					this.orderDate.setText("Order Date: "+DateFormat.getDateInstance().format(order.getOrderDate()));
-					this.product.setText("Product Name: " + order.getProduct().getName());
-					this.quantity.setText("Quantity: "+ order.getQuantity());
-					this.deliveryDate.setText("Expected Delivery Date: "+ DateFormat.getDateInstance().format(order.getExpectedDeliveryDate()));
-					this.receivedDate.setText("Date Received: "+ DateFormat.getDateInstance().format(order.getDateReceived()));
-					this.isReceived.setText("Is Received?: "+ order.isReceived());
-					this.orderCost.setText("Order Cost: "+ Order.calculateOrderCost(order.getProduct().getCost(), order.getQuantity()));
-					
-					break;
-					
+					if(orderID.equalsIgnoreCase(order.getOrderID())){
+	
+						orderFound = true;
+						
+						this.orderID.setText("Order ID: " + order.getOrderID());
+						this.orderDate.setText("Order Date: "+DateFormat.getDateInstance().format(order.getOrderDate()));
+						this.product.setText("Product Name: " + order.getProduct().getName());
+						this.quantity.setText("Quantity: "+ order.getQuantity());
+						this.deliveryDate.setText("Expected Delivery Date: "+ DateFormat.getDateInstance().format(order.getExpectedDeliveryDate()));
+						this.receivedDate.setText("Date Received: "+ DateFormat.getDateInstance().format(order.getDateReceived()));
+						this.isReceived.setText("Is Received?: "+ order.isReceived());
+						this.orderCost.setText("Order Cost: "+ Order.calculateOrderCost(order.getProduct().getCost(), order.getQuantity()));
+						
+						break;
+						
+					}
 				}
+			
 			}
 			
 			if(!orderFound){

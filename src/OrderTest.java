@@ -115,7 +115,7 @@ public class OrderTest {
 		
 		boolean result;
 		
-		result = order.receivedOrder(date2, date3);
+		result = order.receivedOrder();
 		
 		assertEquals(result, test);
 		
