@@ -28,8 +28,8 @@ public class GraphGUI extends JPanel implements ActionListener {
 		labelTitle = new JLabel("Graph Menu");
 		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		
-		viewOrderGraph = new JButton("View most popular products by Orders");
-		viewStockGraph = new JButton("View Predictions Graph");
+		viewOrderGraph = new JButton("View most popular "+"\n products by Orders");
+		viewStockGraph = new JButton("View Currrent & Predicted sales Graph");
 		
 		colorButton();
 		

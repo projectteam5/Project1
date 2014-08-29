@@ -1,3 +1,4 @@
+import java.io.FileWriter;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -88,6 +89,34 @@ public class Stock {
 			}
 		}
 		
+	}
+	public static void updateStock(Invoice invoice){
+		ArrayList<Stock> stocks = RetailSystem.getInstance().getStocks();
+		ArrayList<LineItem> items;
+		items = invoice.getSale().getLineItems();
+		
+		for(LineItem item:items){
+			for(Stock stock: stocks){
+				
+				if(item.getProduct().getProductID().equalsIgnoreCase(stock.getProduct().getProductID())){
+					stock.setUnits(stock.getUnits()-item.getQuantity());
+				}
+				
+			}
+			
+		}
+		saveStock();
+		
+	}
+	public static void saveStock(){
+		try {
+			FileWriter userFile;
+			userFile = new FileWriter("stock.txt");
+			DataBase.writeStocks(RetailSystem.getInstance().getStocks(), userFile);
+			userFile.close();// close the stock file
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
 	}
 
 }

@@ -18,9 +18,11 @@ public class StockTable extends AbstractTableModel {
 	public int getRowCount(){
 		return vector.length;
 	}
+
 	
 	public Object getValueAt(int row, int col){
 		 return vector[row][col];
+
 
 	}
 	

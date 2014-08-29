@@ -11,10 +11,10 @@ import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
 public class AvailableStockLevelsGUI extends JPanel {
+
 	private JLabel title;
 	private JScrollPane scrollPane;
-	private Vector<Stock> v;
-	private Vector<Order> v2;
+
 	private JTable table;
 	private String[][] vector;
 	private String orderDate;
@@ -27,6 +27,7 @@ public class AvailableStockLevelsGUI extends JPanel {
 		title.setAlignmentX(CENTER_ALIGNMENT);
 		buildVector();
 		TableModel dataModel = new StockTable(vector);
+
 		table = new JTable(dataModel);
 		scrollPane = new JScrollPane(table);
 		// fixing the layout
