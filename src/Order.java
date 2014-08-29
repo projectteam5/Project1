@@ -109,15 +109,14 @@ public class Order {
 		return received;
 	}
 	
-	public boolean orderMore( Product p ) {
+	public static void orderMore(ArrayList<LineItem> items ) {
 		
-		boolean doOrderMore = false;
 		
 		Order newOrder = null;
-		
+		for(LineItem item: items){
 		for( Stock s : RetailSystem.getInstance().getStocks() ) {
 			
-			if( s.getUnits() < 5 && s.getProduct() == p ) {
+			if( s.getUnits() < 5 && s.getProduct() == item.getProduct() ) {
 				
 				try {
 					
@@ -137,7 +136,7 @@ public class Order {
 					 * 
 					 * */
 					
-					newOrder = new Order( new Date(), p, s.getUnits()+10, new Date() );
+					newOrder = new Order( new Date(), item.getProduct(), s.getUnits()+10, new Date() );
 					
 				} catch ( ParseException e ) {
 					
@@ -147,13 +146,13 @@ public class Order {
 				
 				RetailSystem.getInstance().getOrders().add( newOrder );
 				
-				doOrderMore = true;
+				
 				
 			}
 			
 		}
+		}
 		
-		return doOrderMore;
 		
 	}
 	
