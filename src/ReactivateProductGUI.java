@@ -16,6 +16,12 @@ public class ReactivateProductGUI extends JPanel {
 	private JComboBox<String> productDropDown = new JComboBox<String>();
 	private JButton buttonReactivate;
 	private Product chosenProduct;
+	// fixing the layout
+	JLabel labelEmpty = new JLabel(" ");
+	JLabel labelEmpty1 = new JLabel(" ");
+	JLabel labelEmpty2 = new JLabel(" ");
+	JLabel labelEmpty3 = new JLabel(" ");
+	JLabel labelEmpty4 = new JLabel(" ");
 
 	public ReactivateProductGUI() {
 		this.setLayout(new GridLayout(0, 1));
@@ -25,13 +31,6 @@ public class ReactivateProductGUI extends JPanel {
 		buttonReactivate = new JButton("Reactivate");
 		compileProductNames();
 
-		// fixing the layout
-		JLabel labelEmpty = new JLabel(" ");
-		JLabel labelEmpty1 = new JLabel(" ");
-		JLabel labelEmpty2 = new JLabel(" ");
-		JLabel labelEmpty3 = new JLabel(" ");
-		JLabel labelEmpty4 = new JLabel(" ");
-		
 		this.add(title);
 		this.add(labelEmpty);
 		this.add(productLabel);
@@ -69,16 +68,18 @@ public class ReactivateProductGUI extends JPanel {
 	}
 
 	public void reloadDropDown() {
-		this.remove(title);
-		this.remove(productLabel);
-		this.remove(productDropDown);
-		this.remove(buttonReactivate);
+		this.removeAll();
 		productDropDown = new JComboBox();
 		compileProductNames();
 		this.add(title);
 		this.add(productLabel);
 		this.add(productDropDown);
 		this.add(buttonReactivate);
+		this.add(labelEmpty);
+		this.add(labelEmpty1);
+		this.add(labelEmpty2);
+		this.add(labelEmpty3);
+		this.add(labelEmpty4);
 		revalidate();
 		repaint();
 

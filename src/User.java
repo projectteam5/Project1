@@ -121,6 +121,16 @@ public class User {
 			}
 		}
 	}
+	public static void userListCompleteInactive(JComboBox dropdown) {
+		for (User user : RetailSystem.getInstance().getUsers()) {
+			if(!user.isActive()){
+				String string = "ID: " + user.getUserID() + " ; Name: "
+						+ user.getName(); 
+				dropdown.addItem(string);
+			}
+		}
+	}
+	
 
 
 }

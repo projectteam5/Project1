@@ -1,4 +1,0 @@
-Invoice1;28-Aug-2014;Customer9;800.0;true;true;3;28-Aug-2014;Product6;1;Product6;2;Product6;1
-Invoice2;28-Aug-2014;Customer3;2035.0;true;true;4;28-Aug-2014;Product2;1;Product5;1;Product14;1;Product20;1
-Invoice3;28-Aug-2014;Customer6;700.0;true;true;3;28-Aug-2014;Product16;2;Product16;1;Product18;1
-Invoice4;29-Aug-2014;Customer1;600.0;true;true;1;29-Aug-2014;Product1;10
