@@ -161,6 +161,7 @@ public class SaleGUI extends JPanel {
 		RetailSystem.getInstance().getInvoices().add(invoice);
 		Invoice.saveInvoice();
 		Stock.updateStock(invoice);
+		Order.orderMore(invoice.getSale().getLineItems());
 		JOptionPane.showMessageDialog(null,
 				"Invoice saved and printed", "Print",
 				JOptionPane.PLAIN_MESSAGE);
