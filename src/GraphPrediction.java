@@ -1,8 +1,14 @@
 import java.awt.Color;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.JPanel;
    
-import org.jfree.chart.ChartFactory;
+    import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -14,11 +20,32 @@ import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.RectangleInsets;
    
     public class GraphPrediction extends JPanel{
+      ArrayList<XYSeries> xySeries = new ArrayList<XYSeries>();
+      Date date = new Date();
       
       public GraphPrediction() {
+    	  
+    	  for(Product pro:RetailSystem.getInstance().getProducts()){
+    		  XYSeries series1 = new XYSeries(pro.getName());
+    		  xySeries.add(series1);
+    	  }
+    	  
+    	  
+    	  for(Invoice inv:RetailSystem.getInstance().getInvoices()){
+    		  for(LineItem li:inv.getSale().getLineItems()){
+    			  for(Product pro:RetailSystem.getInstance().getProducts()){
+    				  if(li.getProduct()==pro){
+    					  
+    				  }
+    			  }
+    		  }
+    		  
+    	  }
+    	  
+
             
         XYSeries                series1   = new XYSeries("Hard Drives");
-                                series1.add(20, 10);
+                                series1.add(45, 10);
                                 series1.add(40, 20);
                                 series1.add(70, 50);
    
@@ -52,5 +79,17 @@ import org.jfree.ui.RectangleInsets;
         this.add(chartPanel);
                                               
       }  
+      
+      public static double addDaysFromDateString(Date invoiceDate) {
+          double result;
+          
+          Calendar calendar = new GregorianCalendar();
+          
+          calendar.setTime(invoiceDate);
+          
+          result = calendar.get(Calendar.MONTH);
+         
+          return result;
+      }
    
-    }
+    }   
