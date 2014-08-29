@@ -20,6 +20,12 @@ public class CustomerDeleteGUI extends JPanel {
 	private JButton deleteButton;
 	private String selectedCustomerID;
 	private Customer customerRemove;
+	
+	JLabel labelEmpty = new JLabel(" ");
+	JLabel labelEmpty1 = new JLabel(" ");
+	JLabel labelEmpty2 = new JLabel(" ");
+	JLabel labelEmpty3 = new JLabel(" ");
+	JLabel labelEmpty4 = new JLabel(" ");
 
 	public CustomerDeleteGUI() {
 
@@ -46,6 +52,7 @@ public class CustomerDeleteGUI extends JPanel {
 		this.add(labelEmpty1);
 		this.add(labelEmpty2);
 		this.add(labelEmpty3);
+		this.add(labelEmpty4);
 
 		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -58,7 +65,7 @@ public class CustomerDeleteGUI extends JPanel {
 
 	public void deleteCustomerButton() {
 		customerRemove = null;
-		// Cris: using the static method in Customer class
+		// using the static method in Customer class
 		selectedCustomerID = RetailSystem
 				.returnIDfromCombobox(customersDropDown.getSelectedItem()
 						.toString());
@@ -74,14 +81,18 @@ public class CustomerDeleteGUI extends JPanel {
 	}
 
 	public void addAndRefresh() {
-		this.remove(labelTitle);
-		this.remove(customersDropDown);
-		this.remove(deleteButton);
+		this.removeAll();
+		this.add(labelTitleMain);
 		this.add(labelTitle);
 		customersDropDown = new JComboBox();
 		buildCustomersDropDown();
 		this.add(customersDropDown);
 		this.add(deleteButton);
+		this.add(labelEmpty);
+		this.add(labelEmpty1);
+		this.add(labelEmpty2);
+		this.add(labelEmpty3);
+		this.add(labelEmpty4);
 		this.revalidate();
 		revalidate();
 		repaint();

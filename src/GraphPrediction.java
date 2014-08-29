@@ -168,7 +168,7 @@ public class GraphPrediction extends JPanel {
         XYPlot                  plot      = (XYPlot) chart.getPlot();
                                 plot.setBackgroundPaint       (Color.lightGray);
                                 plot.setDomainGridlinePaint   (Color.GREEN);
-                                plot.setRangeGridlinePaint    (Color.orange);
+                                plot.setRangeGridlinePaint    (Color.white);
                                 plot.setAxisOffset            (new RectangleInsets(50, 0, 20, 5));
                                 plot.setDomainCrosshairVisible(true);
                                 plot.setRangeCrosshairVisible (true);
