@@ -115,8 +115,9 @@ public class Order {
 		Order newOrder = null;
 		for(LineItem item: items){
 			for(Stock s : RetailSystem.getInstance().getStocks() ) {
+				if(s.getProduct().getProductID().equalsIgnoreCase(item.getProduct().getProductID())){
 				for(Order o: RetailSystem.getInstance().getOrders())
-					if(s.getUnits() < 5 && s.getProduct().getProductID().equalsIgnoreCase(item.getProduct().getProductID())&&s.getProduct().getProductID().equalsIgnoreCase(o.getProduct().getProductID())&&o.received) {
+					if(s.getUnits() < 5 &&s.getProduct().getProductID().equalsIgnoreCase(o.getProduct().getProductID())&&o.received) {
 				
 						try {
 					
@@ -137,6 +138,8 @@ public class Order {
 			}
 			
 		}
+			}
+		
 		}
 		
 		
