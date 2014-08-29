@@ -146,12 +146,26 @@ public class Product {
 
 	
 	//used in sale gui
-	public static void compileProductNames(JComboBox<String> productDropDown){
+/*	public static void compileProductNames(JComboBox<String> productDropDown){
 		for(Product product: RetailSystem.getInstance().getProducts()){
 			if(product.isActive()){
 				productDropDown.addItem(product.getName());
 			}
 		}
+	}*/
+	
+	public static void compileProductNames(JComboBox<String> productDropDown){
+		//Will list products from product list in driver class
+		//Should only show products that are in stock
+		String string = "";
+		for(Stock stock: RetailSystem.getInstance().getStocks()){
+			if(stock.getUnits()>0){
+			 stock.getProduct();
+			 productDropDown.addItem(stock.getProduct().getName());
+			}
+			
+		}
+		
 	}
 	
 }
