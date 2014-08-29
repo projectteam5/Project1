@@ -114,38 +114,24 @@ public class Order {
 		
 		Order newOrder = null;
 		for(LineItem item: items){
-		for( Stock s : RetailSystem.getInstance().getStocks() ) {
-			
-			if( s.getUnits() < 5 && s.getProduct() == item.getProduct() ) {
+			for(Stock s : RetailSystem.getInstance().getStocks() ) {
+				for(Order o: RetailSystem.getInstance().getOrders())
+					if(s.getUnits() < 5 && s.getProduct().getProductID().equalsIgnoreCase(item.getProduct().getProductID())&&s.getProduct().getProductID().equalsIgnoreCase(o.getProduct().getProductID())&&o.received) {
 				
-				try {
+						try {
 					
-					//	quantity in this Order could be final int REORDER_LEVEL = 5 defined in Stock?
-					// then, add on an amount we think brings the Stock level back to final int MIN_LEVEL = 'whatever' ?
-					// and, if the resulting Order would pass our MAX_LEVEL of Stock that 'over-level' amount is taken away from the Order quantity?
 					
-					/*
-					 * 
-					 * if ( s.getUnits <= REORDER_LEVEL ) --> orderMore;
-					 * 
-					 * newOrder.quantity = ( s.getUnits + (MIN_LEVEL - s.getUnits) ) + a quantity the user can specify
-					 * 
-					 * if ( userSpecifiedQuantity > MAX_LEVEL ) { newOrder.quantity = (userSpecifiedQuantity - MAX_LEVEL) / MAX_LEVEL * 100 }
-					 * 
-					 * ??????????????????????????????????????????????????????????????
-					 * 
-					 * */
-					
-					newOrder = new Order( new Date(), item.getProduct(), s.getUnits()+10, new Date() );
-					
-				} catch ( ParseException e ) {
+							newOrder = new Order( new Date(), item.getProduct(), s.getUnits()+10, new Date() );
+							RetailSystem.getInstance().getOrders().add(newOrder);
+							CreateOrderGUI.saveOrder();
+						} catch ( ParseException e ) {
 					
 					e.printStackTrace();
 					
 				}
 				
 				RetailSystem.getInstance().getOrders().add( newOrder );
-				
+				CreateOrderGUI.saveOrder();
 				
 				
 			}
