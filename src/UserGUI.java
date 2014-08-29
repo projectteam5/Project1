@@ -14,6 +14,7 @@ public class UserGUI extends JPanel {
 	JButton editUser;
 	JButton deleteUser;
 	JButton showUser;
+	JButton reactivateUser;
 	JLabel labelTitle;
 
 
@@ -31,7 +32,8 @@ public class UserGUI extends JPanel {
 		addUser = new JButton("Add User");
 		editUser = new JButton("Edit User");
 		deleteUser = new JButton("Remove User");
-		showUser = new JButton("Show User");
+		showUser = new JButton("View User");
+		reactivateUser = new JButton("Reactivate User");
 		colorButton();
 
 		// adding all the components
@@ -40,11 +42,12 @@ public class UserGUI extends JPanel {
 		this.add(editUser);
 		this.add(showUser);
 		this.add(deleteUser);
+		this.add(reactivateUser);
 		//fixing the layout
 		JLabel labelEmpty = new JLabel(" ");
 		JLabel labelEmpty1 = new JLabel(" ");
 		this.add(labelEmpty);
-		this.add(labelEmpty1);
+		//this.add(labelEmpty1);
 
 		/*
 		 * Add button: it opens a new window where it's possible to insert user
@@ -100,6 +103,20 @@ public class UserGUI extends JPanel {
 				MenuGUI.getInstance().setPanelAction(new DeleteUserGUI());
 			}
 		});
+		
+		/*
+		 * Reactivate button: it opens a new window where it's possible to select
+		 * the user from a dropdown list. After a user is selected it is
+		 * possible to push the button "Reactivate User" and automatically the user
+		 * will be reactivated
+		 */
+		reactivateUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				colorButton();
+				reactivateUser.setBackground(colorButtonSelected);
+				MenuGUI.getInstance().setPanelAction(new ReactivateUser());
+			}
+		});
 
 	
 	}
@@ -113,6 +130,8 @@ public class UserGUI extends JPanel {
 		showUser.setFont(fontButtons);
 		deleteUser.setBackground(colorButtons);
 		deleteUser.setFont(fontButtons);
+		reactivateUser.setBackground(colorButtons);
+		reactivateUser.setFont(fontButtons);
 	}
 
 }

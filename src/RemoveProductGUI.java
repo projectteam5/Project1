@@ -19,25 +19,29 @@ public class RemoveProductGUI extends JPanel {
 	private JPanel panel;
 	private JButton buttonDeleteProduct;
 	private JLabel labelTitle;
+	private JLabel productLabel;
+
+	// fixing the layout
+	JLabel labelEmpty = new JLabel(" ");
+	JLabel labelEmpty1 = new JLabel(" ");
+	JLabel labelEmpty2 = new JLabel(" ");
+	JLabel labelEmpty3 = new JLabel(" ");
+	JLabel labelEmpty4 = new JLabel(" ");
+	JLabel labelEmpty5 = new JLabel(" ");
 
 	public RemoveProductGUI() {
 		this.setLayout(new GridLayout(0, 1));
 
 		labelTitle = new JLabel("Remove Product");
 		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
+		productLabel = new JLabel("Please choose a product from the list below");
 		compileProductNames();
 
 		buttonDeleteProduct = new JButton("Delete");
 
-		// fixing the layout
-		JLabel labelEmpty = new JLabel(" ");
-		JLabel labelEmpty1 = new JLabel(" ");
-		JLabel labelEmpty2 = new JLabel(" ");
-		JLabel labelEmpty3 = new JLabel(" ");
-		JLabel labelEmpty4 = new JLabel(" ");
-		JLabel labelEmpty5 = new JLabel(" ");
 		this.add(labelTitle);
 		this.add(labelEmpty);
+		this.add(productLabel);
 		this.add(productDropDown);
 		this.add(buttonDeleteProduct);
 
@@ -46,7 +50,6 @@ public class RemoveProductGUI extends JPanel {
 		this.add(labelEmpty2);
 		this.add(labelEmpty3);
 		this.add(labelEmpty4);
-		
 
 		// When a user presses the delete button, the system will check which
 		// product they are trying to delete
@@ -76,13 +79,23 @@ public class RemoveProductGUI extends JPanel {
 	}
 
 	public void repopulateComboBox() {
-		this.remove(productDropDown);
-		this.remove(buttonDeleteProduct);
+		this.removeAll();
+		// this.remove(productDropDown);
+		// this.remove(buttonDeleteProduct);
 		compileProductNames();
 		productDropDown = new JComboBox();
 		compileProductNames();
+		this.add(labelTitle);
+		this.add(labelEmpty);
+		this.add(productLabel);
 		this.add(productDropDown);
 		this.add(buttonDeleteProduct);
+		this.add(labelEmpty);
+		this.add(labelEmpty1);
+		this.add(labelEmpty2);
+		this.add(labelEmpty3);
+		this.add(labelEmpty4);
+
 		revalidate();
 		repaint();
 	}
