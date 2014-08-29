@@ -2,7 +2,7 @@ import java.io.FileWriter;
 
 import javax.swing.JComboBox;
 
-//package RetailSystem;
+//package RetailSystem;....
 
 public class Customer {
 
