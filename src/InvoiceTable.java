@@ -1,3 +1,4 @@
+import java.text.DateFormat;
 import java.util.Vector;
 
 import javax.swing.table.AbstractTableModel;
@@ -6,7 +7,7 @@ public class InvoiceTable extends AbstractTableModel {
 
 	private Vector<Invoice> vet = null;
 	// Vector with columns names
-	private String[] ColName = { "Date", "Invoice ID", "Customer Name", "Customer ID", "Total Cost", "Items", "Paid", "Active"};
+	private String[] ColName = { "Date", "Invoice ID", "Customer Name", "Customer ID", "Total Cost", "Items"};//"Paid", "Active"
 
 	public InvoiceTable(Vector<Invoice> vet) {
 		this.vet = vet;
@@ -29,7 +30,7 @@ public class InvoiceTable extends AbstractTableModel {
 		// it returns the value for each column
 		switch (col) {
 		case 0:
-			val = String.valueOf(invoice.getInvoiceDate());
+			val = DateFormat.getDateInstance().format(invoice.getInvoiceDate());
 			break;
 		case 1:
 			val = invoice.getInvoiceID();
@@ -46,7 +47,7 @@ public class InvoiceTable extends AbstractTableModel {
 		case 5:
 			val = String.valueOf(invoice.getSale().getLineItems().size());
 			break;
-		case 6:
+	/*	case 6:
 			 if(invoice.isPaid())
 				 val = "Y";
 			 else
@@ -55,7 +56,7 @@ public class InvoiceTable extends AbstractTableModel {
 			 if(invoice.isActive())
 				 val = "Y";
 			 else
-				 val = "N"; break;
+				 val = "N"; break;*/
 		default:
 			val = "";
 		}

@@ -1,5 +1,6 @@
 //GUI done. Method working//test commit
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,7 +17,6 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 public class AddProductGUI extends JPanel {
-	//private JTextField textFieldProductID;
 	private JTextField textFieldName;
 	private JTextField textFieldCost;
 	private JTextField textFieldMarkup;
@@ -25,27 +25,18 @@ public class AddProductGUI extends JPanel {
 	private double cost;
 	private double markup;
 	private Supplier supplierPicked;
-	// private JButton buttonMenu;
 
 	private JLabel label1;
 	private JLabel label2;
 	private JLabel label3;
 	private JLabel label4;
 	private JLabel label5;
+	private JLabel labelTitle;
 
 	public AddProductGUI() {
-
-		// setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		// setSize(400, 400);
-		// this.setTitle("Add Product");
-		// JPanel panel = new JPanel();
-		// Container container = getContentPane();
-		// container.add(panel);
-		// panel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setLayout(new GridLayout(0, 1));
-
-		// label1 = new JLabel("Product ID");
-		// textFieldProductID = new JTextField();
+		labelTitle = new JLabel("Add Product");
+		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		label2 = new JLabel("Product Name");
 		textFieldName = new JTextField();
 		label3 = new JLabel("Product Cost");
@@ -56,10 +47,8 @@ public class AddProductGUI extends JPanel {
 		compileSupplierNames();
 		JLabel label5 = new JLabel("Product Supplier ID");
 		JButton submitButton = new JButton("Submit");
-		// buttonMenu = new JButton("Menu");
 
-		// this.add(label1);
-		// this.add(textFieldProductID);
+		this.add(labelTitle);
 		this.add(label2);
 		this.add(textFieldName);
 		this.add(label3);
@@ -69,8 +58,16 @@ public class AddProductGUI extends JPanel {
 		this.add(label5);
 		this.add(supplierDropDown);
 		this.add(submitButton);
-		// this.add(buttonMenu);
-		this.setVisible(true);
+
+		// fixing the layout
+		JLabel labelEmpty = new JLabel(" ");
+		JLabel labelEmpty1 = new JLabel(" ");
+		JLabel labelEmpty2 = new JLabel(" ");
+		JLabel labelEmpty3 = new JLabel(" ");
+		this.add(labelEmpty);
+		this.add(labelEmpty1);
+		this.add(labelEmpty2);
+		this.add(labelEmpty3);
 
 		submitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argo0) {
@@ -78,11 +75,8 @@ public class AddProductGUI extends JPanel {
 				boolean duplicateProductID = false;
 				boolean duplicateProductName = false;
 				boolean correctInfo = true;
-				// String productID = textFieldProductID.getText();
 				String productName = textFieldName.getText();
 				String name = textFieldName.getText();
-				// Cris: !productName.equals("") && productName!=null added
-				// otherwise product with empty name were created
 				if (!productName.equals("") && productName != null) {
 					try {
 						cost = Double.parseDouble(textFieldCost.getText());
@@ -93,7 +87,6 @@ public class AddProductGUI extends JPanel {
 						correctInfo = false;
 					}
 
-					// Changes supplier choice to supplier object
 					String supplierChoice = supplierDropDown.getSelectedItem()
 							.toString();
 					for (Supplier supplier : RetailSystem.getInstance()
@@ -103,22 +96,7 @@ public class AddProductGUI extends JPanel {
 						}
 					}
 
-					// Cris: validation not needed anymore with automatic ID
-					/*
-					 * //check to see if product ID is already in system
-					 * for(Product product:
-					 * RetailSystem.getInstance().getProducts()){
-					 * if(product.getProductID().equalsIgnoreCase(productID)){
-					 * duplicateProductID = true;
-					 * 
-					 * } } if(duplicateProductID == true){
-					 * JOptionPane.showMessageDialog(null,
-					 * "Product in system with same ID");
-					 * 
-					 * }
-					 */
-
-					// Check to see if product NAME is already in system
+					// Check to see if productID is already in system
 					for (Product product : RetailSystem.getInstance()
 							.getProducts()) {
 						if (product.getProductID()
@@ -138,8 +116,10 @@ public class AddProductGUI extends JPanel {
 						try {
 							JOptionPane.showMessageDialog(null,
 									"Adding product");
-							Product product = new Product(name, cost, markup,supplierPicked);
-							RetailSystem.getInstance().getProducts().add(product);
+							Product product = new Product(name, cost, markup,
+									supplierPicked);
+							RetailSystem.getInstance().getProducts()
+									.add(product);
 							saveProduct();
 							cleanFileds();
 						} catch (NumberFormatException e) {
@@ -154,11 +134,6 @@ public class AddProductGUI extends JPanel {
 			}
 		});
 
-		/*
-		 * buttonMenu.addActionListener(new ActionListener(){ public void
-		 * actionPerformed(ActionEvent ago0){ ProductMenuGUI productMenuGUI =
-		 * new ProductMenuGUI(); closeAddProductGUI(); } });
-		 */
 	}
 
 	public void compileSupplierNames() {
@@ -169,14 +144,6 @@ public class AddProductGUI extends JPanel {
 			}
 		}
 	}
-/*
-	public JTextField getTextFieldProductID() {
-		return textFieldProductID;
-	}
-
-	public void setTextFieldProductID(JTextField textFieldProductID) {
-		this.textFieldProductID = textFieldProductID;
-	}*/
 
 	public JTextField getTextFieldName() {
 		return textFieldName;
@@ -210,10 +177,6 @@ public class AddProductGUI extends JPanel {
 		this.names = names;
 	}
 
-	public void closeAddProductGUI() {
-		this.setVisible(false);
-	}
-
 	public static void saveProduct() {
 		try {
 			FileWriter productFile;
@@ -225,8 +188,8 @@ public class AddProductGUI extends JPanel {
 			exception.printStackTrace();
 		}
 	}
-	
-	public void cleanFileds(){
+
+	public void cleanFileds() {
 		textFieldName.setText("");
 		textFieldCost.setText("");
 		textFieldMarkup.setText("");

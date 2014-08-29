@@ -1,5 +1,6 @@
 //GUI done. Method working//test commit//
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,32 +26,27 @@ public class EditProductGUI extends JPanel{
 	private JTextField textFieldMarkup = new JTextField("");
 	private JButton buttonCommitEditProduct;
 	private JButton buttonEditProduct;
-	//private JButton buttonMenu;
-	private JPanel panel;
 	private JLabel title = new JLabel("Please chose a product from the list below");
 	private JLabel productName = new JLabel("Name");
 	private JLabel productCost = new JLabel("Cost");
 	private JLabel productMarkup = new JLabel("Markup");
 	private JLabel supplierName = new JLabel("Supplier");
+	private JLabel mainTitle;
 	private boolean productChosen = false;
 
 
 	public EditProductGUI() {
-/*		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(400, 400);
-		this.setTitle("Edit Product");
-		panel = new JPanel();
-		Container container = getContentPane();
-		container.add(panel);
-		panel.setBorder(new EmptyBorder(5, 5, 5, 5));*/
 		this.setLayout(new GridLayout(0,1));
+		
 		compileProductNames();
 		compileSupplierNames();
 
+		mainTitle = new JLabel("Edit Product");
+		mainTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		buttonEditProduct = new JButton("Edit");
 		buttonCommitEditProduct = new JButton("Submit Edit");
-		//buttonMenu = new JButton("Menu");
 
+		this.add(mainTitle);
 		this.add(title);
 		this.add(productDropDown);
 		this.add(buttonEditProduct);
@@ -63,7 +59,6 @@ public class EditProductGUI extends JPanel{
 		this.add(supplierName);
 		this.add(supplierDropDown);
 		this.add(buttonCommitEditProduct);
-		//this.add(buttonMenu);
 		this.setVisible(true);
 		
 		buttonEditProduct.addActionListener(new ActionListener(){
@@ -86,6 +81,7 @@ public class EditProductGUI extends JPanel{
 			}
 			
 		});
+		
 		//Checks details and submits edited product to system
 		buttonCommitEditProduct.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent argo0){
@@ -147,17 +143,7 @@ public class EditProductGUI extends JPanel{
 			
 		}
 		});
-/*		buttonMenu.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent ago0){
-				ProductMenuGUI productMenuGUI = new ProductMenuGUI();
-				closeEditProductGUI();	
-			}
-		});*/
-		
-
-		
-
-		
+	
 	}
 	
 	public void compileProductNames(){
@@ -177,9 +163,6 @@ public class EditProductGUI extends JPanel{
 		}
 	}
 	
-	public void checkIfDuplicateName(){
-		
-	}
 	
 	public void populateFields(){
 		this.remove(productName);
@@ -247,9 +230,6 @@ public class EditProductGUI extends JPanel{
 		this.chosenEditProduct = chosenEditProduct;
 	}
 
-/*	public void closeEditProductGUI(){
-		this.setVisible(false);
-	}*/
 	
 	public static void saveProduct(){
 	       try {

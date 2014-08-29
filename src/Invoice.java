@@ -103,11 +103,20 @@ public class Invoice {
 	public static void invoiceListComplete(JComboBox dropdown) {
 		for (Invoice invoice : RetailSystem.getInstance().getInvoices()) {
 			if(invoice.isActive()){
-				System.out.println(invoice.getInvoiceID()+invoice.getCustomer().getCustomerID());
+				//System.out.println(invoice.getInvoiceID()+invoice.getCustomer().getCustomerID());
 				String string = "ID: " + invoice.getInvoiceID() + " ; Name: "+ invoice.getCustomer().getName(); 
 				dropdown.addItem(string);
 			}
 		}
-		
 	}	
+	
+	public static Invoice retrieveInvoiceWithID(String id){
+		Invoice invoice = null;
+		for(Invoice invoice_1: RetailSystem.getInstance().getInvoices()){
+			if(invoice_1.getInvoiceID().equals(id)){
+				invoice = invoice_1;
+			}
+		}
+		return invoice;
+	}
 }

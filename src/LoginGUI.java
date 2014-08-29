@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,41 +13,49 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class LoginGUI {
+public class LoginGUI extends JFrame{
 
 	private JFrame frame;
 	private JPanel panel;
 	private JTextField textFieldUser;
 	private JPasswordField textFieldPassword;
+	private JLabel label_1;
+	private JLabel label_2;
+	private JButton login;
+	
 
 	public LoginGUI() {
 		// declaration and initialization of panel, container and layout setting
-		frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(400, 400);
-		frame.setTitle("Login");
+		//frame = new JFrame();
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setSize(400, 400);
+		this.setTitle("Login");
 		panel = new JPanel();
 		panel.setBorder(new EmptyBorder(120, 50, 120, 50));
-		Container container = frame.getContentPane();
+		
+		Container container = this.getContentPane();
 		container.add(panel);
-		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+		
 		//panel.setLayout(new GridLayout(0, 1));
 
 		// declaration of the labels and initialization of labels and text field
-		JLabel label_1 = new JLabel("Please insert your identification number");
+		label_1 = new JLabel("Please insert your ID");
+		label_1.setAlignmentX(CENTER_ALIGNMENT);
 		textFieldUser = new JTextField();
-		JLabel label_2 = new JLabel("Please insert your password");
+		label_2 = new JLabel("Please insert your password");
+		label_2.setAlignmentX(CENTER_ALIGNMENT);
 		textFieldPassword = new JPasswordField();
 
 		// declaration and initialization of button login
-		JButton login = new JButton("Login");
-
+		login = new JButton("Login");
+		login.setAlignmentX(CENTER_ALIGNMENT);
 		// adding all the components
 		panel.add(label_1);
 		panel.add(textFieldUser);
 		panel.add(label_2);
 		panel.add(textFieldPassword);
 		panel.add(login);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
 		// insert an ActionListener in order to manage the access to the system
 		login.addActionListener(new ActionListener() {
@@ -63,7 +72,7 @@ public class LoginGUI {
 			}
 		});
 
-		frame.setVisible(true);
+		this.setVisible(true);
 
 	}
 
@@ -75,7 +84,7 @@ public class LoginGUI {
 		if (!RetailSystem.getInstance().getCurrentUserType().isEmpty()
 				&& returnValue == 0) {
 			MenuGUI.getInstance();
-			frame.setVisible(false);
+			this.setVisible(false);
 			return returnValue;
 		} else {
 			return returnValue;

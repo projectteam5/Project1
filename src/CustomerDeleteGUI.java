@@ -20,24 +20,32 @@ public class CustomerDeleteGUI extends JPanel {
 	private JButton deleteButton;
 	private String selectedCustomerID;
 	private Customer customerRemove;
-	
+
 	public CustomerDeleteGUI() {
-		
+
 		this.setLayout(new GridLayout(0, 1));
 
 		labelTitleMain = new JLabel("Delete Customer");
 		labelTitleMain.setFont(new Font("Arial", Font.BOLD, 20));
-		labelTitle = new JLabel(
-				"Please pick the customer you want"
+		labelTitle = new JLabel("Please pick the customer you want"
 				+ " to delete from the list below");
 		customersDropDown = new JComboBox();
 		buildCustomersDropDown();
 		deleteButton = new JButton("Delete Customer");
 
+		this.add(labelTitleMain);
 		this.add(labelTitle);
 		this.add(customersDropDown);
 		this.add(deleteButton);
-		
+		// fixing the layout
+		JLabel labelEmpty = new JLabel(" ");
+		JLabel labelEmpty1 = new JLabel(" ");
+		JLabel labelEmpty2 = new JLabel(" ");
+		JLabel labelEmpty3 = new JLabel(" ");
+		this.add(labelEmpty);
+		this.add(labelEmpty1);
+		this.add(labelEmpty2);
+		this.add(labelEmpty3);
 
 		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -45,13 +53,15 @@ public class CustomerDeleteGUI extends JPanel {
 			}
 
 		});
-		
+
 	}
 
 	public void deleteCustomerButton() {
 		customerRemove = null;
-		//Cris: using the static method in Customer class
-		selectedCustomerID = RetailSystem.returnIDfromCombobox(customersDropDown.getSelectedItem().toString());
+		// Cris: using the static method in Customer class
+		selectedCustomerID = RetailSystem
+				.returnIDfromCombobox(customersDropDown.getSelectedItem()
+						.toString());
 		customerRemove = Customer.retrieveCustomer(selectedCustomerID);
 		if (customerRemove != null) {
 			customerRemove.setActive(false);
@@ -76,18 +86,16 @@ public class CustomerDeleteGUI extends JPanel {
 		revalidate();
 		repaint();
 	}
-	
-	public void buildCustomersDropDown(){
-		for (Customer customer : RetailSystem.getInstance().getCustomers()){
-			if(!customer.getCustomerID().equals(RetailSystem.getInstance()) && customer.isActive()){
+
+	public void buildCustomersDropDown() {
+		for (Customer customer : RetailSystem.getInstance().getCustomers()) {
+			if (!customer.getCustomerID().equals(RetailSystem.getInstance())
+					&& customer.isActive()) {
 				String string = "ID: " + customer.getCustomerID() + " ; Name: "
 						+ customer.getName();
 				customersDropDown.addItem(string);
 			}
 		}
 	}
-	
-	
+
 }
-
-

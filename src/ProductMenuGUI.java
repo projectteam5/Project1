@@ -20,9 +20,11 @@ public class ProductMenuGUI extends JPanel{
 	
 	private JButton buttonAddProduct;
 	private JButton buttonRemoveProduct;
+	private JButton buttonReactivateProduct;
+	private JButton buttonEditProduct;
 	private JButton buttonViewProduct;
 	private JButton buttonViewProductList;
-	private JButton buttonEditProduct;
+	
 	JLabel labelTitle;
 
 	public ProductMenuGUI() {
@@ -31,6 +33,7 @@ public class ProductMenuGUI extends JPanel{
 		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		buttonAddProduct = new JButton("Add Product");
 		buttonRemoveProduct = new JButton("Remove Product");
+		buttonReactivateProduct = new JButton("Reactivate Product");
 		buttonViewProduct = new JButton("View Product");
 		buttonViewProductList = new JButton("View All Products");
 		buttonEditProduct = new JButton("Edit Product");
@@ -41,12 +44,11 @@ public class ProductMenuGUI extends JPanel{
 			this.add(labelTitle);
 			this.add(buttonAddProduct);
 			this.add(buttonRemoveProduct);
+			this.add(buttonReactivateProduct);
+			this.add(buttonEditProduct);
 			this.add(buttonViewProduct);
 			this.add(buttonViewProductList);
-			this.add(buttonEditProduct);
-			//fixing the layout
-			JLabel labelEmpty = new JLabel(" ");;
-			this.add(labelEmpty);
+			
 
 			
 		}else{
@@ -93,14 +95,19 @@ public class ProductMenuGUI extends JPanel{
 				MenuGUI.getInstance().setPanelAction(new EditProductGUI());
 			}
 		});
+		
+		buttonReactivateProduct.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent argo0){
+				colourButton();
+				buttonReactivateProduct.setBackground(colorButtonSelected);
+				MenuGUI.getInstance().setPanelAction(new ReactivateProductGUI());
+			}
+		});
 	
 		this.setVisible(true);
 	
 
 		
-	}
-	public void closeProductMenuGUI(){
-		this.setVisible(false);
 	}
 	
 	public void colourButton(){
@@ -114,6 +121,8 @@ public class ProductMenuGUI extends JPanel{
 		buttonViewProductList.setFont(fontButtons);
 		buttonEditProduct.setBackground(colorButtons);
 		buttonEditProduct.setFont(fontButtons);
+		buttonReactivateProduct.setBackground(colorButtons);
+		buttonReactivateProduct.setFont(fontButtons);
 	}
 
 
