@@ -11,7 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 public class MenuGUI extends JFrame {
 	
@@ -34,6 +33,7 @@ public class MenuGUI extends JFrame {
 	private JButton buttonViewGraph;
 	private JButton buttonSale;
 	private JButton buttonInvoice;
+	private JButton buttonAccounting;
 
 	private final static double percHeight1 = 0.80;
 	private final static double percHeight2 = 0.50;
@@ -77,6 +77,7 @@ public class MenuGUI extends JFrame {
 		buttonSale = new JButton("Sales");
 		buttonViewGraph = new JButton("Graphs");
 		buttonInvoice = new JButton("Invoices");
+		buttonAccounting = new JButton("Accounting");
 		
 		colorButton();
 		
@@ -95,6 +96,7 @@ public class MenuGUI extends JFrame {
 			panelMenu.add(buttonSale);
 			panelMenu.add(buttonViewGraph);
 			panelMenu.add(buttonInvoice);
+			panelMenu.add(buttonAccounting);
 			
 		} else {
 			panelMenu.add(buttonCustomer);
@@ -207,6 +209,15 @@ public class MenuGUI extends JFrame {
 			}
 		});
 		
+		buttonAccounting.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				colorButton();
+				buttonAccounting.setBackground(colorButtonSelected);
+				setSubMenu(panelEmpty);
+				setPanelAction(new AccountingGUI());
+			}
+		});
+		
 		frame.getRootPane().addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {
             	resize();
@@ -234,13 +245,13 @@ public class MenuGUI extends JFrame {
 	public void resize(){
 		panelMenu.setSize((int)(frame.getWidth()*percWidth1),(int) (frame.getHeight()*percHeight1));
 		panelMenu.setLocation((int)(frame.getWidth()*percWidthEmpty),(int)(frame.getHeight()*percHeigthEmpty));//
-		
+		//panelMenu.setBackground(Color.RED);
 		panelSubMenu.setSize((int)(frame.getWidth()*percWidth2),(int) (frame.getHeight()*percHeight2));
 		panelSubMenu.setLocation((int)(panelMenu.getLocation().getX()+ panelMenu.getWidth()+ frame.getWidth()*percWidthEmpty),(int)(frame.getHeight()*percHeigthEmpty));
-		
+		//panelSubMenu.setBackground(Color.RED);
 		panelAction.setSize((int)(frame.getWidth()*percWidth3),(int) (frame.getHeight()*percHeight1));
 		panelAction.setLocation((int)(panelSubMenu.getLocation().getX()+panelSubMenu.getWidth()+frame.getWidth()*percWidthEmpty),(int)(frame.getHeight()*percHeigthEmpty));
-		
+		//panelAction.setBackground(Color.RED);
 		frame.revalidate();
 		frame.repaint();
 	}
@@ -277,6 +288,8 @@ public class MenuGUI extends JFrame {
 		buttonViewGraph.setFont(fontButtons);
 		buttonInvoice.setBackground(colorButtons);
 		buttonInvoice.setFont(fontButtons);
+		buttonAccounting.setBackground(colorButtons);
+		buttonAccounting.setFont(fontButtons);
 	}
 
 

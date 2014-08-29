@@ -1,8 +1,10 @@
-import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 public class Order {
 
@@ -69,18 +71,6 @@ public class Order {
 		this.received = received;
 		this.active = active;
 	}
-	public Order(Product product){
-		
-		this.orderID = "Order"+RetailSystem.getInstance().getOrders().size()+1;
-		this.orderDate = new Date();
-		this.product = product;
-		this.quantity = 20;
-		this.expectedDeliveryDate = autogenExpectedDate(orderDate);
-		this.dateReceived = null;
-		this.received = false;
-		this.active = true;
-	
-	}
 	
 	public void addOrderToList(Order order) {
 		ArrayList<Order> rsOrderList = RetailSystem.getInstance().getOrders();
@@ -117,6 +107,96 @@ public class Order {
 			received=true;
 		}
 		return received;
+	}
+	
+	public boolean orderMore( Product p ) {
+		
+		boolean doOrderMore = false;
+		
+		Order newOrder = null;
+		
+		for( Stock s : RetailSystem.getInstance().getStocks() ) {
+			
+			if( s.getUnits() < 5 && s.getProduct() == p ) {
+				
+				try {
+					
+					//	quantity in this Order could be final int REORDER_LEVEL = 5 defined in Stock?
+					// then, add on an amount we think brings the Stock level back to final int MIN_LEVEL = 'whatever' ?
+					// and, if the resulting Order would pass our MAX_LEVEL of Stock that 'over-level' amount is taken away from the Order quantity?
+					
+					/*
+					 * 
+					 * if ( s.getUnits <= REORDER_LEVEL ) --> orderMore;
+					 * 
+					 * newOrder.quantity = ( s.getUnits + (MIN_LEVEL - s.getUnits) ) + a quantity the user can specify
+					 * 
+					 * if ( userSpecifiedQuantity > MAX_LEVEL ) { newOrder.quantity = (userSpecifiedQuantity - MAX_LEVEL) / MAX_LEVEL * 100 }
+					 * 
+					 * ??????????????????????????????????????????????????????????????
+					 * 
+					 * */
+					
+					newOrder = new Order( new Date(), p, s.getUnits()+10, new Date() );
+					
+				} catch ( ParseException e ) {
+					
+					e.printStackTrace();
+					
+				}
+				
+				RetailSystem.getInstance().getOrders().add( newOrder );
+				
+				doOrderMore = true;
+				
+			}
+			
+		}
+		
+		return doOrderMore;
+		
+	}
+	
+	public static boolean searchOrderByDate( Date orderDate, String date ) {
+		
+		boolean isAMatch = false;
+		
+		String oldStringDate = date;
+		
+		Date newDate = null;
+		
+		try {
+			
+			newDate = new SimpleDateFormat("dd-MMM-yyyy").parse(oldStringDate);
+			
+		} catch ( ParseException e ) {
+			
+			e.printStackTrace();
+			
+			JOptionPane.showMessageDialog(null, "Date format must be in the form: dd-MMM-yyyy");
+			
+		}
+			
+		if( orderDate.equals(newDate) ) {
+			
+			isAMatch = true;
+			
+		}
+		
+		return isAMatch;
+		
+	}
+	
+	public static String calculateOrderCost( double cost, int quantity ) {
+		
+		double orderCost = 0;
+		
+		orderCost = cost * quantity;
+		
+		String s = "€"+orderCost;
+		
+		return s;
+		
 	}
 	
 	public Date checkOverdue() {

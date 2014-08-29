@@ -55,7 +55,7 @@ public class CreateOrderGUI extends JPanel implements ActionListener {
 		comboBoxList.addItem("");
 		for(Product p : RetailSystem.getInstance().getProducts()) {
 			if(p.isActive()==true) {
-				comboBoxList.addItem(p.getProductID());
+				comboBoxList.addItem(p.getProductID() + " - " + p.getName());
 			}
 		}
 		

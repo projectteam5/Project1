@@ -8,14 +8,15 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class ViewAllOrdersGUI extends JPanel {
 	
-	private JLabel printLabel;
 	private JLabel counterLabel;
-	
-	private JLabel printLabel2;
 	private JLabel labelTitle2;
 	private JLabel labelTitle3;
 	private JLabel labelTitle4;
 	private JLabel labelTitleMain;
+	private JLabel formatDataLabel;
+	private JLabel formatHeadingLabel;
+	private JLabel formatHeadingLabel2;
+	private JLabel formatDataLabel2;
 
 	public ViewAllOrdersGUI() {
 		
@@ -33,6 +34,21 @@ public class ViewAllOrdersGUI extends JPanel {
 		}
 		
 		double totalOpenCost = 0;
+		
+		formatHeadingLabel = new JLabel(
+				"<html><table>"
+				+ "<tr>"
+				+ "<td>Order ID</td>"
+				+ "<td>Order Date</td>"
+				+ "<td>Product Name</td>"
+				+ "<td>Quantity</td>"
+				+ "<td>Expected Delivery Date</td>"
+				+ "<td>Date Received</td>"
+				+ "<td>Is Received</td>"
+				+ "<td>Order Cost</td>"
+				+ "</tr>"
+				+ "</table></html>");
+		this.add( formatHeadingLabel );
 
 		for(Order order: RetailSystem.getInstance().getOrders()) {
 			
@@ -41,15 +57,20 @@ public class ViewAllOrdersGUI extends JPanel {
 				
 				totalOpenCost += order.getProduct().getCost() * order.getQuantity();
 				
-					printLabel2 = new JLabel(order.getOrderID()
-						+" | "+DateFormat.getDateInstance().format(order.getOrderDate())
-						+" | "+order.getProduct().getName()
-						+" | "+order.getQuantity()
-						+" | "+DateFormat.getDateInstance().format(order.getExpectedDeliveryDate())
-						+" | "+DateFormat.getDateInstance().format(order.getDateReceived())
-						+" | "+order.isReceived()
-						+" | "+calcOrderCost(order.getProduct().getCost(), order.getQuantity()));
-				this.add(printLabel2);
+				formatDataLabel = new JLabel("<html><table>"
+						+ "<tr>"
+						+ "<td>"+ order.getOrderID() +"</td>"
+						+ "<td>"+DateFormat.getDateInstance().format(order.getOrderDate())+"</td>"
+						+ "<td>"+order.getProduct().getName()+"</td>"
+						+ "<td>"+order.getQuantity()+"</td>"
+						+ "<td>"+DateFormat.getDateInstance().format(order.getExpectedDeliveryDate())+"</td>"
+						+ "<td>"+DateFormat.getDateInstance().format(order.getDateReceived())+"</td>"
+						+ "<td>"+order.isReceived()+"</td>"
+						+ "<td>"+Order.calculateOrderCost(order.getProduct().getCost(), order.getQuantity())+"</td>"
+						+ "</tr>"
+						+ "</table></html>");
+				this.add( formatDataLabel );
+				
 			}
 			
 		}
@@ -60,9 +81,24 @@ public class ViewAllOrdersGUI extends JPanel {
 		
 		labelTitle2 = new JLabel("Received Orders");
 		labelTitle2.setFont(new Font("Arial", Font.BOLD, 20));
-		this.add(labelTitle2);
+		this.add( labelTitle2 );
 		
 		double totalReceivedCost = 0;
+		
+		formatHeadingLabel2 = new JLabel(
+				"<html><table>"
+				+ "<tr>"
+				+ "<td>Order ID</td>"
+				+ "<td>Order Date</td>"
+				+ "<td>Product Name</td>"
+				+ "<td>Quantity</td>"
+				+ "<td>Expected Delivery Date</td>"
+				+ "<td>Date Received</td>"
+				+ "<td>Is Received</td>"
+				+ "<td>Order Cost</td>"
+				+ "</tr>"
+				+ "</table></html>");
+		this.add( formatHeadingLabel2 );
 		
 		for(Order order: RetailSystem.getInstance().getOrders()) {
 			
@@ -71,15 +107,19 @@ public class ViewAllOrdersGUI extends JPanel {
 				
 				totalReceivedCost += order.getProduct().getCost() * order.getQuantity();
 				
-				printLabel = new JLabel(order.getOrderID()
-					+" | "+DateFormat.getDateInstance().format(order.getOrderDate())
-					+" | "+order.getProduct().getName()
-					+" | "+order.getQuantity()
-					+" | "+DateFormat.getDateInstance().format(order.getExpectedDeliveryDate())
-					+" | "+DateFormat.getDateInstance().format(order.getDateReceived())
-					+" | "+order.isReceived()
-					+" | "+calcOrderCost(order.getProduct().getCost(), order.getQuantity()));
-			this.add(printLabel);
+				formatDataLabel2 = new JLabel("<html><table>"
+						+ "<tr>"
+						+ "<td>"+ order.getOrderID() +"</td>"
+						+ "<td>"+DateFormat.getDateInstance().format(order.getOrderDate())+"</td>"
+						+ "<td>"+order.getProduct().getName()+"</td>"
+						+ "<td>"+order.getQuantity()+"</td>"
+						+ "<td>"+DateFormat.getDateInstance().format(order.getExpectedDeliveryDate())+"</td>"
+						+ "<td>"+DateFormat.getDateInstance().format(order.getDateReceived())+"</td>"
+						+ "<td>"+order.isReceived()+"</td>"
+						+ "<td>"+Order.calculateOrderCost(order.getProduct().getCost(), order.getQuantity())+"</td>"
+						+ "</tr>"
+						+ "</table></html>");
+				this.add( formatDataLabel2 );
 			
 			}
 		}
@@ -94,13 +134,6 @@ public class ViewAllOrdersGUI extends JPanel {
 		
 		this.setVisible(true);
 		
-	}
-	
-	public String calcOrderCost(double cost, int quantity) {
-		double orderCost = 0;
-		orderCost = cost * quantity;
-		String s = "€"+orderCost;
-		return s;
 	}
 	
 }

@@ -52,6 +52,8 @@ public class RemoveOrderGUI extends JPanel implements ActionListener {
 		
 		Object target = event.getSource();
 		
+		printLabel.setText("");
+		
 		if(target == removeOrderButton) {
 			
 			String orderID = orderList.getSelectedItem().toString();
@@ -62,13 +64,17 @@ public class RemoveOrderGUI extends JPanel implements ActionListener {
 						
 					orderFound = true;
 					
-					printLabel.setText(order.getOrderID()
-							+" | "+DateFormat.getDateInstance().format(order.getOrderDate())
-							+" | "+order.getProduct().getProductID()
-							+" | "+order.getQuantity()
-							+" | "+DateFormat.getDateInstance().format(order.getExpectedDeliveryDate())
-							+" | "+DateFormat.getDateInstance().format(order.getDateReceived())
-							+" | "+order.isReceived());
+					printLabel.setText("<html><table>"
+							+ "<tr>"
+							+ "<td>"+ order.getOrderID() +"</td>"
+							+ "<td>"+DateFormat.getDateInstance().format(order.getOrderDate())+"</td>"
+							+ "<td>"+order.getProduct().getName()+"</td>"
+							+ "<td>"+order.getQuantity()+"</td>"
+							+ "<td>"+DateFormat.getDateInstance().format(order.getExpectedDeliveryDate())+"</td>"
+							+ "<td>"+DateFormat.getDateInstance().format(order.getDateReceived())+"</td>"
+							+ "<td>"+order.isReceived()+"</td>"
+							+ "</tr>"
+							+ "</table></html>");
 					
 					int answer = JOptionPane.showConfirmDialog(this, "Are you sure?", "Remove Order", JOptionPane.YES_NO_OPTION);
 					
@@ -79,9 +85,24 @@ public class RemoveOrderGUI extends JPanel implements ActionListener {
 						saveOrder();
 						
 						JOptionPane.showMessageDialog(this, "Order "+order.getOrderID()+" has been set as inactive");
+						
+						//remove(printLabel);
+						
+						orderList.removeItem(orderID);
+						
 						printLabel.setText("");
 						
 				    }
+					
+					if (answer == JOptionPane.NO_OPTION) {
+						
+						printLabel.setText("");
+						
+				    }
+					
+					repaint();
+					
+					revalidate();
 					
 					break;
 				}

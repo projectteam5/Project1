@@ -64,7 +64,7 @@ public class OrderEditorGUI extends JPanel implements ActionListener {
 		comboBoxList = new JComboBox<String>();
 		comboBoxList.addItem(order.getProduct().getProductID());
 		for(Product p : RetailSystem.getInstance().getProducts()) {
-			comboBoxList.addItem(p.getProductID());
+			comboBoxList.addItem(p.getProductID() + " - " + p.getName());
 		}
 		
 		labelProductQuantity = new JLabel("Product Quantity");
@@ -162,7 +162,7 @@ public class OrderEditorGUI extends JPanel implements ActionListener {
 					for(Stock stock : RetailSystem.getInstance().getStocks()) {
 						if(stock.getProduct().getProductID().equals(newProduct.getProductID())) {
 							stock.setUnits(stock.getUnits()+newQuantity);
-							order.setActive(false);
+							//order.setActive(false);
 							
 							saveStock();
 						}

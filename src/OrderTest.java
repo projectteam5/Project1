@@ -39,7 +39,7 @@ public class OrderTest {
 		
 		supplier = new Supplier("SUP001", "Supplier");
 		
-		product = new Product("PRD001", "Product", 100, 25, supplier);
+		product = new Product("PRD001", "Product", 100, 25, supplier, false);
 		
 		orders = new ArrayList<Order>();
 		

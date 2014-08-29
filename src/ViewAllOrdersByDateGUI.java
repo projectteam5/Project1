@@ -7,6 +7,7 @@ import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -54,10 +55,9 @@ public class ViewAllOrdersByDateGUI extends JPanel implements ActionListener {
 		
 		labelTotalOrderCost.setFont(new Font("Arial", Font.ITALIC, 12));
 		
-		this.add(labelTitleMain);
-		this.add(searchTextField);
-		this.add(searchButton);
-		this.add( formatHeadingLabel );
+		this.add( labelTitleMain );
+		this.add( searchTextField );
+		this.add( searchButton );
 			
 		searchButton.addActionListener(this);
 		
@@ -71,7 +71,11 @@ public class ViewAllOrdersByDateGUI extends JPanel implements ActionListener {
 		
 		if( target == searchButton ) {
 			
+			remove(formatHeadingLabel);
+			
 			remove(formatDataLabel);
+			
+			remove(labelTotalOrderCost);
 			
 			totalOrderCost = 0;
 			
@@ -81,7 +85,9 @@ public class ViewAllOrdersByDateGUI extends JPanel implements ActionListener {
 					
 					totalOrderCost += order.getProduct().getCost() * order.getQuantity();
 					
-					formatDataLabel = new JLabel("<html><table>"
+					formatDataLabel = new JLabel();
+					
+					formatDataLabel.setText("<html><table>"
 							+ "<tr>"
 							+ "<td>"+ order.getOrderID() +"</td>"
 							+ "<td>"+DateFormat.getDateInstance().format(order.getOrderDate())+"</td>"
@@ -94,15 +100,23 @@ public class ViewAllOrdersByDateGUI extends JPanel implements ActionListener {
 							+ "</tr>"
 							+ "</table></html>");
 					
+					labelTotalOrderCost.setText("Total Order Cost: €" + totalOrderCost);
+					
+					this.add( formatHeadingLabel );
+				
+					this.add( formatDataLabel );
+					
+					this.add( labelTotalOrderCost );
+					
+					break;
+				
 				}
 				
-				labelTotalOrderCost.setText("Total Order Cost: €" + totalOrderCost);
+				repaint();
+				
+				revalidate();
 				
 			}
-			
-			this.add( formatDataLabel );
-			
-			this.add( labelTotalOrderCost );
 			
 		}
 		

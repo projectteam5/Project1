@@ -8,6 +8,7 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class ViewOrderGUI extends JPanel implements ActionListener {
 	private JButton viewOrderButton;
+	private JLabel printLabel;
 	private JComboBox<String> orderList;
 	private JLabel counterLabel;
 	private JLabel labelTitleMain;
@@ -32,6 +33,8 @@ public class ViewOrderGUI extends JPanel implements ActionListener {
 		
 		viewOrderButton = new JButton("View Order Details");
 		
+		printLabel = new JLabel();
+		
 		orderID = new JLabel();
 		orderDate = new JLabel();
 		product = new JLabel();
@@ -53,6 +56,8 @@ public class ViewOrderGUI extends JPanel implements ActionListener {
 		this.add(receivedDate);
 		this.add(isReceived);
 		this.add(orderCost);
+		
+		this.add(printLabel);
 		
 		counterLabel = new JLabel("Total Orders in System: " + RetailSystem.getInstance().getOrders().size());
 		this.add(counterLabel, BorderLayout.SOUTH);
@@ -87,7 +92,7 @@ public class ViewOrderGUI extends JPanel implements ActionListener {
 					this.deliveryDate.setText("Expected Delivery Date: "+ DateFormat.getDateInstance().format(order.getExpectedDeliveryDate()));
 					this.receivedDate.setText("Date Received: "+ DateFormat.getDateInstance().format(order.getDateReceived()));
 					this.isReceived.setText("Is Received?: "+ order.isReceived());
-					this.orderCost.setText("Order Cost: "+ calcOrderCost(order.getProduct().getCost(), order.getQuantity()));
+					this.orderCost.setText("Order Cost: "+ Order.calculateOrderCost(order.getProduct().getCost(), order.getQuantity()));
 					
 					break;
 					
@@ -100,13 +105,6 @@ public class ViewOrderGUI extends JPanel implements ActionListener {
 			}
 		}
 		
-	}
-	
-	public String calcOrderCost(double cost, int quantity) {
-		double orderCost = 0;
-		orderCost = cost * quantity;
-		String s = "€"+orderCost;
-		return s;
 	}
 	
 }

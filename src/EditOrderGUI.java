@@ -35,7 +35,6 @@ public class EditOrderGUI extends JPanel implements ActionListener {
 			}
 		}
 		
-		this.add(labelTitleMain);
 		this.add(orderList);
 		this.add(editOrderButton);
 		
