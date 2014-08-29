@@ -99,7 +99,7 @@ public class EditProductGUI extends JPanel{
 						JOptionPane.showMessageDialog(null, "Please enter in the correct format");
 						correctInfo = false;
 					}
-
+						//First check, see if fields are filled
 					String supplierChoice = supplierDropDown.getSelectedItem().toString();
 					for(Supplier supplier: RetailSystem.getInstance().getSuppliers()){
 						if(supplierChoice.contains(supplier.getName())){
@@ -123,7 +123,7 @@ public class EditProductGUI extends JPanel{
 					}
 
 
-					if((correctInfo) && (!duplicateProductName) &&(!textFieldName.equals(null))&& (cost!=0) && (markup!=0)){
+					if((correctInfo) && (!duplicateProductName) &&(!textFieldName.equals(""))&&(textFieldName!=null)&& (cost!=0) && (markup!=0)){
 						chosenEditProduct.setName(textFieldName.getText());
 						chosenEditProduct.setCost(cost);
 						chosenEditProduct.setMarkup(markup);

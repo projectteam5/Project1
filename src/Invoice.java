@@ -1,9 +1,9 @@
 import java.io.FileWriter;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.JComboBox;
-
 
 public class Invoice {
 	private String invoiceID;
@@ -15,7 +15,8 @@ public class Invoice {
 	private boolean active;
 
 	public Invoice(Date date, Customer customer, double totalInvoice, Sale sale) {
-		this.invoiceID = "Invoice"+(RetailSystem.getInstance().getInvoices().size()+1);
+		this.invoiceID = "Invoice"
+				+ (RetailSystem.getInstance().getInvoices().size() + 1);
 		this.invoiceDate = date;
 		this.customer = customer;
 		this.sale = sale;
@@ -23,8 +24,9 @@ public class Invoice {
 		this.paid = true;
 		this.active = true;
 	}
-	
-	public Invoice(String invoiceID, Date date, Customer customer, double totalInvoice, boolean paid, boolean active) {
+
+	public Invoice(String invoiceID, Date date, Customer customer,
+			double totalInvoice, boolean paid, boolean active) {
 		this.invoiceID = invoiceID;
 		this.invoiceDate = date;
 		this.customer = customer;
@@ -88,35 +90,63 @@ public class Invoice {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-	
-	public static void saveInvoice(){
+
+	public static void saveInvoice() {
 		try {
 			FileWriter userFile;
 			userFile = new FileWriter("invoices.txt");
-			DataBase.writeInvoices(RetailSystem.getInstance().getInvoices(), userFile);
+			DataBase.writeInvoices(RetailSystem.getInstance().getInvoices(),
+					userFile);
 			userFile.close();// close the invoice file
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
 	}
-	
+
 	public static void invoiceListComplete(JComboBox dropdown) {
 		for (Invoice invoice : RetailSystem.getInstance().getInvoices()) {
-			if(invoice.isActive()){
-				//System.out.println(invoice.getInvoiceID()+invoice.getCustomer().getCustomerID());
-				String string = "ID: " + invoice.getInvoiceID() + " ; Name: "+ invoice.getCustomer().getName(); 
+			if (invoice.isActive()) {
+				// System.out.println(invoice.getInvoiceID()+invoice.getCustomer().getCustomerID());
+				String string = "ID: " + invoice.getInvoiceID() + " ; Name: "
+						+ invoice.getCustomer().getName();
 				dropdown.addItem(string);
 			}
 		}
-	}	
-	
-	public static Invoice retrieveInvoiceWithID(String id){
+	}
+
+	public static Invoice retrieveInvoiceWithID(String id) {
 		Invoice invoice = null;
-		for(Invoice invoice_1: RetailSystem.getInstance().getInvoices()){
-			if(invoice_1.getInvoiceID().equals(id)){
+		for (Invoice invoice_1 : RetailSystem.getInstance().getInvoices()) {
+			if (invoice_1.getInvoiceID().equals(id)) {
 				invoice = invoice_1;
 			}
 		}
 		return invoice;
+	}
+
+	public static String[][] productsSold(){
+		String[][] matrix;
+		int count = 0;
+		int last = 0;
+		for(Invoice invoice : RetailSystem.getInstance().getInvoices()){
+			count = count + invoice.getSale().getLineItems().size();
+		}
+		System.out.println(count+"--"+RetailSystem.getInstance().getInvoices().size()+"--"+RetailSystem.getInstance().getInvoices().get(0).getSale().getLineItems().size());
+		matrix = new String[count][3];
+		for(Invoice invoice : RetailSystem.getInstance().getInvoices()){
+			for (int i=last ; i<(last+(invoice.getSale().getLineItems().size())); i++){
+				matrix[i][0]= DateFormat.getDateInstance().format(invoice.getInvoiceDate());
+				matrix[i][1]= invoice.getSale().getLineItems().get(i-last).getProduct().getProductID();
+				matrix[i][2]= invoice.getSale().getLineItems().get(i-last).getQuantity()+"";
+			}
+			last = last+invoice.getSale().getLineItems().size();
+		}
+		for(int k=0; k<count;k++){
+			for(int j=0; j<3;j++){
+				System.out.print(matrix[k][j]+" - ");
+			}
+			System.out.println("");
+		}
+		return matrix;
 	}
 }

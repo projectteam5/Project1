@@ -124,8 +124,8 @@ public class SaleGUI extends JPanel {
 		});
 
 	}
-	
-	public void addProduct(Product product){
+
+	public void addProduct(Product product) {
 		available = false;
 		available = stockAvailable(product, amount);
 		if (available) {
@@ -134,23 +134,23 @@ public class SaleGUI extends JPanel {
 			runningTotal = runningTotal + lineItem.getTotalCost();
 			runningTotalField.setText(String.valueOf(runningTotal));
 			repopulate();
-		}else{
-			JOptionPane.showMessageDialog(null,
-					"Insufficient Stock Levels");
-		} 
-		
+		} else {
+			JOptionPane.showMessageDialog(null, "Insufficient Stock Levels");
+		}
+
 	}
-	
-	public boolean stockAvailable(Product product,int amount){
-		for(Stock stock: RetailSystem.getInstance().getStocks()){
-			if((stock.getProduct().getProductID().equals(product.getProductID())) && (stock.getUnits() >= amount)){
+
+	public boolean stockAvailable(Product product, int amount) {
+		for (Stock stock : RetailSystem.getInstance().getStocks()) {
+			if ((stock.getProduct().getProductID().equals(product
+					.getProductID())) && (stock.getUnits() >= amount)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
-	public void removeProduct(){
+
+	public void removeProduct() {
 		Vector<LineItem> rem = new Vector<LineItem>();
 		for (LineItem lineItem : vet) {
 			if (lineItem.isRemoved()) {
@@ -162,17 +162,33 @@ public class SaleGUI extends JPanel {
 		runningTotalField.setText(String.valueOf(runningTotal));
 		repopulate();
 	}
-	
-	public void confirmSale(){
+
+	public void confirmSale() {
 		// Get customer
-		String customerID = RetailSystem.returnIDfromCombobox(customerDropDown.getSelectedItem().toString());
+		String customerID = RetailSystem.returnIDfromCombobox(customerDropDown
+				.getSelectedItem().toString());
 		customerPicked = Customer.retrieveCustomer(customerID);
-		//Create Sale
-		sale = new Sale();
-		// for(LineItem lineItem: vet){
-		for (int i = 0; i < vet.size(); i++) {
-			sale.addLineItem(vet.get(i));
+		if (customerPicked != null) {
+			// Create Sale
+			sale = new Sale();
+			if (vet.size() > 0) {
+				for (int i = 0; i < vet.size(); i++) {
+					sale.addLineItem(vet.get(i));
+				}
+				// Create invoice //Issue here
+				Invoice invoice = new Invoice(sale.getSaleDate(),
+						customerPicked, runningTotal, sale);
+				RetailSystem.getInstance().getInvoices().add(invoice);
+				Invoice.saveInvoice();
+				Stock.updateStock(invoice);
+				Order.orderMore(invoice.getSale().getLineItems());
+				JOptionPane.showMessageDialog(null,
+						"Invoice saved and printed", "Print",
+						JOptionPane.PLAIN_MESSAGE);
+				clear();
+			}
 		}
+<<<<<<< HEAD
 		// Create invoice //Issue here
 		Invoice invoice = new Invoice(sale.getSaleDate(),
 				customerPicked, runningTotal, sale);
@@ -186,8 +202,9 @@ public class SaleGUI extends JPanel {
 				"Invoice saved and printed", "Print",
 				JOptionPane.PLAIN_MESSAGE);
 		clear();
+=======
+>>>>>>> 4e4612ff30d29cd5982ded4eec13054c7f51096d
 	}
-	
 
 	public void repopulate() {
 		table.revalidate();
