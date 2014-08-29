@@ -28,7 +28,7 @@ public class CustomerDeleteGUI extends JPanel {
 	JLabel labelEmpty4 = new JLabel(" ");
 
 	public CustomerDeleteGUI() {
-
+//setting layout
 		this.setLayout(new GridLayout(0, 1));
 
 		labelTitleMain = new JLabel("Delete Customer");
