@@ -198,6 +198,26 @@ public class Order {
 		
 	}
 	
+	public static boolean checkForOrders( Product product ) {
+		
+		boolean cantOrder = false;
+		
+		for(Order o : RetailSystem.getInstance().getOrders()) {
+			
+			if( o.getProduct().getProductID().equalsIgnoreCase(product.getProductID()) && !o.isReceived() ) {
+				
+				cantOrder = true;
+				
+				break;
+				
+			}
+			
+		}
+		
+		return cantOrder;
+		
+	}
+	
 	public Date checkOverdue() {
 		return expectedDeliveryDate;
 	}

@@ -125,6 +125,14 @@ public class CreateOrderGUI extends JPanel implements ActionListener {
 				dataOK = false;
 			}
 			
+			if( Order.checkForOrders(newProduct) ) {
+				
+				JOptionPane.showMessageDialog(this, "Can not order this Product again");
+				
+				dataOK = false;
+				
+			}
+			
 			if ((!duplicateOrderID) && (dataOK==true)){
 				try{
 					JOptionPane.showMessageDialog(this, "Order Added");

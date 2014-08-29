@@ -17,11 +17,12 @@ public class OrdersTable extends AbstractTableModel {
 	}
 	
 	public int getRowCount() {
-		return ColName.length;
+		return vet.size();
 	}
 	
 	public int getColumnCount() {
-		return vet.size();
+		
+		return ColName.length;
 	}
 	
 	public String getValueAt(int row, int col) {
