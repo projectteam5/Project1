@@ -44,6 +44,7 @@ public class SaleGUI extends JPanel {
 	private int amount;
 	private Customer customerPicked;
 	private TableModel dataModel;
+	private boolean available;
 
 	public SaleGUI() {
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -103,7 +104,7 @@ public class SaleGUI extends JPanel {
 					}
 					// Find product from product name
 					Product product = Product.findProductWithName(name);
-					if (product != null) {
+					if (product != null && amount > 0) {
 						addProduct(product);
 					}
 				}
@@ -125,11 +126,28 @@ public class SaleGUI extends JPanel {
 	}
 	
 	public void addProduct(Product product){
-		LineItem lineItem = new LineItem(product, amount);
-		vet.add(lineItem);
-		runningTotal = runningTotal + lineItem.getTotalCost();
-		runningTotalField.setText(String.valueOf(runningTotal));
-		repopulate();
+		available = false;
+		available = stockAvailable(product, amount);
+		if(available){
+			LineItem lineItem = new LineItem(product, amount);
+			vet.add(lineItem);
+			runningTotal = runningTotal + lineItem.getTotalCost();
+			runningTotalField.setText(String.valueOf(runningTotal));
+			repopulate();
+		}else{
+			JOptionPane.showMessageDialog(null,
+					"Insufficient Stock Levels");
+		} 
+		
+	}
+	
+	public boolean stockAvailable(Product product,int amount){
+		for(Stock stock: RetailSystem.getInstance().getStocks()){
+			if((stock.getProduct().getProductID().equals(product.getProductID())) && (stock.getUnits() >= amount)){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public void removeProduct(){
@@ -161,7 +179,6 @@ public class SaleGUI extends JPanel {
 		RetailSystem.getInstance().getInvoices().add(invoice);
 		Invoice.saveInvoice();
 		Stock.updateStock(invoice);
-		Order.orderMore(invoice.getSale().getLineItems());
 		JOptionPane.showMessageDialog(null,
 				"Invoice saved and printed", "Print",
 				JOptionPane.PLAIN_MESSAGE);

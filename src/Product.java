@@ -154,19 +154,18 @@ public class Product {
 		}
 	}*/
 	
-	public static String compileProductNames(){
+	public static void compileProductNames(JComboBox<String> productDropDown){
 		//Will list products from product list in driver class
 		//Should only show products that are in stock
 		String string = "";
 		for(Stock stock: RetailSystem.getInstance().getStocks()){
-			if(stock.isActive());
-			stock.getProduct();
-			string = stock.getProduct().getProductID();
-			//Tests that string is being given correct IDs of products that have stock
-			System.out.println(string);
-			return string;
+			if(stock.getUnits()>0){
+			 stock.getProduct();
+			 productDropDown.addItem(stock.getProduct().getName());
+			}
+			
 		}
-		return string;
+		
 	}
 	
 }

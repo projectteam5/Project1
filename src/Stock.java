@@ -112,7 +112,7 @@ public class Stock {
 	public static void saveStock(){
 		try {
 			FileWriter userFile;
-			userFile = new FileWriter("stock.txt");
+			userFile = new FileWriter("stocks.txt");
 			DataBase.writeStocks(RetailSystem.getInstance().getStocks(), userFile);
 			userFile.close();// close the stock file
 		} catch (Exception exception) {
