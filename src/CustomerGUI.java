@@ -19,6 +19,7 @@ public class CustomerGUI extends JPanel {
 	JButton editCustomer;
 	JButton deleteCustomer;
 	JButton showCustomer;
+	JButton customerReactivate;
 	JLabel labelTitle;
 
 	private final static Font fontButtons = new Font("Arial", Font.BOLD, 12);
@@ -26,7 +27,7 @@ public class CustomerGUI extends JPanel {
 	private final static Color colorButtonSelected = new Color(21, 82, 223);
 
 	public CustomerGUI() {
-		// declaration and initialization of buttons and labels
+		// declaration and initialisation of buttons and labels
 		this.setLayout(new GridLayout(0, 1));
 		labelTitle = new JLabel("Customer Menu");
 		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
@@ -34,6 +35,7 @@ public class CustomerGUI extends JPanel {
 		editCustomer = new JButton("Edit Customer");
 		deleteCustomer = new JButton("Remove Customer");
 		showCustomer = new JButton("Show Customer");
+		customerReactivate = new JButton("Reactivate Customer");
 		colorButton();
 
 		// adding all the components
@@ -42,6 +44,7 @@ public class CustomerGUI extends JPanel {
 		this.add(editCustomer);
 		this.add(showCustomer);
 		this.add(deleteCustomer);
+		this.add(customerReactivate);
 		//fixing the layout
 		JLabel labelEmpty = new JLabel(" ");
 		JLabel labelEmpty1 = new JLabel(" ");
@@ -49,8 +52,8 @@ public class CustomerGUI extends JPanel {
 		this.add(labelEmpty1);
 
 		/*
-		 * Add button: it opens a new window where it's possible to insert user
-		 * data and if the validation is correct the new user is created and
+		 * Add button: it opens a new window where it's possible to insert customer
+		 * data and if the validation is correct the new customer is created and
 		 * inserted in the ArrayList
 		 */
 		addCustomer.addActionListener(new ActionListener() {
@@ -63,9 +66,9 @@ public class CustomerGUI extends JPanel {
 
 		/*
 		 * Edit button: it opens a new window where it's possible to select the
-		 * user from a dropdown list. After a user is selected it is possible to
-		 * push the button "Edit User" and automatically will be displayed
-		 * fields with the user data in it. It is possible to modify the data
+		 * customer from a dropdown list. After a customer is selected it is possible to
+		 * push the button "Edit Customer" and automatically will be displayed
+		 * fields with the customer data in it. It is possible to modify the data
 		 * and save it with the "Commit" button.
 		 */
 		editCustomer.addActionListener(new ActionListener() {
@@ -103,6 +106,13 @@ public class CustomerGUI extends JPanel {
 			}
 		});
 
+		customerReactivate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				colorButton();
+				customerReactivate.setBackground(colorButtonSelected);
+				MenuGUI.getInstance().setPanelAction(new CustomerReactivate());
+			}
+		});
 	
 	}
 
@@ -115,6 +125,8 @@ public class CustomerGUI extends JPanel {
 		showCustomer.setFont(fontButtons);
 		deleteCustomer.setBackground(colorButtons);
 		deleteCustomer.setFont(fontButtons);
+		customerReactivate.setBackground(colorButtons);
+		customerReactivate.setFont(fontButtons);
 	}
 
 }

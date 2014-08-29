@@ -113,5 +113,15 @@ public class Customer {
 			}
 		}
 	}
+	
+	public static void customerListCompleteInactive(JComboBox dropdown) {
+		for (Customer customer : RetailSystem.getInstance().getCustomers()) {
+			if(!customer.isActive()){
+				String string = "ID: " + customer.getCustomerID() + " ; Name: "
+						+ customer.getName(); 
+				dropdown.addItem(string);
+			}
+		}
+	}
 
 }
