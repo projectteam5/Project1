@@ -68,7 +68,7 @@ public class Product {
 	public void setSupplier(Supplier supplier) {
 		this.supplier = supplier;
 	}
-	//1
+/*	//1
 	public static String addProductToList(Product product){
 		//Will take in a product and add it to the products list in the driver class
 		boolean duplicate = false;
@@ -83,15 +83,15 @@ public class Product {
 				RetailSystem.getInstance().getProducts().add(product);
 				string =  product.getProductID();
 			}
-			return string;
-	}
-	//2
+			return string;*/
+
+/*	//2
 	public static boolean changeProductToInactive(Product product){
 		//Will remove a product from the products list in the driver class
 		product.setActive(false);
 		return product.isActive();
-	}
-	//3
+	}*/
+/*	//Remove?
 	public static String viewProduct(Product product){
 		//Temp println in place of GUI
 		String string = "";
@@ -99,7 +99,7 @@ public class Product {
 		string = product.getProductID();
 		return string;
 	}
-	//4
+	//Remove or leave in? Check if used anywhere
 	public static String viewProductList(){
 		//Will list products from product list in driver class
 		String string = "";
@@ -110,7 +110,7 @@ public class Product {
 		}
 		return string;
 
-	}
+	}*/
 
 	public boolean isActive() {
 		return active;

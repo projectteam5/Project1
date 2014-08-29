@@ -57,7 +57,6 @@ public class ReactivateProductGUI extends JPanel {
 			}
 		});
 	}
-
 	public void compileProductNames() {
 		for (Product product : RetailSystem.getInstance().getProducts()) {
 			if (!product.isActive()) {
