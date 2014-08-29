@@ -22,7 +22,7 @@ public class AvailableStockLevelsGUI extends JPanel {
 		this.setLayout(new GridLayout(0,1));
 		v = new Vector<Stock>(RetailSystem.getInstance().getStocks());
 		v2 = new Vector<Order>(RetailSystem.getInstance().getOrders());
-		TableModel dataModel = new StockTable(v,v2); 
+		TableModel dataModel = new StockTable(v); 
 		table = new JTable(dataModel);
 		scrollPane = new JScrollPane(table);
 		this.add(scrollPane);

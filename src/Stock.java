@@ -70,7 +70,8 @@ public class Stock {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-	public void autoGenterateOrder(){
+	public void autoGenterateOrder(ArrayList<Stock> stock){
+		
 		boolean found = false;
 		if(this.units<=5){
 			for(Order o: RetailSystem.getInstance().getOrders()){
@@ -80,8 +81,10 @@ public class Stock {
 					
 			}
 			if(!found){
-			Order newOrder = new Order(this.product);
-			RetailSystem.getInstance().getOrders().add(newOrder);
+			//Order newOrder = new Order(this.product);
+			
+			//RetailSystem.getInstance().getOrders().add(newOrder);
+			
 			}
 		}
 		
