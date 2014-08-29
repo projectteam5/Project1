@@ -188,7 +188,6 @@ public class SaleGUI extends JPanel {
 				clear();
 			}
 		}
-<<<<<<< HEAD
 		// Create invoice //Issue here
 		Invoice invoice = new Invoice(sale.getSaleDate(),
 				customerPicked, runningTotal, sale);
@@ -202,8 +201,6 @@ public class SaleGUI extends JPanel {
 				"Invoice saved and printed", "Print",
 				JOptionPane.PLAIN_MESSAGE);
 		clear();
-=======
->>>>>>> 4e4612ff30d29cd5982ded4eec13054c7f51096d
 	}
 
 	public void repopulate() {
