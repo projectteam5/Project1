@@ -32,6 +32,7 @@ public class ViewProductListGUI extends JPanel {
 		title = new JLabel("Product List. Amount of products: "
 				+ RetailSystem.getInstance().getProducts().size());
 		title.setFont(new Font("Arial", Font.BOLD, 20));
+		title.setAlignmentX(CENTER_ALIGNMENT);
 		vet = new Vector<Product>(RetailSystem.getInstance().getProducts());
 		TableModel dataModel = new ProductTable(vet);
 		table = new JTable(dataModel);

@@ -1,3 +1,4 @@
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Vector;
 
@@ -5,38 +6,24 @@ import javax.swing.table.AbstractTableModel;
 
 
 public class StockTable extends AbstractTableModel {
-	private Vector<Stock> v = null;
-	private String[] colNames = {"Product","Units",};
-	
-	public StockTable(Vector<Stock> v) {
-		this.v = v;
+	private String[][] vector = null;
+	private String[] colNames = {"Product","Units","Expected Order Date"};
+
+	public StockTable(String[][] vector) {
+		this.vector = vector;
 	}
-	
 	public int getColumnCount(){
 		return colNames.length;
 	}
 	public int getRowCount(){
-		return v.size();
+		return vector.length;
 	}
-	public String getValueAt(int row, int col){
-		Stock stock = (Stock)v.elementAt(row);
-		String val = null;
-		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
-		switch(col){
-		case 0: 
-			val = stock.getProduct().getName();
-			break;
-		case 1: 
-			val = stock.getUnits()+"";
-			break;
-		
-		default: 
-			val = "";
-		
-		
-		}
-		return val;
+	
+	public Object getValueAt(int row, int col){
+		 return vector[row][col];
+
 	}
+	
 	public String getColumnName(int col) {
 		return colNames[col];
 	}
