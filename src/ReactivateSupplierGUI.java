@@ -20,7 +20,7 @@ public class ReactivateSupplierGUI extends JPanel{
 	private Supplier supplierToReactivate = null;
 
 	public ReactivateSupplierGUI() {
-		title = new JLabel("Reactivate a supplier");
+		title = new JLabel("Reactivate Supplier");
 		title.setFont(new Font("Arial", Font.BOLD, 20));
 		reactivateButton = new JButton("Reactivate");
 		instruction = new JLabel("Please choose a supplier to reactivate from drop down menu");
