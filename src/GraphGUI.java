@@ -16,6 +16,7 @@ public class GraphGUI extends JPanel implements ActionListener {
 	JLabel labelTitle;
 	JButton viewProductOrderGraph;
 	JButton viewSalesAndPredictionsGraph;
+	JButton viewProductSalesGraph;
 	
 	private final static Font fontButtons = new Font("Arial", Font.BOLD, 12);
 	private final static Color colorButtons = new Color(126, 163, 249);
@@ -30,12 +31,22 @@ public class GraphGUI extends JPanel implements ActionListener {
 		
 		viewProductOrderGraph = new JButton("Top Product Orders");
 		viewSalesAndPredictionsGraph = new JButton("Sales & Predictions");
+		viewProductSalesGraph = new JButton("Top Product Sales");
 		
 		colorButton();
 		
 		this.add(labelTitle);
 		this.add(viewProductOrderGraph);
+		this.add(viewProductSalesGraph);
 		this.add(viewSalesAndPredictionsGraph);
+		
+		viewProductSalesGraph.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MenuGUI.getInstance().setPanelAction(new GraphOfTopSales("", ""));
+				colorButton();
+				viewProductSalesGraph.setBackground(colorButtonSelected);
+			}
+		});
 		
 		viewSalesAndPredictionsGraph.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -73,6 +84,8 @@ public class GraphGUI extends JPanel implements ActionListener {
 		
 		viewProductOrderGraph.setBackground(colorButtons);
 		viewProductOrderGraph.setFont(fontButtons);
+		viewProductSalesGraph.setBackground(colorButtons);
+		viewProductSalesGraph.setFont(fontButtons);
 		viewSalesAndPredictionsGraph.setBackground(colorButtons);
 		viewSalesAndPredictionsGraph.setFont(fontButtons);
 		
