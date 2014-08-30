@@ -41,6 +41,7 @@ public class GraphGUI extends JPanel implements ActionListener {
 		this.add(viewProductOrderGraph);
 		this.add(viewProductSalesGraph);
 		this.add(viewSalesAndPredictionsGraph);
+		this.add(viewStockLevels);
 		
 		viewProductSalesGraph.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -97,7 +98,8 @@ public class GraphGUI extends JPanel implements ActionListener {
 		viewProductSalesGraph.setFont(fontButtons);
 		viewSalesAndPredictionsGraph.setBackground(colorButtons);
 		viewSalesAndPredictionsGraph.setFont(fontButtons);
-		
+		viewStockLevels.setBackground(colorButtons);
+		viewStockLevels.setFont(fontButtons);
 	}
 		
 }
