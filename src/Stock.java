@@ -71,26 +71,7 @@ public class Stock {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-	public static void autoGenterateOrderCheck(){
-		ArrayList<Stock>stocks = RetailSystem.getInstance().getStocks();
-		boolean found = false;
-		for(Stock s: stocks)
-		if(s.units<=5){
-			for(Order o: RetailSystem.getInstance().getOrders()){
-				if(o.getProduct().getProductID().equalsIgnoreCase(s.product.getProductID())){
-					found = true;
-				}
-					
-			}
-			if(!found){
-			//Order newOrder = new Order(this.product);
-			
-			//RetailSystem.getInstance().getOrders().add(newOrder);
-			
-			}
-		}
-		
-	}
+	
 	public static void updateStock(Invoice invoice){
 		ArrayList<Stock> stocks = RetailSystem.getInstance().getStocks();
 		ArrayList<LineItem> items;

@@ -15,6 +15,7 @@ public class GraphGUI extends JPanel implements ActionListener {
 	
 	JLabel labelTitle;
 	JButton viewOrderGraph;
+	JButton viewSalesGraph;
 	JButton viewStockGraph;
 	
 	private final static Font fontButtons = new Font("Arial", Font.BOLD, 12);
@@ -29,23 +30,34 @@ public class GraphGUI extends JPanel implements ActionListener {
 		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		
 		viewOrderGraph = new JButton("Products by Orders");
-		viewStockGraph = new JButton("Sales Current/Predicted");
+		viewSalesGraph = new JButton("Sales Current/Predicted");
+		viewStockGraph = new JButton("Current Stock Levels");
 		
 		colorButton();
 		
 		this.add(labelTitle);
 		this.add(viewOrderGraph);
+		this.add(viewSalesGraph);
 		this.add(viewStockGraph);
+		
+		viewSalesGraph.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MenuGUI.getInstance().setPanelAction(new GraphPrediction());
+				colorButton();
+				viewSalesGraph.setBackground(colorButtonSelected);
+			}
+		});
+		
+		viewOrderGraph.addActionListener(this);
 		
 		viewStockGraph.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				MenuGUI.getInstance().setPanelAction(new GraphPrediction());
+				MenuGUI.getInstance().setPanelAction(new GraphOfStock());
 				colorButton();
 				viewStockGraph.setBackground(colorButtonSelected);
 			}
 		});
 		
-		viewOrderGraph.addActionListener(this);
 		
 	}
 	
