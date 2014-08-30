@@ -1,12 +1,12 @@
-Product1;1;true
-Product2;1;true
-Product3;2;true
+Product1;19;true
+Product2;0;true
+Product3;12;true
 Product5;265;true
-Product8;1;true
-Product9;1;true
-Product12;2;true
-Product13;3;true
-Product15;1;true
+Product8;11;true
+Product9;11;true
+Product12;12;true
+Product13;13;true
+Product15;11;true
 Product17;4;true
 Product18;2;true
 Product20;10;true
@@ -15,4 +15,4 @@ Product22;3;true
 Product10;8;true
 Product11;10;true
 Product4;18;true
-Product7;1;true
+Product7;0;true

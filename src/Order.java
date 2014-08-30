@@ -206,7 +206,7 @@ public class Order {
 	 * and that Invoice causes Stock to be depleted below a minimum Stock amount
 	 * 
 	 * */
-	public static void orderMore(ArrayList<LineItem> items ) {
+	public static void orderMore() {
 		
 		boolean isOK = true;
 			

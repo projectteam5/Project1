@@ -87,15 +87,16 @@ public class MenuGUI extends JFrame {
 			panelMenu.add(buttonCustomer);
 			panelMenu.add(buttonProduct);
 			panelMenu.add(buttonSupplier);
+			panelMenu.add(buttonUser);
 			panelMenu.add(buttonOrder);
 			panelMenu.add(buttonAvailability);
-			panelMenu.add(buttonUser);
 			panelMenu.add(buttonSale);
 			panelMenu.add(buttonViewGraph);
 			panelMenu.add(buttonInvoice);
 			panelMenu.add(buttonAccounting);
 			
 		} else {
+			panelMenu.add(menuLabel);
 			panelMenu.add(buttonCustomer);
 			panelMenu.add(buttonAvailability);
 			panelMenu.add(buttonSale);

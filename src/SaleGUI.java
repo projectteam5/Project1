@@ -181,26 +181,13 @@ public class SaleGUI extends JPanel {
 				RetailSystem.getInstance().getInvoices().add(invoice);
 				Invoice.saveInvoice();
 				Stock.updateStock(invoice);
-				Order.orderMore(invoice.getSale().getLineItems());
+				Order.orderMore();
 				JOptionPane.showMessageDialog(null,
 						"Invoice saved and printed", "Print",
 						JOptionPane.PLAIN_MESSAGE);
 				clear();
 			}
 		}
-		// Create invoice //Issue here
-		Invoice invoice = new Invoice(sale.getSaleDate(),
-				customerPicked, runningTotal, sale);
-		RetailSystem.getInstance().getInvoices().add(invoice);
-		Invoice.saveInvoice();
-		Stock.updateStock(invoice);
-		
-		Order.orderMore(invoice.getSale().getLineItems());
-		
-		JOptionPane.showMessageDialog(null,
-				"Invoice saved and printed", "Print",
-				JOptionPane.PLAIN_MESSAGE);
-		clear();
 	}
 
 	public void repopulate() {
