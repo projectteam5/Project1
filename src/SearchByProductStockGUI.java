@@ -136,7 +136,7 @@ public class SearchByProductStockGUI extends JPanel {
 						+"|("+s.getUnits()+" available)\n");
 					foundStock = true;
 				for(Order o:RetailSystem.getInstance().getOrders()){
-					if(s.getProduct().getProductID().equalsIgnoreCase(o.getProduct().getProductID())){
+					if(s.getProduct().getProductID().equalsIgnoreCase(o.getProduct().getProductID())&&o.isReceived()==false&&o.isActive()==true){
 						results.setText(results.getText()+" Order of"+o.getQuantity()+" units expected on "+o.getExpectedDeliveryDate()+"\n");
 					}
 				}
