@@ -14,8 +14,8 @@ import javax.swing.JPanel;
 public class GraphGUI extends JPanel implements ActionListener {
 	
 	JLabel labelTitle;
-	JButton viewOrderGraph;
-	JButton viewStockGraph;
+	JButton viewProductOrderGraph;
+	JButton viewSalesAndPredictionsGraph;
 	
 	private final static Font fontButtons = new Font("Arial", Font.BOLD, 12);
 	private final static Color colorButtons = new Color(126, 163, 249);
@@ -28,36 +28,36 @@ public class GraphGUI extends JPanel implements ActionListener {
 		labelTitle = new JLabel("Graph Menu");
 		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		
-		viewOrderGraph = new JButton("Products by Orders");
-		viewStockGraph = new JButton("Sales Current/Predicted");
+		viewProductOrderGraph = new JButton("Top Product Orders");
+		viewSalesAndPredictionsGraph = new JButton("Sales & Predictions");
 		
 		colorButton();
 		
 		this.add(labelTitle);
-		this.add(viewOrderGraph);
-		this.add(viewStockGraph);
+		this.add(viewProductOrderGraph);
+		this.add(viewSalesAndPredictionsGraph);
 		
-		viewStockGraph.addActionListener(new ActionListener() {
+		viewSalesAndPredictionsGraph.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MenuGUI.getInstance().setPanelAction(new GraphPrediction());
 				colorButton();
-				viewStockGraph.setBackground(colorButtonSelected);
+				viewSalesAndPredictionsGraph.setBackground(colorButtonSelected);
 			}
 		});
 		
-		viewOrderGraph.addActionListener(this);
+		viewProductOrderGraph.addActionListener(this);
 		
 	}
 	
 	public void actionPerformed(ActionEvent event) {
 		Object target = event.getSource();
 		
-		if(target == viewOrderGraph) {
+		if(target == viewProductOrderGraph) {
 			try {
 				
 				MenuGUI.getInstance().setPanelAction(new GraphOfTopProductsFromOrders("",""));
 				colorButton();
-				viewOrderGraph.setBackground(colorButtonSelected);
+				viewProductOrderGraph.setBackground(colorButtonSelected);
 				
 				
 			} catch(Exception e) {
@@ -71,10 +71,10 @@ public class GraphGUI extends JPanel implements ActionListener {
 	
 	public void colorButton() {
 		
-		viewOrderGraph.setBackground(colorButtons);
-		viewOrderGraph.setFont(fontButtons);
-		viewStockGraph.setBackground(colorButtons);
-		viewStockGraph.setFont(fontButtons);
+		viewProductOrderGraph.setBackground(colorButtons);
+		viewProductOrderGraph.setFont(fontButtons);
+		viewSalesAndPredictionsGraph.setBackground(colorButtons);
+		viewSalesAndPredictionsGraph.setFont(fontButtons);
 		
 	}
 		
