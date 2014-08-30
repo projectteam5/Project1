@@ -18,19 +18,18 @@ import javax.swing.border.EmptyBorder;
 
 public class DeleteSupplierGUI extends JPanel{
 	private JComboBox<String> supplierDropDown = new JComboBox<String>();
-	private JComboBox<String> supplierDropDownAfterDelete = new JComboBox<String>();
 	private JButton deleteButton;
 	private JLabel title;
 	private JLabel instruction;
 	// Instance of supplier in aid of accessing removal method
-	private Supplier removeSupplier = new Supplier("","");
+	private Supplier supplierToRemove;
 	
 	public DeleteSupplierGUI() {
 		
 		title = new JLabel("Deactivate Supplier");
 		title.setFont(new Font("Arial", Font.BOLD, 20));
 		instruction = new JLabel("Please choose a supplier from the list below");
-		deleteButton = new JButton("Delete");
+		deleteButton = new JButton("Deactivate");
 		compileSupplierNames();
 		
 		this.add(title);
@@ -43,41 +42,33 @@ public class DeleteSupplierGUI extends JPanel{
 		
 		deleteButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent argo0){
-				String name = supplierDropDown.getSelectedItem().toString();
-				// Getting the supplier from the list and assigning to new object then
-				// Using another object to access supplier class method to delete from list
-				Supplier supplierToRemove = findAndReturnSupplierFromList(name);			
-				supplierToRemove.setActive(false);
-				JOptionPane.showMessageDialog(null, "Supplier is not active anymore", "Success", JOptionPane.PLAIN_MESSAGE);
-				removeSupplier.saveSupplier();
-				compileSupplierNamesAfterDelete();
+				supplierToRemove=null;
+				if(supplierDropDown.getItemCount()!=0){
+				deactivateSupplier(supplierDropDown.getSelectedItem().toString());
 				refresh();
+				}
+				else
+					JOptionPane.showMessageDialog(null, "Empty Active Supplier List", "Success", JOptionPane.PLAIN_MESSAGE);	;
 			}
 		});
 	}
 	
-	public void refresh(){
-		this.remove(supplierDropDown);
-		this.remove(deleteButton);
-		this.add(supplierDropDownAfterDelete);
-		this.add(deleteButton);
-		this.revalidate();
-		revalidate();
-		repaint();
+	public void deactivateSupplier(String name){
+		for(Supplier supplier: Supplier.getSupplierList()){
+			if(name.equalsIgnoreCase(supplier.getName())){
+				supplier.setActive(false);
+				supplier.saveSupplier();
+				JOptionPane.showMessageDialog(null, "Supplier is not active anymore", "Success", JOptionPane.PLAIN_MESSAGE);
+				break;
+			}
+		}	
 	}
 	
-	// Takes the name selected from drop-down menu, finds it on the list
-	// And returns the supplier
-	private Supplier findAndReturnSupplierFromList(String name) {
-		Supplier supplierToDelete = null;
-		for(Supplier supplier: Supplier.getSupplierList()){
-				if(name.equalsIgnoreCase(supplier.getName())){
-					supplierToDelete = supplier;						
-					break;
-				}
-		}	
-		return supplierToDelete;
+	public void refresh(){
+		supplierDropDown.removeAllItems();
+		compileSupplierNames();
 	}
+	
 	
 	// Used to fill up the combo box with suppliers from the list
 	public void compileSupplierNames(){
@@ -86,9 +77,4 @@ public class DeleteSupplierGUI extends JPanel{
 		}
 	}
 	
-	public void compileSupplierNamesAfterDelete(){
-		for(Supplier supplier: Supplier.getSupplierList()){
-				supplierDropDownAfterDelete.addItem(supplier.getName());
-		}
-	}
 }
