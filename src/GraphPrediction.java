@@ -162,7 +162,7 @@ public class GraphPrediction extends JPanel {
                                 xyDataset.addSeries(series2);
                                 
    
-        JFreeChart              chart     = ChartFactory.createXYLineChart("Sales V Time","Months","EURO",xyDataset,PlotOrientation.VERTICAL,true,false,false);
+        JFreeChart              chart     = ChartFactory.createXYLineChart("Gross Sales over Time","Months","EURO",xyDataset,PlotOrientation.VERTICAL,true,false,false);
                                 chart.setBackgroundPaint(Color.white); 
                         
         XYPlot                  plot      = (XYPlot) chart.getPlot();
