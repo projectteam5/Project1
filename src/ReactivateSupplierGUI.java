@@ -1,3 +1,4 @@
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +21,7 @@ public class ReactivateSupplierGUI extends JPanel{
 
 	public ReactivateSupplierGUI() {
 		title = new JLabel("Reactivate a supplier");
+		title.setFont(new Font("Arial", Font.BOLD, 20));
 		reactivateButton = new JButton("Reactivate");
 		instruction = new JLabel("Please choose a supplier to reactivate from drop down menu");
 		compileSupplierNames();

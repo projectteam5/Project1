@@ -41,6 +41,7 @@ public class ListSuppliersGUI extends JPanel{
 		
 		title = new JLabel("Supplier List. Total number of suppliers: "+RetailSystem.getInstance().getSuppliers().size());
 		title.setFont(new Font("Arial", Font.BOLD, 20));
+		this.add(title);
 		this.setLayout(new GridLayout(0,1));
 		vet = new Vector<Supplier>(RetailSystem.getInstance().getSuppliers());
 		TableModel dataModel = new SupplierTable(vet); 
