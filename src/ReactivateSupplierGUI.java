@@ -20,7 +20,7 @@ public class ReactivateSupplierGUI extends JPanel{
 	private Supplier supplierToReactivate = null;
 
 	public ReactivateSupplierGUI() {
-		title = new JLabel("Reactivate a supplier");
+		title = new JLabel("Reactivate Supplier");
 		title.setFont(new Font("Arial", Font.BOLD, 20));
 		reactivateButton = new JButton("Reactivate");
 		instruction = new JLabel("Please choose a supplier to reactivate from drop down menu");
@@ -36,6 +36,7 @@ public class ReactivateSupplierGUI extends JPanel{
 		
 		reactivateButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent argo0){
+				if(supplierDropDown.getItemCount()>0){
 				String name = supplierDropDown.getSelectedItem().toString();
 				// Getting the supplier from the list and assigning to new object then
 				// Using another object to access supplier class method to delete from list
@@ -45,6 +46,9 @@ public class ReactivateSupplierGUI extends JPanel{
 				supplierToReactivate.saveSupplier();
 				compileSupplierNamesAfterReactivation();
 				refresh();
+				}
+				else
+					JOptionPane.showMessageDialog(null, "There are no suppliers to reactivate", "Success", JOptionPane.PLAIN_MESSAGE);
 			}
 		});	
 	}
