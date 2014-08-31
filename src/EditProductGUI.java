@@ -33,6 +33,13 @@ public class EditProductGUI extends JPanel{
 	private JLabel supplierName = new JLabel("Supplier");
 	private JLabel mainTitle;
 	private boolean productChosen = false;
+	private boolean empty = true;
+	//
+	Supplier supplierPicked = null;
+	boolean correctInfo = true;
+	boolean duplicateProductName = false;
+	double cost = 0;
+	double markup = 0;
 
 
 	public EditProductGUI() {
@@ -83,67 +90,91 @@ public class EditProductGUI extends JPanel{
 		});
 		
 		//Checks details and submits edited product to system
+		//Check all fields are filled out and filled out correctly
+		
 		buttonCommitEditProduct.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent argo0){
-				if(productChosen){
-					Supplier supplierPicked = null;
-					boolean correctInfo = true;
-					boolean duplicateProductName = false;
-					String productName = textFieldName.getText();
-					double cost = 0;
-					double markup = 0;
-					try{
-						cost = Double.parseDouble(textFieldCost.getText());
-						markup = Double.parseDouble(textFieldMarkup.getText());
-					}catch(NumberFormatException e){
-						JOptionPane.showMessageDialog(null, "Please enter in the correct format");
-						correctInfo = false;
-					}
-						//First check, see if fields are filled
-					String supplierChoice = supplierDropDown.getSelectedItem().toString();
-					for(Supplier supplier: RetailSystem.getInstance().getSuppliers()){
-						if(supplierChoice.contains(supplier.getName())){
-							supplierPicked = supplier;
-						}
-					
-					}
-					
-					if(!productName.equalsIgnoreCase(chosenEditProduct.getName())){
-						for(Product product: RetailSystem.getInstance().getProducts()){
-							if(product.getName().equalsIgnoreCase(productName)){
-								duplicateProductName = true;
-							
-							}
-							
-								
-							}
-						}
-					if(duplicateProductName == true){
-						JOptionPane.showMessageDialog(null, "Product in system with same name");
-					}
-
-
-					if((correctInfo) && (!duplicateProductName) &&(!textFieldName.equals(""))&&(textFieldName!=null)&& (cost!=0) && (markup!=0)){
-						chosenEditProduct.setName(textFieldName.getText());
-						chosenEditProduct.setCost(cost);
-						chosenEditProduct.setMarkup(markup);
-						chosenEditProduct.setSupplier(supplierPicked);
-						JOptionPane.showMessageDialog(null, "Product has been edited");
-						saveProduct();
-						populateFields2();
-						
-					}else{
-						JOptionPane.showMessageDialog(null, "Please fill out all fields");
-					}
-				}else{
-					JOptionPane.showMessageDialog(null, "You cannot edit without chosing a product");
-
-				}
 				
-			
-		}
+				if(productChosen){
+					//Makes sure fields are not empty
+					nullCheck();
+					if(!empty){
+						//Try to parse doubles
+						parseDoubles();
+						if(correctInfo){
+							//Find the supplier
+							//Check product name duplication
+							findSupplier();
+							checkProduct();
+							editProduct();
+						}
+					}
+				}
+			}
 		});
+						
+
+	}
 	
+	public void nullCheck(){
+		if(textFieldName.getText().equals("") || textFieldCost.getText().equals("") || textFieldMarkup.getText().equals("")){
+			JOptionPane.showMessageDialog(null, "Please fill out all fields");
+			empty = true;
+		}else{
+			empty = false;
+		}
+	}
+	
+	//Try to parse doubles
+	public void parseDoubles(){
+		try{
+			cost = Double.parseDouble(textFieldCost.getText());
+			markup = Double.parseDouble(textFieldMarkup.getText());
+		}catch(NumberFormatException e){
+			JOptionPane.showMessageDialog(null, "Please enter numbers in the correct format");
+			correctInfo = false;
+		}
+	}
+	
+	//Find supplier
+	public void findSupplier(){
+		String supplierChoice = supplierDropDown.getSelectedItem().toString();
+		for(Supplier supplier: RetailSystem.getInstance().getSuppliers()){
+			if(supplierChoice.contains(supplier.getName())){
+				supplierPicked = supplier;
+			}
+		}
+	}
+	
+	//Check product name duplication
+	public void checkProduct(){
+		String productNameChoice = textFieldName.getText();
+		if(!productNameChoice.equalsIgnoreCase(chosenEditProduct.getName())){
+			for(Product product: RetailSystem.getInstance().getProducts()){
+				if(product.getName().equalsIgnoreCase(productNameChoice)){
+					duplicateProductName = true;
+				
+				}								
+			}
+		}
+		if(duplicateProductName == true){
+			JOptionPane.showMessageDialog(null, "Product in system with same name");
+		}
+	}
+	
+	//Edit the product
+	public void editProduct(){
+		if((correctInfo) && (!duplicateProductName)){
+			chosenEditProduct.setName(textFieldName.getText());
+			chosenEditProduct.setCost(cost);
+			chosenEditProduct.setMarkup(markup);
+			chosenEditProduct.setSupplier(supplierPicked);
+			JOptionPane.showMessageDialog(null, "Product has been edited");
+			saveProduct();
+			populateFields2();
+		}else{
+			JOptionPane.showMessageDialog(null, "error");
+		}
 	}
 	
 	public void compileProductNames(){
