@@ -107,6 +107,8 @@ public class EditProductGUI extends JPanel{
 							findSupplier();
 							checkProduct();
 							editProduct();
+							chosenEditProduct = null;
+							emptyFields();
 						}
 					}
 				}
@@ -175,6 +177,12 @@ public class EditProductGUI extends JPanel{
 		}else{
 			JOptionPane.showMessageDialog(null, "error");
 		}
+	}
+	
+	public void emptyFields(){
+		textFieldName.setText("");
+		textFieldCost.setText("");
+		textFieldMarkup.setText("");
 	}
 	
 	public void compileProductNames(){
