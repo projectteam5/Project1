@@ -87,7 +87,7 @@ public class CustomerEditGUI extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				int returnValue = editCustomer();
 				if (returnValue == 0) {
-					JOptionPane.showMessageDialog(null, "Customer Edited",
+					JOptionPane.showMessageDialog(null, "Customer Edited!",
 							"Update", JOptionPane.PLAIN_MESSAGE);
 				} else {
 					JOptionPane.showMessageDialog(null,
