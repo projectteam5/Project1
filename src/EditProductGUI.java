@@ -107,8 +107,6 @@ public class EditProductGUI extends JPanel{
 							findSupplier();
 							checkProduct();
 							editProduct();
-							chosenEditProduct = null;
-							emptyFields();
 						}
 					}
 				}
@@ -179,11 +177,6 @@ public class EditProductGUI extends JPanel{
 		}
 	}
 	
-	public void emptyFields(){
-		textFieldName.setText("");
-		textFieldCost.setText("");
-		textFieldMarkup.setText("");
-	}
 	
 	public void compileProductNames(){
 		for(Product product: RetailSystem.getInstance().getProducts()){
@@ -242,9 +235,9 @@ public class EditProductGUI extends JPanel{
 		this.remove(supplierName);
 		this.remove(supplierDropDown);
 		this.remove(buttonCommitEditProduct);
-		productDropDown = new JComboBox();
-		compileProductNames();
-		productDropDown.setSelectedIndex(0);
+		//productDropDown = new JComboBox();
+		//compileProductNames();
+		//productDropDown.setSelectedIndex(chosenEditProduct);
 		this.add(productDropDown);
 		this.add(buttonEditProduct);
 		this.add(productName);
