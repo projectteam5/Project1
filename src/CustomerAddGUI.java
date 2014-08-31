@@ -85,6 +85,9 @@ public class CustomerAddGUI extends JPanel {
 			Customer customer = new Customer(name, address, phone);
 			RetailSystem.getInstance().getCustomers().add(customer);
 			Customer.saveCustomer();
+			textCustomerName.setText("");
+			textCustomerAddress.setText("");
+			textCustomerPhone.setText("");
 			return 0;
 		} else {
 			return 1;

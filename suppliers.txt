@@ -1,4 +1,4 @@
-Supplier 1;test;08789;true
+Supplier 1;test;08789;false
 Supplier 2;Supplier1 Name;083776655;true
 Supplier 3;Supplier2 Name;083775839;true
 Supplier 4;Dell;0831336397;true

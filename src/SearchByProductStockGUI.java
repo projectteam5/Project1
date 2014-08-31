@@ -42,6 +42,7 @@ public class SearchByProductStockGUI extends JPanel {
 	private JRadioButton searchBySupplier = new JRadioButton("Search by Supplier",false);
 	private String orders;
 	private JLabel title;
+	
 	public SearchByProductStockGUI() {
 		stockResults = new JPanel();
 		stockResults.setLayout(new BorderLayout());
@@ -49,6 +50,8 @@ public class SearchByProductStockGUI extends JPanel {
 		compileSuppliers();
 		compileProductNames();
 		search = new JButton("Search");
+		title = new JLabel("View Stock");	
+		title.setFont(new Font("Arial", Font.BOLD, 20));
 		
 		if(searchProductName.isSelected()){
 				supplierDropDown.setEnabled(false);
@@ -91,6 +94,7 @@ public class SearchByProductStockGUI extends JPanel {
 			}
 		});
 		
+		add(title);
 		add(searchProductName);
 		add(productName);
 		add(productNameDropDown);

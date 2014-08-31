@@ -110,6 +110,8 @@ public class CustomerEditGUI extends JPanel {
 			customer.setAddress(address);
 			customer.setPhoneNumber(phone);
 			Customer.saveCustomer();
+			customerDropDown.removeAllItems();
+			Customer.customerListComplete(customerDropDown);
 			returnValue = 0;
 		}
 		return returnValue;
@@ -123,7 +125,6 @@ public class CustomerEditGUI extends JPanel {
 			addressField.setText(customer.getAddress());
 			phoneField.setText(customer.getPhoneNumber());
 			this.add(doneButton);
-
 			revalidate();
 			repaint();
 		}
