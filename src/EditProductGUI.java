@@ -174,9 +174,12 @@ public class EditProductGUI extends JPanel{
 			chosenEditProduct.setCost(cost);
 			chosenEditProduct.setMarkup(markup);
 			chosenEditProduct.setSupplier(supplierPicked);
+			int index = productDropDown.getSelectedIndex();
+			productDropDown.removeAllItems();
+			compileProductNames();
+			productDropDown.setSelectedIndex(index);
 			JOptionPane.showMessageDialog(null, "Product has been edited");
 			saveProduct();
-			populateFields2();
 		}else{
 			JOptionPane.showMessageDialog(null, "error");
 		}
@@ -228,25 +231,7 @@ public class EditProductGUI extends JPanel{
 		repaint();
 	}
 	
-	public void populateFields2(){
-		this.removeAll();
-		this.add(mainTitle);
-		this.add(title);
-		this.add(productDropDown);
-		this.add(buttonEditProduct);
-		this.add(productName);
-		this.add(textFieldName);
-		this.add(productCost);
-		this.add(textFieldCost);
-		this.add(productMarkup);
-		this.add(textFieldMarkup);
-		this.add(supplierName);
-		this.add(supplierDropDown);
-		this.add(buttonCommitEditProduct);
-		revalidate();
-		repaint();
-		
-	}
+	
 
 	public static Product getChosenEditProduct() {
 		return chosenEditProduct;

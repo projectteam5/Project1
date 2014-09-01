@@ -12,7 +12,6 @@ import javax.swing.border.EmptyBorder;
 
 public class ReactivateSupplierGUI extends JPanel {
 	private JComboBox<String> supplierDropDown = new JComboBox<String>();
-	private JComboBox<String> supplierDropDownAfterReactivation = new JComboBox<String>();
 	private JButton reactivateButton;
 	private JLabel title;
 	private JLabel instruction;
@@ -57,7 +56,6 @@ public class ReactivateSupplierGUI extends JPanel {
 							"Supplier is now active", "Success",
 							JOptionPane.PLAIN_MESSAGE);
 					supplierToReactivate.saveSupplier();
-					compileSupplierNamesAfterReactivation();
 					refresh();
 				} else
 					JOptionPane.showMessageDialog(null,
@@ -89,34 +87,11 @@ public class ReactivateSupplierGUI extends JPanel {
 		}
 	}
 
-	public void compileSupplierNamesAfterReactivation() {
-		for (Supplier supplier : RetailSystem.getInstance().getSuppliers()) {
-			if (supplier.isActive() == false) {
-				supplierDropDownAfterReactivation.addItem(supplier.getName());
-			}
-		}
-	}
-
 	public void refresh() {
-		//this.remove(supplierDropDown);
-		//this.remove(reactivateButton);
-		this.removeAll();
-		this.add(title);
-		this.add(instruction);
-		this.add(supplierDropDownAfterReactivation);
-		this.add(reactivateButton);
-		// fixing the layout
-		JLabel labelEmpty = new JLabel(" ");
-		JLabel labelEmpty1 = new JLabel(" ");
-		JLabel labelEmpty2 = new JLabel(" ");
-		JLabel labelEmpty3 = new JLabel(" ");
-		this.add(labelEmpty);
-		this.add(labelEmpty1);
-		this.add(labelEmpty2);
-		this.add(labelEmpty3);
-		this.revalidate();
-		revalidate();
-		repaint();
+		supplierDropDown.removeAllItems();
+		compileSupplierNames();
+		supplierDropDown.revalidate();
+		supplierDropDown.repaint();
 	}
 
 }

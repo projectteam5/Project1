@@ -102,6 +102,11 @@ public class OrderEditorGUI extends JPanel implements ActionListener {
 		this.add(receivedCheckBox);
 		this.add(submitButton);
 		
+		idTextField.setEditable(false);
+		orderDateTextField.setEditable(false);
+		comboBoxList.setEnabled(false);
+		quantityTextField.setEditable(false);
+		
 		submitButton.addActionListener(this);
 		
 		this.setVisible(true);

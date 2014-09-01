@@ -43,7 +43,8 @@ public class EditSupplierGUI extends JPanel {
 		supplierNumber = new JLabel("Supplier Number");
 		buttonEditSupplier = new JButton("Confirm supplier to edit");
 		buttonCommitEditProduct = new JButton("Save Changes");
-		compileSupplierIDs();
+		//compileSupplierIDs();
+		Supplier.supplierListComplete(supplierDropDown);
 
 		this.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setLayout(new GridLayout(0,1));
@@ -60,7 +61,7 @@ public class EditSupplierGUI extends JPanel {
 		
 		buttonEditSupplier.addActionListener(new ActionListener() {		
 			public void actionPerformed(ActionEvent arg0) {
-				String ID = supplierDropDown.getSelectedItem().toString();
+				String ID = RetailSystem.returnIDfromCombobox(supplierDropDown.getSelectedItem().toString());
 				for(Supplier supplier: supplierAccess.getSupplierList()){
 					if(supplier.getSupplierID().equals(ID)){
 						String tempName= supplier.getName();
@@ -74,11 +75,15 @@ public class EditSupplierGUI extends JPanel {
 		
 		buttonCommitEditProduct.addActionListener(new ActionListener() {		
 			public void actionPerformed(ActionEvent arg0) {
-				String ID = supplierDropDown.getSelectedItem().toString();
+				String ID =  RetailSystem.returnIDfromCombobox(supplierDropDown.getSelectedItem().toString());
 				Supplier supplierToEdit=findSupplier(ID);
 				String name = supplierNameField.getText();
 				String number = supplierNumberField.getText();
 				validateAndUpdateSupplier(supplierToEdit,name,number);
+				int index = supplierDropDown.getSelectedIndex();
+				supplierDropDown.removeAllItems();
+				Supplier.supplierListComplete(supplierDropDown);
+				supplierDropDown.setSelectedIndex(index);
 				supplierAccess.saveSupplier();
 			}
 		});
@@ -130,4 +135,5 @@ public class EditSupplierGUI extends JPanel {
 		}
 		return correct;
 	}
+	
 }

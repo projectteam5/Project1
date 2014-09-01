@@ -44,19 +44,22 @@ public class ReactivateProductGUI extends JPanel {
 
 		buttonReactivate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String name = productDropDown.getSelectedItem().toString();
-				for (Product product : RetailSystem.getInstance().getProducts()) {
-					if (name.equalsIgnoreCase(product.getName())) {
-						chosenProduct = product;
-						reactivateChosenProduct(chosenProduct);
-						reloadDropDown();
-						break;
+				if (productDropDown.getItemCount() > 0) {
+					String name = productDropDown.getSelectedItem().toString();
+					for (Product product : RetailSystem.getInstance()
+							.getProducts()) {
+						if (name.equalsIgnoreCase(product.getName())) {
+							chosenProduct = product;
+							reactivateChosenProduct(chosenProduct);
+							reloadDropDown();
+							break;
+						}
 					}
 				}
-
 			}
 		});
 	}
+
 	public void compileProductNames() {
 		for (Product product : RetailSystem.getInstance().getProducts()) {
 			if (!product.isActive()) {

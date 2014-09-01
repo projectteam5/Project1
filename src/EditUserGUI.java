@@ -107,6 +107,10 @@ public class EditUserGUI extends JPanel {
 			user.setName(name);
 			user.setPassword(password);
 			user.setType(type);
+			int index = userDropDown.getSelectedIndex();
+			userDropDown.removeAllItems();
+			User.userListComplete(userDropDown);
+			userDropDown.setSelectedIndex(index);
 			User.saveUser();
 			returnValue = 0;
 		}
