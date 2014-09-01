@@ -159,14 +159,7 @@ public class OrderEditorGUI extends JPanel implements ActionListener {
 				order.setReceived(newReceived);
 				
 				if(receivedCheckBox.isSelected()) {
-					for(Stock stock : RetailSystem.getInstance().getStocks()) {
-						if(stock.getProduct().getProductID().equals(newProduct.getProductID())) {
-							stock.setUnits(stock.getUnits()+newQuantity);
-							//order.setActive(false);
-							
-							Stock.saveStock();
-						}
-					}
+					Stock.increaseStock(newProduct, newQuantity);
 				}
 				
 				Order.saveOrder();

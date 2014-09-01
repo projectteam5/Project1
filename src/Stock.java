@@ -99,5 +99,15 @@ public class Stock {
 			exception.printStackTrace();
 		}
 	}
+	public static void increaseStock(Product product, int quantity){
+		for(Stock stock : RetailSystem.getInstance().getStocks()) {
+			if(stock.getProduct().getProductID().equals(product.getProductID())) {
+				stock.setUnits(stock.getUnits()+quantity);
+				//order.setActive(false);
+				
+				Stock.saveStock();
+			}
+		}
+	}
 
 }
