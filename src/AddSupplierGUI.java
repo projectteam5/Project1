@@ -60,16 +60,18 @@ public class AddSupplierGUI extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				String name = textField2.getText();
 				String phoneNumber = textField3.getText();
-				if (supplierValidation(name, phoneNumber)) {
-					Supplier supplier = new Supplier(name, phoneNumber);
-					supplier.addSupplierToList(supplier);
-					JOptionPane.showMessageDialog(null,
-							"Supplier Created and added to the list",
-							"Success", JOptionPane.PLAIN_MESSAGE);
-					supplier.saveSupplier();
-					textField2.setText("");
-					textField3.setText("");
-				}
+				if(RetailSystem.validatePhone(phoneNumber)){
+					if (supplierValidation(name, phoneNumber)) {
+						Supplier supplier = new Supplier(name, phoneNumber);
+						supplier.addSupplierToList(supplier);
+						JOptionPane.showMessageDialog(null,
+								"Supplier Created and added to the list",
+								"Success", JOptionPane.PLAIN_MESSAGE);
+						supplier.saveSupplier();
+						textField2.setText("");
+						textField3.setText("");
+					}
+				}				
 			}
 		});
 

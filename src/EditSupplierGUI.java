@@ -89,9 +89,11 @@ public class EditSupplierGUI extends JPanel {
 			JOptionPane.showMessageDialog(null, "All fields must be filled out!", "Warning", JOptionPane.WARNING_MESSAGE);
 		}
 		else{
+			if(RetailSystem.validatePhone(number)){
 			supplierToEdit.setName(name);
 			supplierToEdit.setPhoneNumber(number);	
 			JOptionPane.showMessageDialog(null, "Supplier Updated!", "Success", JOptionPane.WARNING_MESSAGE);
+			}
 		}
 	}
 	

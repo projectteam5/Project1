@@ -81,6 +81,11 @@ public class AddProductGUI extends JPanel {
 					try {
 						cost = Double.parseDouble(textFieldCost.getText());
 						markup = Double.parseDouble(textFieldMarkup.getText());
+						if(cost<=0 || markup <0){
+							JOptionPane.showMessageDialog(null,
+									"Please insert positive values");
+							correctInfo = false;
+						}
 					} catch (NumberFormatException e) {
 						JOptionPane.showMessageDialog(null,
 								"Please enter in correct format");
@@ -99,7 +104,7 @@ public class AddProductGUI extends JPanel {
 					// Check to see if productID is already in system
 					for (Product product : RetailSystem.getInstance()
 							.getProducts()) {
-						if (product.getProductID()
+						if (product.getName()
 								.equalsIgnoreCase(productName)) {
 							duplicateProductName = true;
 
