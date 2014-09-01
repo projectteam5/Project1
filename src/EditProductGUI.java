@@ -36,7 +36,7 @@ public class EditProductGUI extends JPanel{
 	private boolean empty = true;
 	//
 	Supplier supplierPicked = null;
-	boolean correctInfo = true;
+	boolean correctInfo;
 	boolean duplicateProductName = false;
 	double cost = 0;
 	double markup = 0;
@@ -94,7 +94,7 @@ public class EditProductGUI extends JPanel{
 		
 		buttonCommitEditProduct.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent argo0){
-				
+				correctInfo = true;
 				if(productChosen){
 					//Makes sure fields are not empty
 					nullCheck();
@@ -130,6 +130,11 @@ public class EditProductGUI extends JPanel{
 		try{
 			cost = Double.parseDouble(textFieldCost.getText());
 			markup = Double.parseDouble(textFieldMarkup.getText());
+			if(cost<=0 || markup <0){
+				JOptionPane.showMessageDialog(null,
+						"Please insert positive values");
+				correctInfo = false;
+			}
 		}catch(NumberFormatException e){
 			JOptionPane.showMessageDialog(null, "Please enter numbers in the correct format");
 			correctInfo = false;
@@ -169,9 +174,12 @@ public class EditProductGUI extends JPanel{
 			chosenEditProduct.setCost(cost);
 			chosenEditProduct.setMarkup(markup);
 			chosenEditProduct.setSupplier(supplierPicked);
+			int index = productDropDown.getSelectedIndex();
+			productDropDown.removeAllItems();
+			compileProductNames();
+			productDropDown.setSelectedIndex(index);
 			JOptionPane.showMessageDialog(null, "Product has been edited");
 			saveProduct();
-			populateFields2();
 		}else{
 			JOptionPane.showMessageDialog(null, "error");
 		}
@@ -223,36 +231,7 @@ public class EditProductGUI extends JPanel{
 		repaint();
 	}
 	
-	public void populateFields2(){
-		this.remove(productDropDown);
-		this.remove(buttonEditProduct);
-		this.remove(productName);
-		this.remove(textFieldName);
-		this.remove(productCost);
-		this.remove(textFieldCost);
-		this.remove(productMarkup);
-		this.remove(textFieldMarkup);
-		this.remove(supplierName);
-		this.remove(supplierDropDown);
-		this.remove(buttonCommitEditProduct);
-		//productDropDown = new JComboBox();
-		//compileProductNames();
-		//productDropDown.setSelectedIndex(chosenEditProduct);
-		this.add(productDropDown);
-		this.add(buttonEditProduct);
-		this.add(productName);
-		this.add(textFieldName);
-		this.add(productCost);
-		this.add(textFieldCost);
-		this.add(productMarkup);
-		this.add(textFieldMarkup);
-		this.add(supplierName);
-		this.add(supplierDropDown);
-		this.add(buttonCommitEditProduct);
-		revalidate();
-		repaint();
-		
-	}
+	
 
 	public static Product getChosenEditProduct() {
 		return chosenEditProduct;

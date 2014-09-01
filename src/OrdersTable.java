@@ -1,9 +1,9 @@
 import java.text.DateFormat;
-import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.table.AbstractTableModel;
 
+@SuppressWarnings("serial")
 public class OrdersTable extends AbstractTableModel {
 	
 	private Vector<Order> vet = null;

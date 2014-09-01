@@ -107,8 +107,10 @@ public class CustomerEditGUI extends JPanel {
 			customer.setAddress(address);
 			customer.setPhoneNumber(phone);
 			Customer.saveCustomer();
+			int index = customerDropDown.getSelectedIndex();
 			customerDropDown.removeAllItems();
 			Customer.customerListComplete(customerDropDown);
+			customerDropDown.setSelectedIndex(index);
 			returnValue = 0;
 			}
 		}

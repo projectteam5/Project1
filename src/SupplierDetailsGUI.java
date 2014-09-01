@@ -29,13 +29,14 @@ public class SupplierDetailsGUI extends JPanel{
 		showLabel1 = new JLabel("");
 		showLabel2 = new JLabel("");
 		button = new JButton("Show supplier details");
-		compileSupplierIDs();
+		Supplier.supplierListComplete(supplierDropDown);
+		//compileSupplierIDs();
 		
 		// Takes a supplier iD from drop down menu. Loops through the supplier list to obtain specific object
 		// and then gets their details. The array list is obtained from method in supplier class.
 		button.addActionListener(new ActionListener() {		
 			public void actionPerformed(ActionEvent arg0) {
-				String ID = supplierDropDown.getSelectedItem().toString();
+				String ID = RetailSystem.returnIDfromCombobox(supplierDropDown.getSelectedItem().toString());
 				for(Supplier supplier: getSupplier.getSupplierList()){
 					if(supplier.getSupplierID().equals(ID)){
 						String tempName= supplier.getName();

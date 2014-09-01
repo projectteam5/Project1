@@ -143,4 +143,18 @@ public class Invoice {
 		
 		return matrix;
 	}
+	
+	public static int quantityProductSoldMonthly(Product product, int month, int year){
+		int quantity = 0;
+		for(Invoice invoice : RetailSystem.getInstance().getInvoices()){
+			if(invoice.getInvoiceDate().getYear()== year && invoice.getInvoiceDate().getMonth()== month){
+				for(LineItem lineItem : invoice.getSale().getLineItems()){
+					if(lineItem.getProduct().getProductID().equals(product.getProductID())){
+						quantity = quantity+lineItem.getQuantity();
+					}
+				}
+			}
+		}
+		return quantity;
+	}
 }

@@ -1,6 +1,7 @@
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.BoxLayout;
@@ -31,6 +32,7 @@ public class SaleGUI extends JPanel {
 	private JButton buttonAddProduct;
 	private JButton buttonRefreshList;
 	private JButton buttonConfirmSale;
+	private JButton buttonCancelSale;
 
 	private Vector<LineItem> vet;
 	private JTable table;
@@ -47,6 +49,7 @@ public class SaleGUI extends JPanel {
 	private boolean available;
 
 	public SaleGUI() {
+
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		Product.compileProductNames(productDropDown);
 		Customer.customerListComplete(customerDropDown);// Combobox for Customer
@@ -67,6 +70,8 @@ public class SaleGUI extends JPanel {
 		buttonRefreshList.setAlignmentX(CENTER_ALIGNMENT);
 		buttonConfirmSale = new JButton("Create Invoice");
 		buttonConfirmSale.setAlignmentX(CENTER_ALIGNMENT);
+		buttonCancelSale = new JButton("Cancel Invoice");
+		buttonCancelSale.setAlignmentX(CENTER_ALIGNMENT);
 		runningTotalLabel.setAlignmentX(CENTER_ALIGNMENT);
 
 		this.add(labelTitle);
@@ -87,6 +92,7 @@ public class SaleGUI extends JPanel {
 		this.add(runningTotalField);
 		this.add(buttonRefreshList);
 		this.add(buttonConfirmSale);
+		this.add(buttonCancelSale);
 
 		// Add running total
 		buttonAddProduct.addActionListener(new ActionListener() {
@@ -123,13 +129,19 @@ public class SaleGUI extends JPanel {
 			}
 		});
 
+		buttonCancelSale.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cancelSale();
+			}
+		});
+
 	}
 
 	public void addProduct(Product product) {
 		available = false;
 		available = stockAvailable(product, amount);
 		if (available) {
-			Stock.updateStock(product , amount);
+			Stock.updateStock(product, amount);
 			LineItem lineItem = new LineItem(product, amount);
 			vet.add(lineItem);
 			runningTotal = runningTotal + lineItem.getTotalCost();
@@ -155,7 +167,8 @@ public class SaleGUI extends JPanel {
 		Vector<LineItem> rem = new Vector<LineItem>();
 		for (LineItem lineItem : vet) {
 			if (lineItem.isRemoved()) {
-				Stock.increaseStock(lineItem.getProduct() , lineItem.getQuantity());
+				Stock.increaseStock(lineItem.getProduct(),
+						lineItem.getQuantity());
 				rem.add(lineItem);
 				runningTotal = runningTotal - lineItem.getTotalCost();
 			}
@@ -213,5 +226,16 @@ public class SaleGUI extends JPanel {
 		JOptionPane.showMessageDialog(null,
 				"The amount has to be a positive integer", "Error",
 				JOptionPane.ERROR_MESSAGE);
+	}
+
+	public void cancelSale() {
+		if (vet.size() > 0) {
+			for (int i = 0; i < vet.size(); i++) {
+				Stock.increaseStock(vet.get(i).getProduct(), vet.get(i)
+						.getQuantity());
+			}
+			vet.clear();
+			clear();
+		}
 	}
 }

@@ -1,6 +1,8 @@
 import java.io.FileWriter;
 import java.util.ArrayList;
 
+import javax.swing.JComboBox;
+
 
 public class Supplier {
 	private String supplierID;
@@ -100,5 +102,16 @@ public class Supplier {
 
 		}
 		return supplier;
+	}
+	
+	public static void supplierListComplete(JComboBox dropdown) {
+		for (Supplier supplier : RetailSystem.getInstance().getSuppliers()) {
+			if (supplier.isActive()) {
+				// System.out.println(invoice.getInvoiceID()+invoice.getCustomer().getCustomerID());
+				String string = "ID: " + supplier.getSupplierID() + " ; Name: "
+						+ supplier.getName();
+				dropdown.addItem(string);
+			}
+		}
 	}
 }

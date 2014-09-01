@@ -117,7 +117,7 @@ public class OrderGUI extends JPanel implements ActionListener {
 				
 				colorButton();
 				viewAllOrders.setBackground(colorButtonSelected);
-				MenuGUI.getInstance().setPanelAction(new ViewAllOrdersGUI());
+				MenuGUI.getInstance().setPanelAction(new ListOrders());
 				
 			} catch(Exception e) {
 				System.err.println(e);
