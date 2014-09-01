@@ -47,8 +47,12 @@ public class SaleGUI extends JPanel {
 	private Customer customerPicked;
 	private TableModel dataModel;
 	private boolean available;
+	private static ArrayList<Stock> stockTemp;
 
 	public SaleGUI() {
+
+		stockTemp = Stock.createStockTemp(RetailSystem.getInstance()
+				.getStocks());
 
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		Product.compileProductNames(productDropDown);
@@ -141,7 +145,7 @@ public class SaleGUI extends JPanel {
 		available = false;
 		available = stockAvailable(product, amount);
 		if (available) {
-			Stock.updateStock(product, amount);
+			updateStockTemp(product, amount);
 			LineItem lineItem = new LineItem(product, amount);
 			vet.add(lineItem);
 			runningTotal = runningTotal + lineItem.getTotalCost();
@@ -154,7 +158,7 @@ public class SaleGUI extends JPanel {
 	}
 
 	public boolean stockAvailable(Product product, int amount) {
-		for (Stock stock : RetailSystem.getInstance().getStocks()) {
+		for (Stock stock : stockTemp) {
 			if ((stock.getProduct().getProductID().equals(product
 					.getProductID())) && (stock.getUnits() >= amount)) {
 				return true;
@@ -167,7 +171,7 @@ public class SaleGUI extends JPanel {
 		Vector<LineItem> rem = new Vector<LineItem>();
 		for (LineItem lineItem : vet) {
 			if (lineItem.isRemoved()) {
-				Stock.increaseStock(lineItem.getProduct(),
+				increaseStockTemp(lineItem.getProduct(),
 						lineItem.getQuantity());
 				rem.add(lineItem);
 				runningTotal = runningTotal - lineItem.getTotalCost();
@@ -189,6 +193,7 @@ public class SaleGUI extends JPanel {
 			if (vet.size() > 0) {
 				for (int i = 0; i < vet.size(); i++) {
 					sale.addLineItem(vet.get(i));
+					Stock.updateStock(vet.get(i).getProduct(), vet.get(i).getQuantity());
 				}
 				// Create invoice //Issue here
 				Invoice invoice = new Invoice(sale.getSaleDate(),
@@ -228,10 +233,27 @@ public class SaleGUI extends JPanel {
 				JOptionPane.ERROR_MESSAGE);
 	}
 
+	public static void updateStockTemp(Product product, int quantity) {
+		for (Stock stock : stockTemp) {
+			if (product.getProductID().equalsIgnoreCase(
+					stock.getProduct().getProductID())) {
+				stock.setUnits(stock.getUnits() - quantity);
+			}
+		}
+	}
+	
+	public static void increaseStockTemp(Product product, int quantity){
+		for(Stock stock :stockTemp) {
+			if(stock.getProduct().getProductID().equals(product.getProductID())) {
+				stock.setUnits(stock.getUnits()+quantity);
+			}
+		}
+	}
+
 	public void cancelSale() {
 		if (vet.size() > 0) {
 			for (int i = 0; i < vet.size(); i++) {
-				Stock.increaseStock(vet.get(i).getProduct(), vet.get(i)
+				increaseStockTemp(vet.get(i).getProduct(), vet.get(i)
 						.getQuantity());
 			}
 			vet.clear();
