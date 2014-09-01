@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -12,165 +13,274 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.xy.MatrixSeries;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.ui.RectangleInsets;
 
 public class GraphOfTopSales extends JPanel {
 
-   private static final long serialVersionUID = 1L;
-   @SuppressWarnings("deprecation")
-   static Date date = new Date();
-   private ArrayList<Order> lastMonth;
-   private ArrayList<Order> secondLastMonth;
-   private ArrayList<Order> thirdLastMonth;
-   private DataSetValue firstDS;
-   private DataSetValue secondDS;
-   private DataSetValue thirdDS;
+   private static final long serialVersionUID = 1L;  
+   private String[][] matrix;
+   
+   ArrayList<ToHoldSoldProductsAndQuantity> janList= new ArrayList<ToHoldSoldProductsAndQuantity>();
+   ArrayList<ToHoldSoldProductsAndQuantity> febList= new ArrayList<ToHoldSoldProductsAndQuantity>();
+   ArrayList<ToHoldSoldProductsAndQuantity> marList= new ArrayList<ToHoldSoldProductsAndQuantity>();
+   ArrayList<ToHoldSoldProductsAndQuantity> aprList= new ArrayList<ToHoldSoldProductsAndQuantity>();
+   ArrayList<ToHoldSoldProductsAndQuantity> mayList= new ArrayList<ToHoldSoldProductsAndQuantity>();
+   ArrayList<ToHoldSoldProductsAndQuantity> junList= new ArrayList<ToHoldSoldProductsAndQuantity>();
+   ArrayList<ToHoldSoldProductsAndQuantity> julList= new ArrayList<ToHoldSoldProductsAndQuantity>();
+   ArrayList<ToHoldSoldProductsAndQuantity> augList= new ArrayList<ToHoldSoldProductsAndQuantity>();
+   ArrayList<ToHoldSoldProductsAndQuantity> sepList= new ArrayList<ToHoldSoldProductsAndQuantity>();
+   ArrayList<ToHoldSoldProductsAndQuantity> octList= new ArrayList<ToHoldSoldProductsAndQuantity>();
+   ArrayList<ToHoldSoldProductsAndQuantity> novList= new ArrayList<ToHoldSoldProductsAndQuantity>();
+   ArrayList<ToHoldSoldProductsAndQuantity> decList= new ArrayList<ToHoldSoldProductsAndQuantity>();
+   
+   ArrayList<ToHoldSoldProductsAndQuantity> dupCheckList= new ArrayList<ToHoldSoldProductsAndQuantity>();
+   ArrayList<ToHoldSoldProductsAndQuantity> completeList= new ArrayList<ToHoldSoldProductsAndQuantity>();
+   
+   ArrayList<XYSeries> listOfXYSeries = new ArrayList<XYSeries>();
 
+
+   private ToHoldSoldProductsAndQuantity convertedMatrixObject;
+   private ToHoldSoldProductsAndQuantity listObject;
+
+   XYSeries series;
+    
+   XYSeries seriesJan;XYSeries seriesFeb;XYSeries seriesMar;XYSeries seriesApr;XYSeries seriesMay;XYSeries seriesJun;
+   XYSeries seriesJul;XYSeries seriesAug;XYSeries seriesSep;XYSeries seriesOct;XYSeries seriesNov;XYSeries seriesDec;
+   
    public GraphOfTopSales(String applicationTitle, String chartTitle) {
-	    lastMonth = new ArrayList<Order>();
-	    secondLastMonth = new ArrayList<Order>();
-	    thirdLastMonth = new ArrayList<Order>();
-	    this.setLayout(new GridLayout(0,1));
+	   	//	Getting the matrix that contains the date,products and quantities from all sales
+	   	matrix = Invoice.productsSold();
+	   	listObject= new ToHoldSoldProductsAndQuantity("", "", 0);
+	   	dupCheckList.add(listObject);
+	   	
+	   	//	Finding out how many Individual products with quantities are in Matrix
+	   	int count = 0;
+	   	
+		for(Invoice invoice : RetailSystem.getInstance().getInvoices()){
+			count = count + invoice.getSale().getLineItems().size();
+		}
+		// Converting the matrix to a list of objects
+		for(int i=0; i<count; i++){
+				convertedMatrixObject= new ToHoldSoldProductsAndQuantity(matrix[i][0], matrix[i][1], 
+							Double.parseDouble(matrix[i][2]));
+				completeList.add(convertedMatrixObject);
+		}
+		
+		// Separating the complete list of itemized sales into lists by months
+		for(ToHoldSoldProductsAndQuantity g: completeList){
+			if(g.getDate().contains("Jan")){janList.add(g);}
+			else if(g.getDate().contains("Feb")){febList.add(g);}
+			else if(g.getDate().contains("Mar")){marList.add(g);}
+			else if(g.getDate().contains("Apr")){aprList.add(g);}
+			else if(g.getDate().contains("May")){mayList.add(g);}
+			else if(g.getDate().contains("Jun")){junList.add(g);}
+			else if(g.getDate().contains("Jul")){julList.add(g);}
+			else if(g.getDate().contains("Aug")){augList.add(g);}
+			else if(g.getDate().contains("Sep")){sepList.add(g);}
+			else if(g.getDate().contains("Oct")){octList.add(g);}
+			else if(g.getDate().contains("Nov")){novList.add(g);}
+			else decList.add(g);
+		}	
+		
+		// Checking each list for multiple product and quantities and resorting
+		// such that each month list contains unique products with calculated
+		// quantities if the product appeared more than once on the list
+		resortMonthlyListToCalculateMulipleSalesOfProducts();
+				
+		// Creating the data set according to month.
+		// Will be 12 standard months on X-Axis with quantities on
+		// the Y-Axis with numerous colored lines depicting products
+		for(ToHoldSoldProductsAndQuantity list:janList){
+			series = new XYSeries(list.getName());
+			listOfXYSeries.add(series);
+		}
+		
+		
+		
+	   	// Adding the data set to the collection for viewing
 
-        // based on the dataset we create the chart
-        JFreeChart pieChart = ChartFactory.createBarChart("Most Ordered Products", "Products", "Units",
-        		createDataset(),PlotOrientation.VERTICAL, true, true, false);
+		XYSeriesCollection  xyDataset = new XYSeriesCollection();
+        xyDataset.addSeries(seriesJan);
+        xyDataset.addSeries(seriesFeb);
+        xyDataset.addSeries(seriesMar);
+        xyDataset.addSeries(seriesApr);
+        xyDataset.addSeries(seriesMay);
+        xyDataset.addSeries(seriesJun);
+        xyDataset.addSeries(seriesJul);
+        xyDataset.addSeries(seriesAug);
+        xyDataset.addSeries(seriesSep);
+        xyDataset.addSeries(seriesOct);
+        xyDataset.addSeries(seriesNov);
+        xyDataset.addSeries(seriesDec);
+       
         
-        // Adding chart into a chart panel
+        // Declaring and initializing and adding the chart to the panel 
+        
+        JFreeChart	chart = ChartFactory.createXYLineChart("Products & Quantities over Time","Months","Quantity",xyDataset,PlotOrientation.VERTICAL,true,false,false);
+        chart.setBackgroundPaint(Color.white); 
 
-        ChartPanel chartPanel = new ChartPanel(pieChart);
-        
-      
-        // setting default size
+        XYPlot	plot	= (XYPlot) chart.getPlot();
+        plot.setBackgroundPaint       (Color.lightGray);
+        plot.setDomainGridlinePaint   (Color.GREEN);
+        plot.setRangeGridlinePaint    (Color.white);
+        plot.setAxisOffset            (new RectangleInsets(50, 0, 20, 5));
+        plot.setDomainCrosshairVisible(true);
+        plot.setRangeCrosshairVisible (true);
+
+        XYLineAndShapeRenderer  renderer  = (XYLineAndShapeRenderer) plot.getRenderer();      
+        renderer.setBaseShapesVisible(true);
+        renderer.setBaseShapesFilled (true);
+
+        ChartPanel              chartPanel     = new ChartPanel(chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
-        
+        this.setLayout(new GridLayout(0, 1));
         this.add(chartPanel);
         
     }
-  
-   private CategoryDataset createDataset() {
-     // row keys...
-      final String january = "Previous Month";
-      final String feb = "2nd Last Month";
-      final String mar = "3rd Last Month";
-
-      // create the dataset...
-      final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-      
-      seperateAndRedefineStocksPerMonth(RetailSystem.getInstance().getOrders());
-      findDataValuesForLastMonth(lastMonth,1); 
-      dataset.addValue(firstDS.getValue1(), firstDS.getName1(),january);
-      dataset.addValue(firstDS.getValue2(), firstDS.getName2(),january);
-      dataset.addValue(firstDS.getValue3(), firstDS.getName3(),january);
-      
-      
-      findDataValuesForLastMonth(secondLastMonth,2); 
-      dataset.addValue(secondDS.getValue1(), secondDS.getName1(),feb);
-      dataset.addValue(secondDS.getValue2(), secondDS.getName2(),feb);
-      dataset.addValue(secondDS.getValue3(), secondDS.getName3(),feb);
-      
-      
-      findDataValuesForLastMonth(thirdLastMonth,3); 
-      dataset.addValue(thirdDS.getValue1(),  thirdDS.getName1(), mar);
-      dataset.addValue(thirdDS.getValue2(),  thirdDS.getName2(), mar);
-      dataset.addValue(thirdDS.getValue3(),  thirdDS.getName3(), mar);
-      
-      return dataset;
-  }
    
-   // previous months data values
-   public void findDataValuesForLastMonth(ArrayList<Order> month, int monthID){
-	   int numberOneQuantity=0;
-	   int numberTwoQuantity=0;
-	   int numberThreeQuantity=0;
-	   // column keys...
-	   String numberOneName = "";
-	   String numberTwoName = "";
-	   String numberThreeName = "";	   
-	  
-	  int highestQuantity=0,secondHighestQuantity=0,thirdHighestQuantity=0;
-	      
-      for(Order orders:month){
-    	  numberOneQuantity=orders.getQuantity();
-    	  for(Order ord:month){
-    		 highestQuantity = ord.getQuantity();
-    		 if(numberOneQuantity<=highestQuantity){
-    			 numberOneQuantity = highestQuantity;
-    			 numberOneName = ord.getProduct().getName();
-    		 }
-    	  }
-      }
-      
-	  for(Order orders1:month){
-		  numberTwoQuantity = orders1.getQuantity();
-    	  for(Order ord1:month){
-    		 secondHighestQuantity=ord1.getQuantity();
-    		 if(numberTwoQuantity<=secondHighestQuantity && secondHighestQuantity<numberOneQuantity){
-    			 numberTwoQuantity=secondHighestQuantity;
-    			 numberTwoName = ord1.getProduct().getName();
-    		 }
-    	  }
-	  }
+   // Function to check for two or more products sold in the same month that
+   // is used in conjunction with the resortMonthlyLists function
+   
+   public void storeAndCheckForMoreSalesOfProduct(ToHoldSoldProductsAndQuantity sentListItem){
+	   int i=0;
+	   for(ToHoldSoldProductsAndQuantity thisList: dupCheckList){
+		   if(sentListItem.getName()==thisList.getName()){
+			   thisList.setQuantity(thisList.getQuantity()+sentListItem.getQuantity());
+			   i=0;
+		   }else
+			   i=1;
+	   }
 	   
-	  for(Order orders12:month){
-		  numberThreeQuantity=orders12.getQuantity();
-    	  for(Order ord12:month){
-    		 thirdHighestQuantity=ord12.getQuantity();
-    		 if(numberThreeQuantity<=thirdHighestQuantity && thirdHighestQuantity<numberTwoQuantity){
-    			 numberThreeQuantity=thirdHighestQuantity;
-    			 numberThreeName = ord12.getProduct().getName();
-    		 }
-    	  }
-	  }
-	  
-	  if(monthID==1){
-		  System.out.println("1="+numberOneQuantity+numberTwoQuantity+numberThreeQuantity);
-		  firstDS = new DataSetValue(numberOneQuantity, numberOneName, numberTwoQuantity,
-				  numberTwoName, numberThreeQuantity, numberThreeName);
-	  }
-	  else if(monthID==2){
-		  System.out.println("2="+numberOneQuantity+numberTwoQuantity+numberThreeQuantity);
-		  secondDS = new DataSetValue(numberOneQuantity, numberOneName, numberTwoQuantity,
-				  numberTwoName, numberThreeQuantity, numberThreeName); 
-	  }
-	  else
-		  System.out.println("3="+numberOneQuantity+numberTwoQuantity+numberThreeQuantity);
-		  thirdDS = new DataSetValue(numberOneQuantity, numberOneName, numberTwoQuantity,
-				  numberTwoName, numberThreeQuantity, numberThreeName);
-   }
-   
-   
-   // Function to separate the months of orders and add to specific list
-   public void seperateAndRedefineStocksPerMonth(ArrayList<Order> orders){
-	   for(Order o: orders){
-		   if(addDaysFromDateString(o.getOrderDate(), date)==1){
-			   lastMonth.add(o);
-		   }
-		   else if(addDaysFromDateString(o.getOrderDate(), date)==2){
-			   secondLastMonth.add(o);
-		   }
-		   else if(addDaysFromDateString(o.getOrderDate(), date)==3){
-			   thirdLastMonth.add(o);
-		   }
+	   if(i==1){
+		   dupCheckList.add(sentListItem);
+		   i=0;
 	   }
    }
    
-   // Function to return the difference in months from today to order date
-   public static int addDaysFromDateString(Date orderDate, Date todaysDate) {
-       int result;
-       
-       Calendar calendar = new GregorianCalendar();
-       Calendar calendar2 = new GregorianCalendar();
-       DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");
-      
-       calendar.setTime(todaysDate);
-       calendar2.setTime(orderDate);
-       int a = calendar.get(Calendar.MONTH);
-       int b = calendar2.get(Calendar.MONTH);
-       
-       result = a-b;
-      
-       return result;
-   }
+   // Checking each list for multiple product and quantities and resorting
+   // such that each month list contains unique products with calculated
+   // quantities if the product appeared more than once on the list
+   // The monthly list is sent to a method to check for multiple sales
+   // of the same product within the month and then added to collectively
+   // to a new list such that each list contains unique products. This original 
+   // monthly list is then deleted with the contents of the new list passed back to 
+   // the original list.
+   
+   public void resortMonthlyListToCalculateMulipleSalesOfProducts(){	
+		// January
+		for(ToHoldSoldProductsAndQuantity j: janList){storeAndCheckForMoreSalesOfProduct(j);}
+		for(ToHoldSoldProductsAndQuantity thisItem: dupCheckList){janList.add(thisItem);}
+		janList.clear();
+		dupCheckList.remove(0);
+		for(ToHoldSoldProductsAndQuantity obj: dupCheckList){janList.add(obj);}
+		dupCheckList.clear();
+		dupCheckList.add(listObject);
+		
+		// February
+		for(ToHoldSoldProductsAndQuantity f: febList){storeAndCheckForMoreSalesOfProduct(f);}
+		for(ToHoldSoldProductsAndQuantity thisItem: dupCheckList){febList.add(thisItem);}
+		febList.clear();
+		dupCheckList.remove(0);
+		for(ToHoldSoldProductsAndQuantity obj: dupCheckList){febList.add(obj);}
+		dupCheckList.clear();
+		dupCheckList.add(listObject);
+	
+		// March
+		for(ToHoldSoldProductsAndQuantity mar: marList){storeAndCheckForMoreSalesOfProduct(mar);}
+		for(ToHoldSoldProductsAndQuantity thisItem: dupCheckList){marList.add(thisItem);}
+		marList.clear();
+		dupCheckList.remove(0);
+		for(ToHoldSoldProductsAndQuantity obj: dupCheckList){marList.add(obj);}
+		dupCheckList.clear();
+		dupCheckList.add(listObject);
+	
+		// April
+		for(ToHoldSoldProductsAndQuantity apr: aprList){storeAndCheckForMoreSalesOfProduct(apr);}
+		for(ToHoldSoldProductsAndQuantity thisItem: dupCheckList){aprList.add(thisItem);}
+		aprList.clear();
+		dupCheckList.remove(0);
+		for(ToHoldSoldProductsAndQuantity obj: dupCheckList){aprList.add(obj);}
+		dupCheckList.clear();
+		dupCheckList.add(listObject);
+	
+		// May
+		for(ToHoldSoldProductsAndQuantity may: mayList){storeAndCheckForMoreSalesOfProduct(may);}
+		for(ToHoldSoldProductsAndQuantity thisItem: dupCheckList){mayList.add(thisItem);}
+		mayList.clear();
+		dupCheckList.remove(0);
+		for(ToHoldSoldProductsAndQuantity obj: dupCheckList){mayList.add(obj);}
+		dupCheckList.clear();
+		dupCheckList.add(listObject);
+	
+		// June
+		for(ToHoldSoldProductsAndQuantity jun: junList){storeAndCheckForMoreSalesOfProduct(jun);}
+		for(ToHoldSoldProductsAndQuantity thisItem: dupCheckList){junList.add(thisItem);}
+		junList.clear();
+		dupCheckList.remove(0);
+		for(ToHoldSoldProductsAndQuantity obj: dupCheckList){junList.add(obj);}
+		dupCheckList.clear();
+		dupCheckList.add(listObject);
+	
+		// July
+		for(ToHoldSoldProductsAndQuantity jul: julList){storeAndCheckForMoreSalesOfProduct(jul);}
+		for(ToHoldSoldProductsAndQuantity thisItem: dupCheckList){julList.add(thisItem);}
+		julList.clear();
+		dupCheckList.remove(0);
+		for(ToHoldSoldProductsAndQuantity obj: dupCheckList){julList.add(obj);}
+		dupCheckList.clear();
+		dupCheckList.add(listObject);
+	
+		// August
+		for(ToHoldSoldProductsAndQuantity aug: augList){storeAndCheckForMoreSalesOfProduct(aug);}
+		for(ToHoldSoldProductsAndQuantity thisItem: dupCheckList){augList.add(thisItem);}
+		augList.clear();
+		dupCheckList.remove(0);
+		for(ToHoldSoldProductsAndQuantity obj: dupCheckList){augList.add(obj);}
+		dupCheckList.clear();
+		dupCheckList.add(listObject);
+	
+		// September
+		for(ToHoldSoldProductsAndQuantity sep: sepList){storeAndCheckForMoreSalesOfProduct(sep);}
+		for(ToHoldSoldProductsAndQuantity thisItem: dupCheckList){sepList.add(thisItem);}
+		sepList.clear();
+		dupCheckList.remove(0);
+		for(ToHoldSoldProductsAndQuantity obj: dupCheckList){sepList.add(obj);}
+		dupCheckList.clear();
+		dupCheckList.add(listObject);
+	
+		// October
+		for(ToHoldSoldProductsAndQuantity oct: octList){storeAndCheckForMoreSalesOfProduct(oct);}
+		for(ToHoldSoldProductsAndQuantity thisItem: dupCheckList){octList.add(thisItem);}
+		octList.clear();
+		dupCheckList.remove(0);
+		for(ToHoldSoldProductsAndQuantity obj: dupCheckList){octList.add(obj);}
+		dupCheckList.clear();
+		dupCheckList.add(listObject);
+	
+		// November
+		for(ToHoldSoldProductsAndQuantity nov: novList){storeAndCheckForMoreSalesOfProduct(nov);}
+		for(ToHoldSoldProductsAndQuantity thisItem: dupCheckList){novList.add(thisItem);}
+		novList.clear();
+		dupCheckList.remove(0);
+		for(ToHoldSoldProductsAndQuantity obj: dupCheckList){novList.add(obj);}
+		dupCheckList.clear();
+		dupCheckList.add(listObject);
+	
+		// December
+		for(ToHoldSoldProductsAndQuantity dec: decList){storeAndCheckForMoreSalesOfProduct(dec);}
+		for(ToHoldSoldProductsAndQuantity thisItem: dupCheckList){decList.add(thisItem);}
+		decList.clear();
+		dupCheckList.remove(0);
+		for(ToHoldSoldProductsAndQuantity obj: dupCheckList){decList.add(obj);}
+		dupCheckList.clear();
+		dupCheckList.add(listObject);
+	}
+
 }
