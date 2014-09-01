@@ -1,5 +1,7 @@
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -7,17 +9,59 @@ import java.util.GregorianCalendar;
 
 public class Accounting {
 	
+	private ArrayList<Invoice> invoices;
+	
+	private ArrayList<Order> orders;
+	
+	private ArrayList<Stock> stocks;
+	
+	private Date accountingDate;
+	
 	public Accounting() {
 		
-		RetailSystem.getInstance().getInvoices();
+		invoices = new ArrayList<Invoice>();
 		
-		RetailSystem.getInstance().getOrders();
+		orders = new ArrayList<Order>();
 		
-		RetailSystem.getInstance().getStocks();
+		stocks = new ArrayList<Stock>();
+		
+		accountingDate = new Date();
 		
 	}
 	
-	public static String subtractMonthsFromDateString() {
+	public ArrayList<Invoice> getInvoices() {
+		return invoices;
+	}
+
+	public void setInvoices(ArrayList<Invoice> invoices) {
+		this.invoices = invoices;
+	}
+
+	public ArrayList<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(ArrayList<Order> orders) {
+		this.orders = orders;
+	}
+
+	public ArrayList<Stock> getStocks() {
+		return stocks;
+	}
+
+	public void setStocks(ArrayList<Stock> stocks) {
+		this.stocks = stocks;
+	}
+
+	public Date getAccountingDate() {
+		return accountingDate;
+	}
+
+	public void setAccountingDate(Date accountingDate) {
+		this.accountingDate = accountingDate;
+	}
+	
+	public static String dateOpsMonthsFromDateString(int period) {
 		
 		String newDate = "";
 		
@@ -27,27 +71,59 @@ public class Accounting {
 		
 		calendar.setTime(new Date());
 		
-		calendar.add(Calendar.MONTH, -1);
+		calendar.add(Calendar.MONTH, period);
 		
 		newDate = dateFormat.format(calendar.getTime());
 		
 		return newDate;
 	}
 	
-	public static Date subtractMonthsFromDate() {
+	public static Date subtractMonthsFromDate(int period) {
 		
 		Calendar calendar = new GregorianCalendar();
 		
 		calendar.setTime(new Date());
 		
-		calendar.add(Calendar.MONTH, -1);
+		calendar.add(Calendar.MONTH, - period);
 		
 		Date newDate = calendar.getTime();
 		
 		return newDate;
 	}
 	
-	public static double salesIncome() {
+	public static Date addMonthsToDate(int period) {
+		
+		Calendar calendar = new GregorianCalendar();
+		
+		calendar.setTime(new Date());
+		
+		calendar.add(Calendar.MONTH, period);
+		
+		Date newDate = calendar.getTime();
+		
+		return newDate;
+	}
+	
+	public static double salesIncome(String period1, String period2) {
+		
+		DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+		
+		Calendar calendar1 = new GregorianCalendar();
+		
+		Calendar calendar2 = new GregorianCalendar();
+		
+		try {
+			calendar1.setTime(dateFormat.parse(period1));
+			
+			calendar2.setTime(dateFormat.parse(period2));
+			
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		Date date1 = calendar1.getTime();
+		
+		Date date2 = calendar2.getTime();
 		
 		double totalProfit = 0.0;
 		
@@ -55,7 +131,9 @@ public class Accounting {
 		
 		for(Invoice invoice : RetailSystem.getInstance().getInvoices()) {
 			
-			if( (invoice.getInvoiceDate().after(Accounting.subtractMonthsFromDate())&&invoice.getInvoiceDate().before(new Date())) &&invoice.isPaid() ) {
+			if( (invoice.getInvoiceDate().after(date1)
+					&&invoice.getInvoiceDate().before(date2)) 
+					&&invoice.isPaid() ) {
 				
 				profit += invoice.getTotalInvoice();
 				
@@ -69,43 +147,26 @@ public class Accounting {
 		
 	}
 	
-	public static double showLosses() {
+	public static double openingStock(String period1, String period2) {
 		
-		double totalLosses = 0.0;
+		DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
 		
-		double loss = 0.0;
+		Calendar calendar1 = new GregorianCalendar();
 		
-		for(Order order : RetailSystem.getInstance().getOrders()) {
+		Calendar calendar2 = new GregorianCalendar();
+		
+		try {
+			calendar1.setTime(dateFormat.parse(period1));
 			
-			if( (order.getOrderDate().after(Accounting.subtractMonthsFromDate())&&order.getOrderDate().before(new Date())) &&order.isReceived() ) {
-				
-				loss += order.getProduct().getCost() * order.getQuantity();
-				
-			}
+			calendar2.setTime(dateFormat.parse(period2));
 			
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
 		
-		totalLosses = loss;
+		Date date1 = calendar1.getTime();
 		
-		return totalLosses;
-		
-	}
-	
-	public static double showProfitsAndLosses() {
-		
-		double pl = 0.0;
-		
-		double profit = Accounting.salesIncome();
-		
-		double loss = Accounting.showLosses();
-		
-		pl = profit - loss;
-		
-		return pl;
-		
-	}
-	
-	public static double openingStock() {
+		Date date2 = calendar2.getTime();
 		
 		double s = 0.0;
 		
@@ -113,7 +174,18 @@ public class Accounting {
 		
 		for(Stock stock : RetailSystem.getInstance().getStocks()) {
 			
-			s += stock.getProduct().getCost() * stock.getUnits();
+			for(Order order : RetailSystem.getInstance().getOrders()) {
+				
+				if( stock.getProduct().getProductID().equals(order.getProduct().getProductID()) 
+						&& (order.getOrderDate().after(date1)
+						&& order.getOrderDate().before(date2)) 
+						&& order.isReceived() ) {
+					
+					s += stock.getProduct().getCost() * stock.getUnits();
+					
+				}
+				
+			}
 			
 		}
 		
@@ -123,7 +195,26 @@ public class Accounting {
 		
 	}
 	
-	public static double closingStock() {
+	public static double closingStock(String period1, String period2) {
+		
+		DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+		
+		Calendar calendar1 = new GregorianCalendar();
+		
+		Calendar calendar2 = new GregorianCalendar();
+		
+		try {
+			calendar1.setTime(dateFormat.parse(period1));
+			
+			calendar2.setTime(dateFormat.parse(period2));
+			
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		Date date1 = calendar1.getTime();
+		
+		Date date2 = calendar2.getTime();
 		
 		double s = 0.0;
 		
@@ -133,13 +224,26 @@ public class Accounting {
 		
 		for(Stock stock : RetailSystem.getInstance().getStocks()) {
 			
-			s += stock.getProduct().getCost() * stock.getUnits();
+			for(Order order : RetailSystem.getInstance().getOrders()) {
+				
+				if( stock.getProduct().getProductID().equals(order.getProduct().getProductID()) 
+						&& (order.getOrderDate().after(date1)
+						&& order.getOrderDate().before(date2)) 
+						&& order.isReceived() ) {
+					
+					s += stock.getProduct().getCost() * stock.getUnits();
+					
+				}
+				
+			}
 			
 		}
 		
 		for(Order order : RetailSystem.getInstance().getOrders()) {
 			
-			if( (order.getOrderDate().after(Accounting.subtractMonthsFromDate())&&order.getOrderDate().before(new Date())) &&order.isReceived() ) {
+			if( (order.getOrderDate().after(date1))
+					&& order.getOrderDate().before(date2) 
+					&& order.isReceived() ) {
 				
 				o += order.getProduct().getCost();
 				
@@ -153,7 +257,26 @@ public class Accounting {
 		
 	}
 	
-	public static double goodsPurchase() {
+	public static double goodsPurchase(String period1, String period2) {
+		
+		DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+		
+		Calendar calendar1 = new GregorianCalendar();
+		
+		Calendar calendar2 = new GregorianCalendar();
+		
+		try {
+			calendar1.setTime(dateFormat.parse(period1));
+			
+			calendar2.setTime(dateFormat.parse(period2));
+			
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		Date date1 = calendar1.getTime();
+		
+		Date date2 = calendar2.getTime();
 		
 		double p = 0.0;
 		
@@ -161,7 +284,9 @@ public class Accounting {
 		
 		for(Order order : RetailSystem.getInstance().getOrders()) {
 			
-			if( (order.getOrderDate().after(Accounting.subtractMonthsFromDate())&&order.getOrderDate().before(new Date())) &&order.isReceived() ) {
+			if( (order.getOrderDate().after(date1)
+					&& order.getOrderDate().before(date2))
+					&& order.isReceived() ) {
 				
 				p += order.getProduct().getCost() * order.getQuantity();
 				
@@ -175,7 +300,7 @@ public class Accounting {
 		
 	}
 	
-	public static double costOfSales() {
+	public static double costOfSales(String period1, String period2) {
 		
 		// Opening Stock = stock - orders
 		
@@ -187,11 +312,11 @@ public class Accounting {
 		
 		double costOfSales = 0.0;
 		
-		double oS = Accounting.openingStock();
+		double oS = Accounting.openingStock(period1, period2);
 		
-		double p = Accounting.goodsPurchase();
+		double p = Accounting.goodsPurchase(period1, period2);
 		
-		double cS = Accounting.closingStock();
+		double cS = Accounting.closingStock(period1, period2);
 		
 		costOfSales = (oS + p) - cS;
 		
@@ -199,13 +324,13 @@ public class Accounting {
 		
 	}
 	
-	public static double grossProfit() {
+	public static double grossProfit(String period1, String period2) {
 		
 		double grossProfit = 0.0;
 		
-		double sI = Accounting.salesIncome();
+		double sI = Accounting.salesIncome(period1, period2);
 		
-		double cS = Accounting.costOfSales();
+		double cS = Accounting.costOfSales(period1, period2);
 		
 		grossProfit = sI - cS;
 		
@@ -213,22 +338,4 @@ public class Accounting {
 		
 	}
 	
-	public static double showExpectedProfit() {
-		
-		double expectedSales = 0.0;
-		
-		double prediction = 0.0;
-		
-		for(Stock stock : RetailSystem.getInstance().getStocks()) {
-			
-			prediction += ( stock.getProduct().getCost() + stock.getProduct().getMarkup() ) * stock.getUnits();
-			
-		}
-		
-		expectedSales = prediction;
-		
-		return expectedSales;
-		
-	}
-
 }

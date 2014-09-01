@@ -108,6 +108,7 @@ public class OrderTest {
 		
 	}
 
+	@SuppressWarnings("static-access")
 	@Test
 	public void testReceivedOrder() {
 		
