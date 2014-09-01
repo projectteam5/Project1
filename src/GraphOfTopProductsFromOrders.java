@@ -124,17 +124,14 @@ public class GraphOfTopProductsFromOrders extends JPanel {
 	  }
 	  
 	  if(monthID==1){
-		  System.out.println("1="+numberOneQuantity+numberTwoQuantity+numberThreeQuantity);
 		  firstDS = new DataSetValue(numberOneQuantity, numberOneName, numberTwoQuantity,
 				  numberTwoName, numberThreeQuantity, numberThreeName);
 	  }
 	  else if(monthID==2){
-		  System.out.println("2="+numberOneQuantity+numberTwoQuantity+numberThreeQuantity);
 		  secondDS = new DataSetValue(numberOneQuantity, numberOneName, numberTwoQuantity,
 				  numberTwoName, numberThreeQuantity, numberThreeName); 
 	  }
 	  else
-		  System.out.println("3="+numberOneQuantity+numberTwoQuantity+numberThreeQuantity);
 		  thirdDS = new DataSetValue(numberOneQuantity, numberOneName, numberTwoQuantity,
 				  numberTwoName, numberThreeQuantity, numberThreeName);
    }
