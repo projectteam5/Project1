@@ -66,6 +66,7 @@ public class GraphOfSalesOfProductQuantities extends JPanel {
 	   	//	Finding out how many Individual products with quantities are in Matrix
 	   	int count = 0;
 	   	
+	   	
 		for(Invoice invoice : RetailSystem.getInstance().getInvoices()){
 			count = count + invoice.getSale().getLineItems().size();
 		}

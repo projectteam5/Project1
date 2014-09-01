@@ -31,7 +31,7 @@ public class GraphGUI extends JPanel implements ActionListener {
 
 		viewProductOrderGraph = new JButton("Top Product Orders");
 		viewSalesAndPredictionsGraph = new JButton("Sales & Predictions");
-		viewProductSalesGraph = new JButton("Top Product Sales");
+		viewProductSalesGraph = new JButton("Product Sales Quantities");
 		viewStockLevels = new JButton("Stock Levels");
 
 		colorButton();
@@ -50,7 +50,7 @@ public class GraphGUI extends JPanel implements ActionListener {
 		viewProductSalesGraph.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MenuGUI.getInstance().setPanelAction(
-						new GraphOfTopSales("", ""));
+						new GraphOfSalesOfProductQuantities("", ""));
 				colorButton();
 				viewProductSalesGraph.setBackground(colorButtonSelected);
 			}

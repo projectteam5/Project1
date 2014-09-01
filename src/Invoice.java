@@ -154,6 +154,7 @@ public class Invoice {
 					}
 				}
 			}
+			
 		}
 		return quantity;
 	}
