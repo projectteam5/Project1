@@ -72,21 +72,20 @@ public class Stock {
 		this.active = active;
 	}
 	
-	public static void updateStock(Invoice invoice){
+	public static void updateStock(Product product, int quantity){
 		ArrayList<Stock> stocks = RetailSystem.getInstance().getStocks();
-		ArrayList<LineItem> items;
-		items = invoice.getSale().getLineItems();
+		//ArrayList<LineItem> items;
 		
-		for(LineItem item:items){
+		
 			for(Stock stock: stocks){
 				
-				if(item.getProduct().getProductID().equalsIgnoreCase(stock.getProduct().getProductID())){
-					stock.setUnits(stock.getUnits()-item.getQuantity());
+				if(product.getProductID().equalsIgnoreCase(stock.getProduct().getProductID())){
+					stock.setUnits(stock.getUnits()-quantity);
 				}
 				
 			}
 			
-		}
+		
 		saveStock();
 	}
 	public static void saveStock(){
