@@ -1,8 +1,8 @@
 Product1;19;true
 Product2;0;true
-Product3;12;true
-Product5;265;true
-Product8;11;true
+Product3;0;true
+Product5;0;true
+Product8;1;true
 Product9;11;true
 Product12;12;true
 Product13;13;true

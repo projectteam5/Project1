@@ -129,6 +129,7 @@ public class SaleGUI extends JPanel {
 		available = false;
 		available = stockAvailable(product, amount);
 		if (available) {
+			Stock.updateStock(product , amount);
 			LineItem lineItem = new LineItem(product, amount);
 			vet.add(lineItem);
 			runningTotal = runningTotal + lineItem.getTotalCost();
@@ -154,6 +155,7 @@ public class SaleGUI extends JPanel {
 		Vector<LineItem> rem = new Vector<LineItem>();
 		for (LineItem lineItem : vet) {
 			if (lineItem.isRemoved()) {
+				Stock.increaseStock(lineItem.getProduct() , lineItem.getQuantity());
 				rem.add(lineItem);
 				runningTotal = runningTotal - lineItem.getTotalCost();
 			}
@@ -180,7 +182,6 @@ public class SaleGUI extends JPanel {
 						customerPicked, runningTotal, sale);
 				RetailSystem.getInstance().getInvoices().add(invoice);
 				Invoice.saveInvoice();
-				Stock.updateStock(invoice);
 				Order.orderMore();
 				JOptionPane.showMessageDialog(null,
 						"Invoice saved and printed", "Print",
