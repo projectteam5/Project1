@@ -21,5 +21,5 @@ Product20;HydroPump Cooling System 5PP;800.0;300.0;Supplier 2;true
 Product21;MissignNo HDD 1TB;200.0;30.0;Supplier 5;false
 Product22;Cris;4000.0;400.0;Supplier 1;false
 Product23;;50.0;40.0;Supplier 1;false
-Product24;yyy;90.0;9.0;Supplier 4;true
+Product24;Game;90.0;9.0;Supplier 4;true
 Product25;Super game;70.0;15.0;Supplier 7;true
