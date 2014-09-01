@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.JPanel;
 
@@ -22,10 +25,12 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.RectangleInsets;
 
-public class GraphOfTopSales extends JPanel {
+public class GraphOfSalesOfProductQuantities extends JPanel {
 
    private static final long serialVersionUID = 1L;  
    private String[][] matrix;
+  
+   ArrayList<String> idNamesList;
    
    ArrayList<ToHoldSoldProductsAndQuantity> janList= new ArrayList<ToHoldSoldProductsAndQuantity>();
    ArrayList<ToHoldSoldProductsAndQuantity> febList= new ArrayList<ToHoldSoldProductsAndQuantity>();
@@ -42,19 +47,17 @@ public class GraphOfTopSales extends JPanel {
    
    ArrayList<ToHoldSoldProductsAndQuantity> dupCheckList= new ArrayList<ToHoldSoldProductsAndQuantity>();
    ArrayList<ToHoldSoldProductsAndQuantity> completeList= new ArrayList<ToHoldSoldProductsAndQuantity>();
+   ArrayList<String> listOfProductNames = new ArrayList<String>();
    
    ArrayList<XYSeries> listOfXYSeries = new ArrayList<XYSeries>();
-
 
    private ToHoldSoldProductsAndQuantity convertedMatrixObject;
    private ToHoldSoldProductsAndQuantity listObject;
 
    XYSeries series;
-    
-   XYSeries seriesJan;XYSeries seriesFeb;XYSeries seriesMar;XYSeries seriesApr;XYSeries seriesMay;XYSeries seriesJun;
-   XYSeries seriesJul;XYSeries seriesAug;XYSeries seriesSep;XYSeries seriesOct;XYSeries seriesNov;XYSeries seriesDec;
+  
    
-   public GraphOfTopSales(String applicationTitle, String chartTitle) {
+   public GraphOfSalesOfProductQuantities(String applicationTitle, String chartTitle) {
 	   	//	Getting the matrix that contains the date,products and quantities from all sales
 	   	matrix = Invoice.productsSold();
 	   	listObject= new ToHoldSoldProductsAndQuantity("", "", 0);
@@ -97,29 +100,104 @@ public class GraphOfTopSales extends JPanel {
 		// Creating the data set according to month.
 		// Will be 12 standard months on X-Axis with quantities on
 		// the Y-Axis with numerous colored lines depicting products
-		for(ToHoldSoldProductsAndQuantity list:janList){
-			series = new XYSeries(list.getName());
-			listOfXYSeries.add(series);
+		
+		// Finding all the product names sold
+		creatingTheXYSeriesForProductsSold(janList);
+		creatingTheXYSeriesForProductsSold(febList);
+		creatingTheXYSeriesForProductsSold(marList);
+		creatingTheXYSeriesForProductsSold(aprList);
+		creatingTheXYSeriesForProductsSold(mayList);
+		creatingTheXYSeriesForProductsSold(junList);
+		creatingTheXYSeriesForProductsSold(julList);
+		creatingTheXYSeriesForProductsSold(augList);
+		creatingTheXYSeriesForProductsSold(sepList);
+		creatingTheXYSeriesForProductsSold(octList);
+		creatingTheXYSeriesForProductsSold(novList);
+		creatingTheXYSeriesForProductsSold(decList);
+		
+		// Sorting and getting the names for the XYSerieses
+		idNamesList = new ArrayList<String>();
+		idNamesList = deleteDuplicatedProductNames(listOfProductNames);
+		
+		
+		// Creating the data set for each product
+		for(Product product: RetailSystem.getInstance().getProducts()){
+			for(String string: idNamesList){
+				if(product.getProductID().equals(string)){
+					series = new XYSeries(product.getName());
+					for(ToHoldSoldProductsAndQuantity item: janList){
+						if(product.getProductID()==item.getName()){
+							series.add(1, item.getQuantity());
+						}
+					}
+					for(ToHoldSoldProductsAndQuantity item: febList){
+						if(product.getProductID()==item.getName()){
+							series.add(2, item.getQuantity());
+						}
+					}
+					for(ToHoldSoldProductsAndQuantity item: marList){
+						if(product.getProductID()==item.getName()){
+							series.add(3, item.getQuantity());
+						}
+					}
+					for(ToHoldSoldProductsAndQuantity item: aprList){
+						if(product.getProductID()==item.getName()){
+							series.add(4, item.getQuantity());
+						}
+					}
+					for(ToHoldSoldProductsAndQuantity item: mayList){
+						if(product.getProductID()==item.getName()){
+							series.add(5, item.getQuantity());
+						}
+					}
+					for(ToHoldSoldProductsAndQuantity item: junList){
+						if(product.getProductID()==item.getName()){
+							series.add(6, item.getQuantity());
+						}
+					}
+					for(ToHoldSoldProductsAndQuantity item: julList){
+						if(product.getProductID()==item.getName()){
+							series.add(7, item.getQuantity());
+						}
+					}
+					for(ToHoldSoldProductsAndQuantity item: augList){
+						if(product.getProductID()==item.getName()){
+							series.add(8, item.getQuantity());
+						}
+					}
+					for(ToHoldSoldProductsAndQuantity item: sepList){
+						if(product.getProductID()==item.getName()){
+							series.add(9, item.getQuantity());
+						}
+					}
+					for(ToHoldSoldProductsAndQuantity item: octList){
+						if(product.getProductID()==item.getName()){
+							series.add(10, item.getQuantity());
+						}
+					}
+					for(ToHoldSoldProductsAndQuantity item: novList){
+						if(product.getProductID()==item.getName()){
+							series.add(11, item.getQuantity());
+						}
+					}
+					for(ToHoldSoldProductsAndQuantity item: decList){
+						if(product.getProductID()==item.getName()){
+							series.add(12, item.getQuantity());
+						}
+					}
+					
+					listOfXYSeries.add(series);
+				}
+			}
+		}	
+		
+		
+		// Creating the collection and adding the data set to the collection for viewing
+		XYSeriesCollection xyDataset = new XYSeriesCollection();
+		
+		for(XYSeries l: listOfXYSeries){
+			xyDataset.addSeries(l);
 		}
-		
-		
-		
-	   	// Adding the data set to the collection for viewing
-
-		XYSeriesCollection  xyDataset = new XYSeriesCollection();
-        xyDataset.addSeries(seriesJan);
-        xyDataset.addSeries(seriesFeb);
-        xyDataset.addSeries(seriesMar);
-        xyDataset.addSeries(seriesApr);
-        xyDataset.addSeries(seriesMay);
-        xyDataset.addSeries(seriesJun);
-        xyDataset.addSeries(seriesJul);
-        xyDataset.addSeries(seriesAug);
-        xyDataset.addSeries(seriesSep);
-        xyDataset.addSeries(seriesOct);
-        xyDataset.addSeries(seriesNov);
-        xyDataset.addSeries(seriesDec);
-       
         
         // Declaring and initializing and adding the chart to the panel 
         
@@ -141,13 +219,28 @@ public class GraphOfTopSales extends JPanel {
         ChartPanel              chartPanel     = new ChartPanel(chart);
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         this.setLayout(new GridLayout(0, 1));
-        this.add(chartPanel);
-        
+        this.add(chartPanel);        
     }
+   
+   public void creatingTheXYSeriesForProductsSold(ArrayList<ToHoldSoldProductsAndQuantity> passedList){
+	   for(ToHoldSoldProductsAndQuantity list:passedList){
+		   String s = list.getName();
+		   listOfProductNames.add(s);
+	   }	
+   }
+   
+   // Deleting Duplicates
+   public ArrayList<String> deleteDuplicatedProductNames(ArrayList<String> names){
+	    
+	   for(String string: names){
+		   if(!idNamesList.contains(string))
+	    	idNamesList.add(string);
+	    }   
+	   return idNamesList;
+   }
    
    // Function to check for two or more products sold in the same month that
    // is used in conjunction with the resortMonthlyLists function
-   
    public void storeAndCheckForMoreSalesOfProduct(ToHoldSoldProductsAndQuantity sentListItem){
 	   int i=0;
 	   for(ToHoldSoldProductsAndQuantity thisList: dupCheckList){
