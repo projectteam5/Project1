@@ -89,12 +89,7 @@ public class CustomerEditGUI extends JPanel {
 				if (returnValue == 0) {
 					JOptionPane.showMessageDialog(null, "Customer Edited!",
 							"Update", JOptionPane.PLAIN_MESSAGE);
-				} else {
-					JOptionPane.showMessageDialog(null,
-							"All fields must be filled!", "Warning",
-							JOptionPane.WARNING_MESSAGE);
 				}
-
 			}
 		});
 
@@ -105,7 +100,9 @@ public class CustomerEditGUI extends JPanel {
 		String name = nameField.getText();
 		String address = addressField.getText();
 		String phone = phoneField.getText();
-		if (name != null && address != null && phone != null) {
+		if (name != null && address != null && phone != null
+				&& !name.isEmpty() && !address.isEmpty() && !phone.isEmpty()) {
+			if(RetailSystem.validatePhone(phone)){
 			customer.setName(name);
 			customer.setAddress(address);
 			customer.setPhoneNumber(phone);
@@ -113,6 +110,12 @@ public class CustomerEditGUI extends JPanel {
 			customerDropDown.removeAllItems();
 			Customer.customerListComplete(customerDropDown);
 			returnValue = 0;
+			}
+		}
+		else{
+			JOptionPane.showMessageDialog(null,
+					"All fields must be filled!", "Warning",
+					JOptionPane.WARNING_MESSAGE);
 		}
 		return returnValue;
 	}

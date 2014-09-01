@@ -3,9 +3,9 @@ Customer2;kvhfkvfejh;kjkjerveriu;2334456;false
 Customer3;Erich King;7 Leinster Square, Rathmines, Dublin 6;0873963668;true
 Customer4;Heinrich Johnstom;56 taney grove;45566;true
 Customer5;;;;false
-Customer6;Robbie Tarquinson;Tarquinstown;098 7676767676;true
+Customer6;Robbie Tarquinson;Tarquinstown;0896543257;true
 Customer7;try;rety;67778;false
-Customer8;Test Customer;Test Ville;0988765434;true
+Customer8;Test Customer;Test Ville;08998765766;true
 Customer9;Test Mc Customer;Test Crescent;01 79088945;true
 Customer10;Mr Customer3;ijijijij;790889;true
 Customer11;errr;eerrr;4455;true
@@ -13,3 +13,8 @@ Customer12;ereeer;erreee;44555;true
 Customer13;444;rrr;eerr;true
 Customer14;Mr Customer Two;1 Grafton street, Dublin;08754790;true
 Customer15;Mr Customer One;1 Dame Street, Dublin;087645370;true
+Customer16;Mr customer;dublin;0897643689;true
+Customer17;mr customer;hiioieroo;mvnoejorejg;true
+Customer18;fddfcvv;erevv;0987765479;true
+Customer19;gerrgg;vergvgg;0970779453;true
+Customer20;Mr customer;nhioiu;097769867;true
