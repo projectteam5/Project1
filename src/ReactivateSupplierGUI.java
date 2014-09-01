@@ -98,10 +98,22 @@ public class ReactivateSupplierGUI extends JPanel {
 	}
 
 	public void refresh() {
-		this.remove(supplierDropDown);
-		this.remove(reactivateButton);
+		//this.remove(supplierDropDown);
+		//this.remove(reactivateButton);
+		this.removeAll();
+		this.add(title);
+		this.add(instruction);
 		this.add(supplierDropDownAfterReactivation);
 		this.add(reactivateButton);
+		// fixing the layout
+		JLabel labelEmpty = new JLabel(" ");
+		JLabel labelEmpty1 = new JLabel(" ");
+		JLabel labelEmpty2 = new JLabel(" ");
+		JLabel labelEmpty3 = new JLabel(" ");
+		this.add(labelEmpty);
+		this.add(labelEmpty1);
+		this.add(labelEmpty2);
+		this.add(labelEmpty3);
 		this.revalidate();
 		revalidate();
 		repaint();

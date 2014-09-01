@@ -207,10 +207,10 @@ public class Order {
 	 * 
 	 * */
 	public static void orderMore() {
-		
-		boolean isOK = true;
 			
 			for(Stock stock : RetailSystem.getInstance().getStocks()) {
+				
+				boolean isOK = true;
 				
 				if(stock.getUnits() < 5) {
 					

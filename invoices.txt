@@ -23,3 +23,6 @@ Invoice22;30-Aug-2014;Customer8;170.0;true;true;1;30-Aug-2014;Product7;1
 Invoice23;01-Sep-2014;Customer1;14575.0;true;true;1;01-Sep-2014;Product5;265
 Invoice24;01-Sep-2014;Customer6;264.0;true;true;1;01-Sep-2014;Product3;12
 Invoice25;01-Sep-2014;Customer1;8000.0;true;true;1;01-Sep-2014;Product8;10
+Invoice26;01-Sep-2014;Customer10;7350.0;true;true;1;01-Sep-2014;Product10;7
+Invoice27;01-Sep-2014;Customer8;1050.0;true;true;1;01-Sep-2014;Product10;1
+Invoice28;01-Sep-2014;Customer1;2400.0;true;true;1;01-Sep-2014;Product12;8
