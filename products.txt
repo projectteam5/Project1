@@ -3,7 +3,7 @@ Product2;Magic iBall Processor;500.0;100.0;Supplier 1;true
 Product3;ICU Cam;20.0;2.0;Supplier 2;false
 Product4;Return of the iMac - Manual;40.0;20.0;Supplier 3;false
 Product5;Subnetting For Dummies;35.0;20.0;Supplier 2;true
-Product6;Product;150.0;50.0;Supplier 4;true
+Product6;Game One;150.0;50.0;Supplier 4;true
 Product7;Windows Hasta La Vista Home Basic x86;120.0;50.0;Supplier 6;true
 Product8;Macho MachoFan;600.0;200.0;Supplier 1;true
 Product9;FANtastic Cooling Pad;100.0;50.0;Supplier 2;false
@@ -21,4 +21,5 @@ Product20;HydroPump Cooling System 5PP;800.0;300.0;Supplier 2;true
 Product21;MissignNo HDD 1TB;200.0;30.0;Supplier 5;false
 Product22;Cris;4000.0;400.0;Supplier 1;false
 Product23;;50.0;40.0;Supplier 1;false
-Product24;yyy;90.0;9.0;Supplier 4;true
+Product24;Game;90.0;9.0;Supplier 4;true
+Product25;Super game;70.0;15.0;Supplier 7;true

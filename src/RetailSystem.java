@@ -1,13 +1,16 @@
-
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import javax.swing.JOptionPane;
+
 public class RetailSystem {
 
 	// attribute for the RetailSystem class
-	private static RetailSystem instance; // we want only one instance of this class
-	private ArrayList<User> users;// array list of users that can access the system
+	private static RetailSystem instance; // we want only one instance of this
+											// class
+	private ArrayList<User> users;// array list of users that can access the
+									// system
 	private ArrayList<Customer> customers;// array list of customers
 	private ArrayList<Order> orders;// array list of orders
 	private ArrayList<Supplier> suppliers;// array list of suppliers
@@ -18,8 +21,9 @@ public class RetailSystem {
 
 	private String currentUserType = "";// it store which type of user logged on
 	private String currentUserID = "";// it store which type of user logged on
-	private String[] userTypeList = {"Manager", "Attendant"};//Array with the possible users types
-
+	private String[] userTypeList = { "Manager", "Attendant" };// Array with the
+																// possible
+																// users types
 
 	public RetailSystem() {
 	}
@@ -91,7 +95,7 @@ public class RetailSystem {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		// load invoices
 		try {
 			userFile = new FileReader("invoices.txt");
@@ -122,15 +126,13 @@ public class RetailSystem {
 		this.users = users;
 	}
 
-	
-	 public ArrayList<Customer> getCustomers(){ 
-		 return customers; 
-	 }
-	 
-	 public void setCustomers(ArrayList<Customer> customers){ 
-		 this.customers = customers; 
-		 }
-	
+	public ArrayList<Customer> getCustomers() {
+		return customers;
+	}
+
+	public void setCustomers(ArrayList<Customer> customers) {
+		this.customers = customers;
+	}
 
 	public ArrayList<Supplier> getSuppliers() {
 		return suppliers;
@@ -196,13 +198,25 @@ public class RetailSystem {
 		this.sales = sales;
 	}
 
-	public static String returnIDfromCombobox(String selectedObjectString){
+	public static String returnIDfromCombobox(String selectedObjectString) {
 		String[] selectedObjectArray = selectedObjectString.split(";");
 		String selectedObjectIDString = selectedObjectArray[0];
 		String[] selectedObjectIDArray = selectedObjectIDString.split(":");
 		String ID = selectedObjectIDArray[1].trim();
 		return ID;
 	}
-	
-	
+
+	public static boolean validatePhone(String phoneNo) {
+		boolean returnValue;
+		if (phoneNo.matches("[0-9]+") && phoneNo.length() > 2){
+			returnValue = true;
+		}
+		else{
+			JOptionPane.showMessageDialog(null,
+					"Phone number not valid! Please insert numbers only", "Error",
+					JOptionPane.ERROR_MESSAGE);
+			returnValue =  false;
+			}
+		return returnValue;
+	}
 }

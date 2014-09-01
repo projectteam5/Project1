@@ -65,12 +65,7 @@ public class CustomerAddGUI extends JPanel {
 					JOptionPane.showMessageDialog(null,
 							"Customer added to list", "New Customer created",
 							JOptionPane.PLAIN_MESSAGE);
-				} else {
-					JOptionPane.showMessageDialog(null,
-							"ID already exists or missing fields", "Error",
-							JOptionPane.ERROR_MESSAGE);
 				}
-
 			}
 		});
 
@@ -85,6 +80,9 @@ public class CustomerAddGUI extends JPanel {
 			Customer customer = new Customer(name, address, phone);
 			RetailSystem.getInstance().getCustomers().add(customer);
 			Customer.saveCustomer();
+			textCustomerName.setText("");
+			textCustomerAddress.setText("");
+			textCustomerPhone.setText("");
 			return 0;
 		} else {
 			return 1;
@@ -95,6 +93,12 @@ public class CustomerAddGUI extends JPanel {
 			String phoneNumber) {
 		boolean correct = true;
 		if (name.isEmpty() || address.isEmpty() || phoneNumber.isEmpty()) {
+			JOptionPane.showMessageDialog(null,
+					"Missing fields", "Error",
+					JOptionPane.ERROR_MESSAGE);
+			correct = false;
+		}
+		if(!RetailSystem.validatePhone(phoneNumber)){
 			correct = false;
 		}
 

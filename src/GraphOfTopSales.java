@@ -34,7 +34,8 @@ public class GraphOfTopSales extends JPanel {
 	    this.setLayout(new GridLayout(0,1));
 
         // based on the dataset we create the chart
-        JFreeChart pieChart = ChartFactory.createBarChart("Most Ordered Products", "Products", "Units", createDataset(),PlotOrientation.VERTICAL, true, true, false);
+        JFreeChart pieChart = ChartFactory.createBarChart("Most Ordered Products", "Products", "Units",
+        		createDataset(),PlotOrientation.VERTICAL, true, true, false);
         
         // Adding chart into a chart panel
 
