@@ -27,42 +27,42 @@ public class GraphMontlySelectSubMenu extends JPanel{
 		select.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String monthlyID = combobox.getSelectedItem().toString();
-				System.out.println(monthlyID);
+				
 				if(monthlyID.equals("January")){
-					MenuGUI.getInstance().setPanelAction(new GraphJanuary("", ""));	
+					MenuGUI.getInstance().setPanelAction(new GraphForMonthlyProductUnitsSold("January", ""));	
 				}
 				else if(monthlyID.equals("February")){
-					MenuGUI.getInstance().setPanelAction(new GraphFebruary("", ""));
+					MenuGUI.getInstance().setPanelAction(new GraphForMonthlyProductUnitsSold("February", ""));
 				}
 				else if(monthlyID.equals("March")){
-					MenuGUI.getInstance().setPanelAction(new GraphMarch("", ""));
+					MenuGUI.getInstance().setPanelAction(new GraphForMonthlyProductUnitsSold("March", ""));
 				}
 				else if(monthlyID.equals("April")){
-					MenuGUI.getInstance().setPanelAction(new GraphApril("", ""));
+					MenuGUI.getInstance().setPanelAction(new GraphForMonthlyProductUnitsSold("April", ""));
 				}
 				else if(monthlyID.equals("May")){
-					MenuGUI.getInstance().setPanelAction(new GraphMay("", ""));
+					MenuGUI.getInstance().setPanelAction(new GraphForMonthlyProductUnitsSold("May", ""));
 				}
 				else if(monthlyID.equals("June")){
-					MenuGUI.getInstance().setPanelAction(new GraphJune("", ""));
+					MenuGUI.getInstance().setPanelAction(new GraphForMonthlyProductUnitsSold("June", ""));
 				}
 				else if(monthlyID.equals("July")){
-					MenuGUI.getInstance().setPanelAction(new GraphJuly("", ""));
+					MenuGUI.getInstance().setPanelAction(new GraphForMonthlyProductUnitsSold("July", ""));
 				}
 				else if(monthlyID.equals("August")){
-					MenuGUI.getInstance().setPanelAction(new GraphAugust("", ""));
+					MenuGUI.getInstance().setPanelAction(new GraphForMonthlyProductUnitsSold("August", ""));
 				}
 				else if(monthlyID.equals("September")){
-					MenuGUI.getInstance().setPanelAction(new GraphSeptember("", ""));
+					MenuGUI.getInstance().setPanelAction(new GraphForMonthlyProductUnitsSold("September", ""));
 				}
 				else if(monthlyID.equals("October")){
-					MenuGUI.getInstance().setPanelAction(new GraphOctober("", ""));
+					MenuGUI.getInstance().setPanelAction(new GraphForMonthlyProductUnitsSold("October", ""));
 				}
 				else if(monthlyID.equals("November")){
-					MenuGUI.getInstance().setPanelAction(new GraphNovember("", ""));
+					MenuGUI.getInstance().setPanelAction(new GraphForMonthlyProductUnitsSold("November", ""));
 				}
 				else if(monthlyID.equals("December")){
-					MenuGUI.getInstance().setPanelAction(new GraphDecember("", ""));
+					MenuGUI.getInstance().setPanelAction(new GraphForMonthlyProductUnitsSold("December", ""));
 				}
 			}
 		});
@@ -95,7 +95,6 @@ public class GraphMontlySelectSubMenu extends JPanel{
 		combobox.addItem("June");
 		combobox.addItem("July");
 		combobox.addItem("August");
-		combobox.addItem("July");
 		combobox.addItem("September");
 		combobox.addItem("October");
 		combobox.addItem("November");

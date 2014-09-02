@@ -1,4 +1,3 @@
-
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -14,33 +13,70 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-public class GraphNovember extends JPanel {
-	private static final long serialVersionUID = 1L;  
+public class GraphForMonthlyProductUnitsSold extends JPanel {
+   private static final long serialVersionUID = 1L;  
    private String[][] matrix;
-   private JButton backButton;
-  
-   ArrayList<String> idNamesList;
-   
-   ArrayList<ToHoldSoldProductsAndQuantity> novList= new ArrayList<ToHoldSoldProductsAndQuantity>();
-   
-   ArrayList<ToHoldSoldProductsAndQuantity> dupCheckList= new ArrayList<ToHoldSoldProductsAndQuantity>();
-   ArrayList<ToHoldSoldProductsAndQuantity> completeList= new ArrayList<ToHoldSoldProductsAndQuantity>();
-   ArrayList<String> listOfProductNames = new ArrayList<String>();
+   private JButton backButton; 
+   private String title;
+   private String monthFinder;
    private ToHoldSoldProductsAndQuantity convertedMatrixObject;
    private ToHoldSoldProductsAndQuantity listObject;
   
-   private DataSetValue dataset;
-
-   public GraphNovember(String applicationTitle, String chartTitle) {
+   ArrayList<String> idNamesList;
+   ArrayList<ToHoldSoldProductsAndQuantity> monthList= new ArrayList<ToHoldSoldProductsAndQuantity>();
+   ArrayList<ToHoldSoldProductsAndQuantity> dupCheckList = new ArrayList<ToHoldSoldProductsAndQuantity>();
+   ArrayList<ToHoldSoldProductsAndQuantity> completeList = new ArrayList<ToHoldSoldProductsAndQuantity>();
+   ArrayList<String> listOfProductNames = new ArrayList<String>();
+   
+   public GraphForMonthlyProductUnitsSold(String applicationTitle, String chartTitle) {
 		//	Getting the matrix that contains the date,products and quantities from all sales
+	   	this.setLayout(new BorderLayout(1, 1));
+	   	this.title=applicationTitle;
 	   	matrix = Invoice.productsSold();
 	   	listObject= new ToHoldSoldProductsAndQuantity("", "", 0);
 	   	dupCheckList.add(listObject);
 	   	
+	   	//	Using the title to find out which monthly statistics to show
+	   	if(title.equals("January")){
+	   		monthFinder="Jan";
+	   	}
+	   	else if(title.equals("February")){
+	   		monthFinder="Feb";
+	   	}
+	   	else if(title.equals("March")){
+	   		monthFinder="Mar";
+	   	}
+	   	else if(title.equals("April")){
+	   		monthFinder="Apr";
+	   	}
+	   	else if(title.equals("May")){
+	   		monthFinder="May";
+	   	}
+	   	else if(title.equals("June")){
+	   		monthFinder="Jun";
+	   	}
+	   	else if(title.equals("July")){
+	   		monthFinder="Jul";
+	   	}
+	   	else if(title.equals("August")){
+	   		monthFinder="Aug";
+	   	}
+	   	else if(title.equals("September")){
+	   		monthFinder="Sep";
+	   	}
+	   	else if(title.equals("October")){
+	   		monthFinder="Oct";
+	   	}
+	   	else if(title.equals("November")){
+	   		monthFinder="Nov";
+	   	}
+	   	else if(title.equals("December")){
+	   		monthFinder="Dec";
+	   	}
+	   	
 	   	//	Finding out how many Individual products with quantities are in Matrix
 	   	int count = 0;
-	   	
-	   	
+	   	  	
 		for(Invoice invoice : RetailSystem.getInstance().getInvoices()){
 			count = count + invoice.getSale().getLineItems().size();
 		}
@@ -53,7 +89,7 @@ public class GraphNovember extends JPanel {
 		
 		// Separating the complete list of itemized sales into lists by months
 		for(ToHoldSoldProductsAndQuantity g: completeList){
-			if(g.getDate().contains("Nov")){novList.add(g);}}	
+			if(g.getDate().contains(monthFinder)){monthList.add(g);}}	
 		
 		// Checking each list for multiple product and quantities and resorting
 		// such that each month list contains unique products with calculated
@@ -61,40 +97,38 @@ public class GraphNovember extends JPanel {
 		resortMonthlyListToCalculateMulipleSalesOfProducts();
 
         // based on the dataset we create the chart
-        JFreeChart barChart = ChartFactory.createBarChart("Units of Products Sold Monthly", "Products", "Units", createDataset(),PlotOrientation.VERTICAL, true, true, false);
+        JFreeChart barChart = ChartFactory.createBarChart("Units of Products Sold", "Products", "Units", createDataset(),PlotOrientation.VERTICAL, true, true, false);
         
         // Adding chart into a chart panel
 
         ChartPanel chartPanel = new ChartPanel(barChart);
         
-      
         // setting default size
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
-        this.setLayout(new GridLayout(1, 1));
-        //this.add(chartPanel);
         
-        backButton = new JButton("Return To SubMenu");      
+        backButton = new JButton("Return To SubMenu"); 
+        
+        
         this.add(chartPanel, BorderLayout.CENTER);   
         this.add(backButton, BorderLayout.SOUTH);
+        setVisible(true);
         
         backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MenuGUI.getInstance().setPanelAction(new GraphMontlySelectSubMenu());				
 			}
-		});
-        
+		});    
     }
   
    private CategoryDataset createDataset() {
      // row keys...
-      final String jan = "November";
+      final String monthName = title;
       
-
       // create the dataset...
       final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
       
-      for(ToHoldSoldProductsAndQuantity listItem: novList){ 
-    	  dataset.addValue(listItem.getQuantity(), listItem.getName(),jan);    
+      for(ToHoldSoldProductsAndQuantity listItem: monthList){ 
+    	  dataset.addValue(listItem.getQuantity(), listItem.getName(),monthName);    
       }
       
       return dataset;
@@ -132,11 +166,11 @@ public class GraphNovember extends JPanel {
    
    public void resortMonthlyListToCalculateMulipleSalesOfProducts(){	
 		// January
-		for(ToHoldSoldProductsAndQuantity j: novList){storeAndCheckForMoreSalesOfProduct(j);}
-		for(ToHoldSoldProductsAndQuantity thisItem: dupCheckList){novList.add(thisItem);}
-		novList.clear();
+		for(ToHoldSoldProductsAndQuantity j: monthList){storeAndCheckForMoreSalesOfProduct(j);}
+		for(ToHoldSoldProductsAndQuantity thisItem: dupCheckList){monthList.add(thisItem);}
+		monthList.clear();
 		dupCheckList.remove(0);
-		for(ToHoldSoldProductsAndQuantity obj: dupCheckList){novList.add(obj);}
+		for(ToHoldSoldProductsAndQuantity obj: dupCheckList){monthList.add(obj);}
 		dupCheckList.clear();
 		dupCheckList.add(listObject);
    }		
