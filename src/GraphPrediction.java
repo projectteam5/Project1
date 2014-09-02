@@ -403,7 +403,7 @@ public class GraphPrediction extends JPanel {
 	
 private XYSeries xySeriesData4() {
 		
-		final XYSeries series = new XYSeries("Sales Predictions");
+		final XYSeries series = new XYSeries("Profit Predictions");
 		janPrediction=predictionProfit.get(0);
 		febPrediction=predictionProfit.get(1);
 		marPrediction=predictionProfit.get(2);
