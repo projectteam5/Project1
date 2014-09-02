@@ -126,6 +126,9 @@ public class AddProductGUI extends JPanel {
 							RetailSystem.getInstance().getProducts()
 									.add(product);
 							saveProduct();
+							Stock newStock = new Stock(0,product);
+							RetailSystem.getInstance().getStocks().add(newStock);
+							Stock.saveStock();
 							cleanFileds();
 						} catch (NumberFormatException e) {
 							JOptionPane.showMessageDialog(null,
