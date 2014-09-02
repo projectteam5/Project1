@@ -17,6 +17,7 @@ public class GraphGUI extends JPanel {
 	JButton viewSalesAndPredictionsGraph;
 	JButton viewProductSalesGraph;
 	JButton viewStockLevels;
+	JButton viewMonthlyUnitProductSales;
 
 	private final static Font fontButtons = new Font("Arial", Font.BOLD, 12);
 	private final static Color colorButtons = new Color(126, 163, 249);
@@ -30,14 +31,16 @@ public class GraphGUI extends JPanel {
 		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
 
 		viewSalesAndPredictionsGraph = new JButton("Sales & Predictions");
-		viewProductSalesGraph = new JButton("Sold Product Quantities");
+		viewProductSalesGraph = new JButton("Yearly Units Sold");
 		viewStockLevels = new JButton("Stock Levels");
+		viewMonthlyUnitProductSales = new JButton("Monthly Units Sold");
 
 		colorButton();
 
 		this.add(labelTitle);
 		
 		this.add(viewProductSalesGraph);
+		this.add(viewMonthlyUnitProductSales);
 		this.add(viewSalesAndPredictionsGraph);
 		this.add(viewStockLevels);
 		// fixing the layout
@@ -45,6 +48,15 @@ public class GraphGUI extends JPanel {
 		JLabel labelEmpty1 = new JLabel(" ");
 		this.add(labelEmpty);
 		this.add(labelEmpty1);
+		
+		viewMonthlyUnitProductSales.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MenuGUI.getInstance().setPanelAction(
+						new GraphMontlySelectSubMenu());
+				colorButton();
+				viewMonthlyUnitProductSales.setBackground(colorButtonSelected);
+			}
+		});
 
 		viewProductSalesGraph.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -82,6 +94,8 @@ public class GraphGUI extends JPanel {
 		
 		viewProductSalesGraph.setBackground(colorButtons);
 		viewProductSalesGraph.setFont(fontButtons);
+		viewMonthlyUnitProductSales.setBackground(colorButtons);
+		viewMonthlyUnitProductSales.setFont(fontButtons);
 		viewSalesAndPredictionsGraph.setBackground(colorButtons);
 		viewSalesAndPredictionsGraph.setFont(fontButtons);
 		viewStockLevels.setBackground(colorButtons);
