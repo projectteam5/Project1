@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -42,6 +43,9 @@ public class SearchByProductStockGUI extends JPanel {
 	private JRadioButton searchBySupplier = new JRadioButton("Search by Supplier",false);
 	private String orders;
 	private JLabel title;
+	private String[][] vector;
+	private String orderDate;
+	private JTable table;
 	
 	public SearchByProductStockGUI() {
 		stockResults = new JPanel();
@@ -158,39 +162,74 @@ public class SearchByProductStockGUI extends JPanel {
 	}
 	}
 	public void searchStockBySupplier(){
-		JPanel productResult = new JPanel();
-		JTextArea results = new JTextArea();
-		boolean foundStock = false;
-		JScrollPane scroll = new JScrollPane();
-		JLabel supplierName = new JLabel(supplierDropDown.getSelectedItem().toString());
-			for(Stock stock: RetailSystem.getInstance().getStocks()){
+		JPanel panel = new JPanel();
+		table = new JTable();
+		TableModel dataModel = new StockTable(vector);
+		JScrollPane scrollPane;
+		for(Supplier supplier:RetailSystem.getInstance().getSuppliers()){
+			if(supplier.getName().equals(supplierDropDown.getSelectedItem())){
+				buildVector(supplier);
 				
-				if(stock.getProduct().getSupplier().getName().equalsIgnoreCase(supplierDropDown.getSelectedItem().toString())){
-					results.setText(results.getText()+stock.getProduct().getName()+
-							"|(Units: "+stock.getUnits()+")\n"
-							);
-					foundStock = true;
-					for(Order o:RetailSystem.getInstance().getOrders()){
-						if(stock.getProduct().getProductID().equalsIgnoreCase(o.getProduct().getProductID())){
-							results.setText(results.getText()+"Order of "+o.getQuantity()+" units expected on "+o.getExpectedDeliveryDate()+"\n");
-						}
-					}
-					
-					
-				}
+				
+			}
+			dataModel = new StockTable(vector);
+		}
+			
+		
+		table = new JTable(dataModel);
+		scrollPane = new JScrollPane(table);
+		panel.add(scrollPane);
+		panel.setVisible(true);
+		MenuGUI.getInstance().setPanelAction(panel);
+	}
+	public void buildVector(Supplier supplier) {
+		
+		int counter = 0;
+		for(int i=0;i<RetailSystem.getInstance().getProducts().size();i++){
+			if(RetailSystem.getInstance().getProducts().get(i).getSupplier().getSupplierID().equalsIgnoreCase(supplier.getSupplierID())){
+				counter++;
+			}
+			
+		}
+		int counter2=0;	
+		System.out.println(counter);
+		vector = new String[counter][3];
+		for (int i = 0; i < RetailSystem.getInstance().getStocks().size() ; i++) {
+			if(supplier.getSupplierID().equals(RetailSystem.getInstance().getStocks().get(i).getProduct().getSupplier().getSupplierID())){
+				System.out.println(counter2);
+				orderDate = "";
+				vector[counter2][0] = RetailSystem.getInstance().getStocks().get(i)
+					.getProduct().getName();
+				vector[counter2][1] = RetailSystem.getInstance().getStocks().get(i)
+					.getUnits()
+					+ "";
+				checkOrder(RetailSystem.getInstance().getStocks().get(i)
+					.getProduct());
+				vector[counter2][2] = orderDate;
+				counter2++;
+			}
+			
 				
 			}
 			
-			if(!foundStock){
-				JOptionPane.showMessageDialog(null, "No stock available for this suppier");
-			}else{
-			scroll.setViewportView(results);
-			productResult.setLayout(new GridLayout(0,1));
-			productResult.add(supplierName);
-			productResult.add(scroll);
-			productResult.setVisible(true);
-			MenuGUI.getInstance().setPanelAction(productResult);
+			
+		}
+			
+	
+	public boolean checkOrder(Product product) {
+		boolean b = false;
+		for (Order order : RetailSystem.getInstance().getOrders()) {
+			if (order.isActive()
+					&& !order.isReceived()
+					&& order.getProduct().getProductID()
+							.equals(product.getProductID())) {
+				b = true;
+				orderDate = DateFormat.getDateInstance().format(
+						order.getExpectedDeliveryDate());
 			}
+		}
+		return b;
+
 	}
 	
 }

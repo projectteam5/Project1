@@ -1,4 +1,4 @@
-Product1;19;true
+Product1;18;true
 Product2;0;true
 Product3;0;true
 Product5;0;true
@@ -16,3 +16,11 @@ Product10;0;true
 Product11;10;true
 Product4;18;true
 Product7;0;true
+Product19;0;true
+Product24;0;true
+Product25;0;true
+Product16;0;true
+Product14;0;true
+Product6;0;true
+Product23;0;true
+Product26;4;true

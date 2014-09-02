@@ -20,6 +20,7 @@ Product19;IceToMeetYou Cooling System;500.0;200.0;Supplier 3;true
 Product20;HydroPump Cooling System 5PP;800.0;300.0;Supplier 2;true
 Product21;MissignNo HDD 1TB;200.0;30.0;Supplier 5;false
 Product22;Cris;4000.0;400.0;Supplier 1;false
-Product23;;50.0;40.0;Supplier 1;false
+Product23;Mickey Mouse;50.0;40.0;Supplier 1;false
 Product24;Game;90.0;9.0;Supplier 4;true
 Product25;Super game;70.0;15.0;Supplier 7;true
+Product26;Massive Keyboard;200.0;50.0;Supplier 1;true

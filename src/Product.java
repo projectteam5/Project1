@@ -17,6 +17,7 @@ public class Product {
 		this.markup = markup;
 		this.supplier = supplier;	
 		this.active = true;
+		
 	}
 	
 	public Product(String productID, String name, double cost, double markup, Supplier supplier, boolean active){
