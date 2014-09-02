@@ -52,9 +52,8 @@ public class EditUserGUI extends JPanel {
 		labelName = new JLabel("Name");
 		labelPassword = new JLabel("Password");
 		labelType = new JLabel("Type");
-		typeDropDown = new JComboBox(RetailSystem.getInstance().getUserTypeList());
-		
-		
+		typeDropDown = new JComboBox(RetailSystem.getInstance()
+				.getUserTypeList());
 
 		// adding all the components
 		this.add(labelTitleMain);
@@ -67,11 +66,11 @@ public class EditUserGUI extends JPanel {
 		this.add(PasswordField);
 		this.add(labelType);
 		this.add(typeDropDown);
-		
+
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				userID = RetailSystem.returnIDfromCombobox(userDropDown.getSelectedItem()
-						.toString());
+				userID = RetailSystem.returnIDfromCombobox(userDropDown
+						.getSelectedItem().toString());
 				if (controlVariable == 0 || !userID.equals(selectedUserIDPrev)) {
 					populateFields();
 					selectedUserIDPrev = userID;
@@ -118,7 +117,7 @@ public class EditUserGUI extends JPanel {
 	}
 
 	public void populateFields() {
-			controlVariable = 1;
+		controlVariable = 1;
 		user = User.retrieveUser(userID);
 		if (user != null) {
 			NameField.setText(user.getName());

@@ -302,7 +302,7 @@ public class GraphPrediction extends JPanel {
 		
 		*/
         
-        JFreeChart chart = ChartFactory.createXYLineChart("Sales, Purchases, Profit, Predictions Graph", "Month", "(â‚¬) Amount", 
+        JFreeChart chart = ChartFactory.createXYLineChart("Sales, Purchases, Profit, Predictions Graph", "Month", "€ Amount", 
         		createXYSeriesDataset(), PlotOrientation.VERTICAL,true,true,false);
         
         chart.setBackgroundPaint(Color.white);

@@ -137,15 +137,15 @@ public class SearchByProductStockGUI extends JPanel {
 		JPanel productResult = new JPanel();
 		JTextArea results = new JTextArea();
 		boolean foundStock = false;
+		vector = new String[1][3];
 		for(Stock s:RetailSystem.getInstance().getStocks()){
-			
 			if(s.getProduct().getName().equalsIgnoreCase(productNameDropDown.getSelectedItem().toString())){
-					results.setText(s.getProduct().getName()
-						+"|("+s.getUnits()+" available)\n");
+				vector[0][0]= s.getProduct().getName();
+				vector[0][1]= s.getUnits()+"";
 					foundStock = true;
 				for(Order o:RetailSystem.getInstance().getOrders()){
 					if(s.getProduct().getProductID().equalsIgnoreCase(o.getProduct().getProductID())&&o.isReceived()==false&&o.isActive()==true){
-						results.setText(results.getText()+" Order of"+o.getQuantity()+" units expected on "+o.getExpectedDeliveryDate()+"\n");
+						vector[0][2]=DateFormat.getDateInstance().format(o.getExpectedDeliveryDate());
 					}
 				}
 			}
@@ -155,9 +155,11 @@ public class SearchByProductStockGUI extends JPanel {
 	if(!foundStock){
 		JOptionPane.showMessageDialog(null, "No stock available for this product");
 	}else{
-	productResult.setLayout(new GridLayout(0,1));
-	productResult.add(results);
-	productResult.setVisible(true);
+		table = new JTable();
+		TableModel dataModel = new StockTable(vector);
+		table = new JTable(dataModel);
+		JScrollPane scrollPane = new JScrollPane(table);
+		productResult.add(scrollPane);
 	MenuGUI.getInstance().setPanelAction(productResult);
 	}
 	}
@@ -179,7 +181,6 @@ public class SearchByProductStockGUI extends JPanel {
 		table = new JTable(dataModel);
 		scrollPane = new JScrollPane(table);
 		panel.add(scrollPane);
-		panel.setVisible(true);
 		MenuGUI.getInstance().setPanelAction(panel);
 	}
 	public void buildVector(Supplier supplier) {
@@ -196,7 +197,6 @@ public class SearchByProductStockGUI extends JPanel {
 		vector = new String[counter][3];
 		for (int i = 0; i < RetailSystem.getInstance().getStocks().size() ; i++) {
 			if(supplier.getSupplierID().equals(RetailSystem.getInstance().getStocks().get(i).getProduct().getSupplier().getSupplierID())){
-				System.out.println(counter2);
 				orderDate = "";
 				vector[counter2][0] = RetailSystem.getInstance().getStocks().get(i)
 					.getProduct().getName();

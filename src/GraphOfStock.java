@@ -22,7 +22,7 @@ public class GraphOfStock extends JPanel {
 		
 		this.setLayout(new GridLayout(0,1));
 		
-		JFreeChart stockGraph = ChartFactory.createBarChart("Current stock levels","Products","Amount",createDataSet(),PlotOrientation.VERTICAL,true, false, false);
+		JFreeChart stockGraph = ChartFactory.createBarChart("Current stock levels","Products","Units",createDataSet(),PlotOrientation.VERTICAL,true, false, false);
 	
 		ChartPanel chart = new ChartPanel(stockGraph);
 		
