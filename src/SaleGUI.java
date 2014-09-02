@@ -74,7 +74,7 @@ public class SaleGUI extends JPanel {
 		buttonRefreshList.setAlignmentX(CENTER_ALIGNMENT);
 		buttonConfirmSale = new JButton("Create Invoice");
 		buttonConfirmSale.setAlignmentX(CENTER_ALIGNMENT);
-		buttonCancelSale = new JButton("Cancel Invoice");
+		buttonCancelSale = new JButton("Reset Sale");
 		buttonCancelSale.setAlignmentX(CENTER_ALIGNMENT);
 		runningTotalLabel.setAlignmentX(CENTER_ALIGNMENT);
 
