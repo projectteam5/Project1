@@ -28,11 +28,7 @@ public class EditOrderGUI extends JPanel implements ActionListener {
 		editOrderButton = new JButton("Edit Order");
 
 		Order.getOrdersCheck(orderList);
-		/*
-		 * for(Order order: RetailSystem.getInstance().getOrders()){
-		 * if(order.isActive()==true) { if(order.isReceived()==false) {
-		 * orderList.addItem(order.getOrderID()); } } }
-		 */
+		
 		this.add(labelTitleMain);
 		this.add(orderList);
 		this.add(editOrderButton);
@@ -77,8 +73,7 @@ public class EditOrderGUI extends JPanel implements ActionListener {
 
 						colorButton();
 						editOrderButton.setBackground(colorButtonSelected);
-						MenuGUI.getInstance().setPanelAction(
-								new OrderEditorGUI());
+						MenuGUI.getInstance().setPanelAction( new OrderEditorGUI());
 
 						break;
 					}
@@ -86,8 +81,7 @@ public class EditOrderGUI extends JPanel implements ActionListener {
 			}
 			if (!orderFound) {
 
-				JOptionPane.showMessageDialog(this,
-						"No Order With This ID in System!");
+				JOptionPane.showMessageDialog(this, "No Order With This ID in System!");
 			}
 		}
 

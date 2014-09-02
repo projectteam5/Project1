@@ -115,7 +115,11 @@ public class Accounting {
 		try {
 			calendar1.setTime(dateFormat.parse(period1));
 			
+			calendar1.add(Calendar.DATE, -1);
+			
 			calendar2.setTime(dateFormat.parse(period2));
+			
+			calendar2.add(Calendar.DATE, 1);
 			
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -156,9 +160,14 @@ public class Accounting {
 		Calendar calendar2 = new GregorianCalendar();
 		
 		try {
+			
 			calendar1.setTime(dateFormat.parse(period1));
 			
+			calendar1.add(Calendar.DATE, -1);
+			
 			calendar2.setTime(dateFormat.parse(period2));
+			
+			calendar2.add(Calendar.DATE, 1);
 			
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -204,9 +213,14 @@ public class Accounting {
 		Calendar calendar2 = new GregorianCalendar();
 		
 		try {
+			
 			calendar1.setTime(dateFormat.parse(period1));
 			
+			calendar1.add(Calendar.DATE, -1);
+			
 			calendar2.setTime(dateFormat.parse(period2));
+			
+			calendar2.add(Calendar.DATE, 1);
 			
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -266,9 +280,14 @@ public class Accounting {
 		Calendar calendar2 = new GregorianCalendar();
 		
 		try {
+			
 			calendar1.setTime(dateFormat.parse(period1));
 			
+			calendar1.add(Calendar.DATE, -1);
+			
 			calendar2.setTime(dateFormat.parse(period2));
+			
+			calendar2.add(Calendar.DATE, 1);
 			
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -301,14 +320,6 @@ public class Accounting {
 	}
 	
 	public static double costOfSales(String period1, String period2) {
-		
-		// Opening Stock = stock - orders
-		
-		// Closing Stock = stock + orders
-		
-		// Purchases = orders
-		
-		// Cost of Sales = Opening stock + Purchases - Closing Stock 
 		
 		double costOfSales = 0.0;
 		

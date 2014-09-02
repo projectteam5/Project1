@@ -1,4 +1,4 @@
-import java.awt.GridLayout;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -20,7 +20,7 @@ public class AccountingGraph extends JPanel implements ActionListener {
 	
 	public AccountingGraph(String applicationTitle, String chartTitle) {
 		
-		this.setLayout(new GridLayout(0,1));
+		this.setLayout(new BorderLayout(1,1));
 		
 		createChart(createDataset(), "Accounting Chart");
 		
@@ -30,9 +30,10 @@ public class AccountingGraph extends JPanel implements ActionListener {
         
         backButton = new JButton("Return To Data");
         
-        this.add(backButton);
+        this.add(chartPanel, BorderLayout.CENTER);
         
-        this.add(chartPanel);
+        this.add(backButton, BorderLayout.SOUTH);
+        
         
         backButton.addActionListener(this);
         

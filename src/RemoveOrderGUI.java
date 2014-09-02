@@ -2,7 +2,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileWriter;
 import java.text.DateFormat;
 
 import javax.swing.JButton;
@@ -16,8 +15,14 @@ public class RemoveOrderGUI extends JPanel implements ActionListener {
 
 	private JComboBox<String> orderList;
 	private JButton removeOrderButton;
-	private JLabel printLabel;
 	private JLabel labelTitleMain;
+	private JLabel infoLabel;
+	
+	// fixing the layout
+	JLabel labelEmpty = new JLabel(" ");
+	JLabel labelEmpty1 = new JLabel(" ");
+	JLabel labelEmpty2 = new JLabel(" ");
+	JLabel labelEmpty3 = new JLabel(" ");
 
 	public RemoveOrderGUI() {
 
@@ -25,26 +30,20 @@ public class RemoveOrderGUI extends JPanel implements ActionListener {
 
 		labelTitleMain = new JLabel("Remove an Order");
 		labelTitleMain.setFont(new Font("Arial", Font.BOLD, 20));
+		infoLabel = new JLabel("Please choose an order from the list below");
 
 		orderList = new JComboBox<String>();
 		removeOrderButton = new JButton("Remove Order");
-		printLabel = new JLabel();
 
 		Order.getOrdersCheck(orderList);
-		/*
-		 * for(Order order: RetailSystem.getInstance().getOrders()){
-		 * if(order.isActive()==true) { if(order.isReceived()==false) {
-		 * orderList.addItem(order.getOrderID()); } } }
-		 */
+		
 		this.add(labelTitleMain);
+		this.add(infoLabel);
 		this.add(orderList);
 		this.add(removeOrderButton);
-		this.add(printLabel);
+		
 		// fixing the layout
-		JLabel labelEmpty = new JLabel(" ");
-		JLabel labelEmpty1 = new JLabel(" ");
-		JLabel labelEmpty2 = new JLabel(" ");
-		JLabel labelEmpty3 = new JLabel(" ");
+		
 		this.add(labelEmpty);
 		this.add(labelEmpty1);
 		this.add(labelEmpty2);
@@ -58,8 +57,6 @@ public class RemoveOrderGUI extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 
 		Object target = event.getSource();
-
-		printLabel.setText("");
 
 		if (target == removeOrderButton) {
 
@@ -79,60 +76,39 @@ public class RemoveOrderGUI extends JPanel implements ActionListener {
 
 						orderFound = true;
 
-						printLabel.setText("<html><table>" + "<tr>" + "<td>"
-								+ order.getOrderID()
-								+ "</td>"
-								+ "<td>"
-								+ DateFormat.getDateInstance().format(
-										order.getOrderDate())
-								+ "</td>"
-								+ "<td>"
-								+ order.getProduct().getName()
-								+ "</td>"
-								+ "<td>"
-								+ order.getQuantity()
-								+ "</td>"
-								+ "<td>"
-								+ DateFormat.getDateInstance().format(
-										order.getExpectedDeliveryDate())
-								+ "</td>"
-								+ "<td>"
-								+ DateFormat.getDateInstance().format(
-										order.getDateReceived()) + "</td>"
-								+ "<td>" + order.isReceived() + "</td>"
-								+ "</tr>" + "</table></html>");
-
 						int answer = JOptionPane.showConfirmDialog(this,
 								"Are you sure?", "Remove Order",
 								JOptionPane.YES_NO_OPTION);
 
 						if (answer == JOptionPane.YES_OPTION) {
+							
 							order.setActive(false);
-							// RetailSystem.getInstance().getOrders().remove(order);
 
 							Order.saveOrder();
 
 							JOptionPane.showMessageDialog(this, "Order "
 									+ order.getOrderID()
-									+ " has been set as inactive");
-
-							// remove(printLabel);
+									+ " from "
+									+ DateFormat.getInstance().format(order.getOrderDate())
+									+ " has been removed from the system", "Attention", JOptionPane.INFORMATION_MESSAGE);
 
 							orderList.removeItem(orderID);
+							
+							revalidate();
 
-							printLabel.setText("");
+							repaint();
+							
+							break;
 
 						}
 
 						if (answer == JOptionPane.NO_OPTION) {
 
-							printLabel.setText("");
-
 						}
+						
+						revalidate();
 
 						repaint();
-
-						revalidate();
 
 						break;
 					}
@@ -141,7 +117,7 @@ public class RemoveOrderGUI extends JPanel implements ActionListener {
 			if (!orderFound) {
 
 				JOptionPane.showMessageDialog(this,
-						"No Order With This ID in System!");
+						"No Order With This ID in System!", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}

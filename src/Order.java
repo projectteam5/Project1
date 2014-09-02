@@ -1,12 +1,9 @@
 import java.io.FileWriter;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.ArrayList;
 
 import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
 
 public class Order {
 
@@ -88,7 +85,9 @@ public class Order {
 				
 				if(p.isActive()==true) {
 					
-					comboBoxList.addItem(p.getProductID() + " - " + p.getName());
+					comboBoxList.addItem(p.getProductID());
+					
+					productList = comboBoxList;
 					
 				}
 			}
@@ -250,36 +249,6 @@ public class Order {
 	
 	}
 	
-	public static boolean searchOrderByDate( Date orderDate, String date ) {
-		
-		boolean isAMatch = false;
-		
-		String oldStringDate = date;
-		
-		Date newDate = null;
-		
-		try {
-			
-			newDate = new SimpleDateFormat("dd-MMM-yyyy").parse(oldStringDate);
-			
-		} catch ( ParseException e ) {
-			
-			e.printStackTrace();
-			
-			JOptionPane.showMessageDialog(null, "Date format must be in the form: dd-MMM-yyyy");
-			
-		}
-			
-		if( orderDate.equals(newDate) ) {
-			
-			isAMatch = true;
-			
-		}
-		
-		return isAMatch;
-		
-	}
-	
 	public static String calculateOrderCost( double cost, int quantity ) {
 		
 		double orderCost = 0;
@@ -302,21 +271,40 @@ public class Order {
 	
 	public static boolean checkForOrders( Product product ) {
 		
-		boolean cantOrder = false;
+		boolean canOrder = false;
 		
-		for(Order o : RetailSystem.getInstance().getOrders()) {
+		if(product == null) {
 			
-			if( o.getProduct().getProductID().equalsIgnoreCase(product.getProductID()) && !o.isReceived() ) {
+			canOrder = false;
+			
+			return canOrder;
+			
+		} else {
+			
+			for(Order o : RetailSystem.getInstance().getOrders()) {
 				
-				cantOrder = true;
+				if( o.getProduct().getProductID().equalsIgnoreCase(product.getProductID()) && !o.isReceived() ) {
+					
+					canOrder = false;
+					
+					break;
+					
+				}
 				
-				break;
+				
+				if( o.getProduct().getProductID().equalsIgnoreCase(product.getProductID()) && o.isReceived() ) {
+					
+					canOrder = true;
+					
+					break;
+					
+				}
 				
 			}
 			
+			return canOrder;
+			
 		}
-		
-		return cantOrder;
 		
 	}
 	

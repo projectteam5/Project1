@@ -1,10 +1,14 @@
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -51,8 +55,11 @@ public class CreateOrderGUI extends JPanel implements ActionListener {
 		
 		labelProductID = new JLabel("Product ID");
 		comboBoxList = new JComboBox<String>();
-		comboBoxList.addItem("");
-		Order.getProducts(comboBoxList);
+		for(Product p : RetailSystem.getInstance().getProducts()) {
+			if(p.getSupplier().isActive()) {
+				comboBoxList.addItem(p.getProductID() + " - " + p.getName());
+			}
+		}
 		
 		labelProductQuantity = new JLabel("Product Quantity");
 		quantityTextField = new JTextField();
@@ -96,52 +103,125 @@ public class CreateOrderGUI extends JPanel implements ActionListener {
 			}
 			
 			if(newProduct == null ) {
-				JOptionPane.showMessageDialog(this, "Please choose a product");
+				JOptionPane.showMessageDialog(this, "Please choose a product", "Attention", JOptionPane.INFORMATION_MESSAGE);
 				dataOK = false;
 			}
 			
 			try {
+				
 				newQuantity = Integer.parseInt(quantityTextField.getText());
+				
+				if(quantityTextField.getText()==null) {
+					
+					JOptionPane.showMessageDialog(this, "Order must have a quantity", "Attention", JOptionPane.INFORMATION_MESSAGE);
+					
+					dataOK = false;
+					
+				}
+				
+				if(!(newQuantity > 0)) {
+					
+					JOptionPane.showMessageDialog(this, "Order quantity must be an more than 0", "Attention", JOptionPane.INFORMATION_MESSAGE);
+					
+					dataOK = false;
+				}
+				
 			} catch(NumberFormatException e) {
-				JOptionPane.showMessageDialog(this, "Order quantity must be an Integer");
+				JOptionPane.showMessageDialog(this, "Order quantity must be an Integer", "Error", JOptionPane.ERROR_MESSAGE);
 				dataOK = false;
 			}
 			
+			SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+			
+			if(orderDateTextField.getText()==null) {
+				
+				dataOK = false;
+				
+			}
+			
+			if( orderDateTextField.getText().trim().length() != df.toPattern().length() ) {
+				
+				JOptionPane.showMessageDialog(this, "Date format must be in the form: dd-MMM-yyyy", "Error", JOptionPane.ERROR_MESSAGE);
+				
+				dataOK = false;
+				
+			}
+			
+			df.setLenient(false);
+			
 			try {
+				
 				newOrderDate = DateFormat.getDateInstance().parse(orderDateTextField.getText());
+				
+			} catch (HeadlessException e1) {
+				e1.printStackTrace();
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+				dataOK = false;
+			}
+			
+			if(expectedDeliveryDateTextField.getText()==null) {
+				
+				dataOK = false;
+				
+			}
+			
+			if( expectedDeliveryDateTextField.getText().trim().length() != df.toPattern().length() ) {
+				
+				JOptionPane.showMessageDialog(this, "Date format must be in the form: dd-MMM-yyyy", "Error", JOptionPane.ERROR_MESSAGE);
+				
+				dataOK = false;
+				
+			}
+			
+			df.setLenient(false);
+			
+			try {
+				
 				newExpectedDeliveryDate = DateFormat.getDateInstance().parse(expectedDeliveryDateTextField.getText());
-			} catch (ParseException e) {
-				JOptionPane.showMessageDialog(this, "Date format must be in the form: dd-MMM-yyyy");
+				
+			} catch (HeadlessException e1) {
+				e1.printStackTrace();
+			} catch (ParseException e1) {
+				e1.printStackTrace();
 				dataOK = false;
 			}
 			
 			if(newExpectedDeliveryDate.before(newOrderDate)) {
-				JOptionPane.showMessageDialog(this, "Expected delivery date can not be before Order date");
+				JOptionPane.showMessageDialog(this, "Expected delivery date can not be before Order date", "Attention", JOptionPane.INFORMATION_MESSAGE);
 				dataOK = false;
+			}
+			
+			if(newExpectedDeliveryDate.before(addDaysToDate(newOrderDate, 3))) {
+				
+				JOptionPane.showMessageDialog(this, "Expected delivery date should be at least 3 days after order date", "Attention", JOptionPane.INFORMATION_MESSAGE);
+				dataOK = false;
+				
 			}
 			
 			// check if an open (!isReceived) Order is for this Product already - if so, we cannot Order
-			
-			if( Order.checkForOrders(newProduct) ) {
+			/*
+			if( !Order.checkForOrders(newProduct) ) {
 				
-				JOptionPane.showMessageDialog( this, "Open Order exists for this Product" );
+				JOptionPane.showMessageDialog( this, "Product can not be ordered" );
 				
 				dataOK = false;
 				
 			}
-			
+			*/
 			if ((!duplicateOrderID) && (dataOK==true)){
 				try{
-					JOptionPane.showMessageDialog(this, "Order Added");
 					
-					newReceivedDate = DateFormat.getDateInstance().parse(orderDateTextField.getText());
+					newReceivedDate = DateFormat.getDateInstance().parse(expectedDeliveryDateTextField.getText());
 					newReceived = false;
 					
-					Order newOrder = new Order(newOrderDate, newProduct, newQuantity, newExpectedDeliveryDate,
-							newReceivedDate, newReceived);
+					Order newOrder = new Order(newOrderDate, newProduct, newQuantity, newExpectedDeliveryDate,newReceivedDate, newReceived);
+					
 					RetailSystem.getInstance().getOrders().add(newOrder);
 					
 					Order.saveOrder();
+					
+					JOptionPane.showMessageDialog(this, "Order has been created", "Success", JOptionPane.INFORMATION_MESSAGE);
 					
 					orderDateTextField.setEditable(false);
 					quantityTextField.setEditable(false);
@@ -152,10 +232,27 @@ public class CreateOrderGUI extends JPanel implements ActionListener {
 					
 				} catch(NumberFormatException | ParseException e) {
 					
-					JOptionPane.showMessageDialog( this, "Error processing request" );
+					JOptionPane.showMessageDialog( this, "Error processing request", "Error", JOptionPane.ERROR_MESSAGE );
 					
 				}
 			}
 		}	
 	}
+	
+	public static Date addDaysToDate(Date date, int days) {
+		
+		Date newDate = new Date();
+		
+		Calendar calendar = new GregorianCalendar();
+		
+		calendar.setTime(date);
+		
+		calendar.add(Calendar.DATE, days);
+		
+		newDate = calendar.getTime();
+		
+		return newDate;
+		
+	}
+	
 }

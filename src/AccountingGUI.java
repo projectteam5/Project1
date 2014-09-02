@@ -2,7 +2,6 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -44,7 +43,7 @@ public class AccountingGUI extends JPanel implements ActionListener{
 		labelTitleMain = new JLabel("Profit & Loss Account");
 		labelTitleMain.setFont(new Font("Arial", Font.BOLD, 20));
 		
-		choosePeriodLabel = new JLabel("Choose Accounting Period");
+		choosePeriodLabel = new JLabel("Choose Preceding Months Accounting Period");
 		accountingPeriod = new JComboBox<Integer>();
 		for(int i = 1;i<=12;i++) {
 			accountingPeriod.addItem(i);
