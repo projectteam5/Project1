@@ -135,7 +135,7 @@ public class Invoice {
 		for(Invoice invoice : RetailSystem.getInstance().getInvoices()){
 			for (int i=last ; i<(last+(invoice.getSale().getLineItems().size())); i++){
 				matrix[i][0]= DateFormat.getDateInstance().format(invoice.getInvoiceDate());
-				matrix[i][1]= invoice.getSale().getLineItems().get(i-last).getProduct().getProductID();
+				matrix[i][1]= invoice.getSale().getLineItems().get(i-last).getProduct().getName();
 				matrix[i][2]= invoice.getSale().getLineItems().get(i-last).getQuantity()+"";
 			}
 			last = last+invoice.getSale().getLineItems().size();

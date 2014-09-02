@@ -10,10 +10,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class GraphGUI extends JPanel implements ActionListener {
+public class GraphGUI extends JPanel {
 
 	JLabel labelTitle;
-	JButton viewProductOrderGraph;
+	
 	JButton viewSalesAndPredictionsGraph;
 	JButton viewProductSalesGraph;
 	JButton viewStockLevels;
@@ -29,15 +29,14 @@ public class GraphGUI extends JPanel implements ActionListener {
 		labelTitle = new JLabel("Graph Menu");
 		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
 
-		viewProductOrderGraph = new JButton("Top Product Orders");
 		viewSalesAndPredictionsGraph = new JButton("Sales & Predictions");
-		viewProductSalesGraph = new JButton("Product Sales Quantities");
+		viewProductSalesGraph = new JButton("Sold Product Quantities");
 		viewStockLevels = new JButton("Stock Levels");
 
 		colorButton();
 
 		this.add(labelTitle);
-		this.add(viewProductOrderGraph);
+		
 		this.add(viewProductSalesGraph);
 		this.add(viewSalesAndPredictionsGraph);
 		this.add(viewStockLevels);
@@ -50,7 +49,7 @@ public class GraphGUI extends JPanel implements ActionListener {
 		viewProductSalesGraph.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MenuGUI.getInstance().setPanelAction(
-						new GraphOfSalesOfProductQuantities("", ""));
+						new BarChartOfSoldProductQuantities("", ""));
 				colorButton();
 				viewProductSalesGraph.setBackground(colorButtonSelected);
 			}
@@ -71,35 +70,16 @@ public class GraphGUI extends JPanel implements ActionListener {
 			}
 		});
 
-		viewProductOrderGraph.addActionListener(this);
-
 	}
 
-	public void actionPerformed(ActionEvent event) {
-		Object target = event.getSource();
+	
 
-		if (target == viewProductOrderGraph) {
-			try {
 
-				MenuGUI.getInstance().setPanelAction(
-						new GraphOfTopProductsFromOrders("", ""));
-				colorButton();
-				viewProductOrderGraph.setBackground(colorButtonSelected);
-
-			} catch (Exception e) {
-				System.err.println(e);
-				System.err.println(e.getMessage());
-				JOptionPane.showMessageDialog(this,
-						"Cannot reach createOrderGUI");
-			}
-		}
-
-	}
+	
 
 	public void colorButton() {
 
-		viewProductOrderGraph.setBackground(colorButtons);
-		viewProductOrderGraph.setFont(fontButtons);
+		
 		viewProductSalesGraph.setBackground(colorButtons);
 		viewProductSalesGraph.setFont(fontButtons);
 		viewSalesAndPredictionsGraph.setBackground(colorButtons);
@@ -107,5 +87,12 @@ public class GraphGUI extends JPanel implements ActionListener {
 		viewStockLevels.setBackground(colorButtons);
 		viewStockLevels.setFont(fontButtons);
 	}
+
+
+
+
+
+
+	
 
 }
