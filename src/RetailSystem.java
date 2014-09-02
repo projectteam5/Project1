@@ -24,6 +24,9 @@ public class RetailSystem {
 	private String[] userTypeList = { "Manager", "Attendant" };// Array with the
 																// possible
 																// users types
+	private String[] months = { "January", "February","March","April","May","June","July",
+			"August","September","October","November","December" };
+	private String[] years = { "2014", "2015"};
 
 	public RetailSystem() {
 	}
@@ -196,6 +199,24 @@ public class RetailSystem {
 
 	public void setSales(ArrayList<Sale> sales) {
 		this.sales = sales;
+	}
+	
+	
+
+	public String[] getMonths() {
+		return months;
+	}
+
+	public void setMonths(String[] months) {
+		this.months = months;
+	}
+
+	public String[] getYears() {
+		return years;
+	}
+
+	public void setYears(String[] years) {
+		this.years = years;
 	}
 
 	public static String returnIDfromCombobox(String selectedObjectString) {
