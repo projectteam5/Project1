@@ -40,6 +40,6 @@ public class Sale {
 	public void setSaleDate(Date saleDate) {
 		this.saleDate = saleDate;
 	}
-	
+
 
 }
