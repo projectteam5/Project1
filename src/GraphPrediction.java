@@ -18,6 +18,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 public class GraphPrediction extends JPanel {
 	
 	private ArrayList<Double> grossProfit;
+	private ArrayList<Double> predictionProfit;
 	
 	// sales data - Invoices
 	private double janSales; private double febSales; private double marSales; private double aprSales;
@@ -34,9 +35,17 @@ public class GraphPrediction extends JPanel {
 	private double junProfit; private double julProfit; private double augProfit; private double sepProfit; private double octProfit;
 	private double novProfit; private double decProfit;
 	
+	//predicton
+	private double janPrediction; private double febPrediction;private double marPrediction;private double aprPrediction;
+	private double mayPrediction;private double junPrediction;private double julPrediction;private double augPrediction;
+	private double sepPrediction;private double octPrediction;private double novPrediction;private double decPrediction;
+	private double predictDouble;
+	
+	
 	public GraphPrediction() {
 		
 		grossProfit = new ArrayList<Double>();
+		predictionProfit = new ArrayList<Double>(); 
 		
 		Calendar calendar1 = new GregorianCalendar();
 		
@@ -246,8 +255,54 @@ public class GraphPrediction extends JPanel {
 		
 		decProfit = decSales - decPurchases;
 		grossProfit.add(decProfit);
+		
+		//Get the predictions for each month
+		
+		for(Double prediction: grossProfit){
+			predictDouble = (prediction.doubleValue()*0.15)+prediction.doubleValue();
+			predictionProfit.add(predictDouble);
+		}
+		
+		/*
+		janPrediction = janProfit - anPurchases *;
+		grossProfit.add(janProfit);
+		
+		febPrediction = febSales - febPurchases;
+		grossProfit.add(febProfit);
+		
+		marPrediction = marSales - marPurchases;
+		grossProfit.add(marProfit);
+		
+		aprPrediction = aprSales - aprPurchases;
+		grossProfit.add(aprProfit);
+		
+		mayPrediction = maySales - mayPurchases;
+		grossProfit.add(mayProfit);
+		
+		junPrediction = junSales - junPurchases;
+		grossProfit.add(junProfit);
+		
+		julPrediction = julSales - julPurchases;
+		grossProfit.add(julProfit);
+		
+		augPrediction = augSales - augPurchases;
+		grossProfit.add(augProfit);
+		
+		sepPrediction = sepSales - sepPurchases;
+		grossProfit.add(sepProfit);
+		
+		octPrediction = octSales - octPurchases;
+		grossProfit.add(octProfit);
+		
+		novPrediction = novSales - novPurchases;
+		grossProfit.add(novProfit);
+		
+		decPrediction = decSales - decPurchases;
+		grossProfit.add(decProfit);
+		
+		*/
         
-        JFreeChart chart = ChartFactory.createXYLineChart("Sales, Purchases, Profit Graph", "Month", "(€) Amount", 
+        JFreeChart chart = ChartFactory.createXYLineChart("Sales, Purchases, Profit, Predictions Graph", "Month", "(â‚¬) Amount", 
         		createXYSeriesDataset(), PlotOrientation.VERTICAL,true,true,false);
         
         chart.setBackgroundPaint(Color.white);
@@ -270,6 +325,8 @@ public class GraphPrediction extends JPanel {
 		data.addSeries(xySeriesData2());
 		
 		data.addSeries(xySeriesData3());
+		
+		data.addSeries(xySeriesData4());
 		
 		return data;
 		
@@ -339,6 +396,41 @@ public class GraphPrediction extends JPanel {
 		series.add(Calendar.OCTOBER+1, octProfit);
 		series.add(Calendar.NOVEMBER+1, novProfit);
 		series.add(Calendar.DECEMBER+1, decProfit);
+		
+		return series;
+		
+	}
+	
+private XYSeries xySeriesData4() {
+		
+		final XYSeries series = new XYSeries("Sales Predictions");
+		janPrediction=predictionProfit.get(0);
+		febPrediction=predictionProfit.get(1);
+		marPrediction=predictionProfit.get(2);
+		aprPrediction=predictionProfit.get(3);
+		mayPrediction=predictionProfit.get(4);
+		junPrediction=predictionProfit.get(5);
+		julPrediction=predictionProfit.get(6);
+		augPrediction=predictionProfit.get(7);
+		sepPrediction=predictionProfit.get(8);
+		octPrediction=predictionProfit.get(9);
+		novPrediction=predictionProfit.get(10);
+		decPrediction=predictionProfit.get(11);
+	
+		
+		
+		series.add(Calendar.JANUARY+1, janPrediction);
+		series.add(Calendar.FEBRUARY+1, febPrediction);
+		series.add(Calendar.MARCH+1, marPrediction);
+		series.add(Calendar.APRIL+1, aprPrediction);
+		series.add(Calendar.MAY+1, mayPrediction);
+		series.add(Calendar.JUNE+1, junPrediction);
+		series.add(Calendar.JULY+1, julPrediction);
+		series.add(Calendar.AUGUST+1, augPrediction);
+		series.add(Calendar.SEPTEMBER+1, sepPrediction);
+		series.add(Calendar.OCTOBER+1, octPrediction);
+		series.add(Calendar.NOVEMBER+1, novPrediction);
+		series.add(Calendar.DECEMBER+1, decPrediction);
 		
 		return series;
 		
