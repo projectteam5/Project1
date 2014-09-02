@@ -93,7 +93,7 @@ public class BarChartOfSoldProductQuantities extends JPanel {
       
         // setting default size
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
-        
+        this.setLayout(new GridLayout(0, 1));
         this.add(chartPanel);
         
     }
