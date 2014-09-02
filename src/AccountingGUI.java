@@ -2,6 +2,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -12,7 +14,7 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class AccountingGUI extends JPanel implements ActionListener{
 	
-	private static JComboBox<Integer> accountingPeriod;
+	private static JComboBox<String> accountingPeriod;
 	private JButton selectButton;
 	private JButton graphButton;
 
@@ -38,15 +40,52 @@ public class AccountingGUI extends JPanel implements ActionListener{
 
 	public AccountingGUI() {
 		
-		this.setLayout(new GridLayout(0, 1));
+		this.setLayout(new GridLayout(0,1));
 		
 		labelTitleMain = new JLabel("Profit & Loss Account");
 		labelTitleMain.setFont(new Font("Arial", Font.BOLD, 20));
 		
 		choosePeriodLabel = new JLabel("Choose Preceding Months Accounting Period");
-		accountingPeriod = new JComboBox<Integer>();
+		accountingPeriod = new JComboBox<String>();
+		
 		for(int i = 1;i<=12;i++) {
-			accountingPeriod.addItem(i);
+			
+			if(i==1) {
+				accountingPeriod.addItem("Janurary");
+			}
+			if(i==2) {
+				accountingPeriod.addItem("Feburary");
+			}
+			if(i==3) {
+				accountingPeriod.addItem("March");
+			}
+			if(i==4) {
+				accountingPeriod.addItem("April");
+			}
+			if(i==5) {
+				accountingPeriod.addItem("May");
+			}
+			if(i==6) {
+				accountingPeriod.addItem("June");
+			}
+			if(i==7) {
+				accountingPeriod.addItem("July");
+			}
+			if(i==8) {
+				accountingPeriod.addItem("August");
+			}
+			if(i==9) {
+				accountingPeriod.addItem("September");
+			}
+			if(i==10) {
+				accountingPeriod.addItem("October");
+			}
+			if(i==11) {
+				accountingPeriod.addItem("November");
+			}
+			if(i==12) {
+				accountingPeriod.addItem("December");
+			}
 		}
 		
 		selectButton = new JButton("Select Period");
@@ -120,31 +159,21 @@ public class AccountingGUI extends JPanel implements ActionListener{
 		
         if( target == selectButton ){
         	
-        	period = Integer.parseInt( accountingPeriod.getSelectedItem().toString() );
+        	period = accountingPeriod.getSelectedIndex();
         	
-        	String s1 = Accounting.dateOpsMonthsFromDateString( - period );
-        	
-        	String s2 = s1;
-        	
-        	s2 = Accounting.dateOpsMonthsFromDateString( -- period );
-        	
-        	String s3 = s2;
-        	
-        	s3 = Accounting.dateOpsMonthsFromDateString( - period );
-        	
-        	labelDateRange.setText( "From: " + s1 +" To: " + s3 );
+        	labelDateRange.setText( "For: " + accountingPeriod.getSelectedItem() + " " + Calendar.getInstance().get(Calendar.YEAR) );
     		
-        	salesIncomeLabel.setText("€"+Accounting.salesIncome(s1, s3));
+        	salesIncomeLabel.setText("€"+Accounting.getIncomeForMonth(period));
         	
-        	openingStockLabel.setText("€"+Accounting.openingStock(s1, s3));
+        	openingStockLabel.setText("€"+Accounting.getOpeningStockForMonth(period));
         	
-        	goodsPurchaseLabel.setText("€"+Accounting.goodsPurchase(s1, s3));
+        	goodsPurchaseLabel.setText("€"+Accounting.getPurchasesForMonth(period));
         	
-        	closingStockLabel.setText("€"+Accounting.closingStock(s1, s3));
+        	closingStockLabel.setText("€"+Accounting.getClosingStockForMonth(period));
         	
-        	costOfSalesLabel.setText("€"+Accounting.costOfSales(s1, s3));
+        	costOfSalesLabel.setText("€"+Accounting.costOfSales(period));
         	
-        	grossProfitLabel.setText("€"+Accounting.grossProfit(s1, s3));
+        	grossProfitLabel.setText("€"+Accounting.grossProfit(period));
         	
         }
         
@@ -162,9 +191,7 @@ public class AccountingGUI extends JPanel implements ActionListener{
 				
 			}
         	
-        	getPeriod1();
-        	
-        	getPeriod2();
+        	getMonth();
         	
         }
         
@@ -179,31 +206,9 @@ public class AccountingGUI extends JPanel implements ActionListener{
 		this.period = period;
 	}
 	
-	public static String getPeriod1() {
+	public static int getMonth() {
 		
-		period = Integer.parseInt( accountingPeriod.getSelectedItem().toString() );
-    	
-    	String s1 = Accounting.dateOpsMonthsFromDateString( - period );
-    	
-    	return s1;
-		
-	}
-	
-	public static String getPeriod2() {
-		
-		period = Integer.parseInt( accountingPeriod.getSelectedItem().toString() );
-    	
-    	String s1 = Accounting.dateOpsMonthsFromDateString( - period );
-    	
-    	String s2 = s1;
-    	
-    	s2 = Accounting.dateOpsMonthsFromDateString( -- period );
-    	
-    	String s3 = s2;
-    	
-    	s3 = Accounting.dateOpsMonthsFromDateString( - period );
-    	
-    	return s3;
+		return period;
 		
 	}
 

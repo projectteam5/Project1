@@ -51,8 +51,8 @@ public class AccountingGraph extends JPanel implements ActionListener {
     	
        final  DefaultPieDataset result = new DefaultPieDataset();
        
-       result.setValue("Income", Accounting.salesIncome(AccountingGUI.getPeriod1(), AccountingGUI.getPeriod2()));
-       result.setValue("Purchases", Accounting.goodsPurchase(AccountingGUI.getPeriod1(), AccountingGUI.getPeriod2()));
+       result.setValue("Income", Accounting.getIncomeForMonth(AccountingGUI.getMonth()));
+       result.setValue("Purchases", Accounting.getPurchasesForMonth(AccountingGUI.getMonth()));
        
        return result;
         
