@@ -131,22 +131,31 @@ public class Invoice {
 		for(Invoice invoice : RetailSystem.getInstance().getInvoices()){
 			count = count + invoice.getSale().getLineItems().size();
 		}
-		System.out.println(count+"--"+RetailSystem.getInstance().getInvoices().size()+"--"+RetailSystem.getInstance().getInvoices().get(0).getSale().getLineItems().size());
 		matrix = new String[count][3];
 		for(Invoice invoice : RetailSystem.getInstance().getInvoices()){
 			for (int i=last ; i<(last+(invoice.getSale().getLineItems().size())); i++){
 				matrix[i][0]= DateFormat.getDateInstance().format(invoice.getInvoiceDate());
-				matrix[i][1]= invoice.getSale().getLineItems().get(i-last).getProduct().getProductID();
+				matrix[i][1]= invoice.getSale().getLineItems().get(i-last).getProduct().getName();
 				matrix[i][2]= invoice.getSale().getLineItems().get(i-last).getQuantity()+"";
 			}
 			last = last+invoice.getSale().getLineItems().size();
 		}
-		for(int k=0; k<count;k++){
-			for(int j=0; j<3;j++){
-				System.out.print(matrix[k][j]+" - ");
-			}
-			System.out.println("");
-		}
+		
 		return matrix;
+	}
+	
+	public static int quantityProductSoldMonthly(Product product, int month, int year){
+		int quantity = 0;
+		for(Invoice invoice : RetailSystem.getInstance().getInvoices()){
+			if(invoice.getInvoiceDate().getYear()== year && invoice.getInvoiceDate().getMonth()== month){
+				for(LineItem lineItem : invoice.getSale().getLineItems()){
+					if(lineItem.getProduct().getProductID().equals(product.getProductID())){
+						quantity = quantity+lineItem.getQuantity();
+					}
+				}
+			}
+			
+		}
+		return quantity;
 	}
 }

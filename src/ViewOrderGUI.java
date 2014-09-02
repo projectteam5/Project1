@@ -21,6 +21,7 @@ public class ViewOrderGUI extends JPanel implements ActionListener {
 	private JLabel receivedDate;
 	private JLabel isReceived;
 	private JLabel orderCost;
+	private JLabel isActive;
 	
 	public ViewOrderGUI() {
 		
@@ -41,8 +42,10 @@ public class ViewOrderGUI extends JPanel implements ActionListener {
 		quantity = new JLabel();
 		deliveryDate = new JLabel();
 		receivedDate = new JLabel();
-		isReceived = new JLabel();
 		orderCost = new JLabel();
+		isReceived = new JLabel();
+		isActive = new JLabel();
+		
 		
 		this.add(labelTitleMain);
 		this.add(orderList);
@@ -54,8 +57,9 @@ public class ViewOrderGUI extends JPanel implements ActionListener {
 		this.add(quantity);
 		this.add(deliveryDate);
 		this.add(receivedDate);
-		this.add(isReceived);
 		this.add(orderCost);
+		this.add(isReceived);
+		this.add(isActive);
 		
 		this.add(printLabel);
 		
@@ -67,11 +71,7 @@ public class ViewOrderGUI extends JPanel implements ActionListener {
 		setVisible(true);
 		
 		Order.getOrders(orderList);
-		/*
-		for(Order order: RetailSystem.getInstance().getOrders()){
-				orderList.addItem(order.getOrderID());
-		}
-		*/
+		
 	}
 	
 	public void actionPerformed(ActionEvent event) {
@@ -97,12 +97,49 @@ public class ViewOrderGUI extends JPanel implements ActionListener {
 						
 						this.orderID.setText("Order ID: " + order.getOrderID());
 						this.orderDate.setText("Order Date: "+DateFormat.getDateInstance().format(order.getOrderDate()));
-						this.product.setText("Product Name: " + order.getProduct().getName());
+						this.product.setText("Product: " + order.getProduct().getName());
 						this.quantity.setText("Quantity: "+ order.getQuantity());
 						this.deliveryDate.setText("Expected Delivery Date: "+ DateFormat.getDateInstance().format(order.getExpectedDeliveryDate()));
-						this.receivedDate.setText("Date Received: "+ DateFormat.getDateInstance().format(order.getDateReceived()));
-						this.isReceived.setText("Is Received?: "+ order.isReceived());
-						this.orderCost.setText("Order Cost: "+ Order.calculateOrderCost(order.getProduct().getCost(), order.getQuantity()));
+						
+						if(!order.isReceived()) {
+							
+							this.receivedDate.setText("Date Received: ");
+							
+						} else {
+							
+							this.receivedDate.setText("Date Received: "+ DateFormat.getDateInstance().format(order.getDateReceived()));
+							
+						}
+						
+						if(order.isReceived()||!order.isReceived()&&order.isActive()) {
+							
+							this.orderCost.setText("Order Cost: "+ Order.calculateOrderCost(order.getProduct().getCost(), order.getQuantity()));
+							
+						} else {
+							
+							this.orderCost.setText("Order Cost: ");
+							
+						}
+						
+						if(order.isReceived()) {
+							
+							this.isReceived.setText("Received: "+ "Y");
+							
+						} else {
+							
+							this.isReceived.setText("Received: "+ "N");
+							
+						}
+						
+						if(order.isActive()) {
+							
+							this.isActive.setText("Active: " + "Y");
+							
+						} else {
+							
+							this.isActive.setText("Active: " + "N");
+							
+						}
 						
 						break;
 						

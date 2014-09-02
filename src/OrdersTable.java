@@ -8,7 +8,7 @@ public class OrdersTable extends AbstractTableModel {
 	
 	private Vector<Order> vet = null;
 	
-	private String[] ColName = { "Order ID", "Order Date", "Product", "Quantity", "Expected Delivery Date", "Date Received", "Received", "Active" };
+	private String[] ColName = { "Order ID", "Order Date", "Product", "Quantity", "Expected Delivery Date", "Date Received", "Order Cost", "Received", "Active" };
 
 	public OrdersTable(Vector<Order> vet) {
 		
@@ -46,15 +46,34 @@ public class OrdersTable extends AbstractTableModel {
 			val = String.valueOf(DateFormat.getDateInstance().format(order.getExpectedDeliveryDate()));
 			break;
 		case 5:
-			val = String.valueOf(DateFormat.getDateInstance().format(order.getDateReceived()));
+			if(!order.isReceived()) {
+				
+				val = "";
+				
+			} else {
+				
+				val = String.valueOf(DateFormat.getDateInstance().format(order.getDateReceived()));
+				
+			}
 			break;
 		case 6:
+			if(order.isReceived()||!order.isReceived()&&order.isActive()) {
+				
+				val = String.valueOf(Order.calculateOrderCost(order.getProduct().getCost(), order.getQuantity()));
+				
+			} else {
+				
+				val = "";
+				
+			}
+			break;
+		case 7:
 			 if(order.isReceived())
 				 val = "Y";
 			 else
 				 val = "N"; 
 			 break;
-		case 7:
+		case 8:
 			 if(order.isActive())
 				 val = "Y";
 			 else

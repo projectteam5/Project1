@@ -108,5 +108,19 @@ public class Stock {
 			}
 		}
 	}
+	
+	public Stock(Stock other){
+		this.units=other.units;
+		this.product = other.product;
+		this.active = other.active;
+	}
+	public static ArrayList<Stock> createStockTemp(ArrayList<Stock> stocks){
+		ArrayList<Stock> temp = new ArrayList<Stock>(); 
+		for(Stock stock : stocks){
+			Stock stockTemp = new Stock(stock);
+			temp.add(stockTemp);
+		}
+		return temp;
+	}
 
 }

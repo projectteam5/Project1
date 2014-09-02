@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -13,19 +12,14 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.xy.MatrixSeries;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
-import org.jfree.ui.RectangleInsets;
 
-public class GraphOfTopSales extends JPanel {
-
-   private static final long serialVersionUID = 1L;  
+public class BarChartOfSoldProductQuantities extends JPanel {
+	private static final long serialVersionUID = 1L;  
    private String[][] matrix;
+  
+   ArrayList<String> idNamesList;
    
    ArrayList<ToHoldSoldProductsAndQuantity> janList= new ArrayList<ToHoldSoldProductsAndQuantity>();
    ArrayList<ToHoldSoldProductsAndQuantity> febList= new ArrayList<ToHoldSoldProductsAndQuantity>();
@@ -42,26 +36,21 @@ public class GraphOfTopSales extends JPanel {
    
    ArrayList<ToHoldSoldProductsAndQuantity> dupCheckList= new ArrayList<ToHoldSoldProductsAndQuantity>();
    ArrayList<ToHoldSoldProductsAndQuantity> completeList= new ArrayList<ToHoldSoldProductsAndQuantity>();
-   
-   ArrayList<XYSeries> listOfXYSeries = new ArrayList<XYSeries>();
-
-
+   ArrayList<String> listOfProductNames = new ArrayList<String>();
    private ToHoldSoldProductsAndQuantity convertedMatrixObject;
    private ToHoldSoldProductsAndQuantity listObject;
+  
+   private DataSetValue dataset;
 
-   XYSeries series;
-    
-   XYSeries seriesJan;XYSeries seriesFeb;XYSeries seriesMar;XYSeries seriesApr;XYSeries seriesMay;XYSeries seriesJun;
-   XYSeries seriesJul;XYSeries seriesAug;XYSeries seriesSep;XYSeries seriesOct;XYSeries seriesNov;XYSeries seriesDec;
-   
-   public GraphOfTopSales(String applicationTitle, String chartTitle) {
-	   	//	Getting the matrix that contains the date,products and quantities from all sales
+   public BarChartOfSoldProductQuantities(String applicationTitle, String chartTitle) {
+		//	Getting the matrix that contains the date,products and quantities from all sales
 	   	matrix = Invoice.productsSold();
 	   	listObject= new ToHoldSoldProductsAndQuantity("", "", 0);
 	   	dupCheckList.add(listObject);
 	   	
 	   	//	Finding out how many Individual products with quantities are in Matrix
 	   	int count = 0;
+	   	
 	   	
 		for(Invoice invoice : RetailSystem.getInstance().getInvoices()){
 			count = count + invoice.getSale().getLineItems().size();
@@ -93,61 +82,84 @@ public class GraphOfTopSales extends JPanel {
 		// such that each month list contains unique products with calculated
 		// quantities if the product appeared more than once on the list
 		resortMonthlyListToCalculateMulipleSalesOfProducts();
-				
-		// Creating the data set according to month.
-		// Will be 12 standard months on X-Axis with quantities on
-		// the Y-Axis with numerous colored lines depicting products
-		for(ToHoldSoldProductsAndQuantity list:janList){
-			series = new XYSeries(list.getName());
-			listOfXYSeries.add(series);
-		}
-		
-		
-		
-	   	// Adding the data set to the collection for viewing
 
-		XYSeriesCollection  xyDataset = new XYSeriesCollection();
-        xyDataset.addSeries(seriesJan);
-        xyDataset.addSeries(seriesFeb);
-        xyDataset.addSeries(seriesMar);
-        xyDataset.addSeries(seriesApr);
-        xyDataset.addSeries(seriesMay);
-        xyDataset.addSeries(seriesJun);
-        xyDataset.addSeries(seriesJul);
-        xyDataset.addSeries(seriesAug);
-        xyDataset.addSeries(seriesSep);
-        xyDataset.addSeries(seriesOct);
-        xyDataset.addSeries(seriesNov);
-        xyDataset.addSeries(seriesDec);
-       
+        // based on the dataset we create the chart
+        JFreeChart barChart = ChartFactory.createBarChart("Units of Products Sold Per Month", "Products", "Units", createDataset(),PlotOrientation.VERTICAL, true, true, false);
         
-        // Declaring and initializing and adding the chart to the panel 
+        // Adding chart into a chart panel
+
+        ChartPanel chartPanel = new ChartPanel(barChart);
         
-        JFreeChart	chart = ChartFactory.createXYLineChart("Products & Quantities over Time","Months","Quantity",xyDataset,PlotOrientation.VERTICAL,true,false,false);
-        chart.setBackgroundPaint(Color.white); 
-
-        XYPlot	plot	= (XYPlot) chart.getPlot();
-        plot.setBackgroundPaint       (Color.lightGray);
-        plot.setDomainGridlinePaint   (Color.GREEN);
-        plot.setRangeGridlinePaint    (Color.white);
-        plot.setAxisOffset            (new RectangleInsets(50, 0, 20, 5));
-        plot.setDomainCrosshairVisible(true);
-        plot.setRangeCrosshairVisible (true);
-
-        XYLineAndShapeRenderer  renderer  = (XYLineAndShapeRenderer) plot.getRenderer();      
-        renderer.setBaseShapesVisible(true);
-        renderer.setBaseShapesFilled (true);
-
-        ChartPanel              chartPanel     = new ChartPanel(chart);
+      
+        // setting default size
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         this.setLayout(new GridLayout(0, 1));
         this.add(chartPanel);
         
     }
+  
+   private CategoryDataset createDataset() {
+     // row keys...
+      final String jan = "January";
+      final String feb = "February";
+      final String mar = "March";
+      final String apr = "Apr";
+      final String may = "May";
+      final String jun = "June";
+      final String jul = "July";
+      final String aug = "August";
+      final String sep = "September";
+      final String oct = "October";
+      final String nov = "November";
+      final String dec = "December";
+
+      // create the dataset...
+      final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+      
+      for(ToHoldSoldProductsAndQuantity listItem: janList){ 
+    	  dataset.addValue(listItem.getQuantity(), listItem.getName(),jan);    
+      }
+      for(ToHoldSoldProductsAndQuantity listItem: febList){ 
+    	  dataset.addValue(listItem.getQuantity(), listItem.getName(),feb);    
+      }
+      for(ToHoldSoldProductsAndQuantity listItem: marList){ 
+    	  dataset.addValue(listItem.getQuantity(), listItem.getName(),mar);    
+      }
+      for(ToHoldSoldProductsAndQuantity listItem: aprList){ 
+    	  dataset.addValue(listItem.getQuantity(), listItem.getName(),apr);    
+      }
+      for(ToHoldSoldProductsAndQuantity listItem: mayList){ 
+    	  dataset.addValue(listItem.getQuantity(), listItem.getName(),may);    
+      }
+      for(ToHoldSoldProductsAndQuantity listItem: junList){ 
+    	  dataset.addValue(listItem.getQuantity(), listItem.getName(),jun);    
+      }
+      for(ToHoldSoldProductsAndQuantity listItem: julList){ 
+    	  dataset.addValue(listItem.getQuantity(), listItem.getName(),jul);    
+      }
+      for(ToHoldSoldProductsAndQuantity listItem: augList){ 
+    	  dataset.addValue(listItem.getQuantity(), listItem.getName(),aug);    
+      }
+      for(ToHoldSoldProductsAndQuantity listItem: sepList){ 
+    	  dataset.addValue(listItem.getQuantity(), listItem.getName(),sep);    
+      }
+      for(ToHoldSoldProductsAndQuantity listItem: octList){ 
+    	  dataset.addValue(listItem.getQuantity(), listItem.getName(),oct);    
+      }
+      for(ToHoldSoldProductsAndQuantity listItem: novList){ 
+    	  dataset.addValue(listItem.getQuantity(), listItem.getName(),nov);    
+      }
+      for(ToHoldSoldProductsAndQuantity listItem: decList){ 
+    	  dataset.addValue(listItem.getQuantity(), listItem.getName(),dec);    
+      }      
+      return dataset;
+  }
    
-   // Function to check for two or more products sold in the same month that
+   // previous months data values
+   
+	  
+// Function to check for two or more products sold in the same month that
    // is used in conjunction with the resortMonthlyLists function
-   
    public void storeAndCheckForMoreSalesOfProduct(ToHoldSoldProductsAndQuantity sentListItem){
 	   int i=0;
 	   for(ToHoldSoldProductsAndQuantity thisList: dupCheckList){
@@ -281,6 +293,5 @@ public class GraphOfTopSales extends JPanel {
 		for(ToHoldSoldProductsAndQuantity obj: dupCheckList){decList.add(obj);}
 		dupCheckList.clear();
 		dupCheckList.add(listObject);
-	}
-
+	}  
 }
