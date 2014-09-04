@@ -31,7 +31,7 @@ public class UserGUI extends JPanel {
 		
 		addUser = new JButton("Add User");
 		editUser = new JButton("Edit User");
-		deleteUser = new JButton("Deactive User");
+		deleteUser = new JButton("Deactivate User");
 		showUser = new JButton("View User");
 		reactivateUser = new JButton("Reactivate User");
 		colorButton();

@@ -32,7 +32,7 @@ public class ProductMenuGUI extends JPanel{
 		labelTitle = new JLabel("Product Menu");
 		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		buttonAddProduct = new JButton("Add Product");
-		buttonRemoveProduct = new JButton("Deactive Product");
+		buttonRemoveProduct = new JButton("Deactivate Product");
 		buttonReactivateProduct = new JButton("Reactivate Product");
 		buttonViewProduct = new JButton("View Product");
 		buttonViewProductList = new JButton("View All Products");

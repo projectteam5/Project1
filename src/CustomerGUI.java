@@ -33,7 +33,7 @@ public class CustomerGUI extends JPanel {
 		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		addCustomer = new JButton("Add Customer");
 		editCustomer = new JButton("Edit Customer");
-		deleteCustomer = new JButton("Deactive Customer");
+		deleteCustomer = new JButton("Deactivate Customer");
 		showCustomer = new JButton("View Customer");
 		customerReactivate = new JButton("Reactivate Customer");
 		colorButton();
