@@ -109,7 +109,7 @@ public class CreateOrderGUI extends JPanel implements ActionListener {
 				
 				dataOK = false;
 				
-				e.printStackTrace();
+				//e.printStackTrace();
 				
 				JOptionPane.showMessageDialog(this, "Order date could not be parsed", "Error", JOptionPane.ERROR_MESSAGE);
 			
@@ -123,7 +123,7 @@ public class CreateOrderGUI extends JPanel implements ActionListener {
 				
 				dataOK = false;
 				
-				e.printStackTrace();
+				//e.printStackTrace();
 				
 				JOptionPane.showMessageDialog(this, "The product ComboBox is empty", "Error", JOptionPane.ERROR_MESSAGE);
 				
@@ -137,7 +137,7 @@ public class CreateOrderGUI extends JPanel implements ActionListener {
 				
 				dataOK = false;
 				
-				e.printStackTrace();
+				//e.printStackTrace();
 				
 				JOptionPane.showMessageDialog(this, "No product selected", "Error", JOptionPane.ERROR_MESSAGE);
 				
@@ -151,7 +151,7 @@ public class CreateOrderGUI extends JPanel implements ActionListener {
 				
 				dataOK = false;
 				
-				e.printStackTrace();
+				//e.printStackTrace();
 				
 				JOptionPane.showMessageDialog(this, "Order quantity could not be parsed", "Error", JOptionPane.ERROR_MESSAGE);
 			
@@ -165,7 +165,7 @@ public class CreateOrderGUI extends JPanel implements ActionListener {
 				
 				dataOK = false;
 				
-				e.printStackTrace();
+				//e.printStackTrace();
 				
 				JOptionPane.showMessageDialog(this, "Expected delivery date could not be parsed", "Error", JOptionPane.ERROR_MESSAGE);
 			
@@ -280,7 +280,7 @@ public class CreateOrderGUI extends JPanel implements ActionListener {
 					
 					dataOK = false;
 					
-					e.printStackTrace();
+					//e.printStackTrace();
 					
 					JOptionPane.showMessageDialog( this, "Error processing order", "Error", JOptionPane.ERROR_MESSAGE );
 					
