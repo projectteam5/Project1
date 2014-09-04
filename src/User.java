@@ -131,6 +131,15 @@ public class User {
 		}
 	}
 	
+	public static boolean validateUser(String name, String password, String type) {
+		boolean userOk = false;
+		if (name != null && password != null && type != null && !name.isEmpty()
+				&& !password.isEmpty() && !type.isEmpty()) {
+			userOk = true;
+		}
+		return userOk;
+	}
+	
 
 
 }

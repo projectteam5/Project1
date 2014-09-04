@@ -36,15 +36,31 @@ public class UserTest {
 		assertFalse(User.existingUser("2222"));
 	}
 
-	/*@Test
+	@Test
 	public void testRetrieveUserFound() {
 		User user1 = new User("Scott Scott","passw1","Manager");
+		RetailSystem.getInstance().getUsers().add(user1);
 		assertEquals(user1.getUserID(), User.retrieveUser("User3").getUserID());
-	}*/
+	}
 	
 	@Test
 	public void testRetrieveUserNotFound() {
 		assertEquals(null, User.retrieveUser("2222"));
+	}
+	
+	@Test
+	public void testValidateUserNewUser() {
+		assertTrue(User.validateUser( "name", "password", "Manager"));
+	}
+	
+	@Test
+	public void testValidateUserEmpty() {
+		assertFalse(User.validateUser("", "", "Manager"));
+	}
+	
+	@Test
+	public void testValidateUserNull() {
+		assertFalse(User.validateUser(null, "", "Manager"));
 	}
 
 }

@@ -25,20 +25,7 @@ public class AddUserGUITest {
 	public void tearDown() throws Exception {
 		RetailSystem.getInstance().setUsers(userStatus);
 	}
-
-	@Test
-	public void testValidateUserNewUser() {
-		assertTrue(AddUserGUI.validateUser( "name", "password", "Manager"));
-	}
+/*
 	
-	@Test
-	public void testValidateUserEmpty() {
-		assertFalse(AddUserGUI.validateUser("", "", "Manager"));
-	}
-	
-	@Test
-	public void testValidateUserNull() {
-		assertFalse(AddUserGUI.validateUser(null, "", "Manager"));
-	}
-
+*/
 }

@@ -70,7 +70,7 @@ public class ReactivateUser extends JPanel {
 	public void reactivateUser(User user) {
 		user.setActive(true);
 		User.saveUser();
-		JOptionPane.showMessageDialog(null, "Product has been set to active");
+		JOptionPane.showMessageDialog(null, "User has been set to active");
 	}
 
 }

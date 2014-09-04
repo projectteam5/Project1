@@ -1,12 +1,12 @@
-Product1;Hello Kitty Island Adventure PC Game;50.0;10.0;Supplier 1;true
+Product1;Hello Kitty Island Adventure PC Game;50.0;10.0;Supplier 3;true
 Product2;Magic iBall Processor;500.0;100.0;Supplier 1;true
 Product3;ICU Cam;20.0;2.0;Supplier 2;false
-Product4;Return of the iMac - Manual;40.0;20.0;Supplier 3;false
-Product5;Subnetting For Dummies;35.0;20.0;Supplier 2;true
-Product6;Game One;150.0;50.0;Supplier 4;true
+Product4;Return of the iMac - Manual;40.0;20.0;Supplier 4;false
+Product5;Subnetting For Dummies;35.0;20.0;Supplier 3;true
+Product6;Game One;150.0;50.0;Supplier 3;true
 Product7;Windows Hasta La Vista Home Basic x86;120.0;50.0;Supplier 6;true
-Product8;Macho MachoFan;600.0;200.0;Supplier 1;true
-Product9;FANtastic Cooling Pad;100.0;50.0;Supplier 2;false
+Product8;Macho MachoFan;600.0;200.0;Supplier 3;true
+Product9;FANtastic Cooling Pad;100.0;50.0;Supplier 3;false
 Product10;Mother-In-Law Board x3Extreme;950.0;100.0;Supplier 8;true
 Product11;Elephant SSD 4TB;5000.0;1150.0;Supplier 8;false
 Product12;BaaBaa RAM 2x16GB;200.0;100.0;Supplier 1;true

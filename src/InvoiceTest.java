@@ -29,11 +29,6 @@ public class InvoiceTest {
 	private static ArrayList<Sale> salesTest;
 	private static Date date = new Date();
 
-	/*
-	 * it is necessary to initialize a supplier arrayList for the product
-	 * loading it is necessary to initialize a product arrayList for the order
-	 * loading
-	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		// create a Suppliers ArrayList for test
@@ -111,8 +106,13 @@ public class InvoiceTest {
 	@Test
 	public void testRetrieveInvoiceWithID() {
 		Invoice retrieveInvoice = Invoice.retrieveInvoiceWithID("Invoice1");
-		System.err.println(retrieveInvoice.getInvoiceID());
 		assertEquals(invoicesTest.get(0).getInvoiceID(), retrieveInvoice.getInvoiceID());
+	}
+	
+	@Test
+	public void testRetrieveInvoiceWithIDNotFound() {
+		Invoice retrieveInvoice = Invoice.retrieveInvoiceWithID("Invoice3");
+		assertEquals(null, retrieveInvoice);
 	}
 
 	@Test

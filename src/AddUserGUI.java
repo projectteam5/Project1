@@ -90,7 +90,7 @@ public class AddUserGUI extends JPanel {
 		String name = textUserName.getText();
 		String password = textUserPass.getText();
 		String type = typeDropDown.getSelectedItem().toString();
-		if (validateUser(name, password, type)) {
+		if (User.validateUser(name, password, type)) {
 			User user = new User(name, password, type);
 			userID = user.getUserID();
 			RetailSystem.getInstance().getUsers().add(user);
@@ -104,13 +104,5 @@ public class AddUserGUI extends JPanel {
 		}
 	}
 
-	public static boolean validateUser(String name, String password, String type) {
-		boolean userOk = false;
-		if (name != null && password != null && type != null && !name.isEmpty()
-				&& !password.isEmpty() && !type.isEmpty()) {
-			userOk = true;
-		}
-		return userOk;
-	}
 
 }
