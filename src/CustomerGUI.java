@@ -33,8 +33,8 @@ public class CustomerGUI extends JPanel {
 		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		addCustomer = new JButton("Add Customer");
 		editCustomer = new JButton("Edit Customer");
-		deleteCustomer = new JButton("Remove Customer");
-		showCustomer = new JButton("Show Customer");
+		deleteCustomer = new JButton("Deactive Customer");
+		showCustomer = new JButton("View Customer");
 		customerReactivate = new JButton("Reactivate Customer");
 		colorButton();
 
@@ -42,9 +42,9 @@ public class CustomerGUI extends JPanel {
 		this.add(labelTitle);
 		this.add(addCustomer);
 		this.add(editCustomer);
-		this.add(showCustomer);
 		this.add(deleteCustomer);
 		this.add(customerReactivate);
+		this.add(showCustomer);
 		//fixing the layout
 		JLabel labelEmpty = new JLabel(" ");
 		this.add(labelEmpty);

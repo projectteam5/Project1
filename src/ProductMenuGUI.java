@@ -32,7 +32,7 @@ public class ProductMenuGUI extends JPanel{
 		labelTitle = new JLabel("Product Menu");
 		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		buttonAddProduct = new JButton("Add Product");
-		buttonRemoveProduct = new JButton("Remove Product");
+		buttonRemoveProduct = new JButton("Deactive Product");
 		buttonReactivateProduct = new JButton("Reactivate Product");
 		buttonViewProduct = new JButton("View Product");
 		buttonViewProductList = new JButton("View All Products");
@@ -43,9 +43,9 @@ public class ProductMenuGUI extends JPanel{
 		if(RetailSystem.getInstance().getCurrentUserType().equalsIgnoreCase("Manager")){
 			this.add(labelTitle);
 			this.add(buttonAddProduct);
+			this.add(buttonEditProduct);
 			this.add(buttonRemoveProduct);
 			this.add(buttonReactivateProduct);
-			this.add(buttonEditProduct);
 			this.add(buttonViewProduct);
 			this.add(buttonViewProductList);
 			

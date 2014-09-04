@@ -32,19 +32,19 @@ public class SupplierMenuGUI extends JPanel{
 		title = new JLabel("Supplier Menu");
 		title.setFont(new Font("Arial", Font.BOLD, 20));
 		editButton = new JButton("Edit Supplier");
-	 	viewListButton = new JButton("List Suppliers");
+	 	viewListButton = new JButton("View All Suppliers");
 	 	deleteButton = new JButton("Deactivate Supplier");
 	 	addButton = new JButton("Add Supplier");
 	 	reactivateSupplier = new JButton("Reactivate Supplier");
-	 	singleSupplierDetails = new JButton("Supplier details");
+	 	singleSupplierDetails = new JButton("View Supplier");
 	 	
 	 	colorButton();
 	 	
 	 	this.add(title);
 	 	this.add(addButton);
+	 	this.add(editButton);
 	 	this.add(deleteButton);
 	 	this.add(reactivateSupplier);
-	 	this.add(editButton);
 	 	this.add(singleSupplierDetails);
 	 	this.add(viewListButton);
 		

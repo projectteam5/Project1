@@ -31,7 +31,7 @@ public class UserGUI extends JPanel {
 		
 		addUser = new JButton("Add User");
 		editUser = new JButton("Edit User");
-		deleteUser = new JButton("Remove User");
+		deleteUser = new JButton("Deactive User");
 		showUser = new JButton("View User");
 		reactivateUser = new JButton("Reactivate User");
 		colorButton();
@@ -40,9 +40,9 @@ public class UserGUI extends JPanel {
 		this.add(labelTitle);
 		this.add(addUser);
 		this.add(editUser);
-		this.add(showUser);
 		this.add(deleteUser);
 		this.add(reactivateUser);
+		this.add(showUser);
 		//fixing the layout
 		JLabel labelEmpty = new JLabel(" ");
 		JLabel labelEmpty1 = new JLabel(" ");
