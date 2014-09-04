@@ -81,7 +81,7 @@ public class EditOrderGUI extends JPanel implements ActionListener {
 			}
 			if (!orderFound) {
 
-				JOptionPane.showMessageDialog(this, "No Order With This ID in System!");
+				JOptionPane.showMessageDialog(this, "An order is not selected", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 

@@ -1,12 +1,10 @@
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -31,6 +29,8 @@ public class CreateOrderGUI extends JPanel implements ActionListener {
 	private JLabel labelExpectedDeliveryDate;
 	private JButton submitButton;
 	
+	private String productName;
+	
 	private Date newOrderDate;
 	private Product newProduct;
 	private int newQuantity;
@@ -48,16 +48,18 @@ public class CreateOrderGUI extends JPanel implements ActionListener {
 		
 		new JLabel("OrderID");
 		new JTextField();
+		new GregorianCalendar();
+		
 		
 		labelOrderDate = new JLabel("Order Date");
 		orderDateTextField = new JTextField();
 		orderDateTextField.setText(DateFormat.getDateInstance().format(new Date()));
 		
-		labelProductID = new JLabel("Product ID");
+		labelProductID = new JLabel("Product Name");
 		comboBoxList = new JComboBox<String>();
 		for(Product p : RetailSystem.getInstance().getProducts()) {
 			if(p.getSupplier().isActive()) {
-				comboBoxList.addItem(p.getProductID() + " - " + p.getName());
+				comboBoxList.addItem(p.getName());
 			}
 		}
 		
@@ -88,131 +90,175 @@ public class CreateOrderGUI extends JPanel implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent event) {
+		
 		Object target = event.getSource();
+		
+		SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+		
+		df.setLenient(true);
+		
+		boolean dataOK = true;
 		
 		if(target == submitButton) {
 			
-			boolean duplicateOrderID = false;
-			boolean dataOK = true;
+			try {
+				
+				newOrderDate = df.parse(orderDateTextField.getText());
 			
-			String productID = comboBoxList.getSelectedItem().toString();
-			for(Product product: RetailSystem.getInstance().getProducts()){
-				if(productID.contains(product.getProductID())){
-					newProduct = product;
-				}
+			} catch (ParseException e) {
+				
+				dataOK = false;
+				
+				e.printStackTrace();
+				
+				JOptionPane.showMessageDialog(this, "Order date could not be parsed", "Error", JOptionPane.ERROR_MESSAGE);
+			
 			}
 			
-			if(newProduct == null ) {
-				JOptionPane.showMessageDialog(this, "Please choose a product", "Attention", JOptionPane.INFORMATION_MESSAGE);
+			try {
+				
+				productName = comboBoxList.getSelectedItem().toString();
+				
+			} catch( NullPointerException e) {
+				
 				dataOK = false;
+				
+				e.printStackTrace();
+				
+				JOptionPane.showMessageDialog(this, "The product ComboBox is empty", "Error", JOptionPane.ERROR_MESSAGE);
+				
+			}
+			
+			try {
+				
+				Order.checkForOrders(productName);
+				
+			} catch( NullPointerException e) {
+				
+				dataOK = false;
+				
+				e.printStackTrace();
+				
+				JOptionPane.showMessageDialog(this, "No product selected", "Error", JOptionPane.ERROR_MESSAGE);
+				
 			}
 			
 			try {
 				
 				newQuantity = Integer.parseInt(quantityTextField.getText());
 				
-				if(quantityTextField.getText()==null) {
-					
-					JOptionPane.showMessageDialog(this, "Order must have a quantity", "Attention", JOptionPane.INFORMATION_MESSAGE);
-					
-					dataOK = false;
-					
-				}
-				
-				if(!(newQuantity > 0)) {
-					
-					JOptionPane.showMessageDialog(this, "Order quantity must be an more than 0", "Attention", JOptionPane.INFORMATION_MESSAGE);
-					
-					dataOK = false;
-				}
-				
 			} catch(NumberFormatException e) {
-				JOptionPane.showMessageDialog(this, "Order quantity must be an Integer", "Error", JOptionPane.ERROR_MESSAGE);
+				
 				dataOK = false;
+				
+				e.printStackTrace();
+				
+				JOptionPane.showMessageDialog(this, "Order quantity could not be parsed", "Error", JOptionPane.ERROR_MESSAGE);
+			
 			}
 			
-			SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+			try {
+				
+				newExpectedDeliveryDate = df.parse(expectedDeliveryDateTextField.getText());
 			
-			if(orderDateTextField.getText()==null) {
+			} catch (ParseException e) {
 				
 				dataOK = false;
 				
+				e.printStackTrace();
+				
+				JOptionPane.showMessageDialog(this, "Expected delivery date could not be parsed", "Error", JOptionPane.ERROR_MESSAGE);
+			
 			}
 			
 			if( orderDateTextField.getText().trim().length() != df.toPattern().length() ) {
 				
-				JOptionPane.showMessageDialog(this, "Date format must be in the form: dd-MMM-yyyy", "Error", JOptionPane.ERROR_MESSAGE);
-				
 				dataOK = false;
+				
+				JOptionPane.showMessageDialog(this, "Date pattern is not correct length", "Error", JOptionPane.ERROR_MESSAGE);
 				
 			}
 			
-			df.setLenient(false);
-			
-			try {
+			if( !Order.validateDatePattern(orderDateTextField.getText()) ) {
 				
-				newOrderDate = DateFormat.getDateInstance().parse(orderDateTextField.getText());
-				
-			} catch (HeadlessException e1) {
-				e1.printStackTrace();
-			} catch (ParseException e1) {
-				e1.printStackTrace();
 				dataOK = false;
+				
+				JOptionPane.showMessageDialog(this, "Date does not match specified pattern: 'dd-MMM-yyyy'", "Error", JOptionPane.ERROR_MESSAGE);
+				
 			}
 			
-			if(expectedDeliveryDateTextField.getText()==null) {
+			if( !Order.checkForOrders(productName) ) {
 				
 				dataOK = false;
+				
+				JOptionPane.showMessageDialog(this, "An order for this product has been made "
+						+ "and as yet has not been received", "Attention", JOptionPane.INFORMATION_MESSAGE);
+				
+			}
+			
+			if(quantityTextField.getText()==null) {
+				
+				dataOK = false;
+				
+				JOptionPane.showMessageDialog(this, "Order must have a quantity", "Attention", JOptionPane.INFORMATION_MESSAGE);
+				
+			}
+			
+			if(!(newQuantity > 0)) {
+				
+				dataOK = false;
+				
+				JOptionPane.showMessageDialog(this, "Order quantity must be greater than 0", "Attention", JOptionPane.INFORMATION_MESSAGE);
 				
 			}
 			
 			if( expectedDeliveryDateTextField.getText().trim().length() != df.toPattern().length() ) {
 				
-				JOptionPane.showMessageDialog(this, "Date format must be in the form: dd-MMM-yyyy", "Error", JOptionPane.ERROR_MESSAGE);
-				
 				dataOK = false;
+				
+				JOptionPane.showMessageDialog(this, "Date pattern is not correct length", "Error", JOptionPane.ERROR_MESSAGE);
 				
 			}
 			
-			df.setLenient(false);
-			
-			try {
-				
-				newExpectedDeliveryDate = DateFormat.getDateInstance().parse(expectedDeliveryDateTextField.getText());
-				
-			} catch (HeadlessException e1) {
-				e1.printStackTrace();
-			} catch (ParseException e1) {
-				e1.printStackTrace();
-				dataOK = false;
-			}
-			
-			if(newExpectedDeliveryDate.before(newOrderDate)) {
-				JOptionPane.showMessageDialog(this, "Expected delivery date can not be before Order date", "Attention", JOptionPane.INFORMATION_MESSAGE);
-				dataOK = false;
-			}
-			
-			if(newExpectedDeliveryDate.before(addDaysToDate(newOrderDate, 3))) {
-				
-				JOptionPane.showMessageDialog(this, "Expected delivery date should be at least 3 days after order date", "Attention", JOptionPane.INFORMATION_MESSAGE);
-				dataOK = false;
-				
-			}
-			
-			// check if an open (!isReceived) Order is for this Product already - if so, we cannot Order
-			/*
-			if( !Order.checkForOrders(newProduct) ) {
-				
-				JOptionPane.showMessageDialog( this, "Product can not be ordered" );
+			if( !Order.validateDatePattern(expectedDeliveryDateTextField.getText()) ) {
 				
 				dataOK = false;
 				
+				JOptionPane.showMessageDialog(this, "Date does not match specified pattern: 'dd-MMM-yyyy'", "Error", JOptionPane.ERROR_MESSAGE);
+				
 			}
-			*/
-			if ((!duplicateOrderID) && (dataOK==true)){
+			
+			if( newExpectedDeliveryDate.before(newOrderDate) ) {
+				
+				dataOK = false;
+				
+				JOptionPane.showMessageDialog(this, "Expected delivery date should not be before order date", "Attention", JOptionPane.INFORMATION_MESSAGE);
+			
+			}
+			
+			if( newExpectedDeliveryDate.before(Order.addDaysToDate(newOrderDate, 5)) ) {
+				
+				dataOK = false;
+				
+				JOptionPane.showMessageDialog(this, "Expected delivery date should be at least 5 days after order date", "Attention", JOptionPane.INFORMATION_MESSAGE);
+				
+			}
+			
+			if ( dataOK==true ) {
 				try{
 					
-					newReceivedDate = DateFormat.getDateInstance().parse(expectedDeliveryDateTextField.getText());
+					for(Product product: RetailSystem.getInstance().getProducts()){
+						
+						if(productName.contains(product.getName())){
+							
+							newProduct = product;
+							
+						}
+						
+					}
+					
+					newReceivedDate = newExpectedDeliveryDate;
+					
 					newReceived = false;
 					
 					Order newOrder = new Order(newOrderDate, newProduct, newQuantity, newExpectedDeliveryDate,newReceivedDate, newReceived);
@@ -224,35 +270,23 @@ public class CreateOrderGUI extends JPanel implements ActionListener {
 					JOptionPane.showMessageDialog(this, "Order has been created", "Success", JOptionPane.INFORMATION_MESSAGE);
 					
 					orderDateTextField.setEditable(false);
+					comboBoxList.setEnabled(false);
 					quantityTextField.setEditable(false);
 					expectedDeliveryDateTextField.setEditable(false);
-					comboBoxList.setEnabled(false);
 					submitButton.setEnabled(false);
 					
 					
-				} catch(NumberFormatException | ParseException e) {
+				} catch(NumberFormatException | ParseException | NullPointerException e) {
 					
-					JOptionPane.showMessageDialog( this, "Error processing request", "Error", JOptionPane.ERROR_MESSAGE );
+					dataOK = false;
+					
+					e.printStackTrace();
+					
+					JOptionPane.showMessageDialog( this, "Error processing order", "Error", JOptionPane.ERROR_MESSAGE );
 					
 				}
 			}
 		}	
-	}
-	
-	public static Date addDaysToDate(Date date, int days) {
-		
-		Date newDate = new Date();
-		
-		Calendar calendar = new GregorianCalendar();
-		
-		calendar.setTime(date);
-		
-		calendar.add(Calendar.DATE, days);
-		
-		newDate = calendar.getTime();
-		
-		return newDate;
-		
 	}
 	
 }

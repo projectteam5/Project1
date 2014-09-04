@@ -1,7 +1,11 @@
 import java.io.FileWriter;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JComboBox;
 
@@ -156,24 +160,6 @@ public class Order {
 		
 	}
 	
-	public static int getActiveOrdersCount() {
-		
-		int count = 0;
-		
-		for(Order o : RetailSystem.getInstance().getOrders()) {
-			
-				if( o.isActive() ) {
-					
-					count++;
-					
-				}
-				
-			}
-		
-		return count;
-		
-	}
-	
 	/*
 	 * 
 	 * If the ReceivedDate is equal to the ExpectedDeliveryDate
@@ -269,42 +255,29 @@ public class Order {
 	 * 
 	 * */
 	
-	public static boolean checkForOrders( Product product ) {
+	public static boolean checkForOrders( String productName ) {
 		
-		boolean canOrder = false;
+		boolean canOrder = true;
 		
-		if(product == null) {
+		ArrayList<Object> obj = new ArrayList<Object>();
 			
-			canOrder = false;
+		for(Order o : RetailSystem.getInstance().getOrders()) {
 			
-			return canOrder;
-			
-		} else {
-			
-			for(Order o : RetailSystem.getInstance().getOrders()) {
+			if( o.getProduct().getName().contains(productName) && !o.isReceived() && o.isActive() ) {
 				
-				if( o.getProduct().getProductID().equalsIgnoreCase(product.getProductID()) && !o.isReceived() ) {
-					
-					canOrder = false;
-					
-					break;
-					
-				}
-				
-				
-				if( o.getProduct().getProductID().equalsIgnoreCase(product.getProductID()) && o.isReceived() ) {
-					
-					canOrder = true;
-					
-					break;
-					
-				}
+				obj.add(o.getProduct().getName());
 				
 			}
 			
-			return canOrder;
+			if( obj.size() >= 1 ) {
+				
+				canOrder = false;
+				
+			}
 			
 		}
+		
+		return canOrder;
 		
 	}
 	
@@ -405,11 +378,58 @@ public class Order {
 				+ " | " + dateReceived 
 				+ " | " + received);
 	}
-	public Date autogenExpectedDate(Date orderDate){
+	
+	public static Date addDaysToDate(Date date, int days) {
 		
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(orderDate);
-		cal.add(Calendar.DATE, 7);
-		return cal.getTime();
+		Date newDate = new Date();
+		
+		Calendar calendar = new GregorianCalendar();
+		
+		calendar.setTime(date);
+		
+		calendar.add(Calendar.DATE, days);
+		
+		newDate = calendar.getTime();
+		
+		return newDate;
+		
 	}
+	
+	public static boolean validateDatePattern(String date) {
+		
+		boolean isMatch = false;
+		
+		Pattern pattern = Pattern.compile(
+				"\\b"
+				+ "(\\d{2})"
+				+ "-"
+				+ "(\\bJan\\b|\\bFeb\\b|\\bMar\\b|\\bApr\\b|\\bMay\\b|\\bJun\\b|\\bJul\\b|\\bAug\\b|\\bSep\\b|\\bOct\\b|\\bNov\\b|\\bDec\\b)"
+				+ "-"
+				+ "(\\d{4})"
+				+ "*$");
+		
+		Matcher matchr = pattern.matcher(date);
+		
+		if(matchr.find()) {
+			
+			int d = Integer.parseInt(matchr.group(1));
+			
+			int y = Integer.parseInt(matchr.group(3));
+			
+			if( (d < 32 && d > 00) && (y < 3000 && y > 1899) ) {
+				
+				isMatch = true;
+				
+			}
+			
+			} else {
+				
+				isMatch = false;
+				
+			}
+			
+			return isMatch;
+		
+	}
+	
 }

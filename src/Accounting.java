@@ -16,6 +16,18 @@ public class Accounting {
 	
 	private Date accountingDate;
 	
+	private ArrayList<Accounting>accounts;
+	
+	private int year;
+
+	private int month;
+
+	private double sales;
+
+	private double purchases;
+
+	private double profit;
+	
 	public Accounting() {
 		
 		invoices = new ArrayList<Invoice>();
@@ -26,8 +38,125 @@ public class Accounting {
 		
 		accountingDate = new Date();
 		
+		accounts = new ArrayList<Accounting>();
+		
+		
 	}
 	
+	public Accounting(Date month) {
+		
+		Calendar calendar = new GregorianCalendar();
+		
+		calendar.setTime(month);
+		
+		this.month = calendar.get(Calendar.MONTH);
+		
+		this.sales = getIncomeForMonth(getMonth());
+		
+		this.purchases = getPurchasesForMonth(getMonth());
+		
+	}
+	
+	public Accounting(int year, int month, double sales, double purchases) {
+		
+		this.year = year;
+		
+		this.month = month;
+		
+		this.sales = sales;
+		
+		this.purchases = purchases;
+		
+	}
+	
+	public Accounting(int year, int month, double sales, double purchases, double profit) {
+		
+		this.year = year;
+		
+		this.month = month;
+		
+		this.sales = sales;
+		
+		this.purchases = purchases;
+		
+		this.profit = profit;
+		
+	}
+	
+	public Accounting(Date year, Date month) {
+		
+		Calendar calendar = new GregorianCalendar();
+		
+		Calendar calendar2 = new GregorianCalendar();
+		
+		calendar.setTime(year);
+		
+		calendar2.setTime(month);
+		
+		this.year = calendar.get(Calendar.YEAR);
+		
+		this.month = calendar2.get(Calendar.MONTH);
+		
+	}
+	
+	public Accounting(double sales, double purchases) {
+		
+		this.sales = sales;
+		
+		this.purchases = purchases;
+		
+	}
+	
+	public Accounting(double sales, double purchases, double profit) {
+		
+		this.sales = sales;
+		
+		this.purchases = purchases;
+		
+		this.profit = profit;
+		
+	}
+	
+	public ArrayList<Accounting> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(ArrayList<Accounting> accounts) {
+		this.accounts = accounts;
+	}
+
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
+	}
+
+	public int getMonth() {
+		return month;
+	}
+
+	public void setMonth(int month) {
+		this.month = month;
+	}
+
+	public double getSales() {
+		return sales;
+	}
+
+	public void setSales(double sales) {
+		this.sales = sales;
+	}
+
+	public double getPurchases() {
+		return purchases;
+	}
+
+	public void setPurchases(double purchases) {
+		this.purchases = purchases;
+	}
+
 	public ArrayList<Invoice> getInvoices() {
 		return invoices;
 	}
@@ -58,6 +187,14 @@ public class Accounting {
 
 	public void setAccountingDate(Date accountingDate) {
 		this.accountingDate = accountingDate;
+	}
+	
+	public double getProfit() {
+		return profit;
+	}
+
+	public void setProfit(double profit) {
+		this.profit = profit;
 	}
 	
 	public static String dateOpsMonthsFromDateString(int period) {
@@ -127,7 +264,7 @@ public class Accounting {
 		
 		for(Invoice invoice : RetailSystem.getInstance().getInvoices()) {
 			
-			if( Accounting.extractMonthFromDate(invoice.getInvoiceDate())==month &&invoice.isPaid() ) {
+			if( Accounting.extractMonthFromDate(invoice.getInvoiceDate())==month && invoice.isPaid() ) {
 					
 					profit += invoice.getTotalInvoice();
 					
@@ -260,5 +397,58 @@ public static double getClosingStockForMonth(int month) {
 		return grossProfit;
 		
 	}
+	
+	public static int getNumberOfPurchasesForMonth(int month) {
+		
+		int p = 0;
+		
+		int purchaces = 0;
+		
+		ArrayList<Object> obj = new ArrayList<Object>();
+		
+		for(Order order : RetailSystem.getInstance().getOrders()) {
+			
+			if( Accounting.extractMonthFromDate(order.getOrderDate()) == month && order.isReceived() ) {
+				
+				obj.add(order);
+				
+				p= obj.size();
+				
+			}
+			
+		}
+		
+		purchaces = p;
+		
+		return purchaces;
+		
+	}
+	
+	public static int getNumberOfSalesForMonth(int month) {
+		
+		int s = 0;
+		
+		int sales = 0;
+		
+		ArrayList<Object> obj = new ArrayList<Object>();
+		
+		for(Invoice invoice : RetailSystem.getInstance().getInvoices()) {
+			
+			if( Accounting.extractMonthFromDate(invoice.getInvoiceDate()) == month && invoice.isPaid() ) {
+				
+				obj.add(invoice);
+				
+				s = obj.size();
+				
+			}
+			
+		}
+		
+		sales = s;
+		
+		return sales;
+		
+	}
+	
 	
 }

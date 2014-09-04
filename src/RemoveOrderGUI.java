@@ -3,6 +3,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -57,6 +58,8 @@ public class RemoveOrderGUI extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 
 		Object target = event.getSource();
+		
+		DateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
 
 		if (target == removeOrderButton) {
 
@@ -86,10 +89,9 @@ public class RemoveOrderGUI extends JPanel implements ActionListener {
 
 							Order.saveOrder();
 
-							JOptionPane.showMessageDialog(this, "Order "
-									+ order.getOrderID()
+							JOptionPane.showMessageDialog(this, order.getOrderID()
 									+ " from "
-									+ DateFormat.getInstance().format(order.getOrderDate())
+									+ df.format(order.getOrderDate())
 									+ " has been removed from the system", "Attention", JOptionPane.INFORMATION_MESSAGE);
 
 							orderList.removeItem(orderID);
@@ -117,7 +119,7 @@ public class RemoveOrderGUI extends JPanel implements ActionListener {
 			if (!orderFound) {
 
 				JOptionPane.showMessageDialog(this,
-						"No Order With This ID in System!", "Error", JOptionPane.ERROR_MESSAGE);
+						"An order is not selected", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}

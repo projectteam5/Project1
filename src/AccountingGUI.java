@@ -23,7 +23,6 @@ public class AccountingGUI extends JPanel implements ActionListener{
 	private JLabel openingStockLabel;
 	private JLabel salesIncome;
 	private JLabel openingStock;
-	private JLabel lessCostOfGoods;
 	private JLabel goodsPurchase;
 	private JLabel goodsPurchaseLabel;
 	private JLabel closingStock;
@@ -33,6 +32,9 @@ public class AccountingGUI extends JPanel implements ActionListener{
 	private JLabel grossProfit;
 	private JLabel grossProfitLabel;
 	private JLabel labelDateRange;
+	
+	private JLabel ordersTotal;
+	private JLabel invoicesTotal;
 
 	private JLabel choosePeriodLabel;
 	
@@ -40,12 +42,14 @@ public class AccountingGUI extends JPanel implements ActionListener{
 
 	public AccountingGUI() {
 		
-		this.setLayout(new GridLayout(0,1));
+		this.setLayout(new GridLayout(0, 1));
 		
 		labelTitleMain = new JLabel("Profit & Loss Account");
 		labelTitleMain.setFont(new Font("Arial", Font.BOLD, 20));
+		labelTitleMain.setAlignmentX(CENTER_ALIGNMENT);
 		
-		choosePeriodLabel = new JLabel("Choose Preceding Months Accounting Period");
+		choosePeriodLabel = new JLabel("Choose the accounting period");
+		choosePeriodLabel.setAlignmentX(CENTER_ALIGNMENT);
 		accountingPeriod = new JComboBox<String>();
 		
 		for(int i = 1;i<=12;i++) {
@@ -91,11 +95,10 @@ public class AccountingGUI extends JPanel implements ActionListener{
 		selectButton = new JButton("Select Period");
 		
 		labelDateRange = new JLabel();
+		labelDateRange.setAlignmentX(CENTER_ALIGNMENT);
 				
 		salesIncome = new JLabel("Sales Income");
 		salesIncomeLabel = new JLabel();
-		
-		lessCostOfGoods = new JLabel("Less Cost of Goods Sold");
 		
 		openingStock = new JLabel("Opening Stock");
 		openingStockLabel = new JLabel();
@@ -112,6 +115,10 @@ public class AccountingGUI extends JPanel implements ActionListener{
 		grossProfit = new JLabel("Gross Profit");
 		grossProfitLabel = new JLabel();
 		
+		invoicesTotal = new JLabel();
+		
+		ordersTotal = new JLabel();
+		
 		graphButton = new JButton("Show Graph");
 		
 		this.add(labelTitleMain);
@@ -125,8 +132,6 @@ public class AccountingGUI extends JPanel implements ActionListener{
 		
 		this.add(salesIncome);
 		this.add(salesIncomeLabel);
-		
-		this.add(lessCostOfGoods);
 		
 		this.add(openingStock);
 		this.add(openingStockLabel);
@@ -142,6 +147,10 @@ public class AccountingGUI extends JPanel implements ActionListener{
 		
 		this.add(grossProfit);
 		this.add(grossProfitLabel);
+		
+		this.add(invoicesTotal);
+		
+		this.add(ordersTotal);
 		
 		this.add(graphButton);
 		
@@ -161,7 +170,9 @@ public class AccountingGUI extends JPanel implements ActionListener{
         	
         	period = accountingPeriod.getSelectedIndex();
         	
-        	labelDateRange.setText( "For: " + accountingPeriod.getSelectedItem() + " " + Calendar.getInstance().get(Calendar.YEAR) );
+        	labelDateRange.setText(labelTitleMain.getText() 
+        			+  " for " + accountingPeriod.getSelectedItem().toString() 
+        			+ " in the year " + Calendar.getInstance().get(Calendar.YEAR) );
     		
         	salesIncomeLabel.setText("€"+Accounting.getIncomeForMonth(period));
         	
@@ -175,6 +186,14 @@ public class AccountingGUI extends JPanel implements ActionListener{
         	
         	grossProfitLabel.setText("€"+Accounting.grossProfit(period));
         	
+        	ordersTotal.setText("Total number of orders in this period: "  + Accounting.getNumberOfPurchasesForMonth(period));
+        	
+        	invoicesTotal.setText("Total number of sales in this period: "  + Accounting.getNumberOfSalesForMonth(period));
+        	
+        	revalidate();
+    		
+        	repaint();
+        	
         }
         
         if(target == graphButton) {
@@ -182,12 +201,16 @@ public class AccountingGUI extends JPanel implements ActionListener{
         	try {
         		
 				MenuGUI.getInstance().setPanelAction( new AccountingGraph("","") );
-
-			} catch(Exception e1) {
 				
-				System.err.println(e1);
-				System.err.println(e1.getMessage());
-				JOptionPane.showMessageDialog( this, "cannot reach AccountingGraph" );
+				revalidate();
+	    		
+	        	repaint();
+
+			} catch(Exception ex) {
+				
+				System.err.println(ex);
+				System.err.println(ex.getMessage());
+				JOptionPane.showMessageDialog( this, "Unable to show graph", "Error", JOptionPane.ERROR_MESSAGE );
 				
 			}
         	
