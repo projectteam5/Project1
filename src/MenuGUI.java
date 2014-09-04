@@ -101,6 +101,20 @@ public class MenuGUI extends JFrame {
 			panelMenu.add(buttonAvailability);
 			panelMenu.add(buttonSale);
 			panelMenu.add(buttonInvoice);
+			//fixing the layout
+			JLabel labelEmpty = new JLabel(" ");
+			JLabel labelEmpty1 = new JLabel(" ");
+			JLabel labelEmpty2 = new JLabel(" ");
+			JLabel labelEmpty3 = new JLabel(" ");
+			panelMenu.add(labelEmpty);
+			panelMenu.add(labelEmpty1);
+			panelMenu.add(labelEmpty2);
+			panelMenu.add(labelEmpty3);
+			panelMenu.add(labelEmpty);
+			panelMenu.add(labelEmpty3);
+			panelMenu.add(labelEmpty2);
+			panelMenu.add(labelEmpty1);
+	
 		}
 		
 		container = frame.getContentPane();

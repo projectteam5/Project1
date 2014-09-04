@@ -41,9 +41,8 @@ public class OrderGUI extends JPanel implements ActionListener {
 		this.add(viewAllOrders);
 		//fixing the layout
 		JLabel labelEmpty = new JLabel(" ");
-		JLabel labelEmpty1 = new JLabel(" ");
 		this.add(labelEmpty);
-		this.add(labelEmpty1);
+
 		
 		createOrder.addActionListener(this);
 		editOrder.addActionListener(this);
