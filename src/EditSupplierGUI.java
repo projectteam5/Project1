@@ -84,7 +84,7 @@ public class EditSupplierGUI extends JPanel {
 				supplierDropDown.removeAllItems();
 				Supplier.supplierListComplete(supplierDropDown);
 				supplierDropDown.setSelectedIndex(index);
-				supplierAccess.saveSupplier();
+				Supplier.saveSupplier();
 			}
 		});
 	

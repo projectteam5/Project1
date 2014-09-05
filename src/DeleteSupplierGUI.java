@@ -68,7 +68,7 @@ public class DeleteSupplierGUI extends JPanel {
 		for (Supplier supplier : Supplier.getSupplierList()) {
 			if (name.equalsIgnoreCase(supplier.getName())) {
 				supplier.setActive(false);
-				supplier.saveSupplier();
+				Supplier.saveSupplier();
 				JOptionPane.showMessageDialog(null,
 						"Supplier is not active anymore", "Success",
 						JOptionPane.PLAIN_MESSAGE);

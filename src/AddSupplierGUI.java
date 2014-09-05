@@ -67,7 +67,7 @@ public class AddSupplierGUI extends JPanel {
 						JOptionPane.showMessageDialog(null,
 								"Supplier Created and added to the list",
 								"Success", JOptionPane.PLAIN_MESSAGE);
-						supplier.saveSupplier();
+						Supplier.saveSupplier();
 						textField2.setText("");
 						textField3.setText("");
 					}
