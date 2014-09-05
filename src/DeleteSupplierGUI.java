@@ -22,6 +22,7 @@ public class DeleteSupplierGUI extends JPanel {
 	private JLabel instruction;
 	// Instance of supplier in aid of accessing removal method
 	private Supplier supplierToRemove;
+	
 
 	public DeleteSupplierGUI() {
 
