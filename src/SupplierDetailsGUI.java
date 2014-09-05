@@ -24,10 +24,10 @@ public class SupplierDetailsGUI extends JPanel{
 	public SupplierDetailsGUI() {
 		title = new JLabel("Supplier Details");
 		title.setFont(new Font("Arial", Font.BOLD, 20));
-		instruction = new JLabel("Choose a supplier from the drop down menu");
-		showLabel = new JLabel("");
-		showLabel1 = new JLabel("");
-		showLabel2 = new JLabel("");
+		instruction = new JLabel("Please pick the supplier you want to view from the supplier list below");
+		showLabel = new JLabel("Supplier ID:");
+		showLabel1 = new JLabel("Supplier Name:");
+		showLabel2 = new JLabel("Supplier Contact No:");
 		button = new JButton("Show supplier details");
 		Supplier.supplierListComplete(supplierDropDown);
 		//compileSupplierIDs();
