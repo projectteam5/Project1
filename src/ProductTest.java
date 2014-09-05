@@ -1,4 +1,4 @@
-/*import static org.junit.Assert.*;
+import static org.junit.Assert.*;
 
 import java.io.Reader;
 import java.io.StringReader;
@@ -30,9 +30,9 @@ public class ProductTest {
 		RetailSystem.getInstance().setProducts(products);
 
 		supplier = new Supplier("HHHHHHH", "Supplier Store Place", "087326892", true);
-		product1 = new Product("5783JKDS", "Computer", 500.66, 200.00, supplier);
-		product2 = new Product("5783JKDS", "Another Computer", 7923.00, 100.00, supplier);
-		product3 = new Product("HJFKD89", "Extra Computer", 7943, 903, supplier);
+		product1 = new Product("5783JKDS", "Computer", 500.66, 200.00, supplier, true);
+		product2 = new Product("5783JKDS", "Another Computer", 7923.00, 100.00, supplier, true);
+		product3 = new Product("HJFKD89", "Extra Computer", 7943, 903, supplier, true);
 
 
 	}
@@ -43,15 +43,15 @@ public class ProductTest {
 		RetailSystem.getInstance().setProducts(productStatus);
 	}
 	
-	@Test
+/*	@Test
 	public void addProductToListTest() {
 		String string = Product.addProductToList(product1);
 		assertEquals("5783JKDS", string);
 		String string1 = Product.addProductToList(product2);
 		assertEquals("existing product", string1);
 		
-	}
-	@Test
+	}*/
+/*	@Test
 	public void changeProductToInactiveTest(){
 		boolean active = Product.changeProductToInactive(product1);
 		assertFalse("false", active);
@@ -66,6 +66,6 @@ public class ProductTest {
 		String string = Product.viewProductList();
 		assertEquals("Product1", string);
 		assertEquals("Product2", string);
-	}
+	}*/
 
-}*/
+}
