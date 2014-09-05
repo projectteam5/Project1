@@ -55,9 +55,9 @@ public class DeleteSupplierGUI extends JPanel {
 							.toString());
 					refresh();
 				} else
-					JOptionPane.showMessageDialog(null,
-							"Empty Active Supplier List", "Success",
-							JOptionPane.PLAIN_MESSAGE);
+					//JOptionPane.showMessageDialog(null,
+						//	"Empty Active Supplier List", "Success",
+							//JOptionPane.PLAIN_MESSAGE);
 				;
 			}
 		});
