@@ -19,8 +19,3 @@ Product7;0;true
 Product19;0;true
 Product24;0;true
 Product25;0;true
-Product16;0;true
-Product14;0;true
-Product6;0;true
-Product23;0;true
-Product26;4;true
