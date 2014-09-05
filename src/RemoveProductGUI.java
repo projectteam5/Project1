@@ -64,7 +64,7 @@ public class RemoveProductGUI extends JPanel {
 						JOptionPane.showMessageDialog(null, "Product "
 								+ product.getName()
 								+ " has been removed from the system");
-						saveProduct();
+						Product.saveProduct();
 						repopulateComboBox();
 						break;
 					}
@@ -109,16 +109,5 @@ public class RemoveProductGUI extends JPanel {
 		}
 	}
 
-	public static void saveProduct() {
-		try {
-			FileWriter productFile;
-			productFile = new FileWriter("products.txt");
-			DataBase.writeProducts(RetailSystem.getInstance().getProducts(),
-					productFile);
-			productFile.close();
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		}
-	}
 
 }

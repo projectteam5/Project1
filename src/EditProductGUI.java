@@ -179,7 +179,7 @@ public class EditProductGUI extends JPanel{
 			compileProductNames();
 			productDropDown.setSelectedIndex(index);
 			JOptionPane.showMessageDialog(null, "Product has been edited");
-			saveProduct();
+			Product.saveProduct();
 		}else{
 			JOptionPane.showMessageDialog(null, "error");
 		}
@@ -241,16 +241,5 @@ public class EditProductGUI extends JPanel{
 		this.chosenEditProduct = chosenEditProduct;
 	}
 
-	
-	public static void saveProduct(){
-	       try {
-	           FileWriter productFile;
-	           productFile = new FileWriter("products.txt");
-	           DataBase.writeProducts(RetailSystem.getInstance().getProducts(), productFile);
-	           productFile.close();
-	       } catch (Exception exception) {
-	           exception.printStackTrace();
-	       }
-	   }
 
 }

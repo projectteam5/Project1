@@ -1,3 +1,4 @@
+import java.io.FileWriter;
 import java.util.Vector;
 
 import javax.swing.JComboBox;
@@ -167,6 +168,18 @@ public class Product {
 			
 		}
 		
+	}
+	
+	public static void saveProduct() {
+		try {
+			FileWriter productFile;
+			productFile = new FileWriter("RetailSystem/products.txt");
+			DataBase.writeProducts(RetailSystem.getInstance().getProducts(),
+					productFile);
+			productFile.close();
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
 	}
 	
 }

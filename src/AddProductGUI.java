@@ -125,7 +125,7 @@ public class AddProductGUI extends JPanel {
 									supplierPicked);
 							RetailSystem.getInstance().getProducts()
 									.add(product);
-							saveProduct();
+							Product.saveProduct();
 							Stock newStock = new Stock(0,product);
 							RetailSystem.getInstance().getStocks().add(newStock);
 							Stock.saveStock();
@@ -185,17 +185,6 @@ public class AddProductGUI extends JPanel {
 		this.names = names;
 	}
 
-	public static void saveProduct() {
-		try {
-			FileWriter productFile;
-			productFile = new FileWriter("products.txt");
-			DataBase.writeProducts(RetailSystem.getInstance().getProducts(),
-					productFile);
-			productFile.close();
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		}
-	}
 
 	public void cleanFileds() {
 		textFieldName.setText("");

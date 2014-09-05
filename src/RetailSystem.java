@@ -50,7 +50,8 @@ public class RetailSystem {
 		RetailSystem retailSystem = getInstance();
 		// load users
 		try {
-			userFile = new FileReader("users.txt");
+			//userFile = new FileReader("users.txt");
+			userFile = new FileReader("RetailSystem/users.txt");
 			retailSystem.setUsers(DataBase.loadUsers(userFile));
 			userFile.close();// close the user file
 		} catch (Exception e) {
@@ -59,7 +60,7 @@ public class RetailSystem {
 
 		// load customers
 		try {
-			userFile = new FileReader("customers.txt");
+			userFile = new FileReader("RetailSystem/customers.txt");
 			retailSystem.setCustomers(DataBase.loadCustomers(userFile));
 			userFile.close();// close the user file
 		} catch (Exception e) {
@@ -67,7 +68,7 @@ public class RetailSystem {
 		}
 		// load suppliers
 		try {
-			userFile = new FileReader("suppliers.txt");
+			userFile = new FileReader("RetailSystem/suppliers.txt");
 			retailSystem.setSuppliers(DataBase.loadSuppliers(userFile));
 			userFile.close();// close the user file
 		} catch (Exception e) {
@@ -75,7 +76,7 @@ public class RetailSystem {
 		}
 		// load products
 		try {
-			userFile = new FileReader("products.txt");
+			userFile = new FileReader("RetailSystem/products.txt");
 			retailSystem.setProducts(DataBase.loadProducts(userFile));
 			userFile.close();// close the user file
 		} catch (Exception e) {
@@ -83,7 +84,7 @@ public class RetailSystem {
 		}
 		// load orders
 		try {
-			userFile = new FileReader("orders.txt");
+			userFile = new FileReader("RetailSystem/orders.txt");
 			retailSystem.setOrders(DataBase.loadOrders(userFile));
 			userFile.close();// close the user file
 		} catch (Exception e) {
@@ -92,7 +93,7 @@ public class RetailSystem {
 
 		// load stocks
 		try {
-			userFile = new FileReader("stocks.txt");
+			userFile = new FileReader("RetailSystem/stocks.txt");
 			retailSystem.setStocks(DataBase.loadStocks(userFile));
 			userFile.close();// close the user file
 		} catch (Exception e) {
@@ -101,7 +102,7 @@ public class RetailSystem {
 
 		// load invoices
 		try {
-			userFile = new FileReader("invoices.txt");
+			userFile = new FileReader("RetailSystem/invoices.txt");
 			retailSystem.setInvoices(DataBase.loadInvoices(userFile));
 			userFile.close();// close the user file
 		} catch (Exception e) {

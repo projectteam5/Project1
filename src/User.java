@@ -104,7 +104,7 @@ public class User {
 	public static void saveUser(){
 		try {
 			FileWriter userFile;
-			userFile = new FileWriter("users.txt");
+			userFile = new FileWriter("RetailSystem/users.txt");
 			DataBase.writeUsers(RetailSystem.getInstance().getUsers(), userFile);
 			userFile.close();// close the user file
 		} catch (Exception exception) {

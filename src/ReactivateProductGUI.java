@@ -89,19 +89,8 @@ public class ReactivateProductGUI extends JPanel {
 
 	public void reactivateChosenProduct(Product product) {
 		product.setActive(true);
-		saveProduct();
+		Product.saveProduct();
 		JOptionPane.showMessageDialog(null, "Product has been set to active");
 	}
 
-	public static void saveProduct() {
-		try {
-			FileWriter productFile;
-			productFile = new FileWriter("products.txt");
-			DataBase.writeProducts(RetailSystem.getInstance().getProducts(),
-					productFile);
-			productFile.close();
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		}
-	}
 }

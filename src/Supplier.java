@@ -81,7 +81,7 @@ public class Supplier {
 	public static void saveSupplier(){
 	  	 try {
 	  		 FileWriter userFile;
-	  		 userFile = new FileWriter("suppliers.txt");
+	  		 userFile = new FileWriter("RetailSystem/suppliers.txt");
 	  		 DataBase.writeSuppliers(RetailSystem.getInstance().getSuppliers(),userFile);
 	  		 userFile.close();// close the user file
 	  	 } catch (Exception exception) {

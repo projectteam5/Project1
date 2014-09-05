@@ -94,7 +94,7 @@ public class Invoice {
 	public static void saveInvoice() {
 		try {
 			FileWriter userFile;
-			userFile = new FileWriter("invoices.txt");
+			userFile = new FileWriter("RetailSystem/invoices.txt");
 			DataBase.writeInvoices(RetailSystem.getInstance().getInvoices(),
 					userFile);
 			userFile.close();// close the invoice file

@@ -95,7 +95,7 @@ public class Customer {
 	public static void saveCustomer() {
 		try {
 			FileWriter customerFile;
-			customerFile = new FileWriter("customers.txt");
+			customerFile = new FileWriter("RetailSystem/customers.txt");
 			DataBase.writeCustomers(RetailSystem.getInstance().getCustomers(),
 					customerFile);
 			customerFile.close();// close the customer file
