@@ -22,6 +22,7 @@ public class DeleteSupplierGUI extends JPanel {
 	private JLabel instruction;
 	// Instance of supplier in aid of accessing removal method
 	private Supplier supplierToRemove;
+	
 
 	public DeleteSupplierGUI() {
 
@@ -55,9 +56,9 @@ public class DeleteSupplierGUI extends JPanel {
 							.toString());
 					refresh();
 				} else
-					JOptionPane.showMessageDialog(null,
-							"Empty Active Supplier List", "Success",
-							JOptionPane.PLAIN_MESSAGE);
+					//JOptionPane.showMessageDialog(null,
+						//	"Empty Active Supplier List", "Success",
+							//JOptionPane.PLAIN_MESSAGE);
 				;
 			}
 		});
