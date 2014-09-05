@@ -27,4 +27,3 @@ Invoice26;01-Sep-2014;Customer10;7350.0;true;true;1;01-Sep-2014;Product10;7
 Invoice27;01-Sep-2014;Customer8;1050.0;true;true;1;01-Sep-2014;Product10;1
 Invoice28;01-Sep-2014;Customer1;2400.0;true;true;1;01-Sep-2014;Product12;8
 Invoice29;02-Sep-2014;Customer1;60.0;true;true;1;02-Sep-2014;Product1;1
-Invoice30;02-Sep-2014;Customer1;4000.0;true;true;1;02-Sep-2014;Product26;16
