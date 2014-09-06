@@ -31,6 +31,8 @@ public class CreateOrderGUI extends JPanel implements ActionListener {
 	
 	private String productName;
 	
+	private Date expDate;
+	
 	private Date newOrderDate;
 	private Product newProduct;
 	private int newQuantity;
@@ -68,7 +70,8 @@ public class CreateOrderGUI extends JPanel implements ActionListener {
 		
 		labelExpectedDeliveryDate = new JLabel("Expected Delivery Date");
 		expectedDeliveryDateTextField = new JTextField();
-		expectedDeliveryDateTextField.setText(DateFormat.getDateInstance().format(new Date()));
+		expDate = Order.addDaysToDate(new Date(), 5);
+		expectedDeliveryDateTextField.setText(DateFormat.getDateInstance().format(expDate));
 		
 		submitButton = new JButton("Submit");
 		
@@ -226,14 +229,6 @@ public class CreateOrderGUI extends JPanel implements ActionListener {
 				
 				JOptionPane.showMessageDialog(this, "Expected delivery date should not be before order date", "Attention", JOptionPane.INFORMATION_MESSAGE);
 			
-			}
-			
-			else if( newExpectedDeliveryDate.before(Order.addDaysToDate(newOrderDate, 5)) ) {
-				
-				dataOK = false;
-				
-				JOptionPane.showMessageDialog(this, "Expected delivery date should be at least 5 days after order date", "Attention", JOptionPane.INFORMATION_MESSAGE);
-				
 			}
 			
 			if ( dataOK==true ) {
