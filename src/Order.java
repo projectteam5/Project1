@@ -215,8 +215,8 @@ public class Order {
 						
 						try {
 						
-						Order newOrder = new Order( new Date(), stock.getProduct(),10, new Date() );
-						
+						//Order newOrder = new Order( new Date(), stock.getProduct(),10, new Date() );
+						Order newOrder = new Order( new Date(), stock.getProduct(),10, Order.addDaysToDate(new Date(), 5));
 						RetailSystem.getInstance().getOrders().add(newOrder);
 						
 						saveOrder();
