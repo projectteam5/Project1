@@ -140,6 +140,48 @@ public class OrderEditorGUI extends JPanel implements ActionListener {
 			try {
 				
 				newOrderDate = df.parse(orderDateTextField.getText());
+				
+				try {
+					
+					productName = comboBoxList.getSelectedItem().toString();
+					
+					try {
+						
+						newQuantity = Integer.parseInt(quantityTextField.getText());
+						
+						try {
+							
+							newExpectedDeliveryDate = df.parse(expectedDeliveryDateTextField.getText());
+						
+						} catch (ParseException e) {
+							
+							dataOK = false;
+							
+							//e.printStackTrace();
+							
+							JOptionPane.showMessageDialog(this, "Expected delivery date must be a valid date", "Error", JOptionPane.ERROR_MESSAGE);
+						
+						}
+						
+					} catch(NumberFormatException e) {
+						
+						dataOK = false;
+						
+						//e.printStackTrace();
+						
+						JOptionPane.showMessageDialog(this, "Order quantity must be a number", "Error", JOptionPane.ERROR_MESSAGE);
+					
+					}
+					
+				} catch( NullPointerException e) {
+					
+					dataOK = false;
+					
+					//e.printStackTrace();
+					
+					JOptionPane.showMessageDialog(this, "The product ComboBox is empty", "Error", JOptionPane.ERROR_MESSAGE);
+					
+				}
 			
 			} catch (ParseException e) {
 				
@@ -147,49 +189,7 @@ public class OrderEditorGUI extends JPanel implements ActionListener {
 				
 				//e.printStackTrace();
 				
-				JOptionPane.showMessageDialog(this, "Order date could not be parsed", "Error", JOptionPane.ERROR_MESSAGE);
-			
-			}
-			
-			try {
-				
-				productName = comboBoxList.getSelectedItem().toString();
-				
-			} catch( NullPointerException e) {
-				
-				dataOK = false;
-				
-				//e.printStackTrace();
-				
-				JOptionPane.showMessageDialog(this, "The product ComboBox is empty", "Error", JOptionPane.ERROR_MESSAGE);
-				
-			}
-			
-			try {
-				
-				newQuantity = Integer.parseInt(quantityTextField.getText());
-				
-			} catch(NumberFormatException e) {
-				
-				dataOK = false;
-				
-				//e.printStackTrace();
-				
-				JOptionPane.showMessageDialog(this, "Order quantity could not be parsed", "Error", JOptionPane.ERROR_MESSAGE);
-			
-			}
-			
-			try {
-				
-				newExpectedDeliveryDate = df.parse(expectedDeliveryDateTextField.getText());
-			
-			} catch (ParseException e) {
-				
-				dataOK = false;
-				
-				//e.printStackTrace();
-				
-				JOptionPane.showMessageDialog(this, "Expected delivery date could not be parsed", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "Order date must be a valid date", "Error", JOptionPane.ERROR_MESSAGE);
 			
 			}
 			
@@ -197,27 +197,19 @@ public class OrderEditorGUI extends JPanel implements ActionListener {
 				
 				dataOK = false;
 				
-				JOptionPane.showMessageDialog(this, "Date pattern is not correct length", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "Date pattern is not in the correct format", "Error", JOptionPane.ERROR_MESSAGE);
 				
 			}
 			
-			if( !Order.validateDatePattern(orderDateTextField.getText()) ) {
+			else if( !Order.validateDatePattern(orderDateTextField.getText()) ) {
 				
 				dataOK = false;
 				
-				JOptionPane.showMessageDialog(this, "Date does not match specified pattern: 'dd-MMM-yyyy'", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "Date does not match the correct pattern: '01-Jan-1900'", "Error", JOptionPane.ERROR_MESSAGE);
 				
 			}
 			
-			if(quantityTextField.getText()==null) {
-				
-				dataOK = false;
-				
-				JOptionPane.showMessageDialog(this, "Order must have a quantity", "Attention", JOptionPane.INFORMATION_MESSAGE);
-				
-			}
-			
-			if(!(newQuantity > 0)) {
+			else if(!(newQuantity > 0)) {
 				
 				dataOK = false;
 				
@@ -225,36 +217,28 @@ public class OrderEditorGUI extends JPanel implements ActionListener {
 				
 			}
 			
-			if( expectedDeliveryDateTextField.getText().trim().length() != df.toPattern().length() ) {
+			else if( expectedDeliveryDateTextField.getText().trim().length() != df.toPattern().length() ) {
 				
 				dataOK = false;
 				
-				JOptionPane.showMessageDialog(this, "Date pattern is not correct length", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "Date pattern is not in the correct format", "Error", JOptionPane.ERROR_MESSAGE);
 				
 			}
 			
-			if( !Order.validateDatePattern(expectedDeliveryDateTextField.getText()) ) {
+			else if( !Order.validateDatePattern(expectedDeliveryDateTextField.getText()) ) {
 				
 				dataOK = false;
 				
-				JOptionPane.showMessageDialog(this, "Date does not match specified pattern: 'dd-MMM-yyyy'", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "Date does not match the correct pattern: '01-Jan-1900'", "Error", JOptionPane.ERROR_MESSAGE);
 				
 			}
 			
-			if( newExpectedDeliveryDate.before(newOrderDate) ) {
+			else if( newExpectedDeliveryDate.before(newOrderDate) ) {
 				
 				dataOK = false;
 				
 				JOptionPane.showMessageDialog(this, "Expected delivery date should not be before order date", "Attention", JOptionPane.INFORMATION_MESSAGE);
 			
-			}
-			
-			if( newExpectedDeliveryDate.before(Order.addDaysToDate(newOrderDate, 5)) ) {
-				
-				dataOK = false;
-				
-				JOptionPane.showMessageDialog(this, "Expected delivery date should be at least 5 days after order date", "Attention", JOptionPane.INFORMATION_MESSAGE);
-				
 			}
 			
 			newReceived = receivedCheckBox.isSelected();
@@ -263,7 +247,7 @@ public class OrderEditorGUI extends JPanel implements ActionListener {
 				
 				for(Product product: RetailSystem.getInstance().getProducts()){
 					
-					if(productName.contains(product.getName())){
+					if(productName.equals(product.getName())){
 						
 						newProduct = product;
 						
