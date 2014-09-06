@@ -1,8 +1,0 @@
-User1;Scott Scott;passw1;Manager;true
-User2;Daniel Daniel;passw2;Attendant;true
-User3;Cris Conti;passw3;Manager;true
-User4;Erich King;passw4;Manager;true
-User5;Laura Phelan;passw5;Manager;true
-User6;Ian Thompson;passw6;Manager;true
-User7;Calvin McGowan;passw7;Manager;true
-User8;Colm Dillon;passw8;Manager;true

@@ -1,9 +1,0 @@
-Supplier 1;Dell;0831336397;true
-Supplier 2;Toshiba;0833452233;true
-Supplier 3;Advent;0853454545;true
-Supplier 4;Apple;08578766544;true
-Supplier 5;HP;0866451232;true
-Supplier 6;Asus;0866458732;true
-Supplier 7;Acer;0834567732;true
-Supplier 8;IBM;0876344353;true
-Supplier 9;Lenovo;0896745231;true
