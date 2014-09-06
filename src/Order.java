@@ -287,7 +287,7 @@ public class Order {
 	  		 
 	  		 FileWriter orderFile;
 	  		 
-	  		orderFile = new FileWriter("orders.txt");
+	  		orderFile = new FileWriter("RetailSystem/orders.txt");
 	  		
 	  		DataBase.writeOrders(RetailSystem.getInstance().getOrders(), orderFile);
 	  		
