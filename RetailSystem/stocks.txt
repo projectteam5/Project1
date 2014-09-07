@@ -3,6 +3,7 @@ Product2;5;true
 Product3;8;true
 Product4;8;true
 Product5;4;true
+Product6;7;true
 Product7;8;true
 Product8;5;true
 Product9;6;true
@@ -10,7 +11,9 @@ Product10;8;true
 Product11;8;true
 Product12;8;true
 Product13;8;true
+Product14;8;true
 Product15;4;true
+Product16;8;true
 Product17;8;true
 Product18;8;true
 Product19;8;true
