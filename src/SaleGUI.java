@@ -109,14 +109,17 @@ public class SaleGUI extends JPanel {
 						if (amount <= 0) {
 							error();
 						}
+						else{
+							// Find product from product name
+							Product product = Product.findProductWithName(name);
+							if (product != null && amount > 0) {
+								addProduct(product);
+							}
+						}
 					} catch (NumberFormatException e) {
 						error();
 					}
-					// Find product from product name
-					Product product = Product.findProductWithName(name);
-					if (product != null && amount > 0) {
-						addProduct(product);
-					}
+					
 				}
 			}
 		});
@@ -212,6 +215,7 @@ public class SaleGUI extends JPanel {
 	public void repopulate() {
 		table.revalidate();
 		table.repaint();
+		quantityField.setText("0");
 	}
 
 	public void clear() {
