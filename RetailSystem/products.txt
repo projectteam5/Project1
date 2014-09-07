@@ -6,7 +6,7 @@ Product5;Subnetting For Dummies;35.0;20.0;Supplier 3;true
 Product6;Windows Hasta La Vista Home Basic x86;120.0;50.0;Supplier 6;true
 Product7;Macho MachoFan;600.0;200.0;Supplier 3;true
 Product8;FANtastic Cooling Pad;100.0;50.0;Supplier 3;true
-Product9;Mother-In-Law Board x3Extreme;950.0;100.0;Supplier 8;true
+Product9;Mother Board x3Extreme;950.0;100.0;Supplier 8;true
 Product10;Elephant SSD 4TB;5000.0;1150.0;Supplier 8;true
 Product11;BaaBaa RAM 2x16GB;200.0;100.0;Supplier 1;true
 Product12;SilentNight Fan System;200.0;70.0;Supplier 1;true
@@ -16,6 +16,6 @@ Product15;ScoobyDoo PSU;200.0;170.0;Supplier 2;true
 Product16;IceToMeetYou Cooling System;500.0;200.0;Supplier 3;true
 Product17;HydroPump Cooling System 5PP;800.0;300.0;Supplier 2;true
 Product18;MissignNo HDD 1TB;200.0;30.0;Supplier 5;true
-Product19;Cris;4000.0;400.0;Supplier 1;true
-Product20;Game;90.0;9.0;Supplier 4;true
-Product21;Super game;70.0;15.0;Supplier 7;true
+Product19;Vita SSD 120GB;4000.0;400.0;Supplier 1;true
+Product20;Saruman Case;90.0;9.0;Supplier 4;true
+Product21;Tomb Raider 6 PC;70.0;15.0;Supplier 7;true
