@@ -31,13 +31,13 @@ public class CustomerDeleteGUI extends JPanel {
 //setting layout
 		this.setLayout(new GridLayout(0, 1));
 
-		labelTitleMain = new JLabel("Delete Customer");
+		labelTitleMain = new JLabel("Deactivate Customer");
 		labelTitleMain.setFont(new Font("Arial", Font.BOLD, 20));
 		labelTitle = new JLabel("Please pick the customer you want"
-				+ " to delete from the list below");
+				+ " to deactivate from the list below");
 		customersDropDown = new JComboBox();
 		buildCustomersDropDown();
-		deleteButton = new JButton("Delete Customer");
+		deleteButton = new JButton("Deactivate Customer");
 
 		this.add(labelTitleMain);
 		this.add(labelTitle);

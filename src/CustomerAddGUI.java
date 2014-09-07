@@ -37,7 +37,7 @@ public class CustomerAddGUI extends JPanel {
 		labelCustomerName = new JLabel("Name");
 		labelCustomerAddress = new JLabel("Address");
 		labelCustomerPhone = new JLabel("Phone");
-		doneButton = new JButton("Add");
+		doneButton = new JButton("Add Customer");
 
 		this.add(labelTitle);
 		this.add(labelCustomerName);

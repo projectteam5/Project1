@@ -46,7 +46,7 @@ public class AddProductGUI extends JPanel {
 
 		compileSupplierNames();
 		JLabel label5 = new JLabel("Product Supplier ID");
-		JButton submitButton = new JButton("Submit");
+		JButton submitButton = new JButton("Add Product");
 
 		this.add(labelTitle);
 		this.add(label2);

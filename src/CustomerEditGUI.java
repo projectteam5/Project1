@@ -48,7 +48,7 @@ public class CustomerEditGUI extends JPanel {
 		customerDropDown = new JComboBox();
 		Customer.customerListComplete(customerDropDown);
 		editButton = new JButton("Edit Customer");
-		doneButton = new JButton("Commit Changes");
+		doneButton = new JButton("Save Changes");
 		nameField = new JTextField("");
 		addressField = new JTextField("");
 		phoneField = new JTextField("");

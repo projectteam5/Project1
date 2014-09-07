@@ -25,10 +25,10 @@ public class ReactivateProductGUI extends JPanel {
 
 	public ReactivateProductGUI() {
 		this.setLayout(new GridLayout(0, 1));
-		title = new JLabel("Reactivating Products");
+		title = new JLabel("Reactivate Product");
 		title.setFont(new Font("Arial", Font.BOLD, 20));
 		productLabel = new JLabel("Please choose a product from the list below");
-		buttonReactivate = new JButton("Reactivate");
+		buttonReactivate = new JButton("Reactivate Product");
 		compileProductNames();
 
 		this.add(title);

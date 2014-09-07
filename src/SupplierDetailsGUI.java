@@ -28,7 +28,7 @@ public class SupplierDetailsGUI extends JPanel{
 		showLabel = new JLabel("Supplier ID:");
 		showLabel1 = new JLabel("Supplier Name:");
 		showLabel2 = new JLabel("Supplier Contact No:");
-		button = new JButton("Show supplier details");
+		button = new JButton("View supplier");
 		Supplier.supplierListComplete(supplierDropDown);
 		//compileSupplierIDs();
 		

@@ -25,7 +25,7 @@ public class ReactivateUser extends JPanel {
 
 	public ReactivateUser() {
 		this.setLayout(new GridLayout(0, 1));
-		title = new JLabel("Reactivating Users");
+		title = new JLabel("Reactivate User");
 		title.setFont(new Font("Arial", Font.BOLD, 20));
 		userLabel = new JLabel("Please choose a user from the list below");
 		buttonReactivate = new JButton("Reactivate");
@@ -70,7 +70,7 @@ public class ReactivateUser extends JPanel {
 	public void reactivateUser(User user) {
 		user.setActive(true);
 		User.saveUser();
-		JOptionPane.showMessageDialog(null, "User has been set to active");
+		JOptionPane.showMessageDialog(null, "User has been reactivated");
 	}
 
 }

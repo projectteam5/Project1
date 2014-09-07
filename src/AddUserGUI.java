@@ -43,7 +43,7 @@ public class AddUserGUI extends JPanel {
 		labelUserName = new JLabel("Name");
 		labelUserPass = new JLabel("Password");
 		labelUserType = new JLabel("Type");
-		doneButton = new JButton("Add");
+		doneButton = new JButton("Add User");
 		
 
 		// adding all the components

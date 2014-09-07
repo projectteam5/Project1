@@ -51,7 +51,7 @@ public class EditProductGUI extends JPanel{
 		mainTitle = new JLabel("Edit Product");
 		mainTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		buttonEditProduct = new JButton("Edit");
-		buttonCommitEditProduct = new JButton("Submit Edit");
+		buttonCommitEditProduct = new JButton("Save changes");
 
 		this.add(mainTitle);
 		this.add(title);

@@ -28,13 +28,13 @@ public class DeleteUserGUI extends JPanel {
 		
 		this.setLayout(new GridLayout(0, 1));
 
-		labelTitleMain = new JLabel("Remove user");
+		labelTitleMain = new JLabel("Deactivate User");
 		labelTitleMain.setFont(new Font("Arial", Font.BOLD, 20));
 		labelTitle = new JLabel(
-				"Please pick the user you want to remove from the user list below");
+				"Please pick the user you want to deactivate from the user list below");
 		usersDropDown = new JComboBox();
 		buildUsersDropDown();
-		deleteButton = new JButton("Remove User");
+		deleteButton = new JButton("Deactivate User");
 
 		this.add(labelTitleMain);
 		this.add(labelTitle);
@@ -66,7 +66,7 @@ public class DeleteUserGUI extends JPanel {
 		userRemove = User.retrieveUser(selectedUserID);
 		if (userRemove != null) {
 			userRemove.setActive(false);
-			JOptionPane.showMessageDialog(null, "User correctly removed",
+			JOptionPane.showMessageDialog(null, "User deactivated",
 					"Correctly Done", JOptionPane.INFORMATION_MESSAGE);
 			User.saveUser();
 			addAndRefresh();

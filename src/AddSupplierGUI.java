@@ -33,7 +33,7 @@ public class AddSupplierGUI extends JPanel {
 		title.setFont(new Font("Arial", Font.BOLD, 20));
 		label2 = new JLabel("Supplier name");
 		label3 = new JLabel("Supplier contact number");
-		addButton = new JButton("ADD");
+		addButton = new JButton("Add Supplier");
 		button = new JButton("Supplier Menu");
 
 		this.add(title);

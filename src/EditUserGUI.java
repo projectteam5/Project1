@@ -42,11 +42,11 @@ public class EditUserGUI extends JPanel {
 		labelTitleMain = new JLabel("Edit user");
 		labelTitleMain.setFont(new Font("Arial", Font.BOLD, 20));
 		labelTitle = new JLabel(
-				"Please pick the user you want to see from the user list below");
+				"Please pick the user you want to edit from the user list below");
 		userDropDown = new JComboBox();
 		User.userListComplete(userDropDown);
 		editButton = new JButton("Edit User");
-		doneButton = new JButton("Commit");
+		doneButton = new JButton("Save changes");
 		NameField = new JTextField("");
 		PasswordField = new JTextField("");
 		labelName = new JLabel("Name");

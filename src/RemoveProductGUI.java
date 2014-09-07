@@ -32,12 +32,12 @@ public class RemoveProductGUI extends JPanel {
 	public RemoveProductGUI() {
 		this.setLayout(new GridLayout(0, 1));
 
-		labelTitle = new JLabel("Remove Product");
+		labelTitle = new JLabel("Deactivate Product");
 		labelTitle.setFont(new Font("Arial", Font.BOLD, 20));
 		productLabel = new JLabel("Please choose a product from the list below");
 		compileProductNames();
 
-		buttonDeleteProduct = new JButton("Delete");
+		buttonDeleteProduct = new JButton("Deactivate Product");
 
 		this.add(labelTitle);
 		this.add(labelEmpty);

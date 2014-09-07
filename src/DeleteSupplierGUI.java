@@ -29,7 +29,7 @@ public class DeleteSupplierGUI extends JPanel {
 		title = new JLabel("Deactivate Supplier");
 		title.setFont(new Font("Arial", Font.BOLD, 20));
 		instruction = new JLabel("Please choose a supplier from the list below");
-		deleteButton = new JButton("Deactivate");
+		deleteButton = new JButton("Deactivate Supplier");
 		compileSupplierNames();
 
 		this.add(title);

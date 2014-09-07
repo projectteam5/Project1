@@ -25,10 +25,10 @@ public class CustomerReactivate extends JPanel {
 
 	public CustomerReactivate() {
 		this.setLayout(new GridLayout(0, 1));
-		title = new JLabel("Reactivating Customers");
+		title = new JLabel("Reactivate Customer");
 		title.setFont(new Font("Arial", Font.BOLD, 20));
 		customerLabel = new JLabel("Please choose a customer from the list below");
-		buttonReactivate = new JButton("Reactivate");
+		buttonReactivate = new JButton("Reactivate Customer");
 		Customer.customerListCompleteInactive(customerDropDown);
 
 		this.add(title);
